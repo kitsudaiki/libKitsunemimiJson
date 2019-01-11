@@ -22,6 +22,7 @@ public:
 
     virtual AbstractJson* operator[](const std::string &key) = 0;
     virtual uint32_t getSize() const = 0;
+    virtual void print(std::string *output) = 0;
 
     enum jsonTypes {
         UNINIT_TYPE = 0,
@@ -49,6 +50,7 @@ public:
 
     AbstractJson* operator[](const std::string &key);
     uint32_t getSize() const;
+    void print(std::string *output);
 
     void setValue(const std::string &item);
     void setValue(const int &item);
@@ -69,6 +71,7 @@ public:
 
     AbstractJson* operator[](const std::string &key);
     uint32_t getSize() const;
+    void print(std::string *output);
 
     bool insert(const std::string &key,
                 AbstractJson* value);
@@ -88,6 +91,7 @@ public:
 
     AbstractJson* operator[](const std::string &key);
     uint32_t getSize() const;
+    void print(std::string *output);
 
     bool append(AbstractJson* item);
 
