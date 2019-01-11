@@ -18,11 +18,11 @@ LIBS +=  -lfl -ly
 
 SOURCES += \
         json_parsing/jsonParserInterface.cpp \
-    jsonObject.cpp
+    jsonObjects.cpp
 
 HEADERS += \
         json_parsing/jsonParserInterface.h \
-    jsonObject.h
+    jsonObjects.h
 
 FLEXSOURCES = grammar/jsonLexer.l
 BISONSOURCES = grammar/jsonParser.y

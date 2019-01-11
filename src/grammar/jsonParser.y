@@ -59,6 +59,8 @@ YY_DECL;
     EXPREEND  "}"
     BRACKOPEN  "["
     BRACKCLOSE  "]"
+    COMMA  ","
+    ASSIGN  ":"
 ;
 
 

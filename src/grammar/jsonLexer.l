@@ -1,4 +1,3 @@
-/* -*- C++ -*- */
 /**
  *  @file    jsonLexer.l
  *  @version 0.1.0
@@ -49,10 +48,12 @@ blank [ \t]
 
 {blank}+  jsonloc.step();
 [\n]      jsonloc.step();
-"{"      return Kitsune::Json::JsonParser::make_EXPRESTART  (jsonloc);
-"}"      return Kitsune::Json::JsonParser::make_EXPREEND   (jsonloc);
-"["     return Kitsune::Json::JsonParser::make_BRACKOPEN(jsonloc);
-"]"     return Kitsune::Json::JsonParser::make_BRACKCLOSE(jsonloc);
+"{"       return Kitsune::Json::JsonParser::make_EXPRESTART (jsonloc);
+"}"       return Kitsune::Json::JsonParser::make_EXPREEND (jsonloc);
+"["       return Kitsune::Json::JsonParser::make_BRACKOPEN (jsonloc);
+"]"       return Kitsune::Json::JsonParser::make_BRACKCLOSE (jsonloc);
+","       return Kitsune::Json::JsonParser::make_COMMA (jsonloc);
+":"       return Kitsune::Json::JsonParser::make_ASSIGN (jsonloc);
 
 
 {int}      {
