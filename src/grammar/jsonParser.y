@@ -25,6 +25,7 @@
 {
 #include <string>
 #include <iostream>
+#include <jsonObjects.h>
 
 namespace Kitsune
 {
@@ -67,14 +68,86 @@ YY_DECL;
 %token <std::string> IDENTIFIER "identifier"
 %token <int> NUMBER "number"
 
+%type  <AbstractJson*> json_abstract
+%type  <JsonValue*> json_value
+%type  <JsonArray*> json_array
+%type  <JsonArray*> json_array_content
+%type  <JsonObject*> json_object
+%type  <JsonObject*> json_object_content
+
 %%
 %start startpoint;
 
 
 startpoint:
+    json_object
+    {
+        driver.setOutput($1);
+    }
+
+json_abstract:
+    json_object
+    {
+        $$ = (AbstractJson*)$1;
+    }
+|
+    json_array
+    {
+        $$ = (AbstractJson*)$1;
+    }
+|
+    json_value
+    {
+        $$ = (AbstractJson*)$1;
+    }
+
+json_object:
+    "{" json_object_content "}"
+    {
+        $$ = $2;
+    }
+
+json_object_content:
+    json_object_content "," "identifier" ":" json_abstract
+    {
+        $1->insert($3, $5);
+        $$ = $1;
+    }
+|
+    "identifier" ":" json_abstract
+    {
+        $$ = new JsonObject();
+        $$->insert($1, $3);
+    }
+
+json_array:
+    "[" json_array_content "]"
+    {
+        $$ = $2;
+    }
+
+json_array_content:
+    json_array_content "," json_abstract
+    {
+        $1->append($3);
+        $$ = $1;
+    }
+|
+    json_abstract
+    {
+        $$ = new JsonArray();
+        $$->append($1);
+    }
+
+json_value:
     "identifier"
     {
-        //driver.setOutput($1);
+        $$ = new JsonValue($1);
+    }
+|
+    "number"
+    {
+        $$ = new JsonValue($1);
     }
 
 %%
