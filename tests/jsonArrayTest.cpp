@@ -47,7 +47,11 @@ void JsonArrayTest::insertTestCase()
 
 void JsonArrayTest::getTestCase()
 {
+    AbstractJson* value1 = (*m_array)["0"];
+    UNITTEST(((JsonValue*)value1)->getString(), "test1");
 
+    AbstractJson* value2 = (*m_array)[1];
+    UNITTEST(((JsonValue*)value2)->getString(), "test2");
 }
 
 void JsonArrayTest::removeTestCase()

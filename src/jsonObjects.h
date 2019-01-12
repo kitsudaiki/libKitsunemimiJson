@@ -28,8 +28,10 @@ public:
     AbstractJson();
     virtual ~AbstractJson() {}
 
-    virtual AbstractJson* operator[](std::string &key) = 0;
+    virtual AbstractJson* operator[](const std::string key) = 0;
     virtual AbstractJson* operator[](const uint32_t index) = 0;
+    virtual AbstractJson* get(const std::string key) = 0;
+    virtual AbstractJson* get(const uint32_t index) = 0;
     virtual uint32_t getSize() const = 0;
     virtual bool remove(const std::string &key) = 0;
     virtual bool remove(const uint32_t index) = 0;
@@ -59,8 +61,10 @@ public:
     JsonValue(const int values);
     ~JsonValue() {}
 
-    AbstractJson* operator[](std::string &key);
+    AbstractJson* operator[](const std::string key);
     AbstractJson* operator[](const uint32_t index);
+    AbstractJson* get(const std::string key);
+    AbstractJson* get(const uint32_t index);
     uint32_t getSize() const;
     bool remove(const std::string &key);
     bool remove(const uint32_t index);
@@ -86,8 +90,10 @@ public:
     JsonObject();
     ~JsonObject();
 
-    AbstractJson* operator[](std::string &key);
+    AbstractJson* operator[](const std::string key);
     AbstractJson* operator[](const uint32_t index);
+    AbstractJson* get(const std::string key);
+    AbstractJson* get(const uint32_t index);
     uint32_t getSize() const;
     bool remove(const std::string &key);
     bool remove(const uint32_t index);
@@ -109,8 +115,10 @@ public:
     JsonArray();
     ~JsonArray();
 
-    AbstractJson* operator[](std::string &key);
+    AbstractJson* operator[](const std::string key);
     AbstractJson* operator[](const uint32_t index);
+    AbstractJson* get(const std::string key);
+    AbstractJson* get(const uint32_t index);
     uint32_t getSize() const;
     bool remove(const std::string &key);
     bool remove(const uint32_t index);

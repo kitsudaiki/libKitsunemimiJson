@@ -47,8 +47,11 @@ void JsonObjectTest::insertTestCase()
 
 void JsonObjectTest::getTestCase()
 {
-    //AbstractJson* value = m_object["poi1"];
-    //UNITTEST(m_object["poi"]);
+    AbstractJson* value1 = (*m_object)["poi1"];
+    UNITTEST(((JsonValue*)value1)->getString(), "test1");
+
+    AbstractJson* value2 = (*m_object)[1];
+    UNITTEST(((JsonValue*)value2)->getString(), "test2");
 }
 
 void JsonObjectTest::removeTestCase()

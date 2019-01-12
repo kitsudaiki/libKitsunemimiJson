@@ -62,7 +62,7 @@ JsonValue::JsonValue(const int values)
  * @return
  */
 AbstractJson*
-JsonValue::operator[](std::string &key)
+JsonValue::operator[](const std::string key)
 {
     return nullptr;
 }
@@ -74,6 +74,28 @@ JsonValue::operator[](std::string &key)
  */
 AbstractJson*
 JsonValue::operator[](const uint32_t index)
+{
+    return nullptr;
+}
+
+/**
+ * @brief JsonValue::get
+ * @param key
+ * @return
+ */
+AbstractJson*
+JsonValue::get(const std::string key)
+{
+    return nullptr;
+}
+
+/**
+ * @brief JsonValue::get
+ * @param index
+ * @return
+ */
+AbstractJson*
+JsonValue::get(const uint32_t index)
 {
     return nullptr;
 }
@@ -206,7 +228,29 @@ JsonObject::~JsonObject()
  * @return
  */
 AbstractJson*
-JsonObject::operator[](std::string &key)
+JsonObject::operator[](const std::string key)
+{
+    return get(key);
+}
+
+/**
+ * @brief JsonObject::operator []
+ * @param index
+ * @return
+ */
+AbstractJson*
+JsonObject::operator[](const uint32_t index)
+{
+    return get(index);
+}
+
+/**
+ * @brief JsonObject::get
+ * @param key
+ * @return
+ */
+AbstractJson*
+JsonObject::get(const std::string key)
 {
     std::map<std::string, AbstractJson*>::iterator it;
     it = m_objects.find(key);
@@ -219,14 +263,14 @@ JsonObject::operator[](std::string &key)
 }
 
 /**
- * @brief JsonObject::operator []
+ * @brief JsonObject::get
  * @param index
  * @return
  */
 AbstractJson*
-JsonObject::operator[](const uint32_t index)
+JsonObject::get(const uint32_t index)
 {
-    if(m_objects.size() >= index) {
+    if(m_objects.size() <= index) {
         return nullptr;
     }
 
@@ -371,14 +415,9 @@ JsonArray::~JsonArray()
  * @return
  */
 AbstractJson*
-JsonArray::operator[](std::string &key)
+JsonArray::operator[](const std::string key)
 {
-    const uint32_t index = static_cast<uint32_t>(std::stoi(key));
-    if(m_array.size() < index) {
-        m_array[index];
-    }
-
-    return nullptr;
+    return get(key);
 }
 
 /**
@@ -389,11 +428,38 @@ JsonArray::operator[](std::string &key)
 AbstractJson*
 JsonArray::operator[](const uint32_t index)
 {
-    if(m_array.size() < index) {
-        m_array[index];
+    return get(index);
+}
+
+/**
+ * @brief JsonArray::get
+ * @param key
+ * @return
+ */
+AbstractJson*
+JsonArray::get(const std::string key)
+{
+    const uint32_t index = static_cast<uint32_t>(std::stoi(key));
+    if(m_array.size() <= index) {
+        return nullptr;
     }
 
-    return nullptr;
+    return m_array[index];
+}
+
+/**
+ * @brief JsonArray::get
+ * @param index
+ * @return
+ */
+AbstractJson*
+JsonArray::get(const uint32_t index)
+{
+    if(m_array.size() <= index) {
+        return nullptr;
+    }
+
+    return m_array[index];
 }
 
 /**
