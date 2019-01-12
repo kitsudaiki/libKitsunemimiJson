@@ -31,7 +31,7 @@ private:
     JsonObject* m_object = nullptr;
 };
 
-}
-}
+}  // namespace Json
+}  // namespace Kitsune
 
 #endif // JSONOBJECTTEST_H

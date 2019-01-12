@@ -31,7 +31,7 @@ private:
     JsonArray* m_array = nullptr;
 };
 
-}
-}
+}  // namespace Json
+}  // namespace Kitsune
 
 #endif // JSONARRAYTEST_H

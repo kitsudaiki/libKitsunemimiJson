@@ -48,5 +48,5 @@ void JsonValueTest::cleanupTestCase()
     delete m_valueInt;
 }
 
-}
-}
+}  // namespace Json
+}  // namespace Kitsune

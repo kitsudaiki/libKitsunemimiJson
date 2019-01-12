@@ -27,7 +27,7 @@ private:
     void cleanupTestCase();
 };
 
-}
-}
+}  // namespace Json
+}  // namespace Kitsune
 
 #endif // PARSERTEST_H

@@ -20,15 +20,16 @@ namespace Json
 //===================================================================
 
 /**
- * @brief AbstractJson::AbstractJson
+ * universal json-object
  */
 AbstractJson::AbstractJson()
 {}
 
 /**
- * @brief AbstractJson::parseString
- * @param input
- * @return
+ * static-method which calls the parser to convert a json-formated string into a json-object-tree
+ *
+ * @param input json-formated string, which should be parsed
+ * @return nullptr, if parsing was not successful, else the root-object of the new json-tree
  */
 AbstractJson*
 AbstractJson::parseString(const std::string &input)
@@ -42,8 +43,9 @@ AbstractJson::parseString(const std::string &input)
 }
 
 /**
- * @brief AbstractJson::getType
- * @return
+ * request type, of the current json-object
+ *
+ * @return object-specific entry of the jsonTypes-enumeration
  */
 AbstractJson::jsonTypes AbstractJson::getType() const
 {
@@ -55,8 +57,9 @@ AbstractJson::jsonTypes AbstractJson::getType() const
 //===================================================================
 
 /**
- * @brief JsonValue::JsonValue
- * @param text
+ * json-value for strings
+ *
+ * @param text string which should be stored in the json-value
  */
 JsonValue::JsonValue(const std::string &text)
 {
@@ -65,19 +68,18 @@ JsonValue::JsonValue(const std::string &text)
 }
 
 /**
- * @brief JsonValue::JsonValue
- * @param values
+ * json-value for integers
+ *
+ * @param value number which should be stored in the json-value
  */
-JsonValue::JsonValue(const int values)
+JsonValue::JsonValue(const int value)
 {
     m_type = INT_TYPE;
-    m_intValue = values;
+    m_intValue = value;
 }
 
 /**
- * @brief JsonValue::operator []
- * @param key
- * @return
+ * fake-method which exist here only for the inheritance and returns everytime nullptr
  */
 AbstractJson*
 JsonValue::operator[](const std::string key)
@@ -86,9 +88,7 @@ JsonValue::operator[](const std::string key)
 }
 
 /**
- * @brief JsonValue::operator []
- * @param index
- * @return
+ * fake-method which exist here only for the inheritance and returns everytime nullptr
  */
 AbstractJson*
 JsonValue::operator[](const uint32_t index)
@@ -97,9 +97,7 @@ JsonValue::operator[](const uint32_t index)
 }
 
 /**
- * @brief JsonValue::get
- * @param key
- * @return
+ * fake-method which exist here only for the inheritance and returns everytime nullptr
  */
 AbstractJson*
 JsonValue::get(const std::string key)
@@ -108,9 +106,7 @@ JsonValue::get(const std::string key)
 }
 
 /**
- * @brief JsonValue::get
- * @param index
- * @return
+ * fake-method which exist here only for the inheritance and returns everytime nullptr
  */
 AbstractJson*
 JsonValue::get(const uint32_t index)
@@ -119,8 +115,7 @@ JsonValue::get(const uint32_t index)
 }
 
 /**
- * @brief JsonValue::getSize
- * @return
+ * fake-method which exist here only for the inheritance and returns everytime 0
  */
 uint32_t
 JsonValue::getSize() const
@@ -129,9 +124,7 @@ JsonValue::getSize() const
 }
 
 /**
- * @brief JsonValue::remove
- * @param key
- * @return
+ * fake-method which exist here only for the inheritance and returns everytime false
  */
 bool
 JsonValue::remove(const std::string &key)
@@ -140,9 +133,7 @@ JsonValue::remove(const std::string &key)
 }
 
 /**
- * @brief JsonValue::remove
- * @param index
- * @return
+ * fake-method which exist here only for the inheritance and returns everytime false
  */
 bool
 JsonValue::remove(const uint32_t index)
@@ -151,8 +142,9 @@ JsonValue::remove(const uint32_t index)
 }
 
 /**
- * @brief JsonValue::print
- * @param output
+ * prints the content of the object
+ *
+ * @param output pointer to the output-string on which the object-content as string will be appended
  */
 void
 JsonValue::print(std::string *output)
@@ -167,8 +159,9 @@ JsonValue::print(std::string *output)
 }
 
 /**
- * @brief JsonValue::setValue
- * @param item
+ * writes a new string into the json-value
+ *
+ * @param item new string to store
  */
 void
 JsonValue::setValue(const std::string &item)
@@ -179,8 +172,9 @@ JsonValue::setValue(const std::string &item)
 }
 
 /**
- * @brief JsonValue::setValue
- * @param item
+ * writes a new integer into the json-value
+ *
+ * @param item new number to store
  */
 void
 JsonValue::setValue(const int &item)
@@ -191,10 +185,12 @@ JsonValue::setValue(const int &item)
 }
 
 /**
- * @brief JsonValue::getString
- * @return
+ * request the string of the json-value, if it is from string-type
+ *
+ * @return string of the json-value, if json-value is from string-type, else empty string
  */
-std::string JsonValue::getString() const
+std::string
+JsonValue::getString() const
 {
     if(m_type == STRING_TYPE) {
         return m_stringValue;
@@ -203,10 +199,12 @@ std::string JsonValue::getString() const
 }
 
 /**
- * @brief JsonValue::getInt
- * @return
+ * request the integer of the json-value, if it is from int-type
+ *
+ * @return integer of the json-value, if json-value is from int-type, else empty 0
  */
-int JsonValue::getInt() const
+int
+JsonValue::getInt() const
 {
     if(m_type == INT_TYPE) {
         return m_intValue;
@@ -219,7 +217,7 @@ int JsonValue::getInt() const
 //===================================================================
 
 /**
- * @brief JsonObject::JsonObject
+ * object for key-value-pairs
  */
 JsonObject::JsonObject()
 {
@@ -227,7 +225,7 @@ JsonObject::JsonObject()
 }
 
 /**
- * @brief JsonObject::~JsonObject
+ * delete all items in the key-value-list
  */
 JsonObject::~JsonObject()
 {
@@ -242,9 +240,10 @@ JsonObject::~JsonObject()
 }
 
 /**
- * @brief JsonObject::operator []
- * @param key
- * @return
+ * get a specific item of the object
+ *
+ * @param key key of the requested value
+ * @return nullptr if index in key is to high, else object
  */
 AbstractJson*
 JsonObject::operator[](const std::string key)
@@ -253,9 +252,10 @@ JsonObject::operator[](const std::string key)
 }
 
 /**
- * @brief JsonObject::operator []
- * @param index
- * @return
+ * get a specific item of the object
+ *
+ * @param index index of the item
+ * @return nullptr if index is to high, else object
  */
 AbstractJson*
 JsonObject::operator[](const uint32_t index)
@@ -264,9 +264,10 @@ JsonObject::operator[](const uint32_t index)
 }
 
 /**
- * @brief JsonObject::get
- * @param key
- * @return
+ * get a specific item of the object
+ *
+ * @param key key of the requested value
+ * @return nullptr if index in key is to high, else object
  */
 AbstractJson*
 JsonObject::get(const std::string key)
@@ -282,9 +283,10 @@ JsonObject::get(const std::string key)
 }
 
 /**
- * @brief JsonObject::get
- * @param index
- * @return
+ * get a specific item of the object
+ *
+ * @param index index of the item
+ * @return nullptr if index is to high, else object
  */
 AbstractJson*
 JsonObject::get(const uint32_t index)
@@ -307,8 +309,9 @@ JsonObject::get(const uint32_t index)
 }
 
 /**
- * @brief JsonObject::getSize
- * @return
+ * getter for the number of elements in the key-value-list
+ *
+ * @return number of elements in the key-value-list
  */
 uint32_t
 JsonObject::getSize() const
@@ -317,9 +320,10 @@ JsonObject::getSize() const
 }
 
 /**
- * @brief JsonObject::remove
- * @param key
- * @return
+ * remove an item from the key-value-list
+ *
+ * @param key key of the pair, which should be deleted
+ * @return false if the key doesn't exist, else true
  */
 bool
 JsonObject::remove(const std::string &key)
@@ -337,9 +341,10 @@ JsonObject::remove(const std::string &key)
 }
 
 /**
- * @brief JsonObject::remove
- * @param index
- * @return
+ * remove an item from the object
+ *
+ * @param index index of the item
+ * @return false if index is to high, else true
  */
 bool
 JsonObject::remove(const uint32_t index)
@@ -363,13 +368,15 @@ JsonObject::remove(const uint32_t index)
 }
 
 /**
- * @brief JsonObject::print
- * @param output
+ * prints the content of the object
+ *
+ * @param output pointer to the output-string on which the object-content as string will be appended
  */
 void
 JsonObject::print(std::string *output)
 {
     output->append("{");
+
     std::map<std::string, AbstractJson*>::iterator it;
     for(it = m_objects.begin(); it != m_objects.end(); it++)
     {
@@ -382,14 +389,16 @@ JsonObject::print(std::string *output)
         output->append(":");
         it->second->print(output);
     }
+
     output->append("}");
 }
 
 /**
- * @brief JsonObject::insert
- * @param key
- * @param value
- * @return
+ * add new key-value-pair to the object
+ *
+ * @param key key of the new pair as string
+ * @param value value of the new pair as json-value-pointer
+ * @return false if key already exist, else true
  */
 bool
 JsonObject::insert(const std::string &key,
@@ -408,7 +417,7 @@ JsonObject::insert(const std::string &key,
 //===================================================================
 
 /**
- * @brief JsonArray::JsonArray
+ * array for items in json-style
  */
 JsonArray::JsonArray()
 {
@@ -416,7 +425,7 @@ JsonArray::JsonArray()
 }
 
 /**
- * @brief JsonArray::~JsonArray
+ * delete all items in the array
  */
 JsonArray::~JsonArray()
 {
@@ -430,9 +439,10 @@ JsonArray::~JsonArray()
 }
 
 /**
- * @brief JsonArray::operator []
- * @param key
- * @return
+ * get a specific item of the array
+ *
+ * @param key index of the item as string
+ * @return nullptr if index in key is to high, else true
  */
 AbstractJson*
 JsonArray::operator[](const std::string key)
@@ -441,9 +451,10 @@ JsonArray::operator[](const std::string key)
 }
 
 /**
- * @brief JsonArray::operator []
- * @param index
- * @return
+ * get a specific item of the array
+ *
+ * @param index index of the item
+ * @return nullptr if index is to high, else true
  */
 AbstractJson*
 JsonArray::operator[](const uint32_t index)
@@ -452,9 +463,10 @@ JsonArray::operator[](const uint32_t index)
 }
 
 /**
- * @brief JsonArray::get
- * @param key
- * @return
+ * get a specific item of the array
+ *
+ * @param key index of the item as string
+ * @return nullptr if index in key is to high, else object
  */
 AbstractJson*
 JsonArray::get(const std::string key)
@@ -468,9 +480,10 @@ JsonArray::get(const std::string key)
 }
 
 /**
- * @brief JsonArray::get
- * @param index
- * @return
+ * get a specific item of the array
+ *
+ * @param index index of the item
+ * @return nullptr if index is to high, else the object
  */
 AbstractJson*
 JsonArray::get(const uint32_t index)
@@ -483,8 +496,9 @@ JsonArray::get(const uint32_t index)
 }
 
 /**
- * @brief JsonArray::getSize
- * @return
+ * getter for the number of elements in the array
+ *
+ * @return number of elements in the array
  */
 uint32_t
 JsonArray::getSize() const
@@ -493,9 +507,10 @@ JsonArray::getSize() const
 }
 
 /**
- * @brief JsonArray::remove
- * @param key
- * @return
+ * remove an item from the array
+ *
+ * @param key index of the item as string
+ * @return false if index in key is to high, else true
  */
 bool
 JsonArray::remove(const std::string &key)
@@ -509,9 +524,10 @@ JsonArray::remove(const std::string &key)
 }
 
 /**
- * @brief JsonArray::remove
- * @param index
- * @return
+ * remove an item from the array
+ *
+ * @param index index of the item
+ * @return false if index is to high, else true
  */
 bool
 JsonArray::remove(const uint32_t index)
@@ -524,13 +540,15 @@ JsonArray::remove(const uint32_t index)
 }
 
 /**
- * @brief JsonArray::print
- * @param output
+ * prints the content of the object
+ *
+ * @param output pointer to the output-string on which the object-content as string will be appended
  */
 void
 JsonArray::print(std::string *output)
 {
     output->append("[");
+
     std::vector<AbstractJson*>::iterator it;
     for(it = m_array.begin(); it != m_array.end(); it++)
     {
@@ -539,13 +557,15 @@ JsonArray::print(std::string *output)
         }
         (*it)->print(output);
     }
+
     output->append("]");
 }
 
 /**
- * @brief JsonArray::append
- * @param item
- * @return
+ * add a new item to the array
+ *
+ * @param item abstract-json-pointer
+ * @return false, if new item-pointer is nullptr, else true
  */
 bool
 JsonArray::append(AbstractJson *item)

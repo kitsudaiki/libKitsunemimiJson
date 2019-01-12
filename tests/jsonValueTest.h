@@ -31,7 +31,7 @@ private:
     JsonValue* m_valueInt = nullptr;
 };
 
-}
-}
+}  // namespace Json
+}  // namespace Kitsune
 
 #endif // JSONVSLURTEST_H

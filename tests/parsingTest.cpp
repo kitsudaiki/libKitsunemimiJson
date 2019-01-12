@@ -67,5 +67,6 @@ void ParsingTest::cleanupTestCase()
 {
 }
 
-}
-}
+}  // namespace Json
+}  // namespace Kitsune
+

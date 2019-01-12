@@ -68,5 +68,5 @@ void JsonArrayTest::cleanupTestCase()
     delete m_array;
 }
 
-}
-}
+}  // namespace Json
+}  // namespace Kitsune
