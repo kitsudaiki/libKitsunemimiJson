@@ -66,6 +66,7 @@ YY_DECL;
 
 
 %token <std::string> IDENTIFIER "identifier"
+%token <std::string> STRING "string"
 %token <int> NUMBER "number"
 
 %type  <AbstractJson*> json_abstract
@@ -119,6 +120,18 @@ json_object_content:
         $$ = new JsonObject();
         $$->insert($1, $3);
     }
+|
+    json_object_content "," "string" ":" json_abstract
+    {
+        $1->insert(driver.removeQuotes($3), $5);
+        $$ = $1;
+    }
+|
+    "string" ":" json_abstract
+    {
+        $$ = new JsonObject();
+        $$->insert(driver.removeQuotes($1), $3);
+    }
 
 json_array:
     "[" json_array_content "]"
@@ -148,6 +161,11 @@ json_value:
     "number"
     {
         $$ = new JsonValue($1);
+    }
+|
+    "string"
+    {
+        $$ = new JsonValue(driver.removeQuotes($1));
     }
 
 %%

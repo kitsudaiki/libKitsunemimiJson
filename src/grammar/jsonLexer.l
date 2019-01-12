@@ -54,6 +54,7 @@ blank [ \t]
 "]"       return Kitsune::Json::JsonParser::make_BRACKCLOSE (jsonloc);
 ","       return Kitsune::Json::JsonParser::make_COMMA (jsonloc);
 ":"       return Kitsune::Json::JsonParser::make_ASSIGN (jsonloc);
+\"(\\.|[^"\\])*\" { return Kitsune::Json::JsonParser::make_STRING(yytext, jsonloc); }
 
 
 {int}      {

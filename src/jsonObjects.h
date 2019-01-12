@@ -18,7 +18,7 @@ class AbstractJson
 {
 public:
     AbstractJson();
-    virtual ~AbstractJson() = 0;
+    ~AbstractJson() {}
 
     virtual AbstractJson* operator[](const std::string &key) = 0;
     virtual uint32_t getSize() const = 0;

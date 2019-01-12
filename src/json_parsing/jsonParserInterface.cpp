@@ -41,9 +41,6 @@ JsonParserInterface::JsonParserInterface(const bool traceParsing)
 bool
 JsonParserInterface::parse(const std::string &inputString)
 {
-    // init static variables for new run
-    m_inRule = false;
-
     // init global values
     m_inputString = inputString;
     m_errorMessage = "";
@@ -60,6 +57,30 @@ JsonParserInterface::parse(const std::string &inputString)
         return false;
     }
     return true;
+}
+
+/**
+ * @brief JsonParserInterface::removeQuotes
+ * @param input
+ * @return
+ */
+std::string
+JsonParserInterface::removeQuotes(std::string input)
+{
+    if(input.length() == 0) {
+        return input;
+    }
+
+    if(input[0] == '\"' && input[input.length()-1] == '\"')
+    {
+        std::string result = "";
+        for(uint32_t i = 1; i < input.length()-1; i++)
+        {
+            result += input[i];
+        }
+        return result;
+    }
+    return input;
 }
 
 /**

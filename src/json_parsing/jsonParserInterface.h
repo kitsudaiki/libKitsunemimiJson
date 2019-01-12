@@ -22,12 +22,13 @@ class JsonParserInterface
 {
 
 public:
-    JsonParserInterface(const bool traceParsing);
+    JsonParserInterface(const bool traceParsing = false);
 
     // connection the the scanner and parser
     void scan_begin(const std::string &inputString);
     void scan_end();
     bool parse(const std::string &inputString);
+    std::string removeQuotes(std::string input);
 
     // output-handling
     void setOutput(JsonObject* output);
@@ -37,9 +38,6 @@ public:
     void error(const Kitsune::Json::location &location,
                const std::string& message);
     std::string getErrorMessage() const;
-
-    // static variables, which are used in lexer and parser
-    static bool m_inRule;
 
 private:
     JsonObject* m_output;
