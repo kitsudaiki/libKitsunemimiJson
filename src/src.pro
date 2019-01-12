@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       -= qt core gui
+QT -= qt core gui
 
 TARGET = KitsuneJson
 TEMPLATE = lib

@@ -60,6 +60,17 @@ JsonValue::operator[](const std::string &key)
 }
 
 /**
+ * @brief JsonValue::operator []
+ * @param index
+ * @return
+ */
+AbstractJson*
+JsonValue::operator[](const uint32_t &index)
+{
+    return nullptr;
+}
+
+/**
  * @brief JsonValue::getSize
  * @return
  */
@@ -152,6 +163,31 @@ JsonObject::operator[](const std::string &key)
 }
 
 /**
+ * @brief JsonObject::operator []
+ * @param index
+ * @return
+ */
+AbstractJson*
+JsonObject::operator[](const uint32_t &index)
+{
+    if(m_objects.size() >= index) {
+        return nullptr;
+    }
+
+    uint32_t counter = 0;
+    std::map<std::string, AbstractJson*>::iterator it;
+    for(it = m_objects.begin(); it != m_objects.end(); it++)
+    {
+        if(counter == index) {
+            return it->second;
+        }
+        counter++;
+    }
+
+    return nullptr;
+}
+
+/**
  * @brief JsonObject::getSize
  * @return
  */
@@ -229,6 +265,21 @@ AbstractJson*
 JsonArray::operator[](const std::string &key)
 {
     const uint32_t index = static_cast<uint32_t>(std::stoi(key));
+    if(m_array.size() < index) {
+        m_array[index];
+    }
+
+    return nullptr;
+}
+
+/**
+ * @brief JsonArray::operator []
+ * @param index
+ * @return
+ */
+AbstractJson*
+JsonArray::operator[](const uint32_t &index)
+{
     if(m_array.size() < index) {
         m_array[index];
     }

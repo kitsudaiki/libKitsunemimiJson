@@ -21,6 +21,7 @@ public:
     ~AbstractJson() {}
 
     virtual AbstractJson* operator[](const std::string &key) = 0;
+    virtual AbstractJson* operator[](const uint32_t &index) = 0;
     virtual uint32_t getSize() const = 0;
     virtual void print(std::string *output) = 0;
 
@@ -49,6 +50,7 @@ public:
     ~JsonValue() {}
 
     AbstractJson* operator[](const std::string &key);
+    AbstractJson* operator[](const uint32_t &index);
     uint32_t getSize() const;
     void print(std::string *output);
 
@@ -70,6 +72,7 @@ public:
     ~JsonObject();
 
     AbstractJson* operator[](const std::string &key);
+    AbstractJson* operator[](const uint32_t &index);
     uint32_t getSize() const;
     void print(std::string *output);
 
@@ -90,6 +93,7 @@ public:
     ~JsonArray();
 
     AbstractJson* operator[](const std::string &key);
+    AbstractJson* operator[](const uint32_t &index);
     uint32_t getSize() const;
     void print(std::string *output);
 
