@@ -7,6 +7,7 @@
  */
 
 #include "jsonArrayTest.h"
+#include <jsonObjects.h>
 
 namespace Kitsune
 {
@@ -24,12 +25,24 @@ JsonArrayTest::JsonArrayTest() : Kitsune::CommonTest("JsonArrayTest")
 
 void JsonArrayTest::initTestCase()
 {
-
+    m_array = new JsonArray();
 }
 
 void JsonArrayTest::insertTestCase()
 {
+    UNITTEST(m_array->getSize(), 0);
+    UNITTEST(m_array->getType(), AbstractJson::ARRAY_TYPE);
 
+    JsonValue* value1 = new JsonValue("test1");
+    JsonValue* value2 = new JsonValue("test2");
+    m_array->append(value1);
+    m_array->append(value2);
+
+    UNITTEST(m_array->getSize(), 2);
+    std::string outputString = "";
+    m_array->print(&outputString);
+    std::string compare( "[\"test1\",\"test2\"]");
+    UNITTEST(outputString, compare);
 }
 
 void JsonArrayTest::getTestCase()
@@ -39,12 +52,16 @@ void JsonArrayTest::getTestCase()
 
 void JsonArrayTest::removeTestCase()
 {
-
+    UNITTEST(m_array->remove("1"), true);
+    UNITTEST(m_array->getSize(), 1);
+    UNITTEST(m_array->remove(0), true);
+    UNITTEST(m_array->getSize(), 0);
+    UNITTEST(m_array->remove(2), false);
 }
 
 void JsonArrayTest::cleanupTestCase()
 {
-
+    delete m_array;
 }
 
 }

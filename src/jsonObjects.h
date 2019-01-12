@@ -28,11 +28,11 @@ public:
     AbstractJson();
     virtual ~AbstractJson() {}
 
-    virtual AbstractJson* operator[](const std::string &key) = 0;
-    virtual AbstractJson* operator[](const uint32_t &index) = 0;
+    virtual AbstractJson* operator[](std::string &key) = 0;
+    virtual AbstractJson* operator[](const uint32_t index) = 0;
     virtual uint32_t getSize() const = 0;
     virtual bool remove(const std::string &key) = 0;
-    virtual bool remove(const uint32_t &index) = 0;
+    virtual bool remove(const uint32_t index) = 0;
     virtual void print(std::string *output) = 0;
 
     enum jsonTypes {
@@ -59,15 +59,18 @@ public:
     JsonValue(const int values);
     ~JsonValue() {}
 
-    AbstractJson* operator[](const std::string &key);
-    AbstractJson* operator[](const uint32_t &index);
+    AbstractJson* operator[](std::string &key);
+    AbstractJson* operator[](const uint32_t index);
     uint32_t getSize() const;
     bool remove(const std::string &key);
-    bool remove(const uint32_t &index);
+    bool remove(const uint32_t index);
     void print(std::string *output);
 
     void setValue(const std::string &item);
     void setValue(const int &item);
+
+    std::string getString() const;
+    int getInt() const;
 
 private:
     std::string m_stringValue = "";
@@ -83,11 +86,11 @@ public:
     JsonObject();
     ~JsonObject();
 
-    AbstractJson* operator[](const std::string &key);
-    AbstractJson* operator[](const uint32_t &index);
+    AbstractJson* operator[](std::string &key);
+    AbstractJson* operator[](const uint32_t index);
     uint32_t getSize() const;
     bool remove(const std::string &key);
-    bool remove(const uint32_t &index);
+    bool remove(const uint32_t index);
     void print(std::string *output);
 
     bool insert(const std::string &key,
@@ -106,11 +109,11 @@ public:
     JsonArray();
     ~JsonArray();
 
-    AbstractJson* operator[](const std::string &key);
-    AbstractJson* operator[](const uint32_t &index);
+    AbstractJson* operator[](std::string &key);
+    AbstractJson* operator[](const uint32_t index);
     uint32_t getSize() const;
     bool remove(const std::string &key);
-    bool remove(const uint32_t &index);
+    bool remove(const uint32_t index);
     void print(std::string *output);
 
     bool append(AbstractJson* item);

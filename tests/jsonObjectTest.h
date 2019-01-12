@@ -15,6 +15,7 @@ namespace Kitsune
 {
 namespace Json
 {
+class JsonObject;
 
 class JsonObjectTest: public Kitsune::CommonTest
 {
@@ -26,6 +27,8 @@ private:
     void getTestCase();
     void removeTestCase();
     void cleanupTestCase();
+
+    JsonObject* m_object = nullptr;
 };
 
 }

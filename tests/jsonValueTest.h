@@ -15,6 +15,7 @@ namespace Kitsune
 {
 namespace Json
 {
+class JsonValue;
 
 class JsonValueTest: public Kitsune::CommonTest
 {
@@ -24,8 +25,10 @@ private:
     void initTestCase();
     void insertTestCase();
     void getTestCase();
-    void removeTestCase();
     void cleanupTestCase();
+
+    JsonValue* m_valueString = nullptr;
+    JsonValue* m_valueInt = nullptr;
 };
 
 }

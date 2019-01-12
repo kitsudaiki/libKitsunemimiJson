@@ -46,7 +46,7 @@ void ParsingTest::parserPositiveTest()
 
     std::string outputString = "";
     output->print(&outputString);
-    std::string compare( "{\"item\":{\"sub_item\":\"test_value\"}\"item2\":{\"sub_item2\":\"something\"}\"loop\":[{\"x\":\"test1\"}{\"x\":\"test2\"}{\"x\":\"test3\"}]}");
+    std::string compare( "{\"item\":{\"sub_item\":\"test_value\"},\"item2\":{\"sub_item2\":\"something\"},\"loop\":[{\"x\":\"test1\"},{\"x\":\"test2\"},{\"x\":\"test3\"}]}");
     UNITTEST(outputString, compare);
 }
 

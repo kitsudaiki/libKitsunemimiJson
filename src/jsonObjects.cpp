@@ -62,7 +62,7 @@ JsonValue::JsonValue(const int values)
  * @return
  */
 AbstractJson*
-JsonValue::operator[](const std::string &key)
+JsonValue::operator[](std::string &key)
 {
     return nullptr;
 }
@@ -73,7 +73,7 @@ JsonValue::operator[](const std::string &key)
  * @return
  */
 AbstractJson*
-JsonValue::operator[](const uint32_t &index)
+JsonValue::operator[](const uint32_t index)
 {
     return nullptr;
 }
@@ -105,7 +105,7 @@ JsonValue::remove(const std::string &key)
  * @return
  */
 bool
-JsonValue::remove(const uint32_t &index)
+JsonValue::remove(const uint32_t index)
 {
     return false;
 }
@@ -150,6 +150,30 @@ JsonValue::setValue(const int &item)
     m_intValue = item;
 }
 
+/**
+ * @brief JsonValue::getString
+ * @return
+ */
+std::string JsonValue::getString() const
+{
+    if(m_type == STRING_TYPE) {
+        return m_stringValue;
+    }
+    return "";
+}
+
+/**
+ * @brief JsonValue::getInt
+ * @return
+ */
+int JsonValue::getInt() const
+{
+    if(m_type == INT_TYPE) {
+        return m_intValue;
+    }
+    return 0;
+}
+
 //===================================================================
 // JsonObject
 //===================================================================
@@ -182,7 +206,7 @@ JsonObject::~JsonObject()
  * @return
  */
 AbstractJson*
-JsonObject::operator[](const std::string &key)
+JsonObject::operator[](std::string &key)
 {
     std::map<std::string, AbstractJson*>::iterator it;
     it = m_objects.find(key);
@@ -200,7 +224,7 @@ JsonObject::operator[](const std::string &key)
  * @return
  */
 AbstractJson*
-JsonObject::operator[](const uint32_t &index)
+JsonObject::operator[](const uint32_t index)
 {
     if(m_objects.size() >= index) {
         return nullptr;
@@ -255,9 +279,9 @@ JsonObject::remove(const std::string &key)
  * @return
  */
 bool
-JsonObject::remove(const uint32_t &index)
+JsonObject::remove(const uint32_t index)
 {
-    if(m_objects.size() >= index) {
+    if(m_objects.size() <= index) {
         return false;
     }
 
@@ -286,6 +310,9 @@ JsonObject::print(std::string *output)
     std::map<std::string, AbstractJson*>::iterator it;
     for(it = m_objects.begin(); it != m_objects.end(); it++)
     {
+        if(it != m_objects.begin()) {
+            output->append(",");
+        }
         output->append("\"");
         output->append(it->first);
         output->append("\"");
@@ -344,7 +371,7 @@ JsonArray::~JsonArray()
  * @return
  */
 AbstractJson*
-JsonArray::operator[](const std::string &key)
+JsonArray::operator[](std::string &key)
 {
     const uint32_t index = static_cast<uint32_t>(std::stoi(key));
     if(m_array.size() < index) {
@@ -360,7 +387,7 @@ JsonArray::operator[](const std::string &key)
  * @return
  */
 AbstractJson*
-JsonArray::operator[](const uint32_t &index)
+JsonArray::operator[](const uint32_t index)
 {
     if(m_array.size() < index) {
         m_array[index];
@@ -388,12 +415,11 @@ bool
 JsonArray::remove(const std::string &key)
 {
     const uint32_t index = static_cast<uint32_t>(std::stoi(key));
-    if(m_array.size() < index)
-    {
-        m_array.erase(m_array.begin() + index);
-        return true;
+    if(m_array.size() <= index) {
+        return false;
     }
-    return false;
+    m_array.erase(m_array.begin() + index);
+    return true;
 }
 
 /**
@@ -402,14 +428,13 @@ JsonArray::remove(const std::string &key)
  * @return
  */
 bool
-JsonArray::remove(const uint32_t &index)
+JsonArray::remove(const uint32_t index)
 {
-    if(m_array.size() < index)
-    {
-        m_array.erase(m_array.begin() + index);
-        return true;
+    if(m_array.size() <= index) {
+        return false;
     }
-    return false;
+    m_array.erase(m_array.begin() + index);
+    return true;
 }
 
 /**
@@ -423,6 +448,9 @@ JsonArray::print(std::string *output)
     std::vector<AbstractJson*>::iterator it;
     for(it = m_array.begin(); it != m_array.end(); it++)
     {
+        if(it != m_array.begin()) {
+            output->append(",");
+        }
         (*it)->print(output);
     }
     output->append("]");
