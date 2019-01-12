@@ -1,5 +1,5 @@
 /**
- *  @file   jsonParserInterface.h
+ *  @file    jsonParserInterface.h
  *  @version 0.1.0
  *
  *  @author  Tobias Anker

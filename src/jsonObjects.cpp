@@ -1,4 +1,12 @@
-﻿#include "jsonObjects.h"
+﻿/**
+ *  @file    jsonObjects.cpp
+ *  @version 0.1.0
+ *
+ *  @author  Tobias Anker
+ *  Contact: tobias.anker@kitsunemimi.moe
+ */
+
+#include "jsonObjects.h"
 
 namespace Kitsune
 {

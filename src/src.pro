@@ -11,6 +11,7 @@ TEMPLATE = lib
 CONFIG += staticlib
 CONFIG += c++14
 
+
 INCLUDEPATH += $$PWD \
                $$PWD/../include/libKitsuneJson
 
@@ -18,11 +19,11 @@ LIBS +=  -lfl -ly
 
 SOURCES += \
         json_parsing/jsonParserInterface.cpp \
-    jsonObjects.cpp
+        jsonObjects.cpp
 
 HEADERS += \
         json_parsing/jsonParserInterface.h \
-    jsonObjects.h
+        jsonObjects.h
 
 FLEXSOURCES = grammar/jsonLexer.l
 BISONSOURCES = grammar/jsonParser.y

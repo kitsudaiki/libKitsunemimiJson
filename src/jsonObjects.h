@@ -1,3 +1,11 @@
+/**
+ *  @file    jsonObjects.h
+ *  @version 0.1.0
+ *
+ *  @author  Tobias Anker
+ *  Contact: tobias.anker@kitsunemimi.moe
+ */
+
 #ifndef JSONOBJECT_H
 #define JSONOBJECT_H
 
