@@ -81,6 +81,28 @@ JsonValue::getSize() const
 }
 
 /**
+ * @brief JsonValue::remove
+ * @param key
+ * @return
+ */
+bool
+JsonValue::remove(const std::string &key)
+{
+    return false;
+}
+
+/**
+ * @brief JsonValue::remove
+ * @param index
+ * @return
+ */
+bool
+JsonValue::remove(const uint32_t &index)
+{
+    return false;
+}
+
+/**
  * @brief JsonValue::print
  * @param output
  */
@@ -88,7 +110,9 @@ void
 JsonValue::print(std::string *output)
 {
     if(m_type == STRING_TYPE) {
+        output->append("\"");
         output->append(m_stringValue);
+        output->append("\"");
     } else {
         output->append(std::to_string(m_intValue));
     }
@@ -198,21 +222,69 @@ JsonObject::getSize() const
 }
 
 /**
+ * @brief JsonObject::remove
+ * @param key
+ * @return
+ */
+bool
+JsonObject::remove(const std::string &key)
+{
+    std::map<std::string, AbstractJson*>::iterator it;
+    it = m_objects.find(key);
+
+    if(it != m_objects.end())
+    {
+        m_objects.erase(it);
+        return true;
+    }
+
+    return false;
+}
+
+/**
+ * @brief JsonObject::remove
+ * @param index
+ * @return
+ */
+bool
+JsonObject::remove(const uint32_t &index)
+{
+    if(m_objects.size() >= index) {
+        return false;
+    }
+
+    uint32_t counter = 0;
+    std::map<std::string, AbstractJson*>::iterator it;
+    for(it = m_objects.begin(); it != m_objects.end(); it++)
+    {
+        if(counter == index)
+        {
+            m_objects.erase(it);
+            return true;
+        }
+        counter++;
+    }
+    return false;
+}
+
+/**
  * @brief JsonObject::print
  * @param output
  */
 void
 JsonObject::print(std::string *output)
 {
-    output->append(" { ");
+    output->append("{");
     std::map<std::string, AbstractJson*>::iterator it;
     for(it = m_objects.begin(); it != m_objects.end(); it++)
     {
+        output->append("\"");
         output->append(it->first);
-        output->append(" : ");
+        output->append("\"");
+        output->append(":");
         it->second->print(output);
     }
-    output->append(" } ");
+    output->append("}");
 }
 
 /**
@@ -250,8 +322,10 @@ JsonArray::JsonArray()
  */
 JsonArray::~JsonArray()
 {
-    for(uint32_t i = 0; i < m_array.size(); i++) {
-        delete m_array[i];
+    for(uint32_t i = 0; i < m_array.size(); i++)
+    {
+        AbstractJson* tempItem = m_array[i];
+        delete tempItem;
     }
     m_array.clear();
 }
@@ -298,19 +372,52 @@ JsonArray::getSize() const
 }
 
 /**
+ * @brief JsonArray::remove
+ * @param key
+ * @return
+ */
+bool
+JsonArray::remove(const std::string &key)
+{
+    const uint32_t index = static_cast<uint32_t>(std::stoi(key));
+    if(m_array.size() < index)
+    {
+        m_array.erase(m_array.begin() + index);
+        return true;
+    }
+    return false;
+}
+
+/**
+ * @brief JsonArray::remove
+ * @param index
+ * @return
+ */
+bool
+JsonArray::remove(const uint32_t &index)
+{
+    if(m_array.size() < index)
+    {
+        m_array.erase(m_array.begin() + index);
+        return true;
+    }
+    return false;
+}
+
+/**
  * @brief JsonArray::print
  * @param output
  */
 void
 JsonArray::print(std::string *output)
 {
-    output->append(" [ ");
+    output->append("[");
     std::vector<AbstractJson*>::iterator it;
     for(it = m_array.begin(); it != m_array.end(); it++)
     {
         (*it)->print(output);
     }
-    output->append(" ] ");
+    output->append("]");
 }
 
 /**
