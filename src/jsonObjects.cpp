@@ -7,6 +7,8 @@
  */
 
 #include "jsonObjects.h"
+#include <iostream>
+#include <json_parsing/jsonParserInterface.h>
 
 namespace Kitsune
 {
@@ -22,6 +24,22 @@ namespace Json
  */
 AbstractJson::AbstractJson()
 {}
+
+/**
+ * @brief AbstractJson::parseString
+ * @param input
+ * @return
+ */
+AbstractJson*
+AbstractJson::parseString(const std::string &input)
+{
+    JsonParserInterface parser;
+    bool ret = parser.parse(input);
+    if(ret == false) {
+        return nullptr;
+    }
+    return parser.getOutput();
+}
 
 /**
  * @brief AbstractJson::getType
@@ -213,6 +231,7 @@ JsonObject::JsonObject()
  */
 JsonObject::~JsonObject()
 {
+    // std::cout<<"destructor object"<<std::endl;
     std::map<std::string, AbstractJson*>::iterator it;
     for(it = m_objects.begin(); it != m_objects.end(); it++)
     {
@@ -401,6 +420,7 @@ JsonArray::JsonArray()
  */
 JsonArray::~JsonArray()
 {
+    // std::cout<<"destructor array"<<std::endl;
     for(uint32_t i = 0; i < m_array.size(); i++)
     {
         AbstractJson* tempItem = m_array[i];

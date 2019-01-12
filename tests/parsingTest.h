@@ -15,8 +15,6 @@ namespace Kitsune
 {
 namespace Json
 {
-class JsonParserInterface;
-
 class ParsingTest: public Kitsune::CommonTest
 {
 public:
@@ -27,8 +25,6 @@ private:
     void parserPositiveTest();
     void parserNegativeTest();
     void cleanupTestCase();
-
-    JsonParserInterface* m_parser = nullptr;
 };
 
 }

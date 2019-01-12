@@ -26,6 +26,8 @@ class AbstractJson
 {
 public:
     AbstractJson();
+
+    static AbstractJson* parseString(const std::string &input);
     virtual ~AbstractJson() {}
 
     virtual AbstractJson* operator[](const std::string key) = 0;

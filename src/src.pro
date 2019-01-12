@@ -23,7 +23,7 @@ SOURCES += \
 
 HEADERS += \
         json_parsing/jsonParserInterface.h \
-        jsonObjects.h
+        ../include/libKitsuneJson/jsonObjects.h
 
 FLEXSOURCES = grammar/jsonLexer.l
 BISONSOURCES = grammar/jsonParser.y

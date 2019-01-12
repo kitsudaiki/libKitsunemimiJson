@@ -7,7 +7,6 @@
  */
 
 #include "parsingTest.h"
-#include <json_parsing/jsonParserInterface.h>
 #include <jsonObjects.h>
 
 namespace Kitsune
@@ -25,7 +24,6 @@ ParsingTest::ParsingTest() : Kitsune::CommonTest("ParsingTest")
 
 void ParsingTest::initTestCase()
 {
-    m_parser = new JsonParserInterface();
 }
 
 void ParsingTest::parserPositiveTest()
@@ -38,11 +36,7 @@ void ParsingTest::parserPositiveTest()
                    "[ {\"x\" :\"test1\" }, {\"x\" :\"test2\" }, {\"x\" :\"test3\" }]"
                "}");
 
-    Kitsune::Json::JsonParserInterface parser(false);
-    bool ret = parser.parse(input);
-    UNITTEST(ret, true);
-
-    Kitsune::Json::JsonObject* output = parser.getOutput();
+    JsonObject* output = static_cast<JsonObject*>(AbstractJson::parseString(input));
 
     std::string outputString = "";
     output->print(&outputString);
@@ -60,15 +54,17 @@ void ParsingTest::parserNegativeTest()
                    "[ {\"x\" :\"test1\" }, {\"x\" :\"test2\" }, {\"x\" :\"test3\" }]"
                "}");
 
-    Kitsune::Json::JsonParserInterface parser(false);
-    bool ret = parser.parse(input);
+    AbstractJson* output = AbstractJson::parseString(input);
+    bool success = false;
+    if(output != nullptr) {
+        success = true;
+    }
 
-    UNITTEST(ret, false);
+    UNITTEST(success, false);
 }
 
 void ParsingTest::cleanupTestCase()
 {
-    delete m_parser;
 }
 
 }
