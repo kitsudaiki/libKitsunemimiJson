@@ -47,11 +47,11 @@ void ParsingTest::parserPositiveTest()
 void ParsingTest::parserNegativeTest()
 {
     std::string input("{\"item\": "
-                   "{ \"sub_item\": \"test_value\"},"
-               "\"item2\": "
-                   "[ \"sub_item2\": \"something\"},"  // error at the beginning of this line
-               "\"loop\": "
-                   "[ {\"x\" :\"test1\" }, {\"x\" :\"test2\" }, {\"x\" :\"test3\" }]"
+                   "{ \"sub_item\": \"test_value\"}, \n"
+               "\"item2\": \n"
+                   "[ \"sub_item2\": \"something\"}, \n"  // error at the beginning of this line
+               "\"loop\": \n"
+                   "[ {\"x\" :\"test1\" }, {\"x\" :\"test2\" }, {\"x\" :\"test3\" }]\n"
                "}");
 
     AbstractJson* output = AbstractJson::parseString(input);
