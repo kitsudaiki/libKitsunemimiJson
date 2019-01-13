@@ -78,6 +78,8 @@ blank [ \t]
 
 void Kitsune::Json::JsonParserInterface::scan_begin(const std::string &inputString)
 {
+    Kitsune::Json::location newJsonloc;
+    jsonloc = newJsonloc;
     yy_flex_debug = m_traceParsing;
     yy_scan_string(inputString.c_str());
 }
