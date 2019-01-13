@@ -9,7 +9,7 @@
 #ifndef JSONARRAYTEST_H
 #define JSONARRAYTEST_H
 
-#include <../../../LibKitsuneCommon/include/libKitsuneCommon/commonTest.h>
+#include <commonTest.h>
 
 namespace Kitsune
 {

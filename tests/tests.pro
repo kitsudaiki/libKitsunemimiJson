@@ -9,7 +9,7 @@ CONFIG += c++14 console
 LIBS += -L../../libKitsuneCommon -lKitsuneCommon
 LIBS += -L../../libKitsuneCommon/debug -lKitsuneCommon
 LIBS += -L../../libKitsuneCommon/release -lKitsuneCommon
-INCLUDEPATH += ../../../libKitsuneCommon/include/libKitsuneCommon
+INCLUDEPATH += ../../libKitsuneCommon/include/libKitsuneCommon
 
 
 INCLUDEPATH += $$PWD

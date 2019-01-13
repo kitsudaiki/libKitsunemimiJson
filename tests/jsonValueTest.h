@@ -9,7 +9,7 @@
 #ifndef JSONVSLURTEST_H
 #define JSONVSLURTEST_H
 
-#include <../../../LibKitsuneCommon/include/libKitsuneCommon/commonTest.h>
+#include <commonTest.h>
 
 namespace Kitsune
 {

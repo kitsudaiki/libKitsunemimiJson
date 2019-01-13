@@ -18,6 +18,9 @@ namespace Kitsune
 {
 namespace Json
 {
+class JsonArray;
+class JsonObject;
+class JsonValue;
 
 //===================================================================
 // AbstractJson
@@ -43,6 +46,10 @@ public:
     virtual AbstractJson* get(const uint32_t index) = 0;
     virtual uint32_t getSize() const = 0;
     jsonTypes getType() const;
+
+    JsonArray* toArray();
+    JsonObject* toObject();
+    JsonValue* toValue();
 
     // delete
     virtual bool remove(const std::string &key) = 0;
