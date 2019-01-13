@@ -12,7 +12,7 @@
 #include <jsonObjectTest.h>
 #include <parsingTest.h>
 
-int main(int argc, char *argv[])
+int main()
 {
     Kitsune::Json::ParsingTest();
     Kitsune::Json::JsonValueTest();

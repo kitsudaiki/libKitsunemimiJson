@@ -44,8 +44,7 @@ JsonParserInterface::parse(const std::string &inputString)
     // init global values
     m_inputString = inputString;
     m_errorMessage = "";
-    JsonObject* tempItem;
-    m_output = tempItem;
+    m_output = nullptr;
 
     // run parser-code
     this->scan_begin(inputString);
@@ -118,7 +117,7 @@ JsonParserInterface::error(const Kitsune::Json::location& location,
                            const std::string& message)
 {
     // get the broken part of the parsed string
-    const uint32_t errorStart = location.begin.column - 1;
+    const uint32_t errorStart = location.begin.column;
     const uint32_t errorLength = location.end.column - location.begin.column;
     const std::string errorStringPart = m_inputString.substr(errorStart, errorLength);
 
@@ -126,7 +125,10 @@ JsonParserInterface::error(const Kitsune::Json::location& location,
     m_errorMessage =  "error while parsing jinja2-template \n";
     m_errorMessage += "parser-message: " + message + " \n";
     m_errorMessage += "line-number: " + std::to_string(location.begin.line) + " \n";
-    m_errorMessage += "broken part in template: " + errorStringPart + " \n";
+    m_errorMessage += "position in line: " + std::to_string(location.begin.column) + " \n";
+    m_errorMessage += "broken part in template: \"" + errorStringPart + "\" \n";
+
+    std::cout<<"m_errorMessage: "<<m_errorMessage<<std::endl;
 }
 
 /**
