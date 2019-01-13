@@ -438,13 +438,23 @@ JsonObject::print(std::string *output)
  */
 bool
 JsonObject::insert(const std::string &key,
-                   AbstractJson *value)
+                   AbstractJson *value,
+                   bool force)
 {
-    if(m_objects.find(key) != m_objects.end()) {
+
+
+    std::map<std::string, AbstractJson*>::iterator it;
+    it = m_objects.find(key);
+
+    if((it != m_objects.end()) && force == false) {
         return false;
     }
 
-    m_objects.insert(std::pair<std::string, AbstractJson*>(key, value));
+    if(it != m_objects.end()) {
+        it->second = value;
+    } else {
+        m_objects.insert(std::pair<std::string, AbstractJson*>(key, value));
+    }
     return true;
 }
 

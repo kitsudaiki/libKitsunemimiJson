@@ -110,7 +110,8 @@ public:
 
     // add
     bool insert(const std::string &key,
-                AbstractJson* value);
+                AbstractJson* value,
+                bool force = false);
 
     // getter
     AbstractJson* operator[](const std::string key);
