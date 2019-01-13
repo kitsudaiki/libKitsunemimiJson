@@ -52,6 +52,42 @@ AbstractJson::jsonTypes AbstractJson::getType() const
     return m_type;
 }
 
+/**
+ * @brief AbstractJson::toArray
+ * @return
+ */
+JsonArray *AbstractJson::toArray()
+{
+    if(m_type == ARRAY_TYPE) {
+        return static_cast<JsonArray*>(this);
+    }
+    return nullptr;
+}
+
+/**
+ * @brief AbstractJson::toObject
+ * @return
+ */
+JsonObject *AbstractJson::toObject()
+{
+    if(m_type == OBJECT_TYPE) {
+        return static_cast<JsonObject*>(this);
+    }
+    return nullptr;
+}
+
+/**
+ * @brief AbstractJson::toValue
+ * @return
+ */
+JsonValue *AbstractJson::toValue()
+{
+    if(m_type == STRING_TYPE || m_type == INT_TYPE) {
+        return static_cast<JsonValue*>(this);
+    }
+    return nullptr;
+}
+
 //===================================================================
 // JsonValue
 //===================================================================
