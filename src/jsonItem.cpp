@@ -5,9 +5,19 @@ namespace Kitsune
 namespace Json
 {
 
+JsonItem::JsonItem()
+{
+
+}
+
 JsonItem::JsonItem(AbstractJson *item)
 {
-    m_item = item;
+    m_item = item->copy();
+}
+
+JsonItem::~JsonItem()
+{
+    delete m_item;
 }
 
 JsonItem JsonItem::operator[](const std::string key)

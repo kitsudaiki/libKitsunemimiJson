@@ -142,6 +142,22 @@ JsonValue::getSize() const
 }
 
 /**
+ * @brief JsonValue::copy
+ * @return
+ */
+AbstractJson*
+JsonValue::copy()
+{
+    JsonValue *tempItem = nullptr;
+    if(m_type == STRING_TYPE) {
+        tempItem = new JsonValue(m_stringValue);
+    } else {
+        tempItem = new JsonValue(m_intValue);
+    }
+    return tempItem;
+}
+
+/**
  * fake-method which exist here only for the inheritance and returns everytime false
  */
 bool
@@ -314,6 +330,22 @@ JsonObject::getSize() const
 }
 
 /**
+ * @brief JsonObject::copy
+ * @return
+ */
+AbstractJson*
+JsonObject::copy()
+{
+    JsonObject* tempItem = new JsonObject();
+    std::map<std::string, AbstractJson*>::iterator it;
+    for(it = m_objects.begin(); it != m_objects.end(); it++)
+    {
+        tempItem->insert(it->first, it->second->copy());
+    }
+    return tempItem;
+}
+
+/**
  * remove an item from the key-value-list
  *
  * @param key key of the pair, which should be deleted
@@ -474,6 +506,21 @@ uint32_t
 JsonArray::getSize() const
 {
     return static_cast<uint32_t>(m_array.size());
+}
+
+/**
+ * @brief JsonArray::copy
+ * @return
+ */
+AbstractJson*
+JsonArray::copy()
+{
+    JsonArray* tempItem = new JsonArray();
+    for(uint32_t i = 0; i < m_array.size(); i++)
+    {
+        tempItem->append(m_array[i]->copy());
+    }
+    return tempItem;
 }
 
 /**

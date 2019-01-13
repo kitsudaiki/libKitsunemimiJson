@@ -46,6 +46,7 @@ public:
     virtual AbstractJson* get(const uint32_t index) = 0;
     virtual uint32_t getSize() const = 0;
     jsonTypes getType() const;
+    virtual AbstractJson* copy() = 0;
 
     JsonArray* toArray();
     JsonObject* toObject();
@@ -82,6 +83,7 @@ public:
     std::string getString() const;
     int getInt() const;
     uint32_t getSize() const;
+    AbstractJson* copy();
 
     // delete
     bool remove(const std::string &key);
@@ -112,6 +114,7 @@ public:
     AbstractJson* get(const std::string key);
     AbstractJson* get(const uint32_t index);
     uint32_t getSize() const;
+    AbstractJson* copy();
 
     // delete
     bool remove(const std::string &key);
@@ -140,6 +143,7 @@ public:
     AbstractJson* get(const std::string key);
     AbstractJson* get(const uint32_t index);
     uint32_t getSize() const;
+    AbstractJson* copy();
 
     // delete
     bool remove(const std::string &key);

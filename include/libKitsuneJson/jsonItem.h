@@ -11,7 +11,9 @@ namespace Json
 class JsonItem
 {
 public:
-    JsonItem(AbstractJson* item);
+    JsonItem();
+    JsonItem(AbstractJson *item);
+    ~JsonItem();
 
     JsonItem operator[](const std::string key);
     JsonItem operator[](const uint32_t index);
