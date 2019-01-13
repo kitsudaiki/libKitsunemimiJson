@@ -82,24 +82,6 @@ JsonValue::JsonValue(const int value)
  * fake-method which exist here only for the inheritance and returns everytime nullptr
  */
 AbstractJson*
-JsonValue::operator[](const std::string key)
-{
-    return nullptr;
-}
-
-/**
- * fake-method which exist here only for the inheritance and returns everytime nullptr
- */
-AbstractJson*
-JsonValue::operator[](const uint32_t index)
-{
-    return nullptr;
-}
-
-/**
- * fake-method which exist here only for the inheritance and returns everytime nullptr
- */
-AbstractJson*
 JsonValue::get(const std::string key)
 {
     return nullptr;
@@ -237,30 +219,6 @@ JsonObject::~JsonObject()
         delete value;
     }
     m_objects.clear();
-}
-
-/**
- * get a specific item of the object
- *
- * @param key key of the requested value
- * @return nullptr if index in key is to high, else object
- */
-AbstractJson*
-JsonObject::operator[](const std::string key)
-{
-    return get(key);
-}
-
-/**
- * get a specific item of the object
- *
- * @param index index of the item
- * @return nullptr if index is to high, else object
- */
-AbstractJson*
-JsonObject::operator[](const uint32_t index)
-{
-    return get(index);
 }
 
 /**
@@ -436,30 +394,6 @@ JsonArray::~JsonArray()
         delete tempItem;
     }
     m_array.clear();
-}
-
-/**
- * get a specific item of the array
- *
- * @param key index of the item as string
- * @return nullptr if index in key is to high, else true
- */
-AbstractJson*
-JsonArray::operator[](const std::string key)
-{
-    return get(key);
-}
-
-/**
- * get a specific item of the array
- *
- * @param index index of the item
- * @return nullptr if index is to high, else true
- */
-AbstractJson*
-JsonArray::operator[](const uint32_t index)
-{
-    return get(index);
 }
 
 /**

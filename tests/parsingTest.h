@@ -9,7 +9,7 @@
 #ifndef PARSERTEST_H
 #define PARSERTEST_H
 
-#include <commonTest.h>
+#include <../../../LibKitsuneCommon/include/libKitsuneCommon/commonTest.h>
 
 namespace Kitsune
 {

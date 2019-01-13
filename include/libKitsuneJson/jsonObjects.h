@@ -39,8 +39,6 @@ public:
     };
 
     // getter
-    virtual AbstractJson* operator[](const std::string key) = 0;
-    virtual AbstractJson* operator[](const uint32_t index) = 0;
     virtual AbstractJson* get(const std::string key) = 0;
     virtual AbstractJson* get(const uint32_t index) = 0;
     virtual uint32_t getSize() const = 0;
@@ -72,8 +70,6 @@ public:
     void setValue(const int &item);
 
     // getter
-    AbstractJson* operator[](const std::string key);
-    AbstractJson* operator[](const uint32_t index);
     AbstractJson* get(const std::string key);
     AbstractJson* get(const uint32_t index);
     std::string getString() const;
@@ -106,8 +102,6 @@ public:
                 AbstractJson* value);
 
     // getter
-    AbstractJson* operator[](const std::string key);
-    AbstractJson* operator[](const uint32_t index);
     AbstractJson* get(const std::string key);
     AbstractJson* get(const uint32_t index);
     uint32_t getSize() const;
@@ -136,8 +130,6 @@ public:
     bool append(AbstractJson* item);
 
     // getter
-    AbstractJson* operator[](const std::string key);
-    AbstractJson* operator[](const uint32_t index);
     AbstractJson* get(const std::string key);
     AbstractJson* get(const uint32_t index);
     uint32_t getSize() const;
