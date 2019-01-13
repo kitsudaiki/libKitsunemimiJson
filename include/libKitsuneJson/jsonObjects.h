@@ -79,17 +79,17 @@ public:
     void setValue(const int &item);
 
     // getter
-    AbstractJson* operator[](const std::string key);
-    AbstractJson* operator[](const uint32_t index);
-    AbstractJson* get(const std::string key);
-    AbstractJson* get(const uint32_t index);
+    AbstractJson* operator[](const std::string);
+    AbstractJson* operator[](const uint32_t);
+    AbstractJson* get(const std::string);
+    AbstractJson* get(const uint32_t);
     std::string getString() const;
     int getInt() const;
     uint32_t getSize() const;
 
     // delete
-    bool remove(const std::string &key);
-    bool remove(const uint32_t index);
+    bool remove(const std::string&);
+    bool remove(const uint32_t);
 
     // output
     void print(std::string *output);

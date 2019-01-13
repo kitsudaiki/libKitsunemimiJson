@@ -118,7 +118,7 @@ JsonValue::JsonValue(const int value)
  * fake-method which exist here only for the inheritance and returns everytime nullptr
  */
 AbstractJson*
-JsonValue::operator[](const std::string key)
+JsonValue::operator[](const std::string)
 {
     return nullptr;
 }
@@ -127,7 +127,7 @@ JsonValue::operator[](const std::string key)
  * fake-method which exist here only for the inheritance and returns everytime nullptr
  */
 AbstractJson*
-JsonValue::operator[](const uint32_t index)
+JsonValue::operator[](const uint32_t)
 {
     return nullptr;
 }
@@ -136,7 +136,7 @@ JsonValue::operator[](const uint32_t index)
  * fake-method which exist here only for the inheritance and returns everytime nullptr
  */
 AbstractJson*
-JsonValue::get(const std::string key)
+JsonValue::get(const std::string)
 {
     return nullptr;
 }
@@ -145,7 +145,7 @@ JsonValue::get(const std::string key)
  * fake-method which exist here only for the inheritance and returns everytime nullptr
  */
 AbstractJson*
-JsonValue::get(const uint32_t index)
+JsonValue::get(const uint32_t)
 {
     return nullptr;
 }
@@ -163,7 +163,7 @@ JsonValue::getSize() const
  * fake-method which exist here only for the inheritance and returns everytime false
  */
 bool
-JsonValue::remove(const std::string &key)
+JsonValue::remove(const std::string&)
 {
     return false;
 }
@@ -172,7 +172,7 @@ JsonValue::remove(const std::string &key)
  * fake-method which exist here only for the inheritance and returns everytime false
  */
 bool
-JsonValue::remove(const uint32_t index)
+JsonValue::remove(const uint32_t)
 {
     return false;
 }

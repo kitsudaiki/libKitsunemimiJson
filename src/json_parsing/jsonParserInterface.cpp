@@ -118,15 +118,15 @@ JsonParserInterface::error(const Kitsune::Json::location& location,
                            const std::string& message)
 {
     // get the broken part of the parsed string
-    // const int errorStart = static_cast<int>(location.begin.column) - 1;
-    // const int errorLength = static_cast<int>(location.end.column - location.begin.column);
-    // const QString errorStringPart = m_inputString.mid(errorStart, errorLength);
+    const uint32_t errorStart = location.begin.column - 1;
+    const uint32_t errorLength = location.end.column - location.begin.column;
+    const std::string errorStringPart = m_inputString.substr(errorStart, errorLength);
 
     // build error-message
-    // m_errorMessage =  "error while parsing jinja2-template \n";
-    // m_errorMessage += "parser-message: " + QString(message.c_str()) + " \n";
-    // m_errorMessage += "line-number: " + QString::number(location.begin.line) + " \n";
-    // m_errorMessage += "broken part in template: " + errorStringPart + " \n";
+    m_errorMessage =  "error while parsing jinja2-template \n";
+    m_errorMessage += "parser-message: " + message + " \n";
+    m_errorMessage += "line-number: " + std::to_string(location.begin.line) + " \n";
+    m_errorMessage += "broken part in template: " + errorStringPart + " \n";
 }
 
 /**
