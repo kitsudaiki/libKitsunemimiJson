@@ -25,12 +25,13 @@ JsonArrayTest::JsonArrayTest() : Kitsune::CommonTest("JsonArrayTest")
 
 void JsonArrayTest::initTestCase()
 {
+    std::vector<JsonItem> emptyVector;
+    m_item = new JsonItem(emptyVector);
 }
 
 void JsonArrayTest::insertTestCase()
 {
-    std::vector<JsonItem> emptyVector;
-    JsonItem item(emptyVector);
+    JsonItem item(*m_item);
 
     UNITTEST(item.getSize(), 0);
     UNITTEST(item.isArray(), true);
@@ -46,16 +47,14 @@ void JsonArrayTest::insertTestCase()
     item.print(&outputString);
     std::string compare("[\"test1\",\"test2\"]");
     UNITTEST(outputString, compare);
+
+    *m_item = item;
 }
 
 void JsonArrayTest::getTestCase()
 {
-    std::vector<JsonItem> emptyVector;
-    JsonItem item(emptyVector);
-    JsonItem value1("test1");
-    JsonItem value2("test2");
-    item.append(value1);
-    item.append(value2);
+    JsonItem x(1);
+    JsonItem item(*m_item);
 
     JsonItem return1 = item["0"];
     UNITTEST(return1.getString(), "test1");
@@ -66,12 +65,7 @@ void JsonArrayTest::getTestCase()
 
 void JsonArrayTest::removeTestCase()
 {
-    std::vector<JsonItem> emptyVector;
-    JsonItem item(emptyVector);
-    JsonItem value1("test1");
-    JsonItem value2("test2");
-    item.append(value1);
-    item.append(value2);
+    JsonItem item(*m_item);
 
     UNITTEST(item.remove("1"), true);
     UNITTEST(item.getSize(), 1);
@@ -82,6 +76,7 @@ void JsonArrayTest::removeTestCase()
 
 void JsonArrayTest::cleanupTestCase()
 {
+    delete m_item;
 }
 
 }  // namespace Json

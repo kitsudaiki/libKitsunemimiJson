@@ -28,7 +28,7 @@ class JsonValue;
 class AbstractJson
 {
 public:
-    virtual ~AbstractJson() {}
+    virtual ~AbstractJson();
 
     static AbstractJson* parseString(const std::string &input);
 
@@ -73,7 +73,7 @@ public:
     JsonValue();
     JsonValue(const std::string &text);
     JsonValue(const int value);
-    ~JsonValue() {}
+    ~JsonValue() {std::cout<<"JsonValue: "<<this<<std::endl;}
 
     // setter
     void setValue(const std::string &item);

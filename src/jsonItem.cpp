@@ -85,9 +85,15 @@ JsonItem::JsonItem(int value)
  */
 JsonItem::~JsonItem()
 {
+    std::cout<<"###################### JsonItem: "<<this<<std::endl;
     clear();
 }
 
+/**
+ * @brief JsonItem::operator =
+ * @param other
+ * @return
+ */
 JsonItem &JsonItem::operator=(const JsonItem &other)
 {
     if(this != &other)

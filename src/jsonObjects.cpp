@@ -19,6 +19,10 @@ namespace Json
 // AbstractJson
 //===================================================================
 
+AbstractJson::~AbstractJson()
+{
+    std::cout<<"AbstractJson: "<<this<<std::endl;
+}
 
 /**
  * static-method which calls the parser to convert a json-formated string into a json-object-tree
@@ -284,6 +288,7 @@ JsonObject::JsonObject()
  */
 JsonObject::~JsonObject()
 {
+    std::cout<<"JsonObject: "<<this<<std::endl;
     // std::cout<<"destructor object"<<std::endl;
     std::map<std::string, AbstractJson*>::iterator it;
     for(it = m_objects.begin(); it != m_objects.end(); it++)
@@ -519,16 +524,11 @@ JsonArray::JsonArray()
  */
 JsonArray::~JsonArray()
 {
+    std::cout<<"JsonArray: "<<this<<std::endl;
     // std::cout<<"destructor array"<<std::endl;
     for(uint32_t i = 0; i < m_array.size(); i++)
     {
         AbstractJson* tempItem = m_array[i];
-        if(tempItem->getType() == OBJECT_TYPE) {
-            delete static_cast<JsonObject*>(tempItem);
-        }
-        if(tempItem->getType() == ARRAY_TYPE) {
-            delete static_cast<JsonArray*>(tempItem);
-        }
         delete tempItem;
     }
     m_array.clear();
