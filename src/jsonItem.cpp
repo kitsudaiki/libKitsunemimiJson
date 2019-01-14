@@ -26,10 +26,58 @@ JsonItem::JsonItem(const JsonItem &otherItem)
 
 /**
  * @brief JsonItem::JsonItem
+ * @param value
  */
-JsonItem::JsonItem()
+JsonItem::JsonItem(std::map<std::string, JsonItem> &value)
 {
-    m_item = nullptr;
+    JsonObject* tempItem = new JsonObject();
+    m_item = static_cast<AbstractJson*>(tempItem);
+
+    std::map<std::string, JsonItem>::iterator it;
+    for(it = value.begin(); it != value.end(); it++)
+    {
+        insert(it->first, it->second);
+    }
+}
+
+/**
+ * @brief JsonItem::JsonItem
+ * @param value
+ */
+JsonItem::JsonItem(std::vector<JsonItem> &value)
+{
+    JsonArray* tempItem = new JsonArray();
+    m_item = static_cast<AbstractJson*>(tempItem);
+
+    std::vector<JsonItem>::iterator it;
+    for(it = value.begin(); it != value.end(); it++)
+    {
+        append(*it);
+    }
+}
+
+/**
+ * @brief JsonItem::JsonItem
+ * @param value
+ */
+JsonItem::JsonItem(std::string value)
+{
+    JsonValue* tempItem = new JsonValue();
+    m_item = static_cast<AbstractJson*>(tempItem);
+
+    setValue(value);
+}
+
+/**
+ * @brief JsonItem::JsonItem
+ * @param value
+ */
+JsonItem::JsonItem(int value)
+{
+    JsonValue* tempItem = new JsonValue();
+    m_item = static_cast<AbstractJson*>(tempItem);
+
+    setValue(value);
 }
 
 /**
@@ -37,7 +85,17 @@ JsonItem::JsonItem()
  */
 JsonItem::~JsonItem()
 {
-    delete m_item;
+    clear();
+}
+
+JsonItem &JsonItem::operator=(const JsonItem &other)
+{
+    if(this != &other)
+    {
+        clear();
+        m_item = other.m_item->copy();
+    }
+    return *this;
 }
 
 /**
@@ -256,6 +314,18 @@ JsonItem::print(std::string *output)
 JsonItem::JsonItem(AbstractJson *item)
 {
     m_item = item;
+}
+
+/**
+ * @brief JsonItem::clear
+ */
+void JsonItem::clear()
+{
+    if(m_item != nullptr)
+    {
+        delete m_item;
+        m_item = nullptr;
+    }
 }
 
 }  // namespace Json

@@ -25,50 +25,63 @@ JsonArrayTest::JsonArrayTest() : Kitsune::CommonTest("JsonArrayTest")
 
 void JsonArrayTest::initTestCase()
 {
-    m_item = new JsonItem(Json::ARRAY_TYPE);
 }
 
 void JsonArrayTest::insertTestCase()
 {
-    UNITTEST(m_item->getSize(), 0);
-    UNITTEST(m_item->getType(), Json::ARRAY_TYPE);
+    std::vector<JsonItem> emptyVector;
+    JsonItem item(emptyVector);
 
-    JsonItem value1(Json::VALUE_TYPE);
-    JsonItem value2(Json::VALUE_TYPE);
+    UNITTEST(item.getSize(), 0);
+    UNITTEST(item.isArray(), true);
 
-    value1.setValue("test1");
-    value2.setValue("test2");
-    m_item->append(value1);
-    m_item->append(value2);
+    JsonItem value1("test1");
+    JsonItem value2("test2");
 
-    UNITTEST(m_item->getSize(), 2);
+    item.append(value1);
+    item.append(value2);
+
+    UNITTEST(item.getSize(), 2);
     std::string outputString = "";
-    m_item->print(&outputString);
+    item.print(&outputString);
     std::string compare("[\"test1\",\"test2\"]");
     UNITTEST(outputString, compare);
 }
 
 void JsonArrayTest::getTestCase()
 {
-    JsonItem value1 = (*m_item)["0"];
-    UNITTEST(value1.getString(), "test1");
+    std::vector<JsonItem> emptyVector;
+    JsonItem item(emptyVector);
+    JsonItem value1("test1");
+    JsonItem value2("test2");
+    item.append(value1);
+    item.append(value2);
 
-    JsonItem value2 = (*m_item)[1];
-    UNITTEST(value2.getString(), "test2");
+    JsonItem return1 = item["0"];
+    UNITTEST(return1.getString(), "test1");
+
+    JsonItem return2 = item[1];
+    UNITTEST(return2.getString(), "test2");
 }
 
 void JsonArrayTest::removeTestCase()
 {
-    UNITTEST(m_item->remove("1"), true);
-    UNITTEST(m_item->getSize(), 1);
-    UNITTEST(m_item->remove(0), true);
-    UNITTEST(m_item->getSize(), 0);
-    UNITTEST(m_item->remove(2), false);
+    std::vector<JsonItem> emptyVector;
+    JsonItem item(emptyVector);
+    JsonItem value1("test1");
+    JsonItem value2("test2");
+    item.append(value1);
+    item.append(value2);
+
+    UNITTEST(item.remove("1"), true);
+    UNITTEST(item.getSize(), 1);
+    UNITTEST(item.remove(0), true);
+    UNITTEST(item.getSize(), 0);
+    UNITTEST(item.remove(2), false);
 }
 
 void JsonArrayTest::cleanupTestCase()
 {
-    delete m_item;
 }
 
 }  // namespace Json

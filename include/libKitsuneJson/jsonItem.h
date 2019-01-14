@@ -23,15 +23,14 @@ class AbstractJson;
 class JsonItem
 {
 public:
-    JsonItem();
+    JsonItem(std::map<std::string, JsonItem> &value);
+    JsonItem(std::vector<JsonItem> &value);
+    JsonItem(std::string value);
+    JsonItem(int value);
     JsonItem(const JsonItem &otherItem);
     ~JsonItem();
 
-    // assign
-    JsonItem& operator=(const std::map<std::string, JsonItem> &value);
-    JsonItem& operator=(const std::vector<JsonItem> &value);
-    JsonItem& operator=(const std::string &value);
-    JsonItem& operator=(const int &value);
+    JsonItem& operator=(const JsonItem& other);
 
     // setter
     bool setValue(const std::string &value);
@@ -64,6 +63,7 @@ public:
 
 private:
     JsonItem(AbstractJson* item);
+    void clear();
 
     AbstractJson* m_item = nullptr;
 };

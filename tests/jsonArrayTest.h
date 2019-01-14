@@ -28,8 +28,6 @@ private:
     void getTestCase();
     void removeTestCase();
     void cleanupTestCase();
-
-    JsonItem* m_item = nullptr;
 };
 
 }  // namespace Json

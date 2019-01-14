@@ -28,10 +28,9 @@ class JsonValue;
 class AbstractJson
 {
 public:
-    AbstractJson();
+    virtual ~AbstractJson() {}
 
     static AbstractJson* parseString(const std::string &input);
-    virtual ~AbstractJson() {}
 
     enum jsonTypes {
         UNINIT_TYPE = 0,
