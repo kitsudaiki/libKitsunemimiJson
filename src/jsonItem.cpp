@@ -6,7 +6,7 @@
  *  Contact: tobias.anker@kitsunemimi.moe
  */
 
-#include "jsonItem.h"
+#include <jsonItem.h>
 
 #include <jsonObjects.h>
 
@@ -26,11 +26,10 @@ JsonItem::JsonItem(const JsonItem &otherItem)
 
 /**
  * @brief JsonItem::JsonItem
- * @param item
  */
-JsonItem::JsonItem(AbstractJson *item)
+JsonItem::JsonItem()
 {
-    m_item = item;
+    m_item = nullptr;
 }
 
 /**
@@ -78,11 +77,11 @@ JsonItem::setValue(const int &value)
  */
 bool
 JsonItem::insert(const std::string &key,
-                 AbstractJson *value,
+                 const JsonItem &value,
                  bool force)
 {
     if(m_item->getType() == AbstractJson::OBJECT_TYPE) {
-        return m_item->toObject()->insert(key, value, force);
+        return m_item->toObject()->insert(key, value.m_item->copy(), force);
     }
     return false;
 }
@@ -93,10 +92,10 @@ JsonItem::insert(const std::string &key,
  * @return
  */
 bool
-JsonItem::append(AbstractJson *item)
+JsonItem::append(const JsonItem &value)
 {
     if(m_item->getType() == AbstractJson::ARRAY_TYPE) {
-        return m_item->toArray()->append(item);
+        return m_item->toArray()->append(value.m_item->copy());
     }
     return false;
 }
@@ -182,6 +181,43 @@ JsonItem::getSize() const
 }
 
 /**
+ * @brief JsonItem::isObject
+ * @return
+ */
+bool JsonItem::isObject() const
+{
+    if(m_item->getType() == AbstractJson::OBJECT_TYPE) {
+        return true;
+    }
+    return false;
+}
+
+/**
+ * @brief JsonItem::isArray
+ * @return
+ */
+bool JsonItem::isArray() const
+{
+    if(m_item->getType() == AbstractJson::ARRAY_TYPE) {
+        return true;
+    }
+    return false;
+}
+
+/**
+ * @brief JsonItem::isValue
+ * @return
+ */
+bool JsonItem::isValue() const
+{
+    if(m_item->getType() == AbstractJson::STRING_TYPE
+            || m_item->getType() == AbstractJson::INT_TYPE) {
+        return true;
+    }
+    return false;
+}
+
+/**
  * @brief JsonItem::remove
  * @param key
  * @return
@@ -211,6 +247,15 @@ void
 JsonItem::print(std::string *output)
 {
     m_item->print(output);
+}
+
+/**
+ * @brief JsonItem::JsonItem
+ * @param item
+ */
+JsonItem::JsonItem(AbstractJson *item)
+{
+    m_item = item;
 }
 
 }  // namespace Json

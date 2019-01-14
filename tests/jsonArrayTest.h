@@ -16,6 +16,7 @@ namespace Kitsune
 namespace Json
 {
 class JsonArray;
+class JsonItem;
 
 class JsonArrayTest: public Kitsune::CommonTest
 {
@@ -28,7 +29,7 @@ private:
     void removeTestCase();
     void cleanupTestCase();
 
-    JsonArray* m_array = nullptr;
+    JsonItem* m_item = nullptr;
 };
 
 }  // namespace Json

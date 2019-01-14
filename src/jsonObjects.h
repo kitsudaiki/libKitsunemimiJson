@@ -71,6 +71,7 @@ protected:
 class JsonValue : public AbstractJson
 {
 public:
+    JsonValue();
     JsonValue(const std::string &text);
     JsonValue(const int value);
     ~JsonValue() {}

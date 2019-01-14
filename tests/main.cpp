@@ -14,8 +14,8 @@
 
 int main()
 {
-    Kitsune::Json::ParsingTest();
-    Kitsune::Json::JsonValueTest();
+    //Kitsune::Json::ParsingTest();
+    //Kitsune::Json::JsonValueTest();
     Kitsune::Json::JsonArrayTest();
-    Kitsune::Json::JsonObjectTest();
+    //Kitsune::Json::JsonObjectTest();
 }

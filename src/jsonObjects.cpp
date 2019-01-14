@@ -93,6 +93,14 @@ JsonValue *AbstractJson::toValue()
 //===================================================================
 
 /**
+ * @brief JsonValue::JsonValue
+ */
+JsonValue::JsonValue()
+{
+    m_type = STRING_TYPE;
+}
+
+/**
  * json-value for strings
  *
  * @param text string which should be stored in the json-value
