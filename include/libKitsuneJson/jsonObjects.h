@@ -58,6 +58,7 @@ public:
     virtual bool remove(const uint32_t index) = 0;
 
     // output
+    virtual AbstractJson* copy() = 0;
     virtual void print(std::string *output) = 0;
 
 protected:
@@ -92,6 +93,7 @@ public:
     bool remove(const uint32_t);
 
     // output
+    AbstractJson* copy();
     void print(std::string *output);
 
 private:
@@ -125,6 +127,7 @@ public:
     bool remove(const uint32_t index);
 
     // output
+    AbstractJson* copy();
     void print(std::string *output);
 
 private:
@@ -155,6 +158,7 @@ public:
     bool remove(const uint32_t index);
 
     // output
+    AbstractJson* copy();
     void print(std::string *output);
 
 private:
