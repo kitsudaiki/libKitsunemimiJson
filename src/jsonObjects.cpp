@@ -21,7 +21,7 @@ namespace Json
 
 AbstractJson::~AbstractJson()
 {
-    std::cout<<"AbstractJson: "<<this<<std::endl;
+    //std::cout<<"AbstractJson: "<<this<<std::endl;
 }
 
 /**
@@ -119,6 +119,14 @@ JsonValue::JsonValue(const int value)
 {
     m_type = INT_TYPE;
     m_intValue = value;
+}
+
+/**
+ * @brief JsonValue::~JsonValue
+ */
+JsonValue::~JsonValue()
+{
+    //std::cout<<"JsonValue: "<<this<<std::endl;
 }
 
 /**
@@ -288,22 +296,12 @@ JsonObject::JsonObject()
  */
 JsonObject::~JsonObject()
 {
-    std::cout<<"JsonObject: "<<this<<std::endl;
-    // std::cout<<"destructor object"<<std::endl;
+    //std::cout<<"JsonObject: "<<this<<std::endl;
     std::map<std::string, AbstractJson*>::iterator it;
     for(it = m_objects.begin(); it != m_objects.end(); it++)
     {
         AbstractJson* tempItem = it->second;
-        if(tempItem->getType() == OBJECT_TYPE) {
-            delete static_cast<JsonObject*>(tempItem);
-        }
-        if(tempItem->getType() == ARRAY_TYPE) {
-            delete static_cast<JsonArray*>(tempItem);
-        }
-        if(tempItem->getType() == STRING_TYPE
-                || tempItem->getType() == INT_TYPE) {
-            delete static_cast<JsonValue*>(tempItem);
-        }
+        delete tempItem;
     }
     m_objects.clear();
 }
@@ -524,8 +522,7 @@ JsonArray::JsonArray()
  */
 JsonArray::~JsonArray()
 {
-    std::cout<<"JsonArray: "<<this<<std::endl;
-    // std::cout<<"destructor array"<<std::endl;
+    //std::cout<<"JsonArray: "<<this<<std::endl;
     for(uint32_t i = 0; i < m_array.size(); i++)
     {
         AbstractJson* tempItem = m_array[i];

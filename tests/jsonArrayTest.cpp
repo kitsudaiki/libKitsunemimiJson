@@ -54,7 +54,15 @@ void JsonArrayTest::insertTestCase()
 void JsonArrayTest::getTestCase()
 {
     JsonItem x(1);
-    JsonItem item(*m_item);
+    std::vector<JsonItem> emptyVector2;
+    JsonItem* m_item2 = new JsonItem(emptyVector2);
+    JsonItem item(*m_item2);
+
+    JsonItem value1("test1");
+    JsonItem value2("test2");
+
+    item.append(value1);
+    item.append(value2);
 
     JsonItem return1 = item["0"];
     UNITTEST(return1.getString(), "test1");

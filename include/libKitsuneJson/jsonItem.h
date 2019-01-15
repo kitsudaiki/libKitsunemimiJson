@@ -28,11 +28,11 @@ public:
     JsonItem(std::string value);
     JsonItem(int value);
     JsonItem(const JsonItem &otherItem);
+
     ~JsonItem();
 
-    JsonItem& operator=(const JsonItem& other);
-
     // setter
+    JsonItem& operator=(const JsonItem& other);
     bool setValue(const std::string &value);
     bool setValue(const int &value);
     bool insert(const std::string &key,
@@ -45,7 +45,6 @@ public:
     JsonItem operator[](const uint32_t index);
     JsonItem get(const std::string key);
     JsonItem get(const uint32_t index);
-
     std::string getString() const;
     int getInt() const;
     uint32_t getSize() const;

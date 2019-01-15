@@ -73,7 +73,7 @@ public:
     JsonValue();
     JsonValue(const std::string &text);
     JsonValue(const int value);
-    ~JsonValue() {std::cout<<"JsonValue: "<<this<<std::endl;}
+    ~JsonValue();
 
     // setter
     void setValue(const std::string &item);

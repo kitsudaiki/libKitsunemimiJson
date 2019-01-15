@@ -85,7 +85,6 @@ JsonItem::JsonItem(int value)
  */
 JsonItem::~JsonItem()
 {
-    std::cout<<"###################### JsonItem: "<<this<<std::endl;
     clear();
 }
 
@@ -172,7 +171,7 @@ JsonItem::append(const JsonItem &value)
 JsonItem
 JsonItem::operator[](const std::string key)
 {
-    return JsonItem(m_item->get(key));
+    return JsonItem(m_item->get(key)->copy());
 }
 
 /**
@@ -183,7 +182,7 @@ JsonItem::operator[](const std::string key)
 JsonItem
 JsonItem::operator[](const uint32_t index)
 {
-    return JsonItem(m_item->get(index));
+    return JsonItem(m_item->get(index)->copy());
 }
 
 /**
