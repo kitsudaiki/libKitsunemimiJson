@@ -1,12 +1,12 @@
 /**
- *  @file    jsonArrayTest.cpp
+ *  @file    jsonArrayItemTest.cpp
  *  @version 0.1.0
  *
  *  @author  Tobias Anker
  *  Contact: tobias.anker@kitsunemimi.moe
  */
 
-#include "jsonArrayTest.h"
+#include "jsonArrayItemTest.h"
 #include <jsonItem.h>
 
 namespace Kitsune
@@ -14,7 +14,7 @@ namespace Kitsune
 namespace Json
 {
 
-JsonArrayTest::JsonArrayTest() : Kitsune::CommonTest("JsonArrayTest")
+JsonArrayItemTest::JsonArrayItemTest() : Kitsune::CommonTest("JsonArrayItemTest")
 {
     initTestCase();
     insertTestCase();
@@ -23,13 +23,13 @@ JsonArrayTest::JsonArrayTest() : Kitsune::CommonTest("JsonArrayTest")
     cleanupTestCase();
 }
 
-void JsonArrayTest::initTestCase()
+void JsonArrayItemTest::initTestCase()
 {
     std::vector<JsonItem> emptyVector;
     m_item = new JsonItem(emptyVector);
 }
 
-void JsonArrayTest::insertTestCase()
+void JsonArrayItemTest::insertTestCase()
 {
     JsonItem item(*m_item);
 
@@ -51,18 +51,9 @@ void JsonArrayTest::insertTestCase()
     *m_item = item;
 }
 
-void JsonArrayTest::getTestCase()
+void JsonArrayItemTest::getTestCase()
 {
-    JsonItem x(1);
-    std::vector<JsonItem> emptyVector2;
-    JsonItem* m_item2 = new JsonItem(emptyVector2);
-    JsonItem item(*m_item2);
-
-    JsonItem value1("test1");
-    JsonItem value2("test2");
-
-    item.append(value1);
-    item.append(value2);
+    JsonItem item(*m_item);
 
     JsonItem return1 = item["0"];
     UNITTEST(return1.getString(), "test1");
@@ -71,7 +62,7 @@ void JsonArrayTest::getTestCase()
     UNITTEST(return2.getString(), "test2");
 }
 
-void JsonArrayTest::removeTestCase()
+void JsonArrayItemTest::removeTestCase()
 {
     JsonItem item(*m_item);
 
@@ -82,7 +73,7 @@ void JsonArrayTest::removeTestCase()
     UNITTEST(item.remove(2), false);
 }
 
-void JsonArrayTest::cleanupTestCase()
+void JsonArrayItemTest::cleanupTestCase()
 {
     delete m_item;
 }

@@ -20,11 +20,11 @@ LIBS +=  -lfl -ly
 SOURCES += \
         json_parsing/jsonParserInterface.cpp \
         jsonObjects.cpp \
-    jsonItem.cpp
+        jsonItem.cpp
 
 HEADERS += \
         json_parsing/jsonParserInterface.h \
-        jsonObjects.h \
+        ../include/libKitsuneJson/jsonObjects.h \
         ../include/libKitsuneJson/jsonItem.h
 
 FLEXSOURCES = grammar/jsonLexer.l

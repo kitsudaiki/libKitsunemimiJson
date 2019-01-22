@@ -128,7 +128,7 @@ JsonParserInterface::error(const Kitsune::Json::location& location,
     m_errorMessage += "position in line: " + std::to_string(location.begin.column) + " \n";
     m_errorMessage += "broken part in template: \"" + errorStringPart + "\" \n";
 
-    std::cout<<"m_errorMessage: "<<m_errorMessage<<std::endl;
+    //std::cout<<"m_errorMessage: "<<m_errorMessage<<std::endl;
 }
 
 /**

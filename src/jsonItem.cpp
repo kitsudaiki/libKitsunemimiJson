@@ -110,7 +110,9 @@ JsonItem &JsonItem::operator=(const JsonItem &other)
 bool
 JsonItem::setValue(const std::string &value)
 {
-    if(m_item->getType() == AbstractJson::STRING_TYPE) {
+    if(m_item->getType() == AbstractJson::INT_TYPE
+            || m_item->getType() == AbstractJson::STRING_TYPE)
+    {
         m_item->toValue()->setValue(value);
         return true;
     }
@@ -124,7 +126,9 @@ JsonItem::setValue(const std::string &value)
 bool
 JsonItem::setValue(const int &value)
 {
-    if(m_item->getType() == AbstractJson::INT_TYPE) {
+    if(m_item->getType() == AbstractJson::INT_TYPE
+            || m_item->getType() == AbstractJson::STRING_TYPE)
+    {
         m_item->toValue()->setValue(value);
         return true;
     }
@@ -214,7 +218,8 @@ JsonItem::get(const uint32_t index)
 std::string
 JsonItem::getString() const
 {
-    if(m_item->getType() == AbstractJson::STRING_TYPE) {
+    if(m_item->getType() == AbstractJson::INT_TYPE
+            || m_item->getType() == AbstractJson::STRING_TYPE) {
         return m_item->toValue()->getString();
     }
     return "";
@@ -227,7 +232,8 @@ JsonItem::getString() const
 int
 JsonItem::getInt() const
 {
-    if(m_item->getType() == AbstractJson::INT_TYPE) {
+    if(m_item->getType() == AbstractJson::INT_TYPE
+            || m_item->getType() == AbstractJson::STRING_TYPE) {
         return m_item->toValue()->getInt();
     }
     return 0;

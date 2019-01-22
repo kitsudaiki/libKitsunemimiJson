@@ -1,13 +1,13 @@
 /**
- *  @file    jsonValueTest.h
+ *  @file    jsonArrayObjectsTest.h
  *  @version 0.1.0
  *
  *  @author  Tobias Anker
  *  Contact: tobias.anker@kitsunemimi.moe
  */
 
-#ifndef JSONVSLURTEST_H
-#define JSONVSLURTEST_H
+#ifndef JSONARRAYOBJECTTEST_H
+#define JSONARRAYOBJECTTEST_H
 
 #include <commonTest.h>
 
@@ -15,23 +15,23 @@ namespace Kitsune
 {
 namespace Json
 {
-class JsonValue;
+class JsonArray;
 
-class JsonValueTest: public Kitsune::CommonTest
+class JsonArrayObjectsTest: public Kitsune::CommonTest
 {
 public:
-    JsonValueTest();
+    JsonArrayObjectsTest();
 private:
     void initTestCase();
     void insertTestCase();
     void getTestCase();
+    void removeTestCase();
     void cleanupTestCase();
 
-    JsonValue* m_valueString = nullptr;
-    JsonValue* m_valueInt = nullptr;
+    JsonArray* m_array = nullptr;
 };
 
 }  // namespace Json
 }  // namespace Kitsune
 
-#endif // JSONVSLURTEST_H
+#endif // JSONARRAYOBJECTTEST_H
