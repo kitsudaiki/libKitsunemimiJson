@@ -1,6 +1,5 @@
 ﻿/**
  *  @file    jsonObjects.cpp
- *  @version 0.1.0
  *
  *  @author  Tobias Anker
  *  Contact: tobias.anker@kitsunemimi.moe
@@ -19,11 +18,10 @@ namespace Json
 // AbstractJson
 //===================================================================
 
-/**
- * universal json-object
- */
-AbstractJson::AbstractJson()
-{}
+AbstractJson::~AbstractJson()
+{
+    //std::cout<<"AbstractJson: "<<this<<std::endl;
+}
 
 /**
  * static-method which calls the parser to convert a json-formated string into a json-object-tree
@@ -93,6 +91,14 @@ JsonValue *AbstractJson::toValue()
 //===================================================================
 
 /**
+ * @brief JsonValue::JsonValue
+ */
+JsonValue::JsonValue()
+{
+    m_type = STRING_TYPE;
+}
+
+/**
  * json-value for strings
  *
  * @param text string which should be stored in the json-value
@@ -112,6 +118,14 @@ JsonValue::JsonValue(const int value)
 {
     m_type = INT_TYPE;
     m_intValue = value;
+}
+
+/**
+ * @brief JsonValue::~JsonValue
+ */
+JsonValue::~JsonValue()
+{
+    //std::cout<<"JsonValue: "<<this<<std::endl;
 }
 
 /**
@@ -175,6 +189,22 @@ bool
 JsonValue::remove(const uint32_t)
 {
     return false;
+}
+
+/**
+ * @brief JsonValue::copy
+ * @return
+ */
+AbstractJson*
+JsonValue::copy()
+{
+    JsonValue *tempItem = nullptr;
+    if(m_type == STRING_TYPE) {
+        tempItem = new JsonValue(m_stringValue);
+    } else {
+        tempItem = new JsonValue(m_intValue);
+    }
+    return tempItem;
 }
 
 /**
@@ -265,12 +295,12 @@ JsonObject::JsonObject()
  */
 JsonObject::~JsonObject()
 {
-    // std::cout<<"destructor object"<<std::endl;
+    //std::cout<<"JsonObject: "<<this<<std::endl;
     std::map<std::string, AbstractJson*>::iterator it;
     for(it = m_objects.begin(); it != m_objects.end(); it++)
     {
-        AbstractJson* value = it->second;
-        delete value;
+        AbstractJson* tempItem = it->second;
+        delete tempItem;
     }
     m_objects.clear();
 }
@@ -404,6 +434,22 @@ JsonObject::remove(const uint32_t index)
 }
 
 /**
+ * @brief JsonObject::copy
+ * @return
+ */
+AbstractJson*
+JsonObject::copy()
+{
+    JsonObject* tempItem = new JsonObject();
+    std::map<std::string, AbstractJson*>::iterator it;
+    for(it = m_objects.begin(); it != m_objects.end(); it++)
+    {
+        tempItem->insert(it->first, it->second->copy());
+    }
+    return tempItem;
+}
+
+/**
  * prints the content of the object
  *
  * @param output pointer to the output-string on which the object-content as string will be appended
@@ -475,7 +521,7 @@ JsonArray::JsonArray()
  */
 JsonArray::~JsonArray()
 {
-    // std::cout<<"destructor array"<<std::endl;
+    //std::cout<<"JsonArray: "<<this<<std::endl;
     for(uint32_t i = 0; i < m_array.size(); i++)
     {
         AbstractJson* tempItem = m_array[i];
@@ -583,6 +629,21 @@ JsonArray::remove(const uint32_t index)
     }
     m_array.erase(m_array.begin() + index);
     return true;
+}
+
+/**
+ * @brief JsonArray::copy
+ * @return
+ */
+AbstractJson*
+JsonArray::copy()
+{
+    JsonArray* tempItem = new JsonArray();
+    for(uint32_t i = 0; i < m_array.size(); i++)
+    {
+        tempItem->append(m_array[i]->copy());
+    }
+    return tempItem;
 }
 
 /**

@@ -1,6 +1,5 @@
 /**
  *  @file    jsonObjects.h
- *  @version 0.1.0
  *
  *  @author  Tobias Anker
  *  Contact: tobias.anker@kitsunemimi.moe
@@ -28,10 +27,9 @@ class JsonValue;
 class AbstractJson
 {
 public:
-    AbstractJson();
+    virtual ~AbstractJson();
 
     static AbstractJson* parseString(const std::string &input);
-    virtual ~AbstractJson() {}
 
     enum jsonTypes {
         UNINIT_TYPE = 0,
@@ -58,6 +56,7 @@ public:
     virtual bool remove(const uint32_t index) = 0;
 
     // output
+    virtual AbstractJson* copy() = 0;
     virtual void print(std::string *output) = 0;
 
 protected:
@@ -70,9 +69,10 @@ protected:
 class JsonValue : public AbstractJson
 {
 public:
+    JsonValue();
     JsonValue(const std::string &text);
     JsonValue(const int value);
-    ~JsonValue() {}
+    ~JsonValue();
 
     // setter
     void setValue(const std::string &item);
@@ -92,6 +92,7 @@ public:
     bool remove(const uint32_t);
 
     // output
+    AbstractJson* copy();
     void print(std::string *output);
 
 private:
@@ -125,6 +126,7 @@ public:
     bool remove(const uint32_t index);
 
     // output
+    AbstractJson* copy();
     void print(std::string *output);
 
 private:
@@ -155,6 +157,7 @@ public:
     bool remove(const uint32_t index);
 
     // output
+    AbstractJson* copy();
     void print(std::string *output);
 
 private:
