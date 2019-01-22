@@ -1,12 +1,11 @@
 /**
- *  @file    jsonValueTest.cpp
- *  @version 0.1.0
+ *  @file    jsonValueObjectsTest.cpp
  *
  *  @author  Tobias Anker
  *  Contact: tobias.anker@kitsunemimi.moe
  */
 
-#include "jsonValueTest.h"
+#include "jsonValueObjectsTest.h"
 #include <jsonObjects.h>
 
 namespace Kitsune
@@ -14,7 +13,7 @@ namespace Kitsune
 namespace Json
 {
 
-JsonValueTest::JsonValueTest() : Kitsune::CommonTest("JsonValueTest")
+JsonValueObjectsTest::JsonValueObjectsTest() : Kitsune::CommonTest("JsonValueObjectsTest")
 {
     initTestCase();
     insertTestCase();
@@ -22,13 +21,13 @@ JsonValueTest::JsonValueTest() : Kitsune::CommonTest("JsonValueTest")
     cleanupTestCase();
 }
 
-void JsonValueTest::initTestCase()
+void JsonValueObjectsTest::initTestCase()
 {
     m_valueString = new JsonValue(42);
     m_valueInt = new JsonValue(42);
 }
 
-void JsonValueTest::insertTestCase()
+void JsonValueObjectsTest::insertTestCase()
 {
     m_valueString->setValue("test");
 
@@ -36,13 +35,13 @@ void JsonValueTest::insertTestCase()
     UNITTEST(m_valueInt->getType(), AbstractJson::INT_TYPE);
 }
 
-void JsonValueTest::getTestCase()
+void JsonValueObjectsTest::getTestCase()
 {
     UNITTEST(m_valueString->getString(), "test");
     UNITTEST(m_valueInt->getInt(), 42);
 }
 
-void JsonValueTest::cleanupTestCase()
+void JsonValueObjectsTest::cleanupTestCase()
 {
     delete m_valueString;
     delete m_valueInt;

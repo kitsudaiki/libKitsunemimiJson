@@ -1,13 +1,12 @@
 /**
- *  @file    jsonObjectTest.h
- *  @version 0.1.0
+ *  @file    jsonObjectObjectsTest.h
  *
  *  @author  Tobias Anker
  *  Contact: tobias.anker@kitsunemimi.moe
  */
 
-#ifndef JSONOBJECTTEST_H
-#define JSONOBJECTTEST_H
+#ifndef JSONOBJECTOBJECTTEST_H
+#define JSONOBJECTOBJECTTEST_H
 
 #include <commonTest.h>
 
@@ -17,10 +16,10 @@ namespace Json
 {
 class JsonObject;
 
-class JsonObjectTest: public Kitsune::CommonTest
+class JsonObjectObjectsTest: public Kitsune::CommonTest
 {
 public:
-    JsonObjectTest();
+    JsonObjectObjectsTest();
 private:
     void initTestCase();
     void insertTestCase();
@@ -34,4 +33,4 @@ private:
 }  // namespace Json
 }  // namespace Kitsune
 
-#endif // JSONOBJECTTEST_H
+#endif // JSONOBJECTOBJECTTEST_H

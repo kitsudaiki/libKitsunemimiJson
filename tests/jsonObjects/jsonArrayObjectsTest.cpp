@@ -1,12 +1,11 @@
 /**
- *  @file    jsonArrayTest.cpp
- *  @version 0.1.0
+ *  @file    jsonArrayObjectsTest.cpp
  *
  *  @author  Tobias Anker
  *  Contact: tobias.anker@kitsunemimi.moe
  */
 
-#include "jsonArrayTest.h"
+#include "jsonArrayObjectsTest.h"
 #include <jsonObjects.h>
 
 namespace Kitsune
@@ -14,7 +13,7 @@ namespace Kitsune
 namespace Json
 {
 
-JsonArrayTest::JsonArrayTest() : Kitsune::CommonTest("JsonArrayTest")
+JsonArrayObjectsTest::JsonArrayObjectsTest() : Kitsune::CommonTest("JsonArrayObjectsTest")
 {
     initTestCase();
     insertTestCase();
@@ -23,12 +22,12 @@ JsonArrayTest::JsonArrayTest() : Kitsune::CommonTest("JsonArrayTest")
     cleanupTestCase();
 }
 
-void JsonArrayTest::initTestCase()
+void JsonArrayObjectsTest::initTestCase()
 {
     m_array = new JsonArray();
 }
 
-void JsonArrayTest::insertTestCase()
+void JsonArrayObjectsTest::insertTestCase()
 {
     UNITTEST(m_array->getSize(), 0);
     UNITTEST(m_array->getType(), AbstractJson::ARRAY_TYPE);
@@ -45,7 +44,7 @@ void JsonArrayTest::insertTestCase()
     UNITTEST(outputString, compare);
 }
 
-void JsonArrayTest::getTestCase()
+void JsonArrayObjectsTest::getTestCase()
 {
     AbstractJson* value1 = (*m_array)["0"];
     UNITTEST(((JsonValue*)value1)->getString(), "test1");
@@ -54,7 +53,7 @@ void JsonArrayTest::getTestCase()
     UNITTEST(((JsonValue*)value2)->getString(), "test2");
 }
 
-void JsonArrayTest::removeTestCase()
+void JsonArrayObjectsTest::removeTestCase()
 {
     UNITTEST(m_array->remove("1"), true);
     UNITTEST(m_array->getSize(), 1);
@@ -63,7 +62,7 @@ void JsonArrayTest::removeTestCase()
     UNITTEST(m_array->remove(2), false);
 }
 
-void JsonArrayTest::cleanupTestCase()
+void JsonArrayObjectsTest::cleanupTestCase()
 {
     delete m_array;
 }
