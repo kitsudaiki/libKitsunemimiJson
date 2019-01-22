@@ -22,13 +22,16 @@ class AbstractJson;
 class JsonItem
 {
 public:
+    JsonItem(const JsonItem &otherItem);
+    JsonItem(AbstractJson* abstract);
     JsonItem(std::map<std::string, JsonItem> &value);
     JsonItem(std::vector<JsonItem> &value);
     JsonItem(std::string value);
     JsonItem(int value);
-    JsonItem(const JsonItem &otherItem);
 
     ~JsonItem();
+
+    static JsonItem parseString(const std::string &input);
 
     // setter
     JsonItem& operator=(const JsonItem& other);
@@ -48,6 +51,7 @@ public:
     int getInt() const;
     uint32_t getSize() const;
 
+    bool isValid() const;
     bool isObject() const;
     bool isArray() const;
     bool isValue() const;
@@ -60,7 +64,6 @@ public:
     void print(std::string *output);
 
 private:
-    JsonItem(AbstractJson* item);
     void clear();
 
     AbstractJson* m_item = nullptr;

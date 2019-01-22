@@ -7,6 +7,7 @@
 
 #include "parsingTest.h"
 #include <jsonObjects.h>
+#include <jsonItem.h>
 
 namespace Kitsune
 {
@@ -35,12 +36,17 @@ void ParsingTest::parserPositiveTest()
                    "[ {\"x\" :\"test1\" }, {\"x\" :\"test2\" }, {\"x\" :\"test3\" }]"
                "}");
 
-    JsonObject* output = static_cast<JsonObject*>(AbstractJson::parseString(input));
+    JsonObject* outputObjects = static_cast<JsonObject*>(AbstractJson::parseString(input));
+    std::string outputStringObjects = "";
+    outputObjects->print(&outputStringObjects);
+    std::string compareObjects( "{\"item\":{\"sub_item\":\"test_value\"},\"item2\":{\"sub_item2\":\"something\"},\"loop\":[{\"x\":\"test1\"},{\"x\":\"test2\"},{\"x\":\"test3\"}]}");
+    UNITTEST(outputStringObjects, compareObjects);
 
-    std::string outputString = "";
-    output->print(&outputString);
-    std::string compare( "{\"item\":{\"sub_item\":\"test_value\"},\"item2\":{\"sub_item2\":\"something\"},\"loop\":[{\"x\":\"test1\"},{\"x\":\"test2\"},{\"x\":\"test3\"}]}");
-    UNITTEST(outputString, compare);
+    JsonItem outputItem = JsonItem::parseString(input);
+    std::string outputStringItem = "";
+    outputItem.print(&outputStringItem);
+    std::string compareItem( "{\"item\":{\"sub_item\":\"test_value\"},\"item2\":{\"sub_item2\":\"something\"},\"loop\":[{\"x\":\"test1\"},{\"x\":\"test2\"},{\"x\":\"test3\"}]}");
+    UNITTEST(outputStringItem, compareItem);
 }
 
 void ParsingTest::parserNegativeTest()

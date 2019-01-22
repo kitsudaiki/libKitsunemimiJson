@@ -8,6 +8,7 @@
 #include <jsonItem.h>
 
 #include <jsonObjects.h>
+#include <json_parsing/jsonParserInterface.h>
 
 namespace Kitsune
 {
@@ -15,8 +16,9 @@ namespace Json
 {
 
 /**
- * @brief JsonItem::JsonItem
- * @param otherItem
+ *  creates a new item based on an already existring item
+ *
+ * @param otherItem other item, which have to be copied
  */
 JsonItem::JsonItem(const JsonItem &otherItem)
 {
@@ -24,8 +26,19 @@ JsonItem::JsonItem(const JsonItem &otherItem)
 }
 
 /**
- * @brief JsonItem::JsonItem
- * @param value
+ * creates a new item
+ *
+ * @param abstract pointer to an already existring abstract-json
+ */
+JsonItem::JsonItem(AbstractJson *abstract)
+{
+    m_item = abstract;
+}
+
+/**
+ * creates an object-item
+ *
+ * @param value map for the new object, which can be empty
  */
 JsonItem::JsonItem(std::map<std::string, JsonItem> &value)
 {
@@ -40,8 +53,9 @@ JsonItem::JsonItem(std::map<std::string, JsonItem> &value)
 }
 
 /**
- * @brief JsonItem::JsonItem
- * @param value
+ * creates an array-item
+ *
+ * @param value vector for the new object, which can be empty
  */
 JsonItem::JsonItem(std::vector<JsonItem> &value)
 {
@@ -56,8 +70,9 @@ JsonItem::JsonItem(std::vector<JsonItem> &value)
 }
 
 /**
- * @brief JsonItem::JsonItem
- * @param value
+ * creates an value-item
+ *
+ * @param value string of the new item
  */
 JsonItem::JsonItem(std::string value)
 {
@@ -68,8 +83,9 @@ JsonItem::JsonItem(std::string value)
 }
 
 /**
- * @brief JsonItem::JsonItem
- * @param value
+ * creates an value-item
+ *
+ * @param value int-value of the new item
  */
 JsonItem::JsonItem(int value)
 {
@@ -80,7 +96,7 @@ JsonItem::JsonItem(int value)
 }
 
 /**
- * @brief JsonItem::~JsonItem
+ * destructor
  */
 JsonItem::~JsonItem()
 {
@@ -88,11 +104,32 @@ JsonItem::~JsonItem()
 }
 
 /**
- * @brief JsonItem::operator =
- * @param other
- * @return
+ * static-method which calls the parser to convert a json-formated string into a json-object-tree
+ *
+ * @param input json-formated string, which should be parsed
+ * @return nullptr, if parsing was not successful, else the root-object of the new json-tree
  */
-JsonItem &JsonItem::operator=(const JsonItem &other)
+JsonItem
+JsonItem::parseString(const std::string &input)
+{
+    JsonParserInterface parser;
+    bool ret = parser.parse(input);
+    if(ret == false) {
+        return nullptr;
+    }
+    AbstractJson* output = parser.getOutput();
+    JsonItem result(output);
+    return result;
+}
+
+/**
+ * replace the content of the item with the content of another item
+ *
+ * @param other other item, which have to be copied
+ * @return pointer to this current item
+ */
+JsonItem&
+JsonItem::operator=(const JsonItem &other)
 {
     if(this != &other)
     {
@@ -103,8 +140,9 @@ JsonItem &JsonItem::operator=(const JsonItem &other)
 }
 
 /**
- * @brief JsonItem::setValue
- * @param value
+ * writes a new string into the json-value
+ *
+ * @param value new string to store
  */
 bool
 JsonItem::setValue(const std::string &value)
@@ -119,8 +157,9 @@ JsonItem::setValue(const std::string &value)
 }
 
 /**
- * @brief JsonItem::setValue
- * @param value
+ * writes a new integer into the json-value
+ *
+ * @param value new number to store
  */
 bool
 JsonItem::setValue(const int &value)
@@ -135,11 +174,12 @@ JsonItem::setValue(const int &value)
 }
 
 /**
- * @brief JsonItem::insert
- * @param key
- * @param value
- * @param force
- * @return
+ * insert a key-value-pair if the current item is a json-object
+ *
+ * @param key key of the new pair
+ * @param value value of the new pair
+ * @param force true to overwrite an existing key (default: false)
+ * @return false, if item is not a json-object, else true
  */
 bool
 JsonItem::insert(const std::string &key,
@@ -153,9 +193,10 @@ JsonItem::insert(const std::string &key,
 }
 
 /**
- * @brief JsonItem::append
- * @param item
- * @return
+ * add a new item, if the current item is a json-array
+ *
+ * @param item new item
+ * @return false, if item is not a json-array, else true
  */
 bool
 JsonItem::append(const JsonItem &value)
@@ -167,9 +208,10 @@ JsonItem::append(const JsonItem &value)
 }
 
 /**
- * @brief JsonItem::operator []
- * @param key
- * @return
+ * get a specific entry of the item
+ *
+ * @param key key of the requested value
+ * @return nullptr if index in key is to high, else object
  */
 JsonItem
 JsonItem::operator[](const std::string key)
@@ -178,9 +220,10 @@ JsonItem::operator[](const std::string key)
 }
 
 /**
- * @brief JsonItem::operator []
- * @param index
- * @return
+ * get a specific item of the object
+ *
+ * @param index index of the item
+ * @return nullptr if index is to high, else object
  */
 JsonItem
 JsonItem::operator[](const uint32_t index)
@@ -189,9 +232,10 @@ JsonItem::operator[](const uint32_t index)
 }
 
 /**
- * @brief JsonItem::get
- * @param key
- * @return
+ * get a specific entry of the item
+ *
+ * @param key key of the requested value
+ * @return nullptr if index in key is to high, else object
  */
 JsonItem
 JsonItem::get(const std::string key)
@@ -200,9 +244,10 @@ JsonItem::get(const std::string key)
 }
 
 /**
- * @brief JsonItem::get
- * @param index
- * @return
+ * get a specific item of the object
+ *
+ * @param index index of the item
+ * @return nullptr if index is to high, else object
  */
 JsonItem
 JsonItem::get(const uint32_t index)
@@ -211,36 +256,37 @@ JsonItem::get(const uint32_t index)
 }
 
 /**
- * @brief JsonItem::getString
- * @return
+ * get string of the item
+ *
+ * @return string, of the item if int-type, else empty string
  */
 std::string
 JsonItem::getString() const
 {
-    if(m_item->getType() == AbstractJson::INT_TYPE
-            || m_item->getType() == AbstractJson::STRING_TYPE) {
+    if(m_item->getType() == AbstractJson::STRING_TYPE) {
         return m_item->toValue()->getString();
     }
     return "";
 }
 
 /**
- * @brief JsonItem::getInt
- * @return
+ * get int-value of the item
+ *
+ * @return int-value, of the item if int-type, else 0
  */
 int
 JsonItem::getInt() const
 {
-    if(m_item->getType() == AbstractJson::INT_TYPE
-            || m_item->getType() == AbstractJson::STRING_TYPE) {
+    if(m_item->getType() == AbstractJson::INT_TYPE) {
         return m_item->toValue()->getInt();
     }
     return 0;
 }
 
 /**
- * @brief JsonItem::getSize
- * @return
+ * getter for the number of elements in the item
+ *
+ * @return number of elements in the item
  */
 uint32_t
 JsonItem::getSize() const
@@ -249,8 +295,22 @@ JsonItem::getSize() const
 }
 
 /**
- * @brief JsonItem::isObject
- * @return
+ * check if the current item is valid
+ *
+ * @return false, if the item is a null-pointer, else true
+ */
+bool JsonItem::isValid() const
+{
+    if(m_item != nullptr) {
+        return true;
+    }
+    return false;
+}
+
+/**
+ * check if current item is a object
+ *
+ * @return true if current item is a json-object, else false
  */
 bool JsonItem::isObject() const
 {
@@ -261,8 +321,9 @@ bool JsonItem::isObject() const
 }
 
 /**
- * @brief JsonItem::isArray
- * @return
+ * check if current item is a array
+ *
+ * @return true if current item is a json-array, else false
  */
 bool JsonItem::isArray() const
 {
@@ -273,8 +334,9 @@ bool JsonItem::isArray() const
 }
 
 /**
- * @brief JsonItem::isValue
- * @return
+ * check if current item is a value
+ *
+ * @return true if current item is a json-value, else false
  */
 bool JsonItem::isValue() const
 {
@@ -286,9 +348,10 @@ bool JsonItem::isValue() const
 }
 
 /**
- * @brief JsonItem::remove
- * @param key
- * @return
+ * remove an item from the key-value-list
+ *
+ * @param key key of the pair, which should be deleted
+ * @return false if the key doesn't exist, else true
  */
 bool
 JsonItem::remove(const std::string &key)
@@ -297,9 +360,10 @@ JsonItem::remove(const std::string &key)
 }
 
 /**
- * @brief JsonItem::remove
- * @param index
- * @return
+ * remove an item from the object
+ *
+ * @param index index of the item
+ * @return false if index is to high, else true
  */
 bool
 JsonItem::remove(const uint32_t index)
@@ -308,8 +372,9 @@ JsonItem::remove(const uint32_t index)
 }
 
 /**
- * @brief JsonItem::print
- * @param output
+ * prints the content of the object
+ *
+ * @param output pointer to the output-string on which the object-content as string will be appended
  */
 void
 JsonItem::print(std::string *output)
@@ -318,16 +383,7 @@ JsonItem::print(std::string *output)
 }
 
 /**
- * @brief JsonItem::JsonItem
- * @param item
- */
-JsonItem::JsonItem(AbstractJson *item)
-{
-    m_item = item;
-}
-
-/**
- * @brief JsonItem::clear
+ * delete the underlaying json-object
  */
 void JsonItem::clear()
 {
