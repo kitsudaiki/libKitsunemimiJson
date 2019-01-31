@@ -1,0 +1,9 @@
+image: registry.gitlab.com/kitsune_other/kitsune_docker_unittest:0.1.0
+
+build:
+  script:
+    - echo Working on branch $CI_COMMIT_REF_NAME
+    - ls -a
+
+  tags:
+    - docker
