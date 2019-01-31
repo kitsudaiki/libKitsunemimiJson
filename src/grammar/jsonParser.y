@@ -10,7 +10,7 @@
 %defines
 
 //requires 3.2 to avoid the creation of the stack.hh
-%require "3.2"
+%require "3.0.4"
 %define parser_class_name {JsonParser}
 
 %define api.prefix {json}
