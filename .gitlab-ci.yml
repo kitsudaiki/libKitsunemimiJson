@@ -4,6 +4,7 @@ build:
   script:
     - echo Working on branch $CI_COMMIT_REF_NAME
     - ls -a
+    - qmake ./libKitsuneJson.pro -spec linux-g++ && /usr/bin/make qmake_all
 
   tags:
     - docker
