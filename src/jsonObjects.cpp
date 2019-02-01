@@ -3,6 +3,8 @@
  *
  *  @author  Tobias Anker
  *  Contact: tobias.anker@kitsunemimi.moe
+ *
+ *  MIT License
  */
 
 #include "jsonObjects.h"
@@ -260,6 +262,9 @@ JsonValue::getString() const
 {
     if(m_type == STRING_TYPE) {
         return m_stringValue;
+    }
+    if(m_type == INT_TYPE) {
+        return std::to_string(m_intValue);;
     }
     return "";
 }
