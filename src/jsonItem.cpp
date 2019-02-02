@@ -210,6 +210,16 @@ JsonItem::append(const JsonItem &value)
 }
 
 /**
+ * @brief JsonItem::getItemContent
+ * @return
+ */
+AbstractJson*
+JsonItem::getItemContent() const
+{
+    return m_item;
+}
+
+/**
  * get a specific entry of the item
  *
  * @param key key of the requested value
@@ -301,7 +311,8 @@ JsonItem::getSize() const
  *
  * @return string-list with the keys of the map
  */
-std::vector<std::string> JsonItem::getKeys()
+std::vector<std::string>
+JsonItem::getKeys()
 {
     if(m_item->getType() == AbstractJson::OBJECT_TYPE)
     {
@@ -319,7 +330,8 @@ std::vector<std::string> JsonItem::getKeys()
  * @param key key-string which should be searched in the map of the object-item
  * @return false if the key doesn't exist or the item is no json-object, else true
  */
-bool JsonItem::contains(const std::string &key)
+bool
+JsonItem::contains(const std::string &key)
 {
     if(m_item->getType() == AbstractJson::OBJECT_TYPE)
     {

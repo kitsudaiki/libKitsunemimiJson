@@ -45,6 +45,7 @@ public:
     bool append(const JsonItem &value);
 
     // getter
+    AbstractJson* getItemContent() const;
     JsonItem operator[](const std::string key);
     JsonItem operator[](const uint32_t index);
     JsonItem get(const std::string key);

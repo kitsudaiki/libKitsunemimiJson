@@ -395,7 +395,8 @@ JsonObject::getSize() const
  *
  * @return string-list with the keys of the map
  */
-std::vector<std::string> JsonObject::getKeys()
+std::vector<std::string>
+JsonObject::getKeys()
 {
     std::vector<std::string> result;
     std::map<std::string, AbstractJson*>::iterator it;
@@ -412,7 +413,8 @@ std::vector<std::string> JsonObject::getKeys()
  * @param key key-string which should be searched in the map of the object-item
  * @return false if the key doesn't exist, else true
  */
-bool JsonObject::contains(const std::string &key)
+bool
+JsonObject::contains(const std::string &key)
 {
     std::map<std::string, AbstractJson*>::iterator it;
     it = m_objects.find(key);
