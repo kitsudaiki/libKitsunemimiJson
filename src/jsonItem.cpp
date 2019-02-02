@@ -18,6 +18,14 @@ namespace Json
 {
 
 /**
+ * @brief JsonItem::JsonItem
+ */
+JsonItem::JsonItem()
+{
+    m_item = nullptr;
+}
+
+/**
  *  creates a new item based on an already existring item
  *
  * @param otherItem other item, which have to be copied
@@ -149,6 +157,9 @@ JsonItem::operator=(const JsonItem &other)
 bool
 JsonItem::setValue(const std::string &value)
 {
+    if(m_item == nullptr) {
+        return false;
+    }
     if(m_item->getType() == AbstractJson::INT_TYPE
             || m_item->getType() == AbstractJson::STRING_TYPE)
     {
@@ -166,6 +177,9 @@ JsonItem::setValue(const std::string &value)
 bool
 JsonItem::setValue(const int &value)
 {
+    if(m_item == nullptr) {
+        return false;
+    }
     if(m_item->getType() == AbstractJson::INT_TYPE
             || m_item->getType() == AbstractJson::STRING_TYPE)
     {
@@ -188,6 +202,9 @@ JsonItem::insert(const std::string &key,
                  const JsonItem &value,
                  bool force)
 {
+    if(m_item == nullptr) {
+        return false;
+    }
     if(m_item->getType() == AbstractJson::OBJECT_TYPE) {
         return m_item->toObject()->insert(key, value.m_item->copy(), force);
     }
@@ -203,6 +220,9 @@ JsonItem::insert(const std::string &key,
 bool
 JsonItem::append(const JsonItem &value)
 {
+    if(m_item == nullptr) {
+        return false;
+    }
     if(m_item->getType() == AbstractJson::ARRAY_TYPE) {
         return m_item->toArray()->append(value.m_item->copy());
     }
@@ -228,6 +248,9 @@ JsonItem::getItemContent() const
 JsonItem
 JsonItem::operator[](const std::string key)
 {
+    if(m_item == nullptr) {
+        return JsonItem();
+    }
     return JsonItem(m_item->get(key)->copy());
 }
 
@@ -240,6 +263,9 @@ JsonItem::operator[](const std::string key)
 JsonItem
 JsonItem::operator[](const uint32_t index)
 {
+    if(m_item == nullptr) {
+        return JsonItem();
+    }
     return JsonItem(m_item->get(index)->copy());
 }
 
@@ -252,6 +278,9 @@ JsonItem::operator[](const uint32_t index)
 JsonItem
 JsonItem::get(const std::string key)
 {
+    if(m_item == nullptr) {
+        return JsonItem();
+    }
     return JsonItem(m_item->get(key));
 }
 
@@ -264,6 +293,9 @@ JsonItem::get(const std::string key)
 JsonItem
 JsonItem::get(const uint32_t index)
 {
+    if(m_item == nullptr) {
+        return JsonItem();
+    }
     return JsonItem(m_item->get(index));
 }
 
@@ -275,6 +307,9 @@ JsonItem::get(const uint32_t index)
 std::string
 JsonItem::getString() const
 {
+    if(m_item == nullptr) {
+        return "";
+    }
     if(m_item->getType() == AbstractJson::STRING_TYPE) {
         return m_item->toValue()->getString();
     }
@@ -289,6 +324,9 @@ JsonItem::getString() const
 int
 JsonItem::getInt() const
 {
+    if(m_item == nullptr) {
+        return 0;
+    }
     if(m_item->getType() == AbstractJson::INT_TYPE) {
         return m_item->toValue()->getInt();
     }
@@ -303,6 +341,9 @@ JsonItem::getInt() const
 uint32_t
 JsonItem::getSize() const
 {
+    if(m_item == nullptr) {
+        return 0;
+    }
     return m_item->getSize();
 }
 
@@ -314,6 +355,9 @@ JsonItem::getSize() const
 std::vector<std::string>
 JsonItem::getKeys()
 {
+    if(m_item == nullptr) {
+        return std::vector<std::string>();
+    }
     if(m_item->getType() == AbstractJson::OBJECT_TYPE)
     {
         JsonObject* obj = static_cast<JsonObject*>(m_item);
@@ -333,6 +377,9 @@ JsonItem::getKeys()
 bool
 JsonItem::contains(const std::string &key)
 {
+    if(m_item == nullptr) {
+        return false;
+    }
     if(m_item->getType() == AbstractJson::OBJECT_TYPE)
     {
         JsonObject* obj = static_cast<JsonObject*>(m_item);
@@ -362,6 +409,9 @@ bool JsonItem::isValid() const
  */
 bool JsonItem::isObject() const
 {
+    if(m_item == nullptr) {
+        return false;
+    }
     if(m_item->getType() == AbstractJson::OBJECT_TYPE) {
         return true;
     }
@@ -375,6 +425,9 @@ bool JsonItem::isObject() const
  */
 bool JsonItem::isArray() const
 {
+    if(m_item == nullptr) {
+        return false;
+    }
     if(m_item->getType() == AbstractJson::ARRAY_TYPE) {
         return true;
     }
@@ -388,6 +441,9 @@ bool JsonItem::isArray() const
  */
 bool JsonItem::isValue() const
 {
+    if(m_item == nullptr) {
+        return false;
+    }
     if(m_item->getType() == AbstractJson::STRING_TYPE
             || m_item->getType() == AbstractJson::INT_TYPE) {
         return true;
@@ -404,7 +460,10 @@ bool JsonItem::isValue() const
 bool
 JsonItem::remove(const std::string &key)
 {
-    return m_item->remove(key);
+    if(m_item != nullptr) {
+        return m_item->remove(key);
+    }
+    return false;
 }
 
 /**
@@ -416,7 +475,10 @@ JsonItem::remove(const std::string &key)
 bool
 JsonItem::remove(const uint32_t index)
 {
-    return m_item->remove(index);
+    if(m_item != nullptr) {
+        return m_item->remove(index);
+    }
+    return false;
 }
 
 /**
@@ -427,7 +489,9 @@ JsonItem::remove(const uint32_t index)
 void
 JsonItem::print(std::string *output)
 {
-    m_item->print(output);
+    if(m_item != nullptr) {
+        m_item->print(output);
+    }
 }
 
 /**

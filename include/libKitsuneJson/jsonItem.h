@@ -24,6 +24,7 @@ class AbstractJson;
 class JsonItem
 {
 public:
+    JsonItem();
     JsonItem(const JsonItem &otherItem);
     JsonItem(AbstractJson* abstract);
     JsonItem(std::map<std::string, JsonItem> &value);
