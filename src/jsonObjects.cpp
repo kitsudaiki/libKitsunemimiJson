@@ -391,6 +391,22 @@ JsonObject::getSize() const
 }
 
 /**
+ * get list of keys of the objects-map
+ *
+ * @return string-list with the keys of the map
+ */
+std::vector<std::string> JsonObject::getKeys()
+{
+    std::vector<std::string> result;
+    std::map<std::string, AbstractJson*>::iterator it;
+    for(it = m_objects.begin(); it != m_objects.end(); it++)
+    {
+        result.push_back(it->first);
+    }
+    return result;
+}
+
+/**
  * remove an item from the key-value-list
  *
  * @param key key of the pair, which should be deleted

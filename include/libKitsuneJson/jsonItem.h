@@ -52,6 +52,7 @@ public:
     std::string getString() const;
     int getInt() const;
     uint32_t getSize() const;
+    std::vector<std::string> getKeys();
 
     bool isValid() const;
     bool isObject() const;

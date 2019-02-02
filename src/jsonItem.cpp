@@ -297,6 +297,23 @@ JsonItem::getSize() const
 }
 
 /**
+ * get list of keys if the json-item is an json-object
+ *
+ * @return string-list with the keys of the map
+ */
+std::vector<std::string> JsonItem::getKeys()
+{
+    if(m_item->getType() == AbstractJson::OBJECT_TYPE)
+    {
+        JsonObject* obj = static_cast<JsonObject*>(m_item);
+        return obj->getKeys();
+    }
+
+    std::vector<std::string> emptyResult;
+    return emptyResult;
+}
+
+/**
  * check if the current item is valid
  *
  * @return false, if the item is a null-pointer, else true

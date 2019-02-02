@@ -53,6 +53,11 @@ void JsonObjectObjectsTest::getTestCase()
 
     AbstractJson* value2 = (*m_object)[1];
     UNITTEST(((JsonValue*)value2)->getString(), "test2");
+
+    std::vector<std::string> keys = m_object->getKeys();
+    UNITTEST(keys.size(), 2);
+    UNITTEST(keys.at(0), "poi1");
+    UNITTEST(keys.at(1), "poi2");
 }
 
 void JsonObjectObjectsTest::removeTestCase()
