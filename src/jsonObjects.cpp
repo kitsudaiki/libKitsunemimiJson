@@ -407,6 +407,24 @@ std::vector<std::string> JsonObject::getKeys()
 }
 
 /**
+ * check if a key is in the object-map
+ *
+ * @param key key-string which should be searched in the map of the object-item
+ * @return false if the key doesn't exist, else true
+ */
+bool JsonObject::contains(const std::string &key)
+{
+    std::map<std::string, AbstractJson*>::iterator it;
+    it = m_objects.find(key);
+
+    if(it != m_objects.end())
+    {
+        return true;
+    }
+    return false;
+}
+
+/**
  * remove an item from the key-value-list
  *
  * @param key key of the pair, which should be deleted

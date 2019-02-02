@@ -65,6 +65,9 @@ void JsonObjectItemTest::getTestCase()
     UNITTEST(keys.size(), 2);
     UNITTEST(keys.at(0), "poi1");
     UNITTEST(keys.at(1), "poi2");
+
+    UNITTEST(item.contains("poi2"), true);
+    UNITTEST(item.contains("poi3"), false);
 }
 
 void JsonObjectItemTest::removeTestCase()

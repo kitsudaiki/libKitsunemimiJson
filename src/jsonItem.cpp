@@ -314,6 +314,23 @@ std::vector<std::string> JsonItem::getKeys()
 }
 
 /**
+ * check if a key is in the object-map
+ *
+ * @param key key-string which should be searched in the map of the object-item
+ * @return false if the key doesn't exist or the item is no json-object, else true
+ */
+bool JsonItem::contains(const std::string &key)
+{
+    if(m_item->getType() == AbstractJson::OBJECT_TYPE)
+    {
+        JsonObject* obj = static_cast<JsonObject*>(m_item);
+        return obj->contains(key);
+    }
+
+    return false;
+}
+
+/**
  * check if the current item is valid
  *
  * @return false, if the item is a null-pointer, else true

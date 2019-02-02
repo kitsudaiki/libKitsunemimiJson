@@ -54,6 +54,8 @@ public:
     uint32_t getSize() const;
     std::vector<std::string> getKeys();
 
+    // checks
+    bool contains(const std::string &key);
     bool isValid() const;
     bool isObject() const;
     bool isArray() const;

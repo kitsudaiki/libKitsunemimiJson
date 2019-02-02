@@ -123,6 +123,7 @@ public:
     AbstractJson* get(const uint32_t index);
     uint32_t getSize() const;
     std::vector<std::string> getKeys();
+    bool contains(const std::string &key);
 
     // delete
     bool remove(const std::string &key);
