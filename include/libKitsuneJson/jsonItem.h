@@ -49,8 +49,8 @@ public:
     AbstractJson* getItemContent() const;
     JsonItem operator[](const std::string key);
     JsonItem operator[](const uint32_t index);
-    JsonItem get(const std::string key);
-    JsonItem get(const uint32_t index);
+    JsonItem get(const std::string key) const;
+    JsonItem get(const uint32_t index) const;
     std::string getString() const;
     int getInt() const;
     uint32_t getSize() const;

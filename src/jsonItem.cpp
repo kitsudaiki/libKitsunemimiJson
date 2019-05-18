@@ -276,7 +276,7 @@ JsonItem::operator[](const uint32_t index)
  * @return nullptr if index in key is to high, else object
  */
 JsonItem
-JsonItem::get(const std::string key)
+JsonItem::get(const std::string key) const
 {
     if(m_item == nullptr) {
         return JsonItem();
@@ -291,7 +291,7 @@ JsonItem::get(const std::string key)
  * @return nullptr if index is to high, else object
  */
 JsonItem
-JsonItem::get(const uint32_t index)
+JsonItem::get(const uint32_t index) const
 {
     if(m_item == nullptr) {
         return JsonItem();

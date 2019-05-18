@@ -10,7 +10,7 @@
 #ifndef JSONVSLUROBJECTTEST_H
 #define JSONVSLUROBJECTTEST_H
 
-#include <commonTest.h>
+#include <testing/commonTest.h>
 
 namespace Kitsune
 {
