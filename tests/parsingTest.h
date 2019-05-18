@@ -10,13 +10,13 @@
 #ifndef PARSERTEST_H
 #define PARSERTEST_H
 
-#include <commonTest.h>
+#include <testing/commonTest.h>
 
 namespace Kitsune
 {
 namespace Json
 {
-class ParsingTest: public Kitsune::CommonTest
+class ParsingTest : public Kitsune::CommonTest
 {
 public:
     ParsingTest();
