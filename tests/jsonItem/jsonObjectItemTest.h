@@ -10,7 +10,7 @@
 #ifndef JSONOBJECTTEST_H
 #define JSONOBJECTTEST_H
 
-#include <commonTest.h>
+#include <testing/commonTest.h>
 
 namespace Kitsune
 {

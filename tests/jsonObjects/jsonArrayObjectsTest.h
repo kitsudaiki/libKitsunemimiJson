@@ -10,7 +10,7 @@
 #ifndef JSONARRAYOBJECTTEST_H
 #define JSONARRAYOBJECTTEST_H
 
-#include <commonTest.h>
+#include <testing/commonTest.h>
 
 namespace Kitsune
 {
