@@ -53,6 +53,7 @@ public:
     JsonItem get(const uint32_t index) const;
     std::string getString() const;
     int getInt() const;
+    float getFloat() const;
     uint32_t getSize() const;
     std::vector<std::string> getKeys();
 

@@ -207,8 +207,12 @@ JsonValue::copy()
     JsonValue *tempItem = nullptr;
     if(m_type == STRING_TYPE) {
         tempItem = new JsonValue(m_stringValue);
-    } else {
+    }
+    if(m_type == INT_TYPE) {
         tempItem = new JsonValue(m_intValue);
+    }
+    if(m_type == FLOAT_TYPE) {
+        tempItem = new JsonValue(m_floatValue);
     }
     return tempItem;
 }

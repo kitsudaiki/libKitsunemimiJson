@@ -70,6 +70,11 @@ blank [ \t]
     return Kitsune::Json::JsonParser::make_NUMBER (length, jsonloc);
 }
 
+{int}+"."{int}*	{
+    float value = atof( yytext );
+    return Kitsune::Json::JsonParser::make_FLOAT(value, jsonloc);
+}
+
 {id}       return Kitsune::Json::JsonParser::make_IDENTIFIER(yytext, jsonloc);
 .          driver.error(jsonloc, "invalid character");
 <<EOF>>    return Kitsune::Json::JsonParser::make_END(jsonloc);
