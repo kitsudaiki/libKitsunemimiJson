@@ -31,35 +31,39 @@ void ParsingTest::initTestCase()
 void ParsingTest::parserPositiveTest()
 {
     std::string input("{\"item\": "
-                   "{ \"sub_item\": \"test_value\"},"
-               "\"item2\": "
-                   "{ \"sub_item2\": \"something\"},"
-               "\"loop\": "
-                   "[ {\"x\" :\"test1\" }, {\"x\" :\"test2\" }, {\"x\" :\"test3\" }]"
-               "}");
+                      "{ \"sub_item\": \"test_value\"},"
+                      "\"item2\": "
+                      "{ \"sub_item2\": \"something\"},"
+                      "\"loop\": "
+                      "[ {\"x\" :\"test1\" }, {\"x\" :\"test2\" }, {\"x\" :\"test3\" }]"
+                      "}");
 
     JsonObject* outputObjects = static_cast<JsonObject*>(AbstractJson::parseString(input));
     std::string outputStringObjects = "";
     outputObjects->print(&outputStringObjects);
-    std::string compareObjects( "{\"item\":{\"sub_item\":\"test_value\"},\"item2\":{\"sub_item2\":\"something\"},\"loop\":[{\"x\":\"test1\"},{\"x\":\"test2\"},{\"x\":\"test3\"}]}");
+    std::string compareObjects( "{\"item\":{\"sub_item\":\"test_value\"},\"item2\":{\"sub_item2\""
+                                ":\"something\"},\"loop\":[{\"x\":\"test1\"},{\"x\":\"test2\"},"
+                                "{\"x\":\"test3\"}]}");
     UNITTEST(outputStringObjects, compareObjects);
 
     JsonItem outputItem = JsonItem::parseString(input);
     std::string outputStringItem = "";
     outputItem.print(&outputStringItem);
-    std::string compareItem( "{\"item\":{\"sub_item\":\"test_value\"},\"item2\":{\"sub_item2\":\"something\"},\"loop\":[{\"x\":\"test1\"},{\"x\":\"test2\"},{\"x\":\"test3\"}]}");
+    std::string compareItem( "{\"item\":{\"sub_item\":\"test_value\"},\"item2\":{\"sub_item2\""
+                             ":\"something\"},\"loop\":[{\"x\":\"test1\"},{\"x\":\"test2\"},"
+                             "{\"x\":\"test3\"}]}");
     UNITTEST(outputStringItem, compareItem);
 }
 
 void ParsingTest::parserNegativeTest()
 {
     std::string input("{\"item\": "
-                   "{ \"sub_item\": \"test_value\"}, \n"
-               "\"item2\": \n"
-                   "[ \"sub_item2\": \"something\"}, \n"  // error at the beginning of this line
-               "\"loop\": \n"
-                   "[ {\"x\" :\"test1\" }, {\"x\" :\"test2\" }, {\"x\" :\"test3\" }]\n"
-               "}");
+                      "{ \"sub_item\": \"test_value\"}, \n"
+                      "\"item2\": \n"
+                      "[ \"sub_item2\": \"something\"}, \n"  // error at the beginning of this line
+                      "\"loop\": \n"
+                      "[ {\"x\" :\"test1\" }, {\"x\" :\"test2\" }, {\"x\" :\"test3\" }]\n"
+                      "}");
 
     AbstractJson* output = AbstractJson::parseString(input);
     bool success = false;
