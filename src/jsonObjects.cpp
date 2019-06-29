@@ -223,8 +223,12 @@ JsonValue::print(std::string *output)
         output->append("\"");
         output->append(m_stringValue);
         output->append("\"");
-    } else {
+    }
+    if(m_type == INT_TYPE) {
         output->append(std::to_string(m_intValue));
+    }
+    if(m_type == FLOAT_TYPE) {
+        output->append(std::to_string(m_floatValue));
     }
 }
 
