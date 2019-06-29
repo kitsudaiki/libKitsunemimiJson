@@ -75,6 +75,7 @@ public:
     JsonValue();
     JsonValue(const std::string &text);
     JsonValue(const int value);
+    JsonValue(const float value);
     ~JsonValue();
 
     // setter

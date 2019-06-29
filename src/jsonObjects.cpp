@@ -118,6 +118,15 @@ JsonValue::JsonValue(const int value)
 }
 
 /**
+ * json-value for float
+ */
+JsonValue::JsonValue(const float value)
+{
+    m_type = FLOAT_TYPE;
+    m_floatValue = value;
+}
+
+/**
  * @brief JsonValue::~JsonValue
  */
 JsonValue::~JsonValue()
