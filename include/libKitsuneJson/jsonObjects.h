@@ -37,8 +37,9 @@ public:
         UNINIT_TYPE = 0,
         STRING_TYPE = 1,
         INT_TYPE = 2,
-        ARRAY_TYPE = 3,
-        OBJECT_TYPE = 4
+        FLOAT_TYPE = 3,
+        ARRAY_TYPE = 4,
+        OBJECT_TYPE = 5
     };
 
     // getter
@@ -79,6 +80,7 @@ public:
     // setter
     void setValue(const std::string &item);
     void setValue(const int &item);
+    void setValue(const float &item);
 
     // getter
     AbstractJson* operator[](const std::string);
@@ -87,6 +89,7 @@ public:
     AbstractJson* get(const uint32_t);
     std::string getString() const;
     int getInt() const;
+    float getFloat() const;
     uint32_t getSize() const;
 
     // delete
@@ -100,6 +103,7 @@ public:
 private:
     std::string m_stringValue = "";
     int m_intValue = 0;
+    float m_floatValue = 0.0f;
 };
 
 //===================================================================
