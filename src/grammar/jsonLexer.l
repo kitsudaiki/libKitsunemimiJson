@@ -34,7 +34,7 @@ Kitsune::Json::location jsonloc;
 %option noyywrap nounput batch debug yylineno prefix="json"
 
 id    [a-zA-Z][a-zA-Z_0-9]*
-int   [0-9]+
+int   -?([0-9]+)
 blank [ \t]
 
 %{
