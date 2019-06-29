@@ -28,7 +28,6 @@ AbstractJson::~AbstractJson()
 /**
  * static-method which calls the parser to convert a json-formated string into a json-object-tree
  *
- * @param input json-formated string, which should be parsed
  * @return nullptr, if parsing was not successful, else the root-object of the new json-tree
  */
 AbstractJson*
@@ -82,7 +81,7 @@ JsonObject *AbstractJson::toObject()
  */
 JsonValue *AbstractJson::toValue()
 {
-    if(m_type == STRING_TYPE || m_type == INT_TYPE) {
+    if(m_type == STRING_TYPE || m_type == INT_TYPE || m_type == FLOAT_TYPE) {
         return static_cast<JsonValue*>(this);
     }
     return nullptr;
@@ -102,8 +101,6 @@ JsonValue::JsonValue()
 
 /**
  * json-value for strings
- *
- * @param text string which should be stored in the json-value
  */
 JsonValue::JsonValue(const std::string &text)
 {
@@ -113,13 +110,20 @@ JsonValue::JsonValue(const std::string &text)
 
 /**
  * json-value for integers
- *
- * @param value number which should be stored in the json-value
  */
 JsonValue::JsonValue(const int value)
 {
     m_type = INT_TYPE;
     m_intValue = value;
+}
+
+/**
+ * json-value for float
+ */
+JsonValue::JsonValue(const float value)
+{
+    m_type = FLOAT_TYPE;
+    m_floatValue = value;
 }
 
 /**
@@ -203,16 +207,18 @@ JsonValue::copy()
     JsonValue *tempItem = nullptr;
     if(m_type == STRING_TYPE) {
         tempItem = new JsonValue(m_stringValue);
-    } else {
+    }
+    if(m_type == INT_TYPE) {
         tempItem = new JsonValue(m_intValue);
+    }
+    if(m_type == FLOAT_TYPE) {
+        tempItem = new JsonValue(m_floatValue);
     }
     return tempItem;
 }
 
 /**
  * prints the content of the object
- *
- * @param output pointer to the output-string on which the object-content as string will be appended
  */
 void
 JsonValue::print(std::string *output)
@@ -221,35 +227,49 @@ JsonValue::print(std::string *output)
         output->append("\"");
         output->append(m_stringValue);
         output->append("\"");
-    } else {
+    }
+    if(m_type == INT_TYPE) {
         output->append(std::to_string(m_intValue));
+    }
+    if(m_type == FLOAT_TYPE) {
+        output->append(std::to_string(m_floatValue));
     }
 }
 
 /**
  * writes a new string into the json-value
- *
- * @param item new string to store
  */
 void
 JsonValue::setValue(const std::string &item)
 {
     m_type = STRING_TYPE;
     m_intValue = 0;
+    m_floatValue = 0.0f;
     m_stringValue = item;
 }
 
 /**
  * writes a new integer into the json-value
- *
- * @param item new number to store
  */
 void
 JsonValue::setValue(const int &item)
 {
     m_type = INT_TYPE;
     m_stringValue = "";
+    m_floatValue = 0.0f;
     m_intValue = item;
+}
+
+/**
+ * writes a new integer into the json-value
+ */
+void
+JsonValue::setValue(const float &item)
+{
+    m_type = FLOAT_TYPE;
+    m_stringValue = "";
+    m_intValue = 0;
+    m_floatValue = item;
 }
 
 /**
@@ -266,6 +286,9 @@ JsonValue::getString() const
     if(m_type == INT_TYPE) {
         return std::to_string(m_intValue);;
     }
+    if(m_type == FLOAT_TYPE) {
+        return std::to_string(m_floatValue);;
+    }
     return "";
 }
 
@@ -279,6 +302,21 @@ JsonValue::getInt() const
 {
     if(m_type == INT_TYPE) {
         return m_intValue;
+    }
+    return 0;
+}
+
+
+/**
+ * request the flaot of the json-value, if it is from float-type
+ *
+ * @return float of the json-value, if json-value is from float-type, else empty 0.0
+ */
+float
+JsonValue::getFloat() const
+{
+    if(m_type == FLOAT_TYPE) {
+        return m_floatValue;
     }
     return 0;
 }
@@ -313,7 +351,6 @@ JsonObject::~JsonObject()
 /**
  * get a specific item of the object
  *
- * @param key key of the requested value
  * @return nullptr if index in key is to high, else object
  */
 AbstractJson*
@@ -325,7 +362,6 @@ JsonObject::operator[](const std::string key)
 /**
  * get a specific item of the object
  *
- * @param index index of the item
  * @return nullptr if index is to high, else object
  */
 AbstractJson*
@@ -337,7 +373,6 @@ JsonObject::operator[](const uint32_t index)
 /**
  * get a specific item of the object
  *
- * @param key key of the requested value
  * @return nullptr if index in key is to high, else object
  */
 AbstractJson*
@@ -356,7 +391,6 @@ JsonObject::get(const std::string key)
 /**
  * get a specific item of the object
  *
- * @param index index of the item
  * @return nullptr if index is to high, else object
  */
 AbstractJson*
@@ -410,7 +444,6 @@ JsonObject::getKeys()
 /**
  * check if a key is in the object-map
  *
- * @param key key-string which should be searched in the map of the object-item
  * @return false if the key doesn't exist, else true
  */
 bool
@@ -429,7 +462,6 @@ JsonObject::contains(const std::string &key)
 /**
  * remove an item from the key-value-list
  *
- * @param key key of the pair, which should be deleted
  * @return false if the key doesn't exist, else true
  */
 bool
@@ -450,7 +482,6 @@ JsonObject::remove(const std::string &key)
 /**
  * remove an item from the object
  *
- * @param index index of the item
  * @return false if index is to high, else true
  */
 bool
@@ -492,8 +523,6 @@ JsonObject::copy()
 
 /**
  * prints the content of the object
- *
- * @param output pointer to the output-string on which the object-content as string will be appended
  */
 void
 JsonObject::print(std::string *output)
@@ -519,8 +548,6 @@ JsonObject::print(std::string *output)
 /**
  * add new key-value-pair to the object
  *
- * @param key key of the new pair as string
- * @param value value of the new pair as json-value-pointer
  * @return false if key already exist, else true
  */
 bool
@@ -574,7 +601,6 @@ JsonArray::~JsonArray()
 /**
  * get a specific item of the array
  *
- * @param key index of the item as string
  * @return nullptr if index in key is to high, else true
  */
 AbstractJson*
@@ -586,7 +612,6 @@ JsonArray::operator[](const std::string key)
 /**
  * get a specific item of the array
  *
- * @param index index of the item
  * @return nullptr if index is to high, else true
  */
 AbstractJson*
@@ -598,7 +623,6 @@ JsonArray::operator[](const uint32_t index)
 /**
  * get a specific item of the array
  *
- * @param key index of the item as string
  * @return nullptr if index in key is to high, else object
  */
 AbstractJson*
@@ -615,7 +639,6 @@ JsonArray::get(const std::string key)
 /**
  * get a specific item of the array
  *
- * @param index index of the item
  * @return nullptr if index is to high, else the object
  */
 AbstractJson*
@@ -642,7 +665,6 @@ JsonArray::getSize() const
 /**
  * remove an item from the array
  *
- * @param key index of the item as string
  * @return false if index in key is to high, else true
  */
 bool
@@ -659,7 +681,6 @@ JsonArray::remove(const std::string &key)
 /**
  * remove an item from the array
  *
- * @param index index of the item
  * @return false if index is to high, else true
  */
 bool
@@ -689,8 +710,6 @@ JsonArray::copy()
 
 /**
  * prints the content of the object
- *
- * @param output pointer to the output-string on which the object-content as string will be appended
  */
 void
 JsonArray::print(std::string *output)
@@ -712,7 +731,6 @@ JsonArray::print(std::string *output)
 /**
  * add a new item to the array
  *
- * @param item abstract-json-pointer
  * @return false, if new item-pointer is nullptr, else true
  */
 bool

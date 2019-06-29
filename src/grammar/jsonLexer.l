@@ -34,7 +34,7 @@ Kitsune::Json::location jsonloc;
 %option noyywrap nounput batch debug yylineno prefix="json"
 
 id    [a-zA-Z][a-zA-Z_0-9]*
-int   [0-9]+
+int   -?([0-9]+)
 blank [ \t]
 
 %{
@@ -68,6 +68,11 @@ blank [ \t]
         driver.error(jsonloc, "integer is out of range");
     }
     return Kitsune::Json::JsonParser::make_NUMBER (length, jsonloc);
+}
+
+{int}+"."{int}*	{
+    float value = atof( yytext );
+    return Kitsune::Json::JsonParser::make_FLOAT(value, jsonloc);
 }
 
 {id}       return Kitsune::Json::JsonParser::make_IDENTIFIER(yytext, jsonloc);

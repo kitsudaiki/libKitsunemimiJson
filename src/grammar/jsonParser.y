@@ -69,6 +69,7 @@ YY_DECL;
 %token <std::string> IDENTIFIER "identifier"
 %token <std::string> STRING "string"
 %token <int> NUMBER "number"
+%token <float> FLOAT "float"
 
 %type  <AbstractJson*> json_abstract
 %type  <JsonValue*> json_value
@@ -160,6 +161,11 @@ json_value:
     }
 |
     "number"
+    {
+        $$ = new JsonValue($1);
+    }
+|
+    "float"
     {
         $$ = new JsonValue($1);
     }

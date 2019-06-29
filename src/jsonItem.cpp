@@ -161,7 +161,8 @@ JsonItem::setValue(const std::string &value)
         return false;
     }
     if(m_item->getType() == AbstractJson::INT_TYPE
-            || m_item->getType() == AbstractJson::STRING_TYPE)
+            || m_item->getType() == AbstractJson::STRING_TYPE
+            || m_item->getType() == AbstractJson::FLOAT_TYPE)
     {
         m_item->toValue()->setValue(value);
         return true;
@@ -181,7 +182,8 @@ JsonItem::setValue(const int &value)
         return false;
     }
     if(m_item->getType() == AbstractJson::INT_TYPE
-            || m_item->getType() == AbstractJson::STRING_TYPE)
+            || m_item->getType() == AbstractJson::STRING_TYPE
+            || m_item->getType() == AbstractJson::FLOAT_TYPE)
     {
         m_item->toValue()->setValue(value);
         return true;
@@ -334,6 +336,23 @@ JsonItem::getInt() const
 }
 
 /**
+ * get float-value of the item
+ *
+ * @return float-value, of the item if float-type, else 0
+ */
+float
+JsonItem::getFloat() const
+{
+    if(m_item == nullptr) {
+        return 0;
+    }
+    if(m_item->getType() == AbstractJson::FLOAT_TYPE) {
+        return m_item->toValue()->getInt();
+    }
+    return 0;
+}
+
+/**
  * getter for the number of elements in the item
  *
  * @return number of elements in the item
@@ -445,7 +464,9 @@ bool JsonItem::isValue() const
         return false;
     }
     if(m_item->getType() == AbstractJson::STRING_TYPE
-            || m_item->getType() == AbstractJson::INT_TYPE) {
+            || m_item->getType() == AbstractJson::INT_TYPE
+            || m_item->getType() == AbstractJson::FLOAT_TYPE)
+    {
         return true;
     }
     return false;
