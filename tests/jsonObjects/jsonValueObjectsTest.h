@@ -30,6 +30,7 @@ private:
 
     JsonValue* m_valueString = nullptr;
     JsonValue* m_valueInt = nullptr;
+    JsonValue* m_valueFloat = nullptr;
 };
 
 }  // namespace Json
