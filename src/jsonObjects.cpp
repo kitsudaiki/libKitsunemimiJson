@@ -81,7 +81,7 @@ JsonObject *AbstractJson::toObject()
  */
 JsonValue *AbstractJson::toValue()
 {
-    if(m_type == STRING_TYPE || m_type == INT_TYPE) {
+    if(m_type == STRING_TYPE || m_type == INT_TYPE || m_type == FLOAT_TYPE) {
         return static_cast<JsonValue*>(this);
     }
     return nullptr;
