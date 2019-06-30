@@ -1,6 +1,15 @@
 # Changelog
 
+## [0.1.1] - 2019-06-30
+
+### Added
+- add support for floating-point-values
+
+### Fixed
+- number can now be negative
+
 ## [0.1.0] - 2019-01-13
+
 ### Added
 - fundamental functions for processing json
 - parser for json-formated strings
