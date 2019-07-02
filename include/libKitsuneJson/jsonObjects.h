@@ -60,10 +60,15 @@ public:
 
     // output
     virtual AbstractJson* copy() = 0;
-    virtual void print(std::string *output) = 0;
+    virtual void print(std::string *output, bool indent=false, uint32_t step=0) = 0;
 
 protected:
     jsonTypes m_type = UNINIT_TYPE;
+    void addIndent(std::string *output,
+                   bool indent,
+                   uint32_t step);
+    void addLinebreak(std::string *output,
+                      bool indent);
 };
 
 //===================================================================
@@ -99,7 +104,7 @@ public:
 
     // output
     AbstractJson* copy();
-    void print(std::string *output);
+    void print(std::string *output, bool indent=false, uint32_t step=0);
 
 private:
     std::string m_stringValue = "";
@@ -136,7 +141,7 @@ public:
 
     // output
     AbstractJson* copy();
-    void print(std::string *output);
+    void print(std::string *output, bool indent=false, uint32_t step=0);
 
 private:
     std::map<std::string, AbstractJson*> m_objects;
@@ -167,7 +172,7 @@ public:
 
     // output
     AbstractJson* copy();
-    void print(std::string *output);
+    void print(std::string *output, bool indent=false, uint32_t step=0);
 
 private:
     std::vector<AbstractJson*> m_array;

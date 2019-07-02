@@ -40,7 +40,10 @@ void ParsingTest::parserPositiveTest()
 
     JsonObject* outputObjects = static_cast<JsonObject*>(AbstractJson::parseString(input));
     std::string outputStringObjects = "";
-    outputObjects->print(&outputStringObjects);
+    outputObjects->print(&outputStringObjects, true);
+    std::cout<<"+++++++++++++++++++++++++++++++++++"<<std::endl;
+    std::cout<<outputStringObjects<<std::endl;
+    std::cout<<"-----------------------------------"<<std::endl;
     std::string compareObjects( "{\"item\":{\"sub_item\":\"test_value\"},\"item2\":{\"sub_item2\""
                                 ":\"something\"},\"loop\":[{\"x\":42},{\"x\":42.000000},"
                                 "{\"x\":-42.000000}]}");
@@ -48,7 +51,10 @@ void ParsingTest::parserPositiveTest()
 
     JsonItem outputItem = JsonItem::parseString(input);
     std::string outputStringItem = "";
-    outputItem.print(&outputStringItem);
+    outputItem.print(&outputStringItem, true);
+    std::cout<<"+++++++++++++++++++++++++++++++++++"<<std::endl;
+    std::cout<<outputStringItem<<std::endl;
+    std::cout<<"-----------------------------------"<<std::endl;
     std::string compareItem( "{\"item\":{\"sub_item\":\"test_value\"},\"item2\":{\"sub_item2\""
                              ":\"something\"},\"loop\":[{\"x\":42},{\"x\":42.000000},"
                              "{\"x\":-42.000000}]}");
