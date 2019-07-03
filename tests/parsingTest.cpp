@@ -35,28 +35,39 @@ void ParsingTest::parserPositiveTest()
                       "\"item2\": "
                       "{ \"sub_item2\": \"something\"},"
                       "\"loop\": "
-                      "[ {\"x\" :42 }, {\"x\" :42.0 }, {\"x\" :-42.0 }]"
+                      "[ {\"x\" :42 }, {\"x\" :42.0 }, 1234, {\"x\" :-42.0 }]"
                       "}");
 
     JsonObject* outputObjects = static_cast<JsonObject*>(AbstractJson::parseString(input));
     std::string outputStringObjects = "";
     outputObjects->print(&outputStringObjects, true);
-    std::cout<<"+++++++++++++++++++++++++++++++++++"<<std::endl;
-    std::cout<<outputStringObjects<<std::endl;
-    std::cout<<"-----------------------------------"<<std::endl;
-    std::string compareObjects( "{\"item\":{\"sub_item\":\"test_value\"},\"item2\":{\"sub_item2\""
-                                ":\"something\"},\"loop\":[{\"x\":42},{\"x\":42.000000},"
-                                "{\"x\":-42.000000}]}");
+    std::string compareObjects( "{\n"
+                                "    \"item\": {\n"
+                                "        \"sub_item\": \"test_value\"\n"
+                                "    },\n"
+                                "    \"item2\": {\n"
+                                "        \"sub_item2\": \"something\"\n"
+                                "    },\n"
+                                "    \"loop\": [\n"
+                                "        {\n"
+                                "            \"x\": 42\n"
+                                "        },\n"
+                                "        {\n"
+                                "            \"x\": 42.000000\n"
+                                "        },\n"
+                                "        1234,\n"
+                                "        {\n"
+                                "            \"x\": -42.000000\n"
+                                "        }\n"
+                                "    ]\n"
+                                "}");
     UNITTEST(outputStringObjects, compareObjects);
 
     JsonItem outputItem = JsonItem::parseString(input);
     std::string outputStringItem = "";
-    outputItem.print(&outputStringItem, true);
-    std::cout<<"+++++++++++++++++++++++++++++++++++"<<std::endl;
-    std::cout<<outputStringItem<<std::endl;
-    std::cout<<"-----------------------------------"<<std::endl;
+    outputItem.print(&outputStringItem, false);
     std::string compareItem( "{\"item\":{\"sub_item\":\"test_value\"},\"item2\":{\"sub_item2\""
-                             ":\"something\"},\"loop\":[{\"x\":42},{\"x\":42.000000},"
+                             ":\"something\"},\"loop\":[{\"x\":42},{\"x\":42.000000},1234,"
                              "{\"x\":-42.000000}]}");
     UNITTEST(outputStringItem, compareItem);
 }

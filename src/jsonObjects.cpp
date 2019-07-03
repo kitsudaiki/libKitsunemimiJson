@@ -96,24 +96,16 @@ AbstractJson::toValue()
 
 void
 AbstractJson::addIndent(std::string *output,
-                        bool indent,
-                        uint32_t step)
+                        const bool indent,
+                        const uint32_t level)
 {
     if(indent == true)
     {
-        for(uint32_t i = 0; i < step; i++)
+        output->append("\n");
+        for(uint32_t i = 0; i < level; i++)
         {
             output->append("    ");
         }
-    }
-}
-
-void
-AbstractJson::addLinebreak(std::string *output,
-                           bool indent)
-{
-    if(indent == true) {
-        output->append("\n");
     }
 }
 
@@ -251,12 +243,10 @@ JsonValue::copy()
  * prints the content of the object
  */
 void
-JsonValue::print(std::string *output, bool indent, uint32_t step)
+JsonValue::print(std::string *output,
+                 const bool indent,
+                 const uint32_t level)
 {
-    if(indent == true) {
-        output->append(" ");
-    }
-
     if(m_type == STRING_TYPE)
     {
         output->append("\"");
@@ -561,8 +551,8 @@ JsonObject::copy()
  */
 void
 JsonObject::print(std::string *output,
-                  bool indent,
-                  uint32_t step)
+                  const bool indent,
+                  const uint32_t level)
 {
     output->append("{");
 
@@ -572,9 +562,7 @@ JsonObject::print(std::string *output,
         if(it != m_objects.begin()) {
             output->append(",");
         }
-
-        addLinebreak(output, indent);
-        addIndent(output, indent, step+1);
+        addIndent(output, indent, level+1);
 
         output->append("\"");
         output->append(it->first);
@@ -585,12 +573,10 @@ JsonObject::print(std::string *output,
             output->append(" ");
         }
 
-        it->second->print(output, indent, step+1);
+        it->second->print(output, indent, level+1);
     }
 
-    addLinebreak(output, indent);
-    addIndent(output, indent, step);
-
+    addIndent(output, indent, level);
     output->append("}");
 }
 
@@ -764,16 +750,11 @@ JsonArray::copy()
  */
 void
 JsonArray::print(std::string *output,
-                 bool indent,
-                 uint32_t step)
+                 const bool indent,
+                 const uint32_t level)
 {
-    addLinebreak(output, indent);
-    addIndent(output, indent, step);
-
     output->append("[");
-
-    addLinebreak(output, indent);
-    addIndent(output, indent, step+1);
+    addIndent(output, indent, level+1);
 
     std::vector<AbstractJson*>::iterator it;
     for(it = m_array.begin(); it != m_array.end(); it++)
@@ -781,16 +762,13 @@ JsonArray::print(std::string *output,
         if(it != m_array.begin())
         {
             output->append(",");
-            addLinebreak(output, indent);
-            addIndent(output, indent, step+1);
+            addIndent(output, indent, level+1);
         }
-        (*it)->print(output, indent, step+1);
+        (*it)->print(output, indent, level+1);
     }
 
-    addLinebreak(output, indent);
-    addIndent(output, indent, step);
+    addIndent(output, indent, level);
     output->append("]");
-    addLinebreak(output, indent);
 }
 
 /**
