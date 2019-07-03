@@ -46,7 +46,8 @@ AbstractJson::parseString(const std::string &input)
  *
  * @return object-specific entry of the jsonTypes-enumeration
  */
-AbstractJson::jsonTypes AbstractJson::getType() const
+AbstractJson::jsonTypes
+AbstractJson::getType() const
 {
     return m_type;
 }
@@ -55,7 +56,8 @@ AbstractJson::jsonTypes AbstractJson::getType() const
  * @brief AbstractJson::toArray
  * @return
  */
-JsonArray *AbstractJson::toArray()
+JsonArray*
+AbstractJson::toArray()
 {
     if(m_type == ARRAY_TYPE) {
         return static_cast<JsonArray*>(this);
@@ -67,7 +69,8 @@ JsonArray *AbstractJson::toArray()
  * @brief AbstractJson::toObject
  * @return
  */
-JsonObject *AbstractJson::toObject()
+JsonObject*
+AbstractJson::toObject()
 {
     if(m_type == OBJECT_TYPE) {
         return static_cast<JsonObject*>(this);
@@ -79,12 +82,31 @@ JsonObject *AbstractJson::toObject()
  * @brief AbstractJson::toValue
  * @return
  */
-JsonValue *AbstractJson::toValue()
+JsonValue*
+AbstractJson::toValue()
 {
-    if(m_type == STRING_TYPE || m_type == INT_TYPE || m_type == FLOAT_TYPE) {
+    if(m_type == STRING_TYPE
+            || m_type == INT_TYPE
+            || m_type == FLOAT_TYPE)
+    {
         return static_cast<JsonValue*>(this);
     }
     return nullptr;
+}
+
+void
+AbstractJson::addIndent(std::string *output,
+                        const bool indent,
+                        const uint32_t level)
+{
+    if(indent == true)
+    {
+        output->append("\n");
+        for(uint32_t i = 0; i < level; i++)
+        {
+            output->append("    ");
+        }
+    }
 }
 
 //===================================================================
@@ -221,9 +243,12 @@ JsonValue::copy()
  * prints the content of the object
  */
 void
-JsonValue::print(std::string *output)
+JsonValue::print(std::string *output,
+                 const bool indent,
+                 const uint32_t level)
 {
-    if(m_type == STRING_TYPE) {
+    if(m_type == STRING_TYPE)
+    {
         output->append("\"");
         output->append(m_stringValue);
         output->append("\"");
@@ -525,7 +550,9 @@ JsonObject::copy()
  * prints the content of the object
  */
 void
-JsonObject::print(std::string *output)
+JsonObject::print(std::string *output,
+                  const bool indent,
+                  const uint32_t level)
 {
     output->append("{");
 
@@ -535,13 +562,21 @@ JsonObject::print(std::string *output)
         if(it != m_objects.begin()) {
             output->append(",");
         }
+        addIndent(output, indent, level+1);
+
         output->append("\"");
         output->append(it->first);
         output->append("\"");
         output->append(":");
-        it->second->print(output);
+
+        if(indent == true) {
+            output->append(" ");
+        }
+
+        it->second->print(output, indent, level+1);
     }
 
+    addIndent(output, indent, level);
     output->append("}");
 }
 
@@ -560,7 +595,9 @@ JsonObject::insert(const std::string &key,
     std::map<std::string, AbstractJson*>::iterator it;
     it = m_objects.find(key);
 
-    if((it != m_objects.end()) && force == false) {
+    if((it != m_objects.end())
+            && force == false)
+    {
         return false;
     }
 
@@ -712,19 +749,25 @@ JsonArray::copy()
  * prints the content of the object
  */
 void
-JsonArray::print(std::string *output)
+JsonArray::print(std::string *output,
+                 const bool indent,
+                 const uint32_t level)
 {
     output->append("[");
+    addIndent(output, indent, level+1);
 
     std::vector<AbstractJson*>::iterator it;
     for(it = m_array.begin(); it != m_array.end(); it++)
     {
-        if(it != m_array.begin()) {
+        if(it != m_array.begin())
+        {
             output->append(",");
+            addIndent(output, indent, level+1);
         }
-        (*it)->print(output);
+        (*it)->print(output, indent, level+1);
     }
 
+    addIndent(output, indent, level);
     output->append("]");
 }
 

@@ -69,7 +69,7 @@ public:
     bool remove(const uint32_t index);
 
     // output
-    void print(std::string *output);
+    void print(std::string *output, bool indent=false);
 
 private:
     void clear();
