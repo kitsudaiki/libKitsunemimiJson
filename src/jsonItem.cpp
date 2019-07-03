@@ -508,10 +508,10 @@ JsonItem::remove(const uint32_t index)
  * @param output pointer to the output-string on which the object-content as string will be appended
  */
 void
-JsonItem::print(std::string *output)
+JsonItem::print(std::string *output, bool indent)
 {
     if(m_item != nullptr) {
-        m_item->print(output);
+        m_item->print(output, indent, 0);
     }
 }
 
