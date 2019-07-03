@@ -2,6 +2,13 @@
 
 
 
+## [0.1.2] - 2019-07-03
+
+### Added
+- optionally indent string-output of the print-method
+
+
+
 ## [0.1.1] - 2019-06-30
 
 ### Added
