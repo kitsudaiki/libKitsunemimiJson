@@ -48,11 +48,19 @@ public:
     virtual AbstractJson* get(const std::string key) = 0;
     virtual AbstractJson* get(const uint32_t index) = 0;
     virtual uint32_t getSize() const = 0;
+
     jsonTypes getType() const;
+    bool isValue() const;
+    bool isObject() const;
+    bool isArray() const;
 
     JsonArray* toArray();
     JsonObject* toObject();
     JsonValue* toValue();
+
+    std::string toString();
+    int toInt();
+    float toFloat();
 
     // delete
     virtual bool remove(const std::string &key) = 0;
@@ -91,9 +99,6 @@ public:
     AbstractJson* operator[](const uint32_t);
     AbstractJson* get(const std::string);
     AbstractJson* get(const uint32_t);
-    std::string getString() const;
-    int getInt() const;
-    float getFloat() const;
     uint32_t getSize() const;
 
     // delete
@@ -106,7 +111,7 @@ public:
                const bool indent=false,
                const uint32_t level=0);
 
-private:
+    // content
     std::string m_stringValue = "";
     int m_intValue = 0;
     float m_floatValue = 0.0f;
@@ -132,8 +137,13 @@ public:
     AbstractJson* get(const std::string key);
     AbstractJson* get(const uint32_t index);
     uint32_t getSize() const;
+
     std::vector<std::string> getKeys();
     bool contains(const std::string &key);
+
+    std::string getString(const std::string &key);
+    int getInt(const std::string &key);
+    float getFloat(const std::string &key);
 
     // delete
     bool remove(const std::string &key);
@@ -145,7 +155,7 @@ public:
                const bool indent=false,
                const uint32_t level=0);
 
-private:
+    // content
     std::map<std::string, AbstractJson*> m_objects;
 };
 
@@ -178,7 +188,7 @@ public:
                const bool indent=false,
                const uint32_t level=0);
 
-private:
+    // content
     std::vector<AbstractJson*> m_array;
 };
 

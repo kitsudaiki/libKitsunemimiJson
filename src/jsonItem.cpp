@@ -313,7 +313,7 @@ JsonItem::getString() const
         return "";
     }
     if(m_item->getType() == AbstractJson::STRING_TYPE) {
-        return m_item->toValue()->getString();
+        return m_item->toValue()->toString();
     }
     return "";
 }
@@ -330,7 +330,7 @@ JsonItem::getInt() const
         return 0;
     }
     if(m_item->getType() == AbstractJson::INT_TYPE) {
-        return m_item->toValue()->getInt();
+        return m_item->toValue()->toInt();
     }
     return 0;
 }
@@ -347,7 +347,7 @@ JsonItem::getFloat() const
         return 0;
     }
     if(m_item->getType() == AbstractJson::FLOAT_TYPE) {
-        return m_item->toValue()->getInt();
+        return m_item->toValue()->toFloat();
     }
     return 0;
 }
@@ -377,6 +377,7 @@ JsonItem::getKeys()
     if(m_item == nullptr) {
         return std::vector<std::string>();
     }
+
     if(m_item->getType() == AbstractJson::OBJECT_TYPE)
     {
         JsonObject* obj = static_cast<JsonObject*>(m_item);

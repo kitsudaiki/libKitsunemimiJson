@@ -53,6 +53,45 @@ AbstractJson::getType() const
 }
 
 /**
+ * TODO
+ */
+bool
+AbstractJson::isValue() const
+{
+    if(m_type == INT_TYPE
+            || m_type == STRING_TYPE
+            || m_type == FLOAT_TYPE)
+    {
+        return true;
+    }
+    return false;
+}
+
+/**
+ * TODO
+ */
+bool
+AbstractJson::isObject() const
+{
+    if(m_type == OBJECT_TYPE) {
+        return true;
+    }
+    return false;
+}
+
+/**
+ * TODO
+ */
+bool
+AbstractJson::isArray() const
+{
+    if(m_type == ARRAY_TYPE) {
+        return true;
+    }
+    return false;
+}
+
+/**
  * @brief AbstractJson::toArray
  * @return
  */
@@ -94,6 +133,68 @@ AbstractJson::toValue()
     return nullptr;
 }
 
+/**
+ * request the string of the json-value, if it is from string-type
+ *
+ * @return string of the json-value, if json-value is from string-type, else empty string
+ */
+std::string
+AbstractJson::toString()
+{
+    if(m_type == STRING_TYPE)
+    {
+        JsonValue* value = dynamic_cast<JsonValue*>(this);
+        return value->m_stringValue;
+    }
+    if(m_type == INT_TYPE)
+    {
+        JsonValue* value = dynamic_cast<JsonValue*>(this);
+        return std::to_string(value->m_intValue);;
+    }
+    if(m_type == FLOAT_TYPE)
+    {
+        JsonValue* value = dynamic_cast<JsonValue*>(this);
+        return std::to_string(value->m_floatValue);;
+    }
+    return "";
+}
+
+/**
+ * request the integer of the json-value, if it is from int-type
+ *
+ * @return integer of the json-value, if json-value is from int-type, else empty 0
+ */
+int
+AbstractJson::toInt()
+{
+    if(m_type == INT_TYPE)
+    {
+        JsonValue* value = dynamic_cast<JsonValue*>(this);
+        return value->m_intValue;
+    }
+    return 0;
+}
+
+
+/**
+ * request the flaot of the json-value, if it is from float-type
+ *
+ * @return float of the json-value, if json-value is from float-type, else empty 0.0
+ */
+float
+AbstractJson::toFloat()
+{
+    if(m_type == FLOAT_TYPE)
+    {
+        JsonValue* value = dynamic_cast<JsonValue*>(this);
+        return value->m_floatValue;
+    }
+    return 0.0f;
+}
+
+/**
+ * TODO
+ */
 void
 AbstractJson::addIndent(std::string *output,
                         const bool indent,
@@ -297,55 +398,6 @@ JsonValue::setValue(const float &item)
     m_floatValue = item;
 }
 
-/**
- * request the string of the json-value, if it is from string-type
- *
- * @return string of the json-value, if json-value is from string-type, else empty string
- */
-std::string
-JsonValue::getString() const
-{
-    if(m_type == STRING_TYPE) {
-        return m_stringValue;
-    }
-    if(m_type == INT_TYPE) {
-        return std::to_string(m_intValue);;
-    }
-    if(m_type == FLOAT_TYPE) {
-        return std::to_string(m_floatValue);;
-    }
-    return "";
-}
-
-/**
- * request the integer of the json-value, if it is from int-type
- *
- * @return integer of the json-value, if json-value is from int-type, else empty 0
- */
-int
-JsonValue::getInt() const
-{
-    if(m_type == INT_TYPE) {
-        return m_intValue;
-    }
-    return 0;
-}
-
-
-/**
- * request the flaot of the json-value, if it is from float-type
- *
- * @return float of the json-value, if json-value is from float-type, else empty 0.0
- */
-float
-JsonValue::getFloat() const
-{
-    if(m_type == FLOAT_TYPE) {
-        return m_floatValue;
-    }
-    return 0;
-}
-
 //===================================================================
 // JsonObject
 //===================================================================
@@ -482,6 +534,36 @@ JsonObject::contains(const std::string &key)
         return true;
     }
     return false;
+}
+
+/**
+ * TODO
+ */
+std::string
+JsonObject::getString(const std::string &key)
+{
+    AbstractJson* abstractValue = get(key);
+    return abstractValue->toString();
+}
+
+/**
+ * TODO
+ */
+int
+JsonObject::getInt(const std::string &key)
+{
+    AbstractJson* abstractValue = get(key);
+    return abstractValue->toInt();
+}
+
+/**
+ * TODO
+ */
+float
+JsonObject::getFloat(const std::string &key)
+{
+    AbstractJson* abstractValue = get(key);
+    return abstractValue->toFloat();
 }
 
 /**

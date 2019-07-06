@@ -41,9 +41,9 @@ void JsonValueObjectsTest::insertTestCase()
 
 void JsonValueObjectsTest::getTestCase()
 {
-    UNITTEST(m_valueString->getString(), "test");
-    UNITTEST(m_valueInt->getInt(), 42);
-    UNITTEST(m_valueFloat->getFloat(), 42.42f);
+    UNITTEST(m_valueString->toString(), "test");
+    UNITTEST(m_valueInt->toInt(), 42);
+    UNITTEST(m_valueFloat->toFloat(), 42.42f);
 }
 
 void JsonValueObjectsTest::cleanupTestCase()

@@ -49,10 +49,10 @@ void JsonObjectObjectsTest::insertTestCase()
 void JsonObjectObjectsTest::getTestCase()
 {
     AbstractJson* value1 = (*m_object)["poi1"];
-    UNITTEST(((JsonValue*)value1)->getString(), "test1");
+    UNITTEST(((JsonValue*)value1)->toString(), "test1");
 
     AbstractJson* value2 = (*m_object)[1];
-    UNITTEST(((JsonValue*)value2)->getString(), "test2");
+    UNITTEST(((JsonValue*)value2)->toString(), "test2");
 
     std::vector<std::string> keys = m_object->getKeys();
     UNITTEST(keys.size(), 2);
