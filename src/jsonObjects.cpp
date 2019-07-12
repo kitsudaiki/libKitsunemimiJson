@@ -636,26 +636,36 @@ JsonObject::print(std::string *output,
                   const bool indent,
                   const uint32_t level)
 {
+    bool firstPring = false;
     output->append("{");
 
-    std::map<std::string, AbstractJson*>::iterator it;
-    for(it = m_objects.begin(); it != m_objects.end(); it++)
+    for(uint8_t typeCounter = 1; typeCounter < 6; typeCounter++)
     {
-        if(it != m_objects.begin()) {
-            output->append(",");
+        std::map<std::string, AbstractJson*>::iterator it;
+        for(it = m_objects.begin(); it != m_objects.end(); it++)
+        {
+            if(it->second->getType() != typeCounter) {
+                continue;
+            }
+
+            if(firstPring) {
+                output->append(",");
+            }
+            firstPring = true;
+
+            addIndent(output, indent, level+1);
+
+            output->append("\"");
+            output->append(it->first);
+            output->append("\"");
+            output->append(":");
+
+            if(indent == true) {
+                output->append(" ");
+            }
+
+            it->second->print(output, indent, level+1);
         }
-        addIndent(output, indent, level+1);
-
-        output->append("\"");
-        output->append(it->first);
-        output->append("\"");
-        output->append(":");
-
-        if(indent == true) {
-            output->append(" ");
-        }
-
-        it->second->print(output, indent, level+1);
     }
 
     addIndent(output, indent, level);

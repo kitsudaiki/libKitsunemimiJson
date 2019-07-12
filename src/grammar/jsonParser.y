@@ -1,25 +1,14 @@
-/**
- *  @file    jsonParser.y
- *
- *  @author  Tobias Anker
- *  Contact: tobias.anker@kitsunemimi.moe
- *
- *  MIT License
- */
-
 %skeleton "lalr1.cc"
 
 %defines
-
-//requires 3.2 to avoid the creation of the stack.hh
 %require "3.0.4"
+
 %define parser_class_name {JsonParser}
 
 %define api.prefix {json}
 %define api.namespace {Kitsune::Json}
 %define api.token.constructor
 %define api.value.type variant
-
 %define parse.assert
 
 %code requires
