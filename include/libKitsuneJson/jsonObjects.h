@@ -38,8 +38,8 @@ public:
         STRING_TYPE = 1,
         INT_TYPE = 2,
         FLOAT_TYPE = 3,
-        ARRAY_TYPE = 4,
-        OBJECT_TYPE = 5
+        OBJECT_TYPE = 4,
+        ARRAY_TYPE = 5
     };
 
     // getter

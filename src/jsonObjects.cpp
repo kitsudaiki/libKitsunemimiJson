@@ -646,7 +646,9 @@ JsonObject::print(std::string *output,
         std::map<std::string, AbstractJson*>::iterator it;
         for(it = m_objects.begin(); it != m_objects.end(); it++)
         {
-            if(it->second->getType() != typeCounter) {
+            if(it->second != nullptr
+                    && it->second->getType() != typeCounter)
+            {
                 continue;
             }
 
@@ -666,7 +668,12 @@ JsonObject::print(std::string *output,
                 output->append(" ");
             }
 
-            it->second->print(output, indent, level+1);
+            // TODO: add unit-tests for nullptr-case
+            if(it->second == nullptr) {
+                output->append("NULL");
+            } else {
+                it->second->print(output, indent, level+1);
+            }
         }
     }
 
@@ -858,6 +865,11 @@ JsonArray::print(std::string *output,
             output->append(",");
             addIndent(output, indent, level+1);
         }
+
+        if((*it) == nullptr) {
+            continue;
+        }
+
         (*it)->print(output, indent, level+1);
     }
 
