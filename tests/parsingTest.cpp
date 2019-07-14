@@ -42,12 +42,6 @@ void ParsingTest::parserPositiveTest()
     std::string outputStringObjects = "";
     outputObjects->print(&outputStringObjects, true);
     std::string compareObjects( "{\n"
-                                "    \"item\": {\n"
-                                "        \"sub_item\": \"test_value\"\n"
-                                "    },\n"
-                                "    \"item2\": {\n"
-                                "        \"sub_item2\": \"something\"\n"
-                                "    },\n"
                                 "    \"loop\": [\n"
                                 "        {\n"
                                 "            \"x\": 42\n"
@@ -59,16 +53,22 @@ void ParsingTest::parserPositiveTest()
                                 "        {\n"
                                 "            \"x\": -42.000000\n"
                                 "        }\n"
-                                "    ]\n"
+                                "    ],\n"
+                                "    \"item\": {\n"
+                                "        \"sub_item\": \"test_value\"\n"
+                                "    },\n"
+                                "    \"item2\": {\n"
+                                "        \"sub_item2\": \"something\"\n"
+                                "    }\n"
                                 "}");
     UNITTEST(outputStringObjects, compareObjects);
 
     JsonItem outputItem = JsonItem::parseString(input);
     std::string outputStringItem = "";
     outputItem.print(&outputStringItem, false);
-    std::string compareItem( "{\"item\":{\"sub_item\":\"test_value\"},\"item2\":{\"sub_item2\""
-                             ":\"something\"},\"loop\":[{\"x\":42},{\"x\":42.000000},1234,"
-                             "{\"x\":-42.000000}]}");
+    std::string compareItem( "{\"loop\":[{\"x\":42},{\"x\":42.000000},1234,"
+                             "{\"x\":-42.000000}],\"item\":{\"sub_item\":\"test_value\"},"
+                             "\"item2\":{\"sub_item2\":\"something\"}}");
     UNITTEST(outputStringItem, compareItem);
 }
 

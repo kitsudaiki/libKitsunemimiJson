@@ -479,7 +479,9 @@ JsonObject::get(const uint32_t index)
 
     uint32_t counter = 0;
     std::map<std::string, AbstractJson*>::iterator it;
-    for(it = m_objects.begin(); it != m_objects.end(); it++)
+    for(it = m_objects.begin();
+        it != m_objects.end();
+        it++)
     {
         if(counter == index) {
             return it->second;
