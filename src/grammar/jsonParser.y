@@ -1,32 +1,21 @@
-/**
- *  @file    jsonParser.y
- *
- *  @author  Tobias Anker
- *  Contact: tobias.anker@kitsunemimi.moe
- *
- *  MIT License
- */
-
 %skeleton "lalr1.cc"
 
 %defines
-
-//requires 3.2 to avoid the creation of the stack.hh
 %require "3.0.4"
+
 %define parser_class_name {JsonParser}
 
 %define api.prefix {json}
 %define api.namespace {Kitsune::Json}
 %define api.token.constructor
 %define api.value.type variant
-
 %define parse.assert
 
 %code requires
 {
 #include <string>
 #include <iostream>
-#include <jsonObjects.h>
+#include <jsonItems.h>
 
 namespace Kitsune
 {
@@ -71,7 +60,7 @@ YY_DECL;
 %token <int> NUMBER "number"
 %token <float> FLOAT "float"
 
-%type  <AbstractJson*> json_abstract
+%type  <JsonItem*> json_abstract
 %type  <JsonValue*> json_value
 %type  <JsonArray*> json_array
 %type  <JsonArray*> json_array_content
@@ -91,17 +80,17 @@ startpoint:
 json_abstract:
     json_object
     {
-        $$ = (AbstractJson*)$1;
+        $$ = (JsonItem*)$1;
     }
 |
     json_array
     {
-        $$ = (AbstractJson*)$1;
+        $$ = (JsonItem*)$1;
     }
 |
     json_value
     {
-        $$ = (AbstractJson*)$1;
+        $$ = (JsonItem*)$1;
     }
 
 json_object:

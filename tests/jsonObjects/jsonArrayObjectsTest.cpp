@@ -8,7 +8,7 @@
  */
 
 #include "jsonArrayObjectsTest.h"
-#include <jsonObjects.h>
+#include <jsonItems.h>
 
 namespace Kitsune
 {
@@ -32,7 +32,7 @@ void JsonArrayObjectsTest::initTestCase()
 void JsonArrayObjectsTest::insertTestCase()
 {
     UNITTEST(m_array->getSize(), 0);
-    UNITTEST(m_array->getType(), AbstractJson::ARRAY_TYPE);
+    UNITTEST(m_array->getType(), JsonItem::ARRAY_TYPE);
 
     JsonValue* value1 = new JsonValue("test1");
     JsonValue* value2 = new JsonValue("test2");
@@ -48,11 +48,11 @@ void JsonArrayObjectsTest::insertTestCase()
 
 void JsonArrayObjectsTest::getTestCase()
 {
-    AbstractJson* value1 = (*m_array)["0"];
-    UNITTEST(((JsonValue*)value1)->getString(), "test1");
+    JsonItem* value1 = (*m_array)["0"];
+    UNITTEST(((JsonValue*)value1)->toString(), "test1");
 
-    AbstractJson* value2 = (*m_array)[1];
-    UNITTEST(((JsonValue*)value2)->getString(), "test2");
+    JsonItem* value2 = (*m_array)[1];
+    UNITTEST(((JsonValue*)value2)->toString(), "test2");
 }
 
 void JsonArrayObjectsTest::removeTestCase()

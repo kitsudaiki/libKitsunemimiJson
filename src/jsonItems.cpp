@@ -7,7 +7,7 @@
  *  MIT License
  */
 
-#include "jsonObjects.h"
+#include "jsonItems.h"
 #include <iostream>
 #include <json_parsing/jsonParserInterface.h>
 
@@ -20,7 +20,7 @@ namespace Json
 // AbstractJson
 //===================================================================
 
-AbstractJson::~AbstractJson()
+JsonItem::~JsonItem()
 {
     //std::cout<<"AbstractJson: "<<this<<std::endl;
 }
@@ -30,8 +30,8 @@ AbstractJson::~AbstractJson()
  *
  * @return nullptr, if parsing was not successful, else the root-object of the new json-tree
  */
-AbstractJson*
-AbstractJson::parseString(const std::string &input)
+JsonItem*
+JsonItem::parseString(const std::string &input)
 {
     JsonParserInterface parser;
     bool ret = parser.parse(input);
@@ -46,10 +46,49 @@ AbstractJson::parseString(const std::string &input)
  *
  * @return object-specific entry of the jsonTypes-enumeration
  */
-AbstractJson::jsonTypes
-AbstractJson::getType() const
+JsonItem::jsonTypes
+JsonItem::getType() const
 {
     return m_type;
+}
+
+/**
+ * TODO
+ */
+bool
+JsonItem::isValue() const
+{
+    if(m_type == INT_TYPE
+            || m_type == STRING_TYPE
+            || m_type == FLOAT_TYPE)
+    {
+        return true;
+    }
+    return false;
+}
+
+/**
+ * TODO
+ */
+bool
+JsonItem::isObject() const
+{
+    if(m_type == OBJECT_TYPE) {
+        return true;
+    }
+    return false;
+}
+
+/**
+ * TODO
+ */
+bool
+JsonItem::isArray() const
+{
+    if(m_type == ARRAY_TYPE) {
+        return true;
+    }
+    return false;
 }
 
 /**
@@ -57,7 +96,7 @@ AbstractJson::getType() const
  * @return
  */
 JsonArray*
-AbstractJson::toArray()
+JsonItem::toArray()
 {
     if(m_type == ARRAY_TYPE) {
         return static_cast<JsonArray*>(this);
@@ -70,7 +109,7 @@ AbstractJson::toArray()
  * @return
  */
 JsonObject*
-AbstractJson::toObject()
+JsonItem::toObject()
 {
     if(m_type == OBJECT_TYPE) {
         return static_cast<JsonObject*>(this);
@@ -83,7 +122,7 @@ AbstractJson::toObject()
  * @return
  */
 JsonValue*
-AbstractJson::toValue()
+JsonItem::toValue()
 {
     if(m_type == STRING_TYPE
             || m_type == INT_TYPE
@@ -94,8 +133,70 @@ AbstractJson::toValue()
     return nullptr;
 }
 
+/**
+ * request the string of the json-value, if it is from string-type
+ *
+ * @return string of the json-value, if json-value is from string-type, else empty string
+ */
+std::string
+JsonItem::toString()
+{
+    if(m_type == STRING_TYPE)
+    {
+        JsonValue* value = dynamic_cast<JsonValue*>(this);
+        return value->m_stringValue;
+    }
+    if(m_type == INT_TYPE)
+    {
+        JsonValue* value = dynamic_cast<JsonValue*>(this);
+        return std::to_string(value->m_intValue);;
+    }
+    if(m_type == FLOAT_TYPE)
+    {
+        JsonValue* value = dynamic_cast<JsonValue*>(this);
+        return std::to_string(value->m_floatValue);;
+    }
+    return "";
+}
+
+/**
+ * request the integer of the json-value, if it is from int-type
+ *
+ * @return integer of the json-value, if json-value is from int-type, else empty 0
+ */
+int
+JsonItem::toInt()
+{
+    if(m_type == INT_TYPE)
+    {
+        JsonValue* value = dynamic_cast<JsonValue*>(this);
+        return value->m_intValue;
+    }
+    return 0;
+}
+
+
+/**
+ * request the flaot of the json-value, if it is from float-type
+ *
+ * @return float of the json-value, if json-value is from float-type, else empty 0.0
+ */
+float
+JsonItem::toFloat()
+{
+    if(m_type == FLOAT_TYPE)
+    {
+        JsonValue* value = dynamic_cast<JsonValue*>(this);
+        return value->m_floatValue;
+    }
+    return 0.0f;
+}
+
+/**
+ * TODO
+ */
 void
-AbstractJson::addIndent(std::string *output,
+JsonItem::addIndent(std::string *output,
                         const bool indent,
                         const uint32_t level)
 {
@@ -159,7 +260,7 @@ JsonValue::~JsonValue()
 /**
  * fake-method which exist here only for the inheritance and returns everytime nullptr
  */
-AbstractJson*
+JsonItem*
 JsonValue::operator[](const std::string)
 {
     return nullptr;
@@ -168,7 +269,7 @@ JsonValue::operator[](const std::string)
 /**
  * fake-method which exist here only for the inheritance and returns everytime nullptr
  */
-AbstractJson*
+JsonItem*
 JsonValue::operator[](const uint32_t)
 {
     return nullptr;
@@ -177,7 +278,7 @@ JsonValue::operator[](const uint32_t)
 /**
  * fake-method which exist here only for the inheritance and returns everytime nullptr
  */
-AbstractJson*
+JsonItem*
 JsonValue::get(const std::string)
 {
     return nullptr;
@@ -186,7 +287,7 @@ JsonValue::get(const std::string)
 /**
  * fake-method which exist here only for the inheritance and returns everytime nullptr
  */
-AbstractJson*
+JsonItem*
 JsonValue::get(const uint32_t)
 {
     return nullptr;
@@ -223,7 +324,7 @@ JsonValue::remove(const uint32_t)
  * @brief JsonValue::copy
  * @return
  */
-AbstractJson*
+JsonItem*
 JsonValue::copy()
 {
     JsonValue *tempItem = nullptr;
@@ -297,55 +398,6 @@ JsonValue::setValue(const float &item)
     m_floatValue = item;
 }
 
-/**
- * request the string of the json-value, if it is from string-type
- *
- * @return string of the json-value, if json-value is from string-type, else empty string
- */
-std::string
-JsonValue::getString() const
-{
-    if(m_type == STRING_TYPE) {
-        return m_stringValue;
-    }
-    if(m_type == INT_TYPE) {
-        return std::to_string(m_intValue);;
-    }
-    if(m_type == FLOAT_TYPE) {
-        return std::to_string(m_floatValue);;
-    }
-    return "";
-}
-
-/**
- * request the integer of the json-value, if it is from int-type
- *
- * @return integer of the json-value, if json-value is from int-type, else empty 0
- */
-int
-JsonValue::getInt() const
-{
-    if(m_type == INT_TYPE) {
-        return m_intValue;
-    }
-    return 0;
-}
-
-
-/**
- * request the flaot of the json-value, if it is from float-type
- *
- * @return float of the json-value, if json-value is from float-type, else empty 0.0
- */
-float
-JsonValue::getFloat() const
-{
-    if(m_type == FLOAT_TYPE) {
-        return m_floatValue;
-    }
-    return 0;
-}
-
 //===================================================================
 // JsonObject
 //===================================================================
@@ -364,10 +416,10 @@ JsonObject::JsonObject()
 JsonObject::~JsonObject()
 {
     //std::cout<<"JsonObject: "<<this<<std::endl;
-    std::map<std::string, AbstractJson*>::iterator it;
+    std::map<std::string, JsonItem*>::iterator it;
     for(it = m_objects.begin(); it != m_objects.end(); it++)
     {
-        AbstractJson* tempItem = it->second;
+        JsonItem* tempItem = it->second;
         delete tempItem;
     }
     m_objects.clear();
@@ -378,7 +430,7 @@ JsonObject::~JsonObject()
  *
  * @return nullptr if index in key is to high, else object
  */
-AbstractJson*
+JsonItem*
 JsonObject::operator[](const std::string key)
 {
     return get(key);
@@ -389,7 +441,7 @@ JsonObject::operator[](const std::string key)
  *
  * @return nullptr if index is to high, else object
  */
-AbstractJson*
+JsonItem*
 JsonObject::operator[](const uint32_t index)
 {
     return get(index);
@@ -400,10 +452,10 @@ JsonObject::operator[](const uint32_t index)
  *
  * @return nullptr if index in key is to high, else object
  */
-AbstractJson*
+JsonItem*
 JsonObject::get(const std::string key)
 {
-    std::map<std::string, AbstractJson*>::iterator it;
+    std::map<std::string, JsonItem*>::iterator it;
     it = m_objects.find(key);
 
     if(it != m_objects.end()) {
@@ -418,7 +470,7 @@ JsonObject::get(const std::string key)
  *
  * @return nullptr if index is to high, else object
  */
-AbstractJson*
+JsonItem*
 JsonObject::get(const uint32_t index)
 {
     if(m_objects.size() <= index) {
@@ -426,8 +478,10 @@ JsonObject::get(const uint32_t index)
     }
 
     uint32_t counter = 0;
-    std::map<std::string, AbstractJson*>::iterator it;
-    for(it = m_objects.begin(); it != m_objects.end(); it++)
+    std::map<std::string, JsonItem*>::iterator it;
+    for(it = m_objects.begin();
+        it != m_objects.end();
+        it++)
     {
         if(counter == index) {
             return it->second;
@@ -458,7 +512,7 @@ std::vector<std::string>
 JsonObject::getKeys()
 {
     std::vector<std::string> result;
-    std::map<std::string, AbstractJson*>::iterator it;
+    std::map<std::string, JsonItem*>::iterator it;
     for(it = m_objects.begin(); it != m_objects.end(); it++)
     {
         result.push_back(it->first);
@@ -474,7 +528,7 @@ JsonObject::getKeys()
 bool
 JsonObject::contains(const std::string &key)
 {
-    std::map<std::string, AbstractJson*>::iterator it;
+    std::map<std::string, JsonItem*>::iterator it;
     it = m_objects.find(key);
 
     if(it != m_objects.end())
@@ -485,6 +539,36 @@ JsonObject::contains(const std::string &key)
 }
 
 /**
+ * TODO
+ */
+std::string
+JsonObject::getString(const std::string &key)
+{
+    JsonItem* abstractValue = get(key);
+    return abstractValue->toString();
+}
+
+/**
+ * TODO
+ */
+int
+JsonObject::getInt(const std::string &key)
+{
+    JsonItem* abstractValue = get(key);
+    return abstractValue->toInt();
+}
+
+/**
+ * TODO
+ */
+float
+JsonObject::getFloat(const std::string &key)
+{
+    JsonItem* abstractValue = get(key);
+    return abstractValue->toFloat();
+}
+
+/**
  * remove an item from the key-value-list
  *
  * @return false if the key doesn't exist, else true
@@ -492,7 +576,7 @@ JsonObject::contains(const std::string &key)
 bool
 JsonObject::remove(const std::string &key)
 {
-    std::map<std::string, AbstractJson*>::iterator it;
+    std::map<std::string, JsonItem*>::iterator it;
     it = m_objects.find(key);
 
     if(it != m_objects.end())
@@ -517,7 +601,7 @@ JsonObject::remove(const uint32_t index)
     }
 
     uint32_t counter = 0;
-    std::map<std::string, AbstractJson*>::iterator it;
+    std::map<std::string, JsonItem*>::iterator it;
     for(it = m_objects.begin(); it != m_objects.end(); it++)
     {
         if(counter == index)
@@ -534,11 +618,11 @@ JsonObject::remove(const uint32_t index)
  * @brief JsonObject::copy
  * @return
  */
-AbstractJson*
+JsonItem*
 JsonObject::copy()
 {
     JsonObject* tempItem = new JsonObject();
-    std::map<std::string, AbstractJson*>::iterator it;
+    std::map<std::string, JsonItem*>::iterator it;
     for(it = m_objects.begin(); it != m_objects.end(); it++)
     {
         tempItem->insert(it->first, it->second->copy());
@@ -554,26 +638,43 @@ JsonObject::print(std::string *output,
                   const bool indent,
                   const uint32_t level)
 {
+    bool firstPring = false;
     output->append("{");
 
-    std::map<std::string, AbstractJson*>::iterator it;
-    for(it = m_objects.begin(); it != m_objects.end(); it++)
+    for(uint8_t typeCounter = 1; typeCounter < 6; typeCounter++)
     {
-        if(it != m_objects.begin()) {
-            output->append(",");
+        std::map<std::string, JsonItem*>::iterator it;
+        for(it = m_objects.begin(); it != m_objects.end(); it++)
+        {
+            if(it->second != nullptr
+                    && it->second->getType() != typeCounter)
+            {
+                continue;
+            }
+
+            if(firstPring) {
+                output->append(",");
+            }
+            firstPring = true;
+
+            addIndent(output, indent, level+1);
+
+            output->append("\"");
+            output->append(it->first);
+            output->append("\"");
+            output->append(":");
+
+            if(indent == true) {
+                output->append(" ");
+            }
+
+            // TODO: add unit-tests for nullptr-case
+            if(it->second == nullptr) {
+                output->append("NULL");
+            } else {
+                it->second->print(output, indent, level+1);
+            }
         }
-        addIndent(output, indent, level+1);
-
-        output->append("\"");
-        output->append(it->first);
-        output->append("\"");
-        output->append(":");
-
-        if(indent == true) {
-            output->append(" ");
-        }
-
-        it->second->print(output, indent, level+1);
     }
 
     addIndent(output, indent, level);
@@ -587,12 +688,12 @@ JsonObject::print(std::string *output,
  */
 bool
 JsonObject::insert(const std::string &key,
-                   AbstractJson *value,
+                   JsonItem *value,
                    bool force)
 {
 
 
-    std::map<std::string, AbstractJson*>::iterator it;
+    std::map<std::string, JsonItem*>::iterator it;
     it = m_objects.find(key);
 
     if((it != m_objects.end())
@@ -604,7 +705,7 @@ JsonObject::insert(const std::string &key,
     if(it != m_objects.end()) {
         it->second = value;
     } else {
-        m_objects.insert(std::pair<std::string, AbstractJson*>(key, value));
+        m_objects.insert(std::pair<std::string, JsonItem*>(key, value));
     }
     return true;
 }
@@ -629,7 +730,7 @@ JsonArray::~JsonArray()
     //std::cout<<"JsonArray: "<<this<<std::endl;
     for(uint32_t i = 0; i < m_array.size(); i++)
     {
-        AbstractJson* tempItem = m_array[i];
+        JsonItem* tempItem = m_array[i];
         delete tempItem;
     }
     m_array.clear();
@@ -640,7 +741,7 @@ JsonArray::~JsonArray()
  *
  * @return nullptr if index in key is to high, else true
  */
-AbstractJson*
+JsonItem*
 JsonArray::operator[](const std::string key)
 {
     return get(key);
@@ -651,7 +752,7 @@ JsonArray::operator[](const std::string key)
  *
  * @return nullptr if index is to high, else true
  */
-AbstractJson*
+JsonItem*
 JsonArray::operator[](const uint32_t index)
 {
     return get(index);
@@ -662,7 +763,7 @@ JsonArray::operator[](const uint32_t index)
  *
  * @return nullptr if index in key is to high, else object
  */
-AbstractJson*
+JsonItem*
 JsonArray::get(const std::string key)
 {
     const uint32_t index = static_cast<uint32_t>(std::stoi(key));
@@ -678,7 +779,7 @@ JsonArray::get(const std::string key)
  *
  * @return nullptr if index is to high, else the object
  */
-AbstractJson*
+JsonItem*
 JsonArray::get(const uint32_t index)
 {
     if(m_array.size() <= index) {
@@ -734,7 +835,7 @@ JsonArray::remove(const uint32_t index)
  * @brief JsonArray::copy
  * @return
  */
-AbstractJson*
+JsonItem*
 JsonArray::copy()
 {
     JsonArray* tempItem = new JsonArray();
@@ -756,7 +857,7 @@ JsonArray::print(std::string *output,
     output->append("[");
     addIndent(output, indent, level+1);
 
-    std::vector<AbstractJson*>::iterator it;
+    std::vector<JsonItem*>::iterator it;
     for(it = m_array.begin(); it != m_array.end(); it++)
     {
         if(it != m_array.begin())
@@ -764,6 +865,11 @@ JsonArray::print(std::string *output,
             output->append(",");
             addIndent(output, indent, level+1);
         }
+
+        if((*it) == nullptr) {
+            continue;
+        }
+
         (*it)->print(output, indent, level+1);
     }
 
@@ -777,7 +883,7 @@ JsonArray::print(std::string *output,
  * @return false, if new item-pointer is nullptr, else true
  */
 bool
-JsonArray::append(AbstractJson *item)
+JsonArray::append(JsonItem *item)
 {
     if(item == nullptr) {
         return false;

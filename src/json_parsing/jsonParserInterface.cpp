@@ -8,7 +8,7 @@
  */
 
 #include <json_parsing/jsonParserInterface.h>
-#include <jsonObjects.h>
+#include <jsonItems.h>
 #include <jsonParser.h>
 
 

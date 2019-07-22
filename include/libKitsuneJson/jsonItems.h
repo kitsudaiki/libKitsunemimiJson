@@ -24,42 +24,50 @@ class JsonObject;
 class JsonValue;
 
 //===================================================================
-// AbstractJson
+// JsonItem
 //===================================================================
-class AbstractJson
+class JsonItem
 {
 public:
-    virtual ~AbstractJson();
+    virtual ~JsonItem();
 
-    static AbstractJson* parseString(const std::string &input);
+    static JsonItem* parseString(const std::string &input);
 
     enum jsonTypes {
         UNINIT_TYPE = 0,
         STRING_TYPE = 1,
         INT_TYPE = 2,
         FLOAT_TYPE = 3,
-        ARRAY_TYPE = 4,
-        OBJECT_TYPE = 5
+        OBJECT_TYPE = 4,
+        ARRAY_TYPE = 5
     };
 
     // getter
-    virtual AbstractJson* operator[](const std::string key) = 0;
-    virtual AbstractJson* operator[](const uint32_t index) = 0;
-    virtual AbstractJson* get(const std::string key) = 0;
-    virtual AbstractJson* get(const uint32_t index) = 0;
+    virtual JsonItem* operator[](const std::string key) = 0;
+    virtual JsonItem* operator[](const uint32_t index) = 0;
+    virtual JsonItem* get(const std::string key) = 0;
+    virtual JsonItem* get(const uint32_t index) = 0;
     virtual uint32_t getSize() const = 0;
+
     jsonTypes getType() const;
+    bool isValue() const;
+    bool isObject() const;
+    bool isArray() const;
 
     JsonArray* toArray();
     JsonObject* toObject();
     JsonValue* toValue();
+
+    std::string toString();
+    int toInt();
+    float toFloat();
 
     // delete
     virtual bool remove(const std::string &key) = 0;
     virtual bool remove(const uint32_t index) = 0;
 
     // output
-    virtual AbstractJson* copy() = 0;
+    virtual JsonItem* copy() = 0;
     virtual void print(std::string *output, bool indent=false, uint32_t step=0) = 0;
 
 protected:
@@ -72,7 +80,7 @@ protected:
 //===================================================================
 // JsonValue
 //===================================================================
-class JsonValue : public AbstractJson
+class JsonValue : public JsonItem
 {
 public:
     JsonValue();
@@ -87,13 +95,10 @@ public:
     void setValue(const float &item);
 
     // getter
-    AbstractJson* operator[](const std::string);
-    AbstractJson* operator[](const uint32_t);
-    AbstractJson* get(const std::string);
-    AbstractJson* get(const uint32_t);
-    std::string getString() const;
-    int getInt() const;
-    float getFloat() const;
+    JsonItem* operator[](const std::string);
+    JsonItem* operator[](const uint32_t);
+    JsonItem* get(const std::string);
+    JsonItem* get(const uint32_t);
     uint32_t getSize() const;
 
     // delete
@@ -101,12 +106,12 @@ public:
     bool remove(const uint32_t);
 
     // output
-    AbstractJson* copy();
+    JsonItem* copy();
     void print(std::string *output,
                const bool indent=false,
                const uint32_t level=0);
 
-private:
+    // content
     std::string m_stringValue = "";
     int m_intValue = 0;
     float m_floatValue = 0.0f;
@@ -115,7 +120,7 @@ private:
 //===================================================================
 // JsonObject
 //===================================================================
-class JsonObject : public AbstractJson
+class JsonObject : public JsonItem
 {
 public:
     JsonObject();
@@ -123,49 +128,54 @@ public:
 
     // add
     bool insert(const std::string &key,
-                AbstractJson* value,
+                JsonItem* value,
                 bool force = false);
 
     // getter
-    AbstractJson* operator[](const std::string key);
-    AbstractJson* operator[](const uint32_t index);
-    AbstractJson* get(const std::string key);
-    AbstractJson* get(const uint32_t index);
+    JsonItem* operator[](const std::string key);
+    JsonItem* operator[](const uint32_t index);
+    JsonItem* get(const std::string key);
+    JsonItem* get(const uint32_t index);
     uint32_t getSize() const;
+
     std::vector<std::string> getKeys();
     bool contains(const std::string &key);
+
+    std::string getString(const std::string &key);
+    int getInt(const std::string &key);
+    float getFloat(const std::string &key);
 
     // delete
     bool remove(const std::string &key);
     bool remove(const uint32_t index);
 
     // output
-    AbstractJson* copy();
+    JsonItem* copy();
     void print(std::string *output,
                const bool indent=false,
                const uint32_t level=0);
 
-private:
-    std::map<std::string, AbstractJson*> m_objects;
+    // content
+    std::map<std::string, JsonItem*> m_objects;
 };
 
 //===================================================================
 // JsonArray
 //===================================================================
-class JsonArray : public AbstractJson
+class JsonArray : public JsonItem
 {
 public:
     JsonArray();
     ~JsonArray();
 
     // add
-    bool append(AbstractJson* item);
+    bool append(JsonItem* item);
 
     // getter
-    AbstractJson* operator[](const std::string key);
-    AbstractJson* operator[](const uint32_t index);
-    AbstractJson* get(const std::string key);
-    AbstractJson* get(const uint32_t index);
+    JsonItem* operator[](const std::string key);
+    JsonItem* operator[](const uint32_t index);
+    JsonItem* get(const std::string key);
+    JsonItem* get(const uint32_t index);
     uint32_t getSize() const;
 
     // delete
@@ -173,13 +183,13 @@ public:
     bool remove(const uint32_t index);
 
     // output
-    AbstractJson* copy();
+    JsonItem* copy();
     void print(std::string *output,
                const bool indent=false,
                const uint32_t level=0);
 
-private:
-    std::vector<AbstractJson*> m_array;
+    // content
+    std::vector<JsonItem*> m_array;
 };
 
 
