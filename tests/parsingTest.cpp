@@ -8,8 +8,7 @@
  */
 
 #include "parsingTest.h"
-#include <jsonObjects.h>
-#include <jsonItem.h>
+#include <jsonItems.h>
 
 namespace Kitsune
 {
@@ -38,7 +37,7 @@ void ParsingTest::parserPositiveTest()
                       "[ {\"x\" :42 }, {\"x\" :42.0 }, 1234, {\"x\" :-42.0 }]"
                       "}");
 
-    JsonObject* outputObjects = static_cast<JsonObject*>(AbstractJson::parseString(input));
+    JsonObject* outputObjects = static_cast<JsonObject*>(JsonItem::parseString(input));
     std::string outputStringObjects = "";
     outputObjects->print(&outputStringObjects, true);
     std::string compareObjects( "{\n"
@@ -62,14 +61,6 @@ void ParsingTest::parserPositiveTest()
                                 "    ]\n"
                                 "}");
     UNITTEST(outputStringObjects, compareObjects);
-
-    JsonItem outputItem = JsonItem::parseString(input);
-    std::string outputStringItem = "";
-    outputItem.print(&outputStringItem, false);
-    std::string compareItem( "{\"item\":{\"sub_item\":\"test_value\"},\"item2\":{\"sub_item2\""
-                             ":\"something\"},\"loop\":[{\"x\":42},{\"x\":42.000000},1234,"
-                             "{\"x\":-42.000000}]}");
-    UNITTEST(outputStringItem, compareItem);
 }
 
 void ParsingTest::parserNegativeTest()
@@ -82,7 +73,7 @@ void ParsingTest::parserNegativeTest()
                       "[ {\"x\" :\"test1\" }, {\"x\" :\"test2\" }, {\"x\" :\"test3\" }]\n"
                       "}");
 
-    AbstractJson* output = AbstractJson::parseString(input);
+    JsonItem* output = JsonItem::parseString(input);
     bool success = false;
     if(output != nullptr) {
         success = true;

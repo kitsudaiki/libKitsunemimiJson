@@ -1,13 +1,4 @@
-/**
- *  @file    jsonLexer.l
- *
- *  @author  Tobias Anker
- *  Contact: tobias.anker@kitsunemimi.moe
- *
- *  MIT License
- */
-
-%{
+%{ /* -*- C++ -*- */
 # include <cerrno>
 # include <climits>
 # include <cstdlib>
