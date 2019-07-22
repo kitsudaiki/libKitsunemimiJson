@@ -9,7 +9,6 @@
 
 #include "parsingTest.h"
 #include <jsonObjects.h>
-#include <jsonItem.h>
 
 namespace Kitsune
 {
@@ -62,15 +61,6 @@ void ParsingTest::parserPositiveTest()
                                 "    ]\n"
                                 "}");
     UNITTEST(outputStringObjects, compareObjects);
-
-    JsonItem outputItem = JsonItem::parseString(input);
-    std::string outputStringItem = "";
-    outputItem.print(&outputStringItem, false);
-    std::string compareItem( "{\"item\":{\"sub_item\":\"test_value\"},"
-                             "\"item2\":{\"sub_item2\":\"something\"},\"loop\":"
-                             "[{\"x\":42},{\"x\":42.000000},1234,"
-                             "{\"x\":-42.000000}]}");
-    UNITTEST(outputStringItem, compareItem);
 }
 
 void ParsingTest::parserNegativeTest()
