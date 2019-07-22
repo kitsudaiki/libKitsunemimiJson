@@ -1,6 +1,21 @@
 # Changelog
 
 
+## [Unreleased]
+
+### Removed
+- the old JsonItem was remove, because it had too much copy-calls was not used
+
+### Changed
+- AbstractJson was rename to JsonItem, because its a bit weird to have abstract stuff in the hole code
+
+### Added
+- json-output can now be better printed with indents to be better readable
+
+### Fixed
+- fixed print-method for handling null-pointers in the json-tree
+
+
 
 ## [0.1.2] - 2019-07-03
 
