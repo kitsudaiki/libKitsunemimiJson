@@ -8,7 +8,7 @@
  */
 
 #include "jsonValueObjectsTest.h"
-#include <jsonObjects.h>
+#include <jsonItems.h>
 
 namespace Kitsune
 {
@@ -34,9 +34,9 @@ void JsonValueObjectsTest::insertTestCase()
 {
     m_valueString->setValue("test");
 
-    UNITTEST(m_valueString->getType(), AbstractJson::STRING_TYPE);
-    UNITTEST(m_valueInt->getType(), AbstractJson::INT_TYPE);
-    UNITTEST(m_valueFloat->getType(), AbstractJson::FLOAT_TYPE);
+    UNITTEST(m_valueString->getType(), JsonItem::STRING_TYPE);
+    UNITTEST(m_valueInt->getType(), JsonItem::INT_TYPE);
+    UNITTEST(m_valueFloat->getType(), JsonItem::FLOAT_TYPE);
 }
 
 void JsonValueObjectsTest::getTestCase()

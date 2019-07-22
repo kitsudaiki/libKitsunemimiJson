@@ -8,7 +8,7 @@
  */
 
 #include "parsingTest.h"
-#include <jsonObjects.h>
+#include <jsonItems.h>
 
 namespace Kitsune
 {
@@ -37,7 +37,7 @@ void ParsingTest::parserPositiveTest()
                       "[ {\"x\" :42 }, {\"x\" :42.0 }, 1234, {\"x\" :-42.0 }]"
                       "}");
 
-    JsonObject* outputObjects = static_cast<JsonObject*>(AbstractJson::parseString(input));
+    JsonObject* outputObjects = static_cast<JsonObject*>(JsonItem::parseString(input));
     std::string outputStringObjects = "";
     outputObjects->print(&outputStringObjects, true);
     std::string compareObjects( "{\n"
@@ -73,7 +73,7 @@ void ParsingTest::parserNegativeTest()
                       "[ {\"x\" :\"test1\" }, {\"x\" :\"test2\" }, {\"x\" :\"test3\" }]\n"
                       "}");
 
-    AbstractJson* output = AbstractJson::parseString(input);
+    JsonItem* output = JsonItem::parseString(input);
     bool success = false;
     if(output != nullptr) {
         success = true;

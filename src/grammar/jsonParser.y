@@ -15,7 +15,7 @@
 {
 #include <string>
 #include <iostream>
-#include <jsonObjects.h>
+#include <jsonItems.h>
 
 namespace Kitsune
 {
@@ -60,7 +60,7 @@ YY_DECL;
 %token <int> NUMBER "number"
 %token <float> FLOAT "float"
 
-%type  <AbstractJson*> json_abstract
+%type  <JsonItem*> json_abstract
 %type  <JsonValue*> json_value
 %type  <JsonArray*> json_array
 %type  <JsonArray*> json_array_content
@@ -80,17 +80,17 @@ startpoint:
 json_abstract:
     json_object
     {
-        $$ = (AbstractJson*)$1;
+        $$ = (JsonItem*)$1;
     }
 |
     json_array
     {
-        $$ = (AbstractJson*)$1;
+        $$ = (JsonItem*)$1;
     }
 |
     json_value
     {
-        $$ = (AbstractJson*)$1;
+        $$ = (JsonItem*)$1;
     }
 
 json_object:
