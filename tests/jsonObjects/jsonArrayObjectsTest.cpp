@@ -19,54 +19,46 @@ JsonArrayObjectsTest::JsonArrayObjectsTest() : Kitsune::CommonTest("JsonArrayObj
 {
     initTestCase();
     insertTestCase();
-    getTestCase();
-    removeTestCase();
     cleanupTestCase();
 }
 
 void JsonArrayObjectsTest::initTestCase()
 {
-    m_array = new JsonArray();
 }
 
 void JsonArrayObjectsTest::insertTestCase()
 {
-    UNITTEST(m_array->getSize(), 0);
-    UNITTEST(m_array->getType(), JsonItem::ARRAY_TYPE);
+    JsonItem testArray;
 
-    JsonValue* value1 = new JsonValue("test1");
-    JsonValue* value2 = new JsonValue("test2");
-    m_array->append(value1);
-    m_array->append(value2);
+    UNITTEST(testArray.getSize(), 0);
+    UNITTEST(testArray.getType(), JsonItem::ARRAY_TYPE);
 
-    UNITTEST(m_array->getSize(), 2);
+    JsonItem value1("test1");
+    JsonItem value2("test2");
+    testArray.append(value1);
+    testArray.append(value2);
+
+    UNITTEST(testArray.getSize(), 2);
     std::string outputString = "";
-    m_array->print(&outputString);
+    testArray.print(&outputString);
     std::string compare( "[\"test1\",\"test2\"]");
     UNITTEST(outputString, compare);
-}
 
-void JsonArrayObjectsTest::getTestCase()
-{
-    JsonItem* value1 = (*m_array)["0"];
-    UNITTEST(((JsonValue*)value1)->toString(), "test1");
+    JsonItem value3 = testArray[0];
+    UNITTEST(value3.toString(), "test1");
 
-    JsonItem* value2 = (*m_array)[1];
-    UNITTEST(((JsonValue*)value2)->toString(), "test2");
-}
+    JsonItem value4 = testArray[1];
+    UNITTEST(value4.toString(), "test2");
 
-void JsonArrayObjectsTest::removeTestCase()
-{
-    UNITTEST(m_array->remove("1"), true);
-    UNITTEST(m_array->getSize(), 1);
-    UNITTEST(m_array->remove(0), true);
-    UNITTEST(m_array->getSize(), 0);
-    UNITTEST(m_array->remove(2), false);
+    UNITTEST(testArray.remove(1), true);
+    UNITTEST(testArray.getSize(), 1);
+    UNITTEST(testArray.remove(0), true);
+    UNITTEST(testArray.getSize(), 0);
+    UNITTEST(testArray.remove(2), false);
 }
 
 void JsonArrayObjectsTest::cleanupTestCase()
 {
-    delete m_array;
 }
 
 }  // namespace Json

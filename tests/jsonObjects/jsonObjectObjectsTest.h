@@ -25,11 +25,8 @@ public:
 private:
     void initTestCase();
     void insertTestCase();
-    void getTestCase();
-    void removeTestCase();
     void cleanupTestCase();
 
-    JsonObject* m_object = nullptr;
 };
 
 }  // namespace Json

@@ -11,13 +11,13 @@
 #define JSONPARSERINTERFACE_HH
 
 #include <iostream>
+#include <jsonItems.h>
 
 namespace Kitsune
 {
 namespace Json
 {
 class location;
-class JsonObject;
 
 class JsonParserInterface
 {
@@ -32,8 +32,8 @@ public:
     std::string removeQuotes(std::string input);
 
     // output-handling
-    void setOutput(JsonObject* output);
-    JsonObject* getOutput() const;
+    void setOutput(JsonItem output);
+    JsonItem getOutput() const;
 
     // Error handling.
     void error(const Kitsune::Json::location &location,
@@ -41,7 +41,7 @@ public:
     std::string getErrorMessage() const;
 
 private:
-    JsonObject* m_output;
+    JsonItem m_output;
     std::string m_errorMessage = "";
     std::string m_inputString = "";
 

@@ -60,12 +60,12 @@ YY_DECL;
 %token <int> NUMBER "number"
 %token <float> FLOAT "float"
 
-%type  <JsonItem*> json_abstract
-%type  <JsonValue*> json_value
-%type  <JsonArray*> json_array
-%type  <JsonArray*> json_array_content
-%type  <JsonObject*> json_object
-%type  <JsonObject*> json_object_content
+%type  <JsonItem> json_abstract
+%type  <JsonItem> json_value
+%type  <JsonItem> json_array
+%type  <JsonItem> json_array_content
+%type  <JsonItem> json_object
+%type  <JsonItem> json_object_content
 
 %%
 %start startpoint;
@@ -80,17 +80,17 @@ startpoint:
 json_abstract:
     json_object
     {
-        $$ = (JsonItem*)$1;
+        $$ = $1;
     }
 |
     json_array
     {
-        $$ = (JsonItem*)$1;
+        $$ = $1;
     }
 |
     json_value
     {
-        $$ = (JsonItem*)$1;
+        $$ = $1;
     }
 
 json_object:
@@ -102,26 +102,26 @@ json_object:
 json_object_content:
     json_object_content "," "identifier" ":" json_abstract
     {
-        $1->insert($3, $5);
+        $1.insert($3, $5);
         $$ = $1;
     }
 |
     "identifier" ":" json_abstract
     {
-        $$ = new JsonObject();
-        $$->insert($1, $3);
+        $$ = JsonItem(JsonItem::OBJECT_TYPE);
+        $$.insert($1, $3);
     }
 |
     json_object_content "," "string" ":" json_abstract
     {
-        $1->insert(driver.removeQuotes($3), $5);
+        $1.insert(driver.removeQuotes($3), $5);
         $$ = $1;
     }
 |
     "string" ":" json_abstract
     {
-        $$ = new JsonObject();
-        $$->insert(driver.removeQuotes($1), $3);
+        $$ = JsonItem(JsonItem::OBJECT_TYPE);
+        $$.insert(driver.removeQuotes($1), $3);
     }
 
 json_array:
@@ -133,35 +133,35 @@ json_array:
 json_array_content:
     json_array_content "," json_abstract
     {
-        $1->append($3);
+        $1.append($3);
         $$ = $1;
     }
 |
     json_abstract
     {
-        $$ = new JsonArray();
-        $$->append($1);
+        $$ = JsonItem(JsonItem::ARRAY_TYPE);
+        $$.append($1);
     }
 
 json_value:
     "identifier"
     {
-        $$ = new JsonValue($1);
+        $$ = JsonItem($1);
     }
 |
     "number"
     {
-        $$ = new JsonValue($1);
+        $$ = JsonItem($1);
     }
 |
     "float"
     {
-        $$ = new JsonValue($1);
+        $$ = JsonItem($1);
     }
 |
     "string"
     {
-        $$ = new JsonValue(driver.removeQuotes($1));
+        $$ = JsonItem(driver.removeQuotes($1));
     }
 
 %%

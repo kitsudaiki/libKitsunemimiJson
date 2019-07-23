@@ -37,9 +37,9 @@ void ParsingTest::parserPositiveTest()
                       "[ {\"x\" :42 }, {\"x\" :42.0 }, 1234, {\"x\" :-42.0 }]"
                       "}");
 
-    JsonObject* outputObjects = static_cast<JsonObject*>(JsonItem::parseString(input));
+    JsonItem outputObjects = JsonItem::parseString(input);
     std::string outputStringObjects = "";
-    outputObjects->print(&outputStringObjects, true);
+    outputObjects.print(&outputStringObjects, true);
     std::string compareObjects( "{\n"
                                 "    \"item\": {\n"
                                 "        \"sub_item\": \"test_value\"\n"
@@ -73,11 +73,8 @@ void ParsingTest::parserNegativeTest()
                       "[ {\"x\" :\"test1\" }, {\"x\" :\"test2\" }, {\"x\" :\"test3\" }]\n"
                       "}");
 
-    JsonItem* output = JsonItem::parseString(input);
+    JsonItem output = JsonItem::parseString(input);
     bool success = false;
-    if(output != nullptr) {
-        success = true;
-    }
 
     UNITTEST(success, false);
 }

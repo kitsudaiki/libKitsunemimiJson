@@ -45,7 +45,6 @@ JsonParserInterface::parse(const std::string &inputString)
     // init global values
     m_inputString = inputString;
     m_errorMessage = "";
-    m_output = nullptr;
 
     // run parser-code
     this->scan_begin(inputString);
@@ -89,7 +88,7 @@ JsonParserInterface::removeQuotes(std::string input)
  * @param output parser-output as QJsonArray
  */
 void
-JsonParserInterface::setOutput(JsonObject* output)
+JsonParserInterface::setOutput(JsonItem output)
 {
      m_output = output;
 }
@@ -99,7 +98,7 @@ JsonParserInterface::setOutput(JsonObject* output)
  *
  * @return parser-output as QJsonArray
  */
-JsonObject*
+JsonItem
 JsonParserInterface::getOutput() const
 {
     return m_output;

@@ -1,5 +1,5 @@
 /**
- *  @file    jsonObjects.h
+ *  @file    jsonItem.h
  *
  *  @author  Tobias Anker
  *  Contact: tobias.anker@kitsunemimi.moe
@@ -28,11 +28,18 @@ class JsonValue;
 //===================================================================
 class JsonItem
 {
+    union jsonContent {
+        int intValue;
+        float floatValue;
+        std::string stringValue;
+        std::vector<JsonItem> array;
+        std::map<std::string, JsonItem> object;
+
+        jsonContent() {}
+        ~jsonContent() {}
+    };
+
 public:
-    virtual ~JsonItem();
-
-    static JsonItem* parseString(const std::string &input);
-
     enum jsonTypes {
         UNINIT_TYPE = 0,
         STRING_TYPE = 1,
@@ -42,156 +49,62 @@ public:
         ARRAY_TYPE = 5
     };
 
+    JsonItem();
+    JsonItem(jsonTypes type);
+    JsonItem(const JsonItem &other);
+    JsonItem &operator =(const JsonItem &other);
+
+    JsonItem(const std::string &text);
+    JsonItem(const int value);
+    JsonItem(const float value);
+
+    ~JsonItem();
+
+    static JsonItem parseString(const std::string &input);
+
+
+    // add and set
+    void setValue(const std::string &item);
+    void setValue(const int &item);
+    void setValue(const float &item);
+    bool insert(const std::string &key,
+                JsonItem value,
+                bool force = false);
+    bool append(JsonItem item);
+
     // getter
-    virtual JsonItem* operator[](const std::string key) = 0;
-    virtual JsonItem* operator[](const uint32_t index) = 0;
-    virtual JsonItem* get(const std::string key) = 0;
-    virtual JsonItem* get(const uint32_t index) = 0;
-    virtual uint32_t getSize() const = 0;
+    JsonItem operator[](const std::string key);
+    JsonItem operator[](const uint32_t index);
+    JsonItem get(const std::string key);
+    JsonItem get(const uint32_t index);
+    uint64_t getSize() const;
+    bool contains(const std::string &key);
+    std::vector<std::string> getKeys();
 
     jsonTypes getType() const;
     bool isValue() const;
     bool isObject() const;
     bool isArray() const;
 
-    JsonArray* toArray();
-    JsonObject* toObject();
-    JsonValue* toValue();
-
     std::string toString();
     int toInt();
     float toFloat();
 
     // delete
-    virtual bool remove(const std::string &key) = 0;
-    virtual bool remove(const uint32_t index) = 0;
+    bool remove(const std::string &key);
+    bool remove(const uint64_t index);
 
     // output
-    virtual JsonItem* copy() = 0;
-    virtual void print(std::string *output, bool indent=false, uint32_t step=0) = 0;
+    void print(std::string *output, bool indent=false, uint32_t level=0);
 
-protected:
+private:
     jsonTypes m_type = UNINIT_TYPE;
+    jsonContent m_content;
+
     void addIndent(std::string *output,
                    const bool indent,
                    const uint32_t level);
 };
-
-//===================================================================
-// JsonValue
-//===================================================================
-class JsonValue : public JsonItem
-{
-public:
-    JsonValue();
-    JsonValue(const std::string &text);
-    JsonValue(const int value);
-    JsonValue(const float value);
-    ~JsonValue();
-
-    // setter
-    void setValue(const std::string &item);
-    void setValue(const int &item);
-    void setValue(const float &item);
-
-    // getter
-    JsonItem* operator[](const std::string);
-    JsonItem* operator[](const uint32_t);
-    JsonItem* get(const std::string);
-    JsonItem* get(const uint32_t);
-    uint32_t getSize() const;
-
-    // delete
-    bool remove(const std::string&);
-    bool remove(const uint32_t);
-
-    // output
-    JsonItem* copy();
-    void print(std::string *output,
-               const bool indent=false,
-               const uint32_t level=0);
-
-    // content
-    std::string m_stringValue = "";
-    int m_intValue = 0;
-    float m_floatValue = 0.0f;
-};
-
-//===================================================================
-// JsonObject
-//===================================================================
-class JsonObject : public JsonItem
-{
-public:
-    JsonObject();
-    ~JsonObject();
-
-    // add
-    bool insert(const std::string &key,
-                JsonItem* value,
-                bool force = false);
-
-    // getter
-    JsonItem* operator[](const std::string key);
-    JsonItem* operator[](const uint32_t index);
-    JsonItem* get(const std::string key);
-    JsonItem* get(const uint32_t index);
-    uint32_t getSize() const;
-
-    std::vector<std::string> getKeys();
-    bool contains(const std::string &key);
-
-    std::string getString(const std::string &key);
-    int getInt(const std::string &key);
-    float getFloat(const std::string &key);
-
-    // delete
-    bool remove(const std::string &key);
-    bool remove(const uint32_t index);
-
-    // output
-    JsonItem* copy();
-    void print(std::string *output,
-               const bool indent=false,
-               const uint32_t level=0);
-
-    // content
-    std::map<std::string, JsonItem*> m_objects;
-};
-
-//===================================================================
-// JsonArray
-//===================================================================
-class JsonArray : public JsonItem
-{
-public:
-    JsonArray();
-    ~JsonArray();
-
-    // add
-    bool append(JsonItem* item);
-
-    // getter
-    JsonItem* operator[](const std::string key);
-    JsonItem* operator[](const uint32_t index);
-    JsonItem* get(const std::string key);
-    JsonItem* get(const uint32_t index);
-    uint32_t getSize() const;
-
-    // delete
-    bool remove(const std::string &key);
-    bool remove(const uint32_t index);
-
-    // output
-    JsonItem* copy();
-    void print(std::string *output,
-               const bool indent=false,
-               const uint32_t level=0);
-
-    // content
-    std::vector<JsonItem*> m_array;
-};
-
 
 }  // namespace Json
 }  // namespace Kitsune

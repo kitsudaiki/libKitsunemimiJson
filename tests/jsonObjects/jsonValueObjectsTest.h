@@ -22,15 +22,10 @@ class JsonValueObjectsTest: public Kitsune::CommonTest
 {
 public:
     JsonValueObjectsTest();
+
 private:
     void initTestCase();
-    void insertTestCase();
-    void getTestCase();
     void cleanupTestCase();
-
-    JsonValue* m_valueString = nullptr;
-    JsonValue* m_valueInt = nullptr;
-    JsonValue* m_valueFloat = nullptr;
 };
 
 }  // namespace Json
