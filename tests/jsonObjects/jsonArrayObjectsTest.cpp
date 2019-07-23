@@ -28,7 +28,7 @@ void JsonArrayObjectsTest::initTestCase()
 
 void JsonArrayObjectsTest::insertTestCase()
 {
-    JsonItem testArray;
+    JsonItem testArray(JsonItem::ARRAY_TYPE);
 
     UNITTEST(testArray.getSize(), 0);
     UNITTEST(testArray.getType(), JsonItem::ARRAY_TYPE);

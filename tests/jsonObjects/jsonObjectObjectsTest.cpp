@@ -28,7 +28,7 @@ void JsonObjectObjectsTest::initTestCase()
 
 void JsonObjectObjectsTest::insertTestCase()
 {
-    JsonItem m_object;
+    JsonItem m_object(JsonItem::OBJECT_TYPE);
 
     UNITTEST(m_object.getSize(), 0);
     UNITTEST(m_object.getType(), JsonItem::OBJECT_TYPE);

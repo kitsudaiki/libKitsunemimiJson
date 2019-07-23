@@ -146,7 +146,7 @@ json_array_content:
 json_value:
     "identifier"
     {
-        $$ = JsonItem($1);
+        $$ = JsonItem(std::string($1));
     }
 |
     "number"

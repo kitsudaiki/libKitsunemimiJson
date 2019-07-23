@@ -28,16 +28,6 @@ class JsonValue;
 //===================================================================
 class JsonItem
 {
-    union jsonContent {
-        int intValue;
-        float floatValue;
-        std::string stringValue;
-        std::vector<JsonItem> array;
-        std::map<std::string, JsonItem> object;
-
-        jsonContent() {}
-        ~jsonContent() {}
-    };
 
 public:
     enum jsonTypes {
@@ -54,7 +44,7 @@ public:
     JsonItem(const JsonItem &other);
     JsonItem &operator =(const JsonItem &other);
 
-    JsonItem(const std::string &text);
+    JsonItem(const std::string text);
     JsonItem(const int value);
     JsonItem(const float value);
 
@@ -99,7 +89,11 @@ public:
 
 private:
     jsonTypes m_type = UNINIT_TYPE;
-    jsonContent m_content;
+    int intValue;
+    float floatValue;
+    std::string stringValue;
+    std::vector<JsonItem> array;
+    std::map<std::string, JsonItem> object;
 
     void addIndent(std::string *output,
                    const bool indent,

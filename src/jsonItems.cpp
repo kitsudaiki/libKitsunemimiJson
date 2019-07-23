@@ -33,19 +33,19 @@ JsonItem::JsonItem(JsonItem::jsonTypes type)
     switch(m_type)
     {
         case STRING_TYPE:
-            m_content.stringValue = "";
+            stringValue = "";
             break;
         case INT_TYPE:
-            m_content.intValue = 0;
+            intValue = 0;
             break;
         case FLOAT_TYPE:
-            m_content.floatValue = 0.0f;
+            floatValue = 0.0f;
             break;
         case OBJECT_TYPE:
-            m_content.object = std::map<std::string, JsonItem>();
+            object = std::map<std::string, JsonItem>();
             break;
         case ARRAY_TYPE:
-            m_content.array = std::vector<JsonItem>();
+            array = std::vector<JsonItem>();
             break;
         default:
             break;
@@ -64,19 +64,19 @@ JsonItem::operator=(const JsonItem& other)
     switch(m_type)
     {
         case STRING_TYPE:
-            m_content.stringValue = other.m_content.stringValue;
+            stringValue = other.stringValue;
             break;
         case INT_TYPE:
-            m_content.intValue = other.m_content.intValue;
+            intValue = other.intValue;
             break;
         case FLOAT_TYPE:
-            m_content.floatValue = other.m_content.floatValue;
+            floatValue = other.floatValue;
             break;
         case OBJECT_TYPE:
-            m_content.object = other.m_content.object;
+            object = other.object;
             break;
         case ARRAY_TYPE:
-            m_content.array = other.m_content.array;
+            array = other.array;
             break;
         default:
             break;
@@ -94,19 +94,19 @@ JsonItem::JsonItem(const JsonItem &other)
     switch(m_type)
     {
         case STRING_TYPE:
-            m_content.stringValue = other.m_content.stringValue;
+            stringValue = other.stringValue;
             break;
         case INT_TYPE:
-            m_content.intValue = other.m_content.intValue;
+            intValue = other.intValue;
             break;
         case FLOAT_TYPE:
-            m_content.floatValue = other.m_content.floatValue;
+            floatValue = other.floatValue;
             break;
         case OBJECT_TYPE:
-            m_content.object = other.m_content.object;
+            object = other.object;
             break;
         case ARRAY_TYPE:
-            m_content.array = other.m_content.array;
+            array = other.array;
             break;
         default:
             break;
@@ -117,10 +117,10 @@ JsonItem::JsonItem(const JsonItem &other)
  * @brief JsonItem::JsonItem
  * @param text
  */
-JsonItem::JsonItem(const std::string &text)
+JsonItem::JsonItem(const std::string text)
 {
     m_type = STRING_TYPE;
-    m_content.stringValue = text;
+    stringValue = text;
 }
 
 /**
@@ -130,7 +130,7 @@ JsonItem::JsonItem(const std::string &text)
 JsonItem::JsonItem(const int value)
 {
     m_type = INT_TYPE;
-    m_content.intValue = value;
+    intValue = value;
 }
 
 /**
@@ -140,7 +140,7 @@ JsonItem::JsonItem(const int value)
 JsonItem::JsonItem(const float value)
 {
     m_type = FLOAT_TYPE;
-    m_content.floatValue = value;
+    floatValue = value;
 }
 
 /**
@@ -174,7 +174,7 @@ void
 JsonItem::setValue(const std::string &item)
 {
     m_type = STRING_TYPE;
-    m_content.stringValue = item;
+    stringValue = item;
 }
 
 /**
@@ -185,7 +185,7 @@ void
 JsonItem::setValue(const int &item)
 {
     m_type = INT_TYPE;
-    m_content.intValue = item;
+    intValue = item;
 }
 
 /**
@@ -196,7 +196,7 @@ void
 JsonItem::setValue(const float &item)
 {
     m_type = FLOAT_TYPE;
-    m_content.floatValue = item;
+    floatValue = item;
 }
 
 /**
@@ -214,18 +214,18 @@ JsonItem::insert(const std::string &key,
     if(m_type == OBJECT_TYPE)
     {
         std::map<std::string, JsonItem>::iterator it;
-        it = m_content.object.find(key);
+        it = object.find(key);
 
-        if(it != m_content.object.end()
+        if(it != object.end()
                 && force == false)
         {
             return false;
         }
 
-        if(it != m_content.object.end()) {
+        if(it != object.end()) {
             it->second = value;
         } else {
-            m_content.object.insert(std::pair<std::string, JsonItem>(key, value));
+            object.insert(std::pair<std::string, JsonItem>(key, value));
         }
 
         return true;
@@ -244,7 +244,7 @@ JsonItem::append(JsonItem item)
 {
     if(m_type == ARRAY_TYPE)
     {
-        m_content.array.push_back(item);
+        array.push_back(item);
         return true;
     }
     return false;
@@ -283,9 +283,9 @@ JsonItem::get(const std::string key)
     if(m_type == OBJECT_TYPE)
     {
         std::map<std::string, JsonItem>::iterator it;
-        it = m_content.object.find(key);
+        it = object.find(key);
 
-        if(it != m_content.object.end()) {
+        if(it != object.end()) {
             return it->second;
         }
     }
@@ -302,22 +302,22 @@ JsonItem::get(const uint32_t index)
 {
     if(m_type == ARRAY_TYPE)
     {
-        if(m_content.array.size() <= index) {
+        if(array.size() <= index) {
             return JsonItem();
         }
-        return m_content.array[index];
+        return array[index];
     }
 
     if(m_type == OBJECT_TYPE)
     {
-        if(m_content.object.size() <= index) {
+        if(object.size() <= index) {
             return JsonItem();
         }
 
         uint32_t counter = 0;
         std::map<std::string, JsonItem>::iterator it;
-        for(it = m_content.object.begin();
-            it != m_content.object.end();
+        for(it = object.begin();
+            it != object.end();
             it++)
         {
             if(counter == index) {
@@ -338,13 +338,15 @@ uint64_t
 JsonItem::getSize() const
 {
     if(m_type == ARRAY_TYPE) {
-        return m_content.array.size();
+        return array.size();
     }
 
     if(m_type == OBJECT_TYPE)
     {
-
+        return object.size();
     }
+
+    return 0;
 }
 
 /**
@@ -358,9 +360,9 @@ JsonItem::contains(const std::string &key)
     if(m_type == OBJECT_TYPE)
     {
         std::map<std::string, JsonItem>::iterator it;
-        it = m_content.object.find(key);
+        it = object.find(key);
 
-        if(it != m_content.object.end()) {
+        if(it != object.end()) {
             return true;
         }
     }
@@ -381,7 +383,7 @@ JsonItem::getKeys()
         std::vector<std::string> result;
         std::map<std::string, JsonItem>::iterator it;
 
-        for(it = m_content.object.begin(); it != m_content.object.end(); it++)
+        for(it = object.begin(); it != object.end(); it++)
         {
             result.push_back(it->first);
         }
@@ -455,15 +457,15 @@ JsonItem::toString()
 {
     if(m_type == STRING_TYPE)
     {
-        return m_content.stringValue;
+        return stringValue;
     }
     if(m_type == INT_TYPE)
     {
-        return std::to_string(m_content.intValue);
+        return std::to_string(intValue);
     }
     if(m_type == FLOAT_TYPE)
     {
-        return std::to_string(m_content.floatValue);
+        return std::to_string(floatValue);
     }
 
     return "";
@@ -478,7 +480,7 @@ int
 JsonItem::toInt()
 {
     if(m_type == INT_TYPE) {
-        return m_content.intValue;
+        return intValue;
     }
 
     return 0;
@@ -494,7 +496,7 @@ float
 JsonItem::toFloat()
 {
     if(m_type == FLOAT_TYPE) {
-        return m_content.floatValue;
+        return floatValue;
     }
 
     return 0.0f;
@@ -509,11 +511,11 @@ bool
 JsonItem::remove(const std::string &key)
 {
     std::map<std::string, JsonItem>::iterator it;
-    it = m_content.object.find(key);
+    it = object.find(key);
 
-    if(it != m_content.object.end())
+    if(it != object.end())
     {
-        m_content.object.erase(it);
+        object.erase(it);
         return true;
     }
 
@@ -528,11 +530,35 @@ JsonItem::remove(const std::string &key)
 bool
 JsonItem::remove(const uint64_t index)
 {
-    if(m_content.array.size() <= index) {
-        return false;
+    if(m_type == OBJECT_TYPE)
+    {
+        if(object.size() <= index) {
+            return false;
+        }
+
+        uint32_t counter = 0;
+        std::map<std::string, JsonItem>::iterator it;
+        for(it = object.begin(); it != object.end(); it++)
+        {
+            if(counter == index)
+            {
+                object.erase(it);
+                return true;
+            }
+            counter++;
+        }
     }
-    m_content.array.erase(m_content.array.begin() + index);
-    return true;
+
+    if(m_type == ARRAY_TYPE)
+    {
+        if(array.size() <= index) {
+            return false;
+        }
+        array.erase(array.begin() + index);
+        return true;
+    }
+
+    return false;
 }
 
 /**
@@ -551,18 +577,18 @@ JsonItem::print(std::string *output,
         case STRING_TYPE:
         {
             output->append("\"");
-            output->append(m_content.stringValue);
+            output->append(stringValue);
             output->append("\"");
             break;
         }
         case INT_TYPE:
         {
-            output->append(std::to_string(m_content.intValue));
+            output->append(std::to_string(intValue));
             break;
         }
         case FLOAT_TYPE:
         {
-            output->append(std::to_string(m_content.floatValue));
+            output->append(std::to_string(floatValue));
             break;
         }
         case OBJECT_TYPE:
@@ -573,7 +599,7 @@ JsonItem::print(std::string *output,
             for(uint8_t typeCounter = 1; typeCounter < 6; typeCounter++)
             {
                 std::map<std::string, JsonItem>::iterator it;
-                for(it = m_content.object.begin(); it != m_content.object.end(); it++)
+                for(it = object.begin(); it != object.end(); it++)
                 {
                     if(it->second.getType() != typeCounter)
                     {
@@ -610,9 +636,9 @@ JsonItem::print(std::string *output,
             addIndent(output, indent, level+1);
 
             std::vector<JsonItem>::iterator it;
-            for(it = m_content.array.begin(); it != m_content.array.end(); it++)
+            for(it = array.begin(); it != array.end(); it++)
             {
-                if(it != m_content.array.begin())
+                if(it != array.begin())
                 {
                     output->append(",");
                     addIndent(output, indent, level+1);
