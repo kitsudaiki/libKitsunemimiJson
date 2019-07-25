@@ -49,6 +49,16 @@ public:
     virtual JsonItem* get(const uint32_t index) = 0;
     virtual uint32_t getSize() const = 0;
 
+    // delete
+    virtual bool remove(const std::string &key) = 0;
+    virtual bool remove(const uint32_t index) = 0;
+
+    // output
+    virtual JsonItem* copy() = 0;
+    virtual std::string print(std::string *output=nullptr,
+                              bool indent=false,
+                              uint32_t step=0) = 0;
+
     jsonTypes getType() const;
     bool isValue() const;
     bool isObject() const;
@@ -61,14 +71,6 @@ public:
     std::string toString();
     int toInt();
     float toFloat();
-
-    // delete
-    virtual bool remove(const std::string &key) = 0;
-    virtual bool remove(const uint32_t index) = 0;
-
-    // output
-    virtual JsonItem* copy() = 0;
-    virtual void print(std::string *output, bool indent=false, uint32_t step=0) = 0;
 
 protected:
     jsonTypes m_type = UNINIT_TYPE;
@@ -107,9 +109,9 @@ public:
 
     // output
     JsonItem* copy();
-    void print(std::string *output,
-               const bool indent=false,
-               const uint32_t level=0);
+    std::string print(std::string *output=nullptr,
+                      const bool indent=false,
+                      const uint32_t level=0);
 
     // content
     std::string m_stringValue = "";
@@ -139,6 +141,8 @@ public:
     uint32_t getSize() const;
 
     std::vector<std::string> getKeys();
+    std::vector<JsonItem*> getValues();
+    std::map<std::string, JsonItem*> getComplete();
     bool contains(const std::string &key);
 
     std::string getString(const std::string &key);
@@ -151,9 +155,9 @@ public:
 
     // output
     JsonItem* copy();
-    void print(std::string *output,
-               const bool indent=false,
-               const uint32_t level=0);
+    std::string print(std::string *output=nullptr,
+                      const bool indent=false,
+                      const uint32_t level=0);
 
     // content
     std::map<std::string, JsonItem*> m_objects;
@@ -184,9 +188,9 @@ public:
 
     // output
     JsonItem* copy();
-    void print(std::string *output,
-               const bool indent=false,
-               const uint32_t level=0);
+    std::string print(std::string *output,
+                      const bool indent=false,
+                      const uint32_t level=0);
 
     // content
     std::vector<JsonItem*> m_array;
