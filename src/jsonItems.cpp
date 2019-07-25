@@ -841,6 +841,16 @@ JsonArray::getSize() const
 }
 
 /**
+ * @brief JsonArray::getComplete
+ * @return
+ */
+std::vector<JsonItem *>
+JsonArray::getComplete()
+{
+    return m_array;
+}
+
+/**
  * remove an item from the array
  *
  * @return false if index in key is to high, else true

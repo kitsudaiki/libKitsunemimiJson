@@ -182,6 +182,8 @@ public:
     JsonItem* get(const uint32_t index);
     uint32_t getSize() const;
 
+    std::vector<JsonItem*> getComplete();
+
     // delete
     bool remove(const std::string &key);
     bool remove(const uint32_t index);
