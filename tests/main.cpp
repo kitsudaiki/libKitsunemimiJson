@@ -8,9 +8,9 @@
  */
 
 #include <iostream>
-#include <jsonObjects/jsonArrayObjectsTest.h>
-#include <jsonObjects/jsonValueObjectsTest.h>
-#include <jsonObjects/jsonObjectObjectsTest.h>
+#include <jsonObjects/jsonItems_JsonArray_test.hpp>
+#include <jsonObjects/jsonItems_JsonValue_test.hpp>
+#include <jsonObjects/jsonItems_JsonObject_test.hpp>
 #include <parsingTest.h>
 
 int main()
@@ -18,6 +18,6 @@ int main()
     Kitsune::Json::ParsingTest();
 
     Kitsune::Json::JsonValueObjectsTest();
-    Kitsune::Json::JsonArrayObjectsTest();
+    Kitsune::Json::JsonItems_JsonArray_Test();
     Kitsune::Json::JsonObjectObjectsTest();
 }

@@ -7,8 +7,8 @@
  *  MIT License
  */
 
-#include "jsonValueObjectsTest.h"
-#include <jsonItems.h>
+#include "jsonItems_JsonValue_test.hpp"
+#include <jsonItems.hpp>
 
 namespace Kitsune
 {

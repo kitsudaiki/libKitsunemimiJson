@@ -8,7 +8,7 @@
  */
 
 #include "parsingTest.h"
-#include <jsonItems.h>
+#include <jsonItems.hpp>
 
 namespace Kitsune
 {

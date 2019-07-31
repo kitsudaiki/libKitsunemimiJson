@@ -7,9 +7,9 @@
  *  MIT License
  */
 
-#include <json_parsing/jsonParserInterface.h>
-#include <jsonItems.h>
-#include <jsonParser.h>
+#include <json_parsing/jsonParserInterface.hpp>
+#include <jsonItems.hpp>
+#include <jsonParser.hpp>
 
 
 # define YY_DECL \

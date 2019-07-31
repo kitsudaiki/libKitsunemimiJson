@@ -35,11 +35,15 @@ public:
 
     enum jsonTypes {
         UNINIT_TYPE = 0,
+        VALUE_TYPE = 1,
+        OBJECT_TYPE = 2,
+        ARRAY_TYPE = 3
+    };
+
+    enum jsonValueTypes {
         STRING_TYPE = 1,
         INT_TYPE = 2,
         FLOAT_TYPE = 3,
-        OBJECT_TYPE = 4,
-        ARRAY_TYPE = 5
     };
 
     // getter

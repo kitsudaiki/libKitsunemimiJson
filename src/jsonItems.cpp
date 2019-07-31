@@ -7,9 +7,9 @@
  *  MIT License
  */
 
-#include "jsonItems.h"
+#include "jsonItems.hpp"
 #include <iostream>
-#include <json_parsing/jsonParserInterface.h>
+#include <json_parsing/jsonParserInterface.hpp>
 
 namespace Kitsune
 {

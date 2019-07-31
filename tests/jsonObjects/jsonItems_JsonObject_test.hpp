@@ -1,5 +1,5 @@
 /**
- *  @file    jsonArrayObjectsTest.h
+ *  @file    jsonObjectObjectsTest.h
  *
  *  @author  Tobias Anker
  *  Contact: tobias.anker@kitsunemimi.moe
@@ -7,21 +7,21 @@
  *  MIT License
  */
 
-#ifndef JSONARRAYOBJECTTEST_H
-#define JSONARRAYOBJECTTEST_H
+#ifndef JSONOBJECTOBJECTTEST_H
+#define JSONOBJECTOBJECTTEST_H
 
-#include <testing/commonTest.h>
+#include <testing/commonTest.hpp>
 
 namespace Kitsune
 {
 namespace Json
 {
-class JsonArray;
+class JsonObject;
 
-class JsonArrayObjectsTest: public Kitsune::CommonTest
+class JsonObjectObjectsTest: public Kitsune::CommonTest
 {
 public:
-    JsonArrayObjectsTest();
+    JsonObjectObjectsTest();
 private:
     void initTestCase();
     void insertTestCase();
@@ -29,10 +29,10 @@ private:
     void removeTestCase();
     void cleanupTestCase();
 
-    JsonArray* m_array = nullptr;
+    JsonObject* m_object = nullptr;
 };
 
 }  // namespace Json
 }  // namespace Kitsune
 
-#endif // JSONARRAYOBJECTTEST_H
+#endif // JSONOBJECTOBJECTTEST_H
