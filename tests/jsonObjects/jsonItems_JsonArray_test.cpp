@@ -32,6 +32,9 @@ JsonItems_JsonArray_Test::JsonItems_JsonArray_Test()
     toString_toInt_toFloat_test();
 }
 
+/**
+ * append_test
+ */
 void
 JsonItems_JsonArray_Test::append_test()
 {
@@ -49,6 +52,9 @@ JsonItems_JsonArray_Test::append_test()
     UNITTEST(array.append(nullptr), false);
 }
 
+/**
+ * operator_test
+ */
 void
 JsonItems_JsonArray_Test::operator_test()
 {
@@ -61,6 +67,9 @@ JsonItems_JsonArray_Test::operator_test()
     UNITTEST(isNullptr, true);
 }
 
+/**
+ * get_test
+ */
 void
 JsonItems_JsonArray_Test::get_test()
 {
@@ -73,6 +82,9 @@ JsonItems_JsonArray_Test::get_test()
     UNITTEST(isNullptr, true);
 }
 
+/**
+ * getSize_test
+ */
 void
 JsonItems_JsonArray_Test::getSize_test()
 {
@@ -80,6 +92,9 @@ JsonItems_JsonArray_Test::getSize_test()
     UNITTEST(array.getSize(), 4);
 }
 
+/**
+ * remove_test
+ */
 void
 JsonItems_JsonArray_Test::remove_test()
 {
@@ -93,6 +108,9 @@ JsonItems_JsonArray_Test::remove_test()
     UNITTEST(array.remove(10), false);
 }
 
+/**
+ * copy_test
+ */
 void
 JsonItems_JsonArray_Test::copy_test()
 {
@@ -104,8 +122,13 @@ JsonItems_JsonArray_Test::copy_test()
     UNITTEST(isNullptr, false);
 
     UNITTEST(array.print(), arrayCopy->print());
+
+    delete arrayCopy;
 }
 
+/**
+ * print_test
+ */
 void
 JsonItems_JsonArray_Test::print_test()
 {
@@ -123,6 +146,9 @@ JsonItems_JsonArray_Test::print_test()
     UNITTEST(array.print(nullptr, true), compare);
 }
 
+/**
+ * getType_test
+ */
 void
 JsonItems_JsonArray_Test::getType_test()
 {
@@ -130,6 +156,9 @@ JsonItems_JsonArray_Test::getType_test()
     UNITTEST(array.getType(), JsonItem::ARRAY_TYPE);
 }
 
+/**
+ * isValue_isObject_isArray_test
+ */
 void
 JsonItems_JsonArray_Test::isValue_isObject_isArray_test()
 {
@@ -139,6 +168,9 @@ JsonItems_JsonArray_Test::isValue_isObject_isArray_test()
     UNITTEST(array.isArray(), true);
 }
 
+/**
+ * toValue_toObject_toArray_test
+ */
 void
 JsonItems_JsonArray_Test::toValue_toObject_toArray_test()
 {
@@ -154,6 +186,9 @@ JsonItems_JsonArray_Test::toValue_toObject_toArray_test()
     UNITTEST(isNullptr, true);
 }
 
+/**
+ * toString_toInt_toFloat_test
+ */
 void
 JsonItems_JsonArray_Test::toString_toInt_toFloat_test()
 {
@@ -163,6 +198,11 @@ JsonItems_JsonArray_Test::toString_toInt_toFloat_test()
     UNITTEST(array.toFloat(), 0.0f);
 }
 
+/**
+ * create test json-array
+ *
+ * @return json-array for tests
+ */
 JsonArray
 JsonItems_JsonArray_Test::initTestArray()
 {

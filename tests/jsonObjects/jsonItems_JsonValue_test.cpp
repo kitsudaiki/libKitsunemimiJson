@@ -33,6 +33,9 @@ JsonItems_JsonValue_Test::JsonItems_JsonValue_Test()
     setValue_test();
 }
 
+/**
+ * operator_test
+ */
 void
 JsonItems_JsonValue_Test::operator_test()
 {
@@ -45,6 +48,9 @@ JsonItems_JsonValue_Test::operator_test()
     UNITTEST(isNullptr, true);
 }
 
+/**
+ * get_test
+ */
 void
 JsonItems_JsonValue_Test::get_test()
 {
@@ -57,6 +63,9 @@ JsonItems_JsonValue_Test::get_test()
     UNITTEST(isNullptr, true);
 }
 
+/**
+ * getSize_test
+ */
 void
 JsonItems_JsonValue_Test::getSize_test()
 {
@@ -64,6 +73,9 @@ JsonItems_JsonValue_Test::getSize_test()
     UNITTEST(defaultValue.getSize(), 0);
 }
 
+/**
+ * remove_test
+ */
 void
 JsonItems_JsonValue_Test::remove_test()
 {
@@ -72,6 +84,9 @@ JsonItems_JsonValue_Test::remove_test()
     UNITTEST(defaultValue.remove(1), false);
 }
 
+/**
+ * copy_test
+ */
 void
 JsonItems_JsonValue_Test::copy_test()
 {
@@ -98,6 +113,9 @@ JsonItems_JsonValue_Test::copy_test()
     delete floatValueCopy;
 }
 
+/**
+ * print_test
+ */
 void
 JsonItems_JsonValue_Test::print_test()
 {
@@ -112,6 +130,9 @@ JsonItems_JsonValue_Test::print_test()
     UNITTEST(floatValue.print(), "42.500000");
 }
 
+/**
+ * getType_test
+ */
 void
 JsonItems_JsonValue_Test::getType_test()
 {
@@ -126,6 +147,9 @@ JsonItems_JsonValue_Test::getType_test()
     UNITTEST(floatValue.getType(), JsonItem::VALUE_TYPE);
 }
 
+/**
+ * isValue_isObject_isArray_test
+ */
 void
 JsonItems_JsonValue_Test::isValue_isObject_isArray_test()
 {
@@ -135,6 +159,9 @@ JsonItems_JsonValue_Test::isValue_isObject_isArray_test()
     UNITTEST(defaultValue.isArray(), false);
 }
 
+/**
+ * toValue_toObject_toArray_test
+ */
 void
 JsonItems_JsonValue_Test::toValue_toObject_toArray_test()
 {
@@ -150,6 +177,9 @@ JsonItems_JsonValue_Test::toValue_toObject_toArray_test()
     UNITTEST(isNullptr, false);
 }
 
+/**
+ * toString_toInt_toFloat_test
+ */
 void
 JsonItems_JsonValue_Test::toString_toInt_toFloat_test()
 {
@@ -175,6 +205,9 @@ JsonItems_JsonValue_Test::toString_toInt_toFloat_test()
     UNITTEST(floatValue.toFloat(), 42.5f);
 }
 
+/**
+ * getValueType_test
+ */
 void
 JsonItems_JsonValue_Test::getValueType_test()
 {
@@ -189,6 +222,9 @@ JsonItems_JsonValue_Test::getValueType_test()
     UNITTEST(floatValue.getValueType(), JsonItem::FLOAT_TYPE);
 }
 
+/**
+ * setValue_test
+ */
 void
 JsonItems_JsonValue_Test::setValue_test()
 {

@@ -36,6 +36,9 @@ JsonItems_JsonObject_Test::JsonItems_JsonObject_Test()
     contains_test();
 }
 
+/**
+ * insert_test
+ */
 void
 JsonItems_JsonObject_Test::insert_test()
 {
@@ -51,6 +54,9 @@ JsonItems_JsonObject_Test::insert_test()
     UNITTEST(object.insert("xyz", floatValue.copy()), true);
 }
 
+/**
+ * operator_test
+ */
 void
 JsonItems_JsonObject_Test::operator_test()
 {
@@ -63,6 +69,9 @@ JsonItems_JsonObject_Test::operator_test()
     UNITTEST(isNullptr, true);
 }
 
+/**
+ * get_test
+ */
 void
 JsonItems_JsonObject_Test::get_test()
 {
@@ -75,6 +84,9 @@ JsonItems_JsonObject_Test::get_test()
     UNITTEST(isNullptr, true);
 }
 
+/**
+ * getSize_test
+ */
 void
 JsonItems_JsonObject_Test::getSize_test()
 {
@@ -82,6 +94,9 @@ JsonItems_JsonObject_Test::getSize_test()
     UNITTEST(object.getSize(), 4);
 }
 
+/**
+ * remove_test
+ */
 void
 JsonItems_JsonObject_Test::remove_test()
 {
@@ -95,6 +110,9 @@ JsonItems_JsonObject_Test::remove_test()
     UNITTEST(object.remove(10), false);
 }
 
+/**
+ * copy_test
+ */
 void
 JsonItems_JsonObject_Test::copy_test()
 {
@@ -106,8 +124,13 @@ JsonItems_JsonObject_Test::copy_test()
     UNITTEST(isNullptr, false);
 
     UNITTEST(object.print(), objectCopy->print());
+
+    delete objectCopy;
 }
 
+/**
+ * print_test
+ */
 void
 JsonItems_JsonObject_Test::print_test()
 {
@@ -125,6 +148,9 @@ JsonItems_JsonObject_Test::print_test()
     UNITTEST(object.print(nullptr, true), compare);
 }
 
+/**
+ * getType_test
+ */
 void
 JsonItems_JsonObject_Test::getType_test()
 {
@@ -132,6 +158,9 @@ JsonItems_JsonObject_Test::getType_test()
     UNITTEST(object.getType(), JsonItem::OBJECT_TYPE);
 }
 
+/**
+ * isValue_isObject_isArray_test
+ */
 void
 JsonItems_JsonObject_Test::isValue_isObject_isArray_test()
 {
@@ -141,6 +170,9 @@ JsonItems_JsonObject_Test::isValue_isObject_isArray_test()
     UNITTEST(object.isArray(), false);
 }
 
+/**
+ * toValue_toObject_toArray_test
+ */
 void
 JsonItems_JsonObject_Test::toValue_toObject_toArray_test()
 {
@@ -156,6 +188,9 @@ JsonItems_JsonObject_Test::toValue_toObject_toArray_test()
     UNITTEST(isNullptr, true);
 }
 
+/**
+ * toString_toInt_toFloat_test
+ */
 void
 JsonItems_JsonObject_Test::toString_toInt_toFloat_test()
 {
@@ -165,6 +200,9 @@ JsonItems_JsonObject_Test::toString_toInt_toFloat_test()
     UNITTEST(object.toFloat(), 0.0f);
 }
 
+/**
+ * getString_getInt_getFloat_test
+ */
 void
 JsonItems_JsonObject_Test::getString_getInt_getFloat_test()
 {
@@ -175,6 +213,9 @@ JsonItems_JsonObject_Test::getString_getInt_getFloat_test()
     UNITTEST(object.getFloat("xyz"), 42.5f);
 }
 
+/**
+ * getKeys_test
+ */
 void
 JsonItems_JsonObject_Test::getKeys_test()
 {
@@ -188,6 +229,9 @@ JsonItems_JsonObject_Test::getKeys_test()
     UNITTEST(keys.at(3), "xyz");
 }
 
+/**
+ * getValues_test
+ */
 void
 JsonItems_JsonObject_Test::getValues_test()
 {
@@ -201,6 +245,9 @@ JsonItems_JsonObject_Test::getValues_test()
     UNITTEST(values.at(3)->toString(), "42.500000");
 }
 
+/**
+ * contains_test
+ */
 void
 JsonItems_JsonObject_Test::contains_test()
 {
@@ -213,6 +260,11 @@ JsonItems_JsonObject_Test::contains_test()
     UNITTEST(object.contains("fail"), false);
 }
 
+/**
+ * create test json-object
+ *
+ * @return json-object for tests
+ */
 JsonObject
 JsonItems_JsonObject_Test::initTestObject()
 {
