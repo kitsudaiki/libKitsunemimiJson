@@ -18,14 +18,14 @@ LIBS += -L../src -lKitsuneJson
 
 SOURCES += \
         main.cpp \
-    parsing_test.cpp \
     jsonObjects/jsonItems_JsonArray_test.cpp \
     jsonObjects/jsonItems_JsonObject_test.cpp \
-    jsonObjects/jsonItems_JsonValue_test.cpp
+    jsonObjects/jsonItems_JsonValue_test.cpp \
+    static_parseString_test.cpp
 
 HEADERS += \
-    parsingTest.h \
     jsonObjects/jsonItems_JsonArray_test.hpp \
     jsonObjects/jsonItems_JsonObject_test.hpp \
-    jsonObjects/jsonItems_JsonValue_test.hpp
+    jsonObjects/jsonItems_JsonValue_test.hpp \
+    static_parseString_test.h
 

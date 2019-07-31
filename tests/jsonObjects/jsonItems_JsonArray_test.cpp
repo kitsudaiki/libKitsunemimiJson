@@ -18,7 +18,6 @@ namespace Json
 JsonItems_JsonArray_Test::JsonItems_JsonArray_Test()
     : Kitsune::CommonTest("JsonItems_JsonArray_Test")
 {
-    parseString_test();
     append_test();
 
     operator_test();
@@ -31,12 +30,6 @@ JsonItems_JsonArray_Test::JsonItems_JsonArray_Test()
     isValue_isObject_isArray_test();
     toValue_toObject_toArray_test();
     toString_toInt_toFloat_test();
-}
-
-void
-JsonItems_JsonArray_Test::parseString_test()
-{
-
 }
 
 void

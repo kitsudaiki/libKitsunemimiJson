@@ -1,5 +1,5 @@
 /**
- *  @file    parsingTest.h
+ *  @file    static_parseString_test.h
  *
  *  @author  Tobias Anker
  *  Contact: tobias.anker@kitsunemimi.moe
@@ -7,8 +7,8 @@
  *  MIT License
  */
 
-#ifndef PARSERTEST_H
-#define PARSERTEST_H
+#ifndef STATIC_PARSESTRING_TEST_HPP
+#define STATIC_PARSESTRING_TEST_HPP
 
 #include <testing/commonTest.hpp>
 
@@ -16,19 +16,17 @@ namespace Kitsune
 {
 namespace Json
 {
-class ParsingTest : public Kitsune::CommonTest
+class Static_ParseString_Test : public Kitsune::CommonTest
 {
 public:
-    ParsingTest();
+    Static_ParseString_Test();
 
 private:
-    void initTestCase();
     void parserPositiveTest();
     void parserNegativeTest();
-    void cleanupTestCase();
 };
 
 }  // namespace Json
 }  // namespace Kitsune
 
-#endif // PARSERTEST_H
+#endif // STATIC_PARSESTRING_TEST_HPP

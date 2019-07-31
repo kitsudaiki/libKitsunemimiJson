@@ -24,7 +24,6 @@ public:
     JsonItems_JsonObject_Test();
 
 private:
-    void parseString_test();
     void operator_test();
     void get_test();
     void getSize_test();
@@ -36,11 +35,13 @@ private:
     void toValue_toObject_toArray_test();
     void toString_toInt_toFloat_test();
 
+    void insert_test();
     void getString_getInt_getFloat_test();
     void getKeys_test();
     void getValues_test();
-    void getComplete_test();
     void contains_test();
+
+    JsonObject initTestObject();
 };
 
 }  // namespace Json

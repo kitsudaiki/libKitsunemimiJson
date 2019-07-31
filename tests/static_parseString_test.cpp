@@ -1,5 +1,5 @@
 /**
- *  @file    parsingTest.cpp
+ *  @file    static_parseString_test.cpp
  *
  *  @author  Tobias Anker
  *  Contact: tobias.anker@kitsunemimi.moe
@@ -7,7 +7,7 @@
  *  MIT License
  */
 
-#include "parsingTest.h"
+#include "static_parseString_test.h"
 #include <jsonItems.hpp>
 
 namespace Kitsune
@@ -15,19 +15,14 @@ namespace Kitsune
 namespace Json
 {
 
-ParsingTest::ParsingTest() : Kitsune::CommonTest("ParsingTest")
+Static_ParseString_Test::Static_ParseString_Test()
+    : Kitsune::CommonTest("Static_ParseString_Test")
 {
-    initTestCase();
     parserPositiveTest();
     parserNegativeTest();
-    cleanupTestCase();
 }
 
-void ParsingTest::initTestCase()
-{
-}
-
-void ParsingTest::parserPositiveTest()
+void Static_ParseString_Test::parserPositiveTest()
 {
     std::string input("{\"item\": "
                       "{ \"sub_item\": \"test_value\"},"
@@ -63,7 +58,7 @@ void ParsingTest::parserPositiveTest()
     UNITTEST(outputStringObjects, compareObjects);
 }
 
-void ParsingTest::parserNegativeTest()
+void Static_ParseString_Test::parserNegativeTest()
 {
     std::string input("{\"item\": "
                       "{ \"sub_item\": \"test_value\"}, \n"
@@ -80,10 +75,6 @@ void ParsingTest::parserNegativeTest()
     }
 
     UNITTEST(success, false);
-}
-
-void ParsingTest::cleanupTestCase()
-{
 }
 
 }  // namespace Json

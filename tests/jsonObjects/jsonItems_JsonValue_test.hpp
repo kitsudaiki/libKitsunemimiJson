@@ -24,7 +24,6 @@ public:
     JsonItems_JsonValue_Test();
 
 private:
-    void parseString_test();
     void operator_test();
     void get_test();
     void getSize_test();

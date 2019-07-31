@@ -540,7 +540,7 @@ JsonObject::getKeys()
  * @brief JsonObject::getValues
  * @return
  */
-std::vector<JsonItem *>
+std::vector<JsonItem*>
 JsonObject::getValues()
 {
     std::vector<JsonItem*> result;

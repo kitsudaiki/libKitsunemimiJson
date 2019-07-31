@@ -18,7 +18,6 @@ namespace Json
 JsonItems_JsonValue_Test::JsonItems_JsonValue_Test()
     : Kitsune::CommonTest("JsonItems_JsonValue_Test")
 {
-    parseString_test();
     operator_test();
     get_test();
     getSize_test();
@@ -32,12 +31,6 @@ JsonItems_JsonValue_Test::JsonItems_JsonValue_Test()
 
     getValueType_test();
     setValue_test();
-}
-
-void
-JsonItems_JsonValue_Test::parseString_test()
-{
-
 }
 
 void
