@@ -18,56 +18,95 @@ namespace Json
 JsonItems_JsonArray_Test::JsonItems_JsonArray_Test()
     : Kitsune::CommonTest("JsonItems_JsonArray_Test")
 {
-    initTestCase();
-    insertTestCase();
-    getTestCase();
-    removeTestCase();
-    cleanupTestCase();
+    parseString_test();
+    operator_test();
+    get_test();
+    getSize_test();
+    remove_test();
+    copy_test();
+    print_test();
+    getType_test();
+    isValue_isObject_isArray_test();
+    toValue_toObject_toArray_test();
+    toString_toInt_toFloat_test();
 }
 
-void JsonItems_JsonArray_Test::initTestCase()
+void
+JsonItems_JsonArray_Test::parseString_test()
 {
-    m_array = new JsonArray();
+
 }
 
-void JsonItems_JsonArray_Test::insertTestCase()
+void
+JsonItems_JsonArray_Test::operator_test()
 {
-    UNITTEST(m_array->getSize(), 0);
-    UNITTEST(m_array->getType(), JsonItem::ARRAY_TYPE);
 
-    JsonValue* value1 = new JsonValue("test1");
-    JsonValue* value2 = new JsonValue("test2");
-    m_array->append(value1);
-    m_array->append(value2);
-
-    UNITTEST(m_array->getSize(), 2);
-    std::string outputString = "";
-    m_array->print(&outputString);
-    std::string compare( "[\"test1\",\"test2\"]");
-    UNITTEST(outputString, compare);
 }
 
-void JsonItems_JsonArray_Test::getTestCase()
+void
+JsonItems_JsonArray_Test::get_test()
 {
-    JsonItem* value1 = (*m_array)["0"];
-    UNITTEST(((JsonValue*)value1)->toString(), "test1");
 
-    JsonItem* value2 = (*m_array)[1];
-    UNITTEST(((JsonValue*)value2)->toString(), "test2");
 }
 
-void JsonItems_JsonArray_Test::removeTestCase()
+void
+JsonItems_JsonArray_Test::getSize_test()
 {
-    UNITTEST(m_array->remove("1"), true);
-    UNITTEST(m_array->getSize(), 1);
-    UNITTEST(m_array->remove(0), true);
-    UNITTEST(m_array->getSize(), 0);
-    UNITTEST(m_array->remove(2), false);
+
 }
 
-void JsonItems_JsonArray_Test::cleanupTestCase()
+void
+JsonItems_JsonArray_Test::remove_test()
 {
-    delete m_array;
+
+}
+
+void
+JsonItems_JsonArray_Test::copy_test()
+{
+
+}
+
+void
+JsonItems_JsonArray_Test::print_test()
+{
+
+}
+
+void
+JsonItems_JsonArray_Test::getType_test()
+{
+
+}
+
+void
+JsonItems_JsonArray_Test::isValue_isObject_isArray_test()
+{
+
+}
+
+void
+JsonItems_JsonArray_Test::toValue_toObject_toArray_test()
+{
+
+}
+
+void
+JsonItems_JsonArray_Test::toString_toInt_toFloat_test()
+{
+
+}
+
+void
+JsonItems_JsonArray_Test::append_test()
+{
+
+}
+
+void
+JsonItems_JsonArray_Test::getComplete_test()
+{
+
 }
 
 }  // namespace Json

@@ -1,5 +1,5 @@
 /**
- *  @file    jsonObjectObjectsTest.cpp
+ *  @file    jsonItems_JsonObject_test.cpp
  *
  *  @author  Tobias Anker
  *  Contact: tobias.anker@kitsunemimi.moe
@@ -15,66 +15,122 @@ namespace Kitsune
 namespace Json
 {
 
-JsonObjectObjectsTest::JsonObjectObjectsTest() : Kitsune::CommonTest("JsonObjectObjectsTest")
+JsonItems_JsonObject_Test::JsonItems_JsonObject_Test()
+    : Kitsune::CommonTest("JsonItems_JsonObject_Test")
 {
-    initTestCase();
-    insertTestCase();
-    getTestCase();
-    removeTestCase();
-    cleanupTestCase();
+    parseString_test();
+    operator_test();
+    get_test();
+    getSize_test();
+    remove_test();
+    copy_test();
+    print_test();
+    getType_test();
+    isValue_isObject_isArray_test();
+    toValue_toObject_toArray_test();
+    toString_toInt_toFloat_test();
+
+    getString_getInt_getFloat_test();
+    getKeys_test();
+    getValues_test();
+    getComplete_test();
+    contains_test();
 }
 
-void JsonObjectObjectsTest::initTestCase()
+void
+JsonItems_JsonObject_Test::parseString_test()
 {
-    m_object = new JsonObject();
+
 }
 
-void JsonObjectObjectsTest::insertTestCase()
+void
+JsonItems_JsonObject_Test::operator_test()
 {
-    UNITTEST(m_object->getSize(), 0);
-    UNITTEST(m_object->getType(), JsonItem::OBJECT_TYPE);
 
-    JsonValue* value1 = new JsonValue("test1");
-    JsonValue* value2 = new JsonValue("test2");
-    m_object->insert("poi1", value1);
-    m_object->insert("poi2", value2);
-
-    UNITTEST(m_object->getSize(), 2);
-    std::string outputString = "";
-    m_object->print(&outputString);
-    std::string compare( "{\"poi1\":\"test1\",\"poi2\":\"test2\"}");
-    UNITTEST(outputString, compare);
 }
 
-void JsonObjectObjectsTest::getTestCase()
+void
+JsonItems_JsonObject_Test::get_test()
 {
-    JsonItem* value1 = (*m_object)["poi1"];
-    UNITTEST(((JsonValue*)value1)->toString(), "test1");
 
-    JsonItem* value2 = (*m_object)[1];
-    UNITTEST(((JsonValue*)value2)->toString(), "test2");
-
-    std::vector<std::string> keys = m_object->getKeys();
-    UNITTEST(keys.size(), 2);
-    UNITTEST(keys.at(0), "poi1");
-    UNITTEST(keys.at(1), "poi2");
-
-    UNITTEST(m_object->contains("poi2"), true);
-    UNITTEST(m_object->contains("poi3"), false);
 }
 
-void JsonObjectObjectsTest::removeTestCase()
+void
+JsonItems_JsonObject_Test::getSize_test()
 {
-    UNITTEST(m_object->remove("poi1"), true);
-    UNITTEST(m_object->getSize(), 1);
-    UNITTEST(m_object->remove(0), true);
-    UNITTEST(m_object->getSize(), 0);
-    UNITTEST(m_object->remove(2), false);
+
 }
 
-void JsonObjectObjectsTest::cleanupTestCase()
+void
+JsonItems_JsonObject_Test::remove_test()
 {
-    delete m_object;
+
+}
+
+void
+JsonItems_JsonObject_Test::copy_test()
+{
+
+}
+
+void
+JsonItems_JsonObject_Test::print_test()
+{
+
+}
+
+void
+JsonItems_JsonObject_Test::getType_test()
+{
+
+}
+
+void
+JsonItems_JsonObject_Test::isValue_isObject_isArray_test()
+{
+
+}
+
+void
+JsonItems_JsonObject_Test::toValue_toObject_toArray_test()
+{
+
+}
+
+void
+JsonItems_JsonObject_Test::toString_toInt_toFloat_test()
+{
+
+}
+
+void
+JsonItems_JsonObject_Test::getString_getInt_getFloat_test()
+{
+
+}
+
+void
+JsonItems_JsonObject_Test::getKeys_test()
+{
+
+}
+
+void
+JsonItems_JsonObject_Test::getValues_test()
+{
+
+}
+
+void
+JsonItems_JsonObject_Test::getComplete_test()
+{
+
+}
+
+void
+JsonItems_JsonObject_Test::contains_test()
+{
+
 }
 
 }  // namespace Json

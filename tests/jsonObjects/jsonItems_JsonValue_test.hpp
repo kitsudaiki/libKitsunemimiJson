@@ -1,5 +1,5 @@
 /**
- *  @file    jsonValueObjectsTest.h
+ *  @file    jsonItems_JsonValue_test.h
  *
  *  @author  Tobias Anker
  *  Contact: tobias.anker@kitsunemimi.moe
@@ -7,8 +7,8 @@
  *  MIT License
  */
 
-#ifndef JSONVSLUROBJECTTEST_H
-#define JSONVSLUROBJECTTEST_H
+#ifndef JSONITEMS_JSONVALUE_TEST_HPP
+#define JSONITEMS_JSONVALUE_TEST_HPP
 
 #include <testing/commonTest.hpp>
 
@@ -18,22 +18,29 @@ namespace Json
 {
 class JsonValue;
 
-class JsonValueObjectsTest: public Kitsune::CommonTest
+class JsonItems_JsonValue_Test : public Kitsune::CommonTest
 {
 public:
-    JsonValueObjectsTest();
-private:
-    void initTestCase();
-    void insertTestCase();
-    void getTestCase();
-    void cleanupTestCase();
+    JsonItems_JsonValue_Test();
 
-    JsonValue* m_valueString = nullptr;
-    JsonValue* m_valueInt = nullptr;
-    JsonValue* m_valueFloat = nullptr;
+private:
+    void parseString_test();
+    void operator_test();
+    void get_test();
+    void getSize_test();
+    void remove_test();
+    void copy_test();
+    void print_test();
+    void getType_test();
+    void isValue_isObject_isArray_test();
+    void toValue_toObject_toArray_test();
+    void toString_toInt_toFloat_test();
+
+    void getValueType_test();
+    void setValue_test();
 };
 
 }  // namespace Json
 }  // namespace Kitsune
 
-#endif // JSONVSLUROBJECTTEST_H
+#endif // JSONITEMS_JSONVALUE_TEST_HPP

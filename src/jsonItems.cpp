@@ -142,8 +142,12 @@ JsonItem::toString()
         JsonValue* value = dynamic_cast<JsonValue*>(this);
         return value->m_stringValue;
     }
-    if(m_valueType == FLOAT_TYPE
-            || m_valueType == INT_TYPE)
+    if(m_valueType == INT_TYPE)
+    {
+        JsonValue* value = dynamic_cast<JsonValue*>(this);
+        return std::to_string(value->m_intValue);;
+    }
+    if(m_valueType == FLOAT_TYPE)
     {
         JsonValue* value = dynamic_cast<JsonValue*>(this);
         return std::to_string(value->m_floatValue);;
