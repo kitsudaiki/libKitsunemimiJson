@@ -150,7 +150,6 @@ public:
 
     std::vector<std::string> getKeys();
     std::vector<JsonItem*> getValues();
-    std::map<std::string, JsonItem*> getComplete();
     bool contains(const std::string &key);
 
     std::string getString(const std::string &key);
@@ -190,15 +189,13 @@ public:
     JsonItem* get(const uint32_t index);
     uint32_t getSize() const;
 
-    std::vector<JsonItem*> getComplete();
-
     // delete
     bool remove(const std::string &key);
     bool remove(const uint32_t index);
 
     // output
     JsonItem* copy();
-    std::string print(std::string *output,
+    std::string print(std::string *output=nullptr,
                       const bool indent=false,
                       const uint32_t level=0);
 

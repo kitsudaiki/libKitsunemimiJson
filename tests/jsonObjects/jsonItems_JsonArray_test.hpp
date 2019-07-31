@@ -37,7 +37,8 @@ private:
     void toString_toInt_toFloat_test();
 
     void append_test();
-    void getComplete_test();
+
+    JsonArray initTestArray();
 };
 
 }  // namespace Json

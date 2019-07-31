@@ -553,16 +553,6 @@ JsonObject::getValues()
 }
 
 /**
- * @brief JsonObject::getComplete
- * @return
- */
-std::map<std::string, JsonItem *>
-JsonObject::getComplete()
-{
-    return m_objects;
-}
-
-/**
  * check if a key is in the object-map
  *
  * @return false if the key doesn't exist, else true
@@ -847,16 +837,6 @@ uint32_t
 JsonArray::getSize() const
 {
     return static_cast<uint32_t>(m_array.size());
-}
-
-/**
- * @brief JsonArray::getComplete
- * @return
- */
-std::vector<JsonItem *>
-JsonArray::getComplete()
-{
-    return m_array;
 }
 
 /**
