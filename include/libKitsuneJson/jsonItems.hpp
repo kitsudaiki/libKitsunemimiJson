@@ -41,6 +41,7 @@ public:
     };
 
     enum jsonValueTypes {
+        UNINIT_VALUE_TYPE = 0,
         STRING_TYPE = 1,
         INT_TYPE = 2,
         FLOAT_TYPE = 3,
@@ -78,6 +79,8 @@ public:
 
 protected:
     jsonTypes m_type = UNINIT_TYPE;
+    jsonValueTypes m_valueType = UNINIT_VALUE_TYPE;
+
     void addIndent(std::string *output,
                    const bool indent,
                    const uint32_t level);
@@ -96,6 +99,7 @@ public:
     ~JsonValue();
 
     // setter
+    jsonValueTypes getValueType();
     void setValue(const std::string &item);
     void setValue(const int &item);
     void setValue(const float &item);

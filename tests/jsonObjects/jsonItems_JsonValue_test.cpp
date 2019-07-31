@@ -34,9 +34,9 @@ void JsonValueObjectsTest::insertTestCase()
 {
     m_valueString->setValue("test");
 
-    UNITTEST(m_valueString->getType(), JsonItem::STRING_TYPE);
-    UNITTEST(m_valueInt->getType(), JsonItem::INT_TYPE);
-    UNITTEST(m_valueFloat->getType(), JsonItem::FLOAT_TYPE);
+    UNITTEST(m_valueString->getValueType(), JsonItem::STRING_TYPE);
+    UNITTEST(m_valueInt->getValueType(), JsonItem::INT_TYPE);
+    UNITTEST(m_valueFloat->getValueType(), JsonItem::FLOAT_TYPE);
 }
 
 void JsonValueObjectsTest::getTestCase()
