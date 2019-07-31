@@ -2,7 +2,6 @@ QT -= qt core gui
 
 TARGET = KitsuneJson
 TEMPLATE = lib
-CONFIG += staticlib
 CONFIG += c++14
 
 

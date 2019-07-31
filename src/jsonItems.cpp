@@ -343,11 +343,16 @@ JsonValue::copy()
 /**
  * prints the content of the object
  */
-void
+std::string
 JsonValue::print(std::string *output,
                  const bool indent,
                  const uint32_t level)
 {
+    std::string out = "";
+    if(output == nullptr) {
+        output = &out;
+    }
+
     if(m_type == STRING_TYPE)
     {
         output->append("\"");
@@ -360,6 +365,8 @@ JsonValue::print(std::string *output,
     if(m_type == FLOAT_TYPE) {
         output->append(std::to_string(m_floatValue));
     }
+
+    return out;
 }
 
 /**
@@ -521,6 +528,32 @@ JsonObject::getKeys()
 }
 
 /**
+ * @brief JsonObject::getValues
+ * @return
+ */
+std::vector<JsonItem *>
+JsonObject::getValues()
+{
+    std::vector<JsonItem*> result;
+    std::map<std::string, JsonItem*>::iterator it;
+    for(it = m_objects.begin(); it != m_objects.end(); it++)
+    {
+        result.push_back(it->second);
+    }
+    return result;
+}
+
+/**
+ * @brief JsonObject::getComplete
+ * @return
+ */
+std::map<std::string, JsonItem *>
+JsonObject::getComplete()
+{
+    return m_objects;
+}
+
+/**
  * check if a key is in the object-map
  *
  * @return false if the key doesn't exist, else true
@@ -633,11 +666,16 @@ JsonObject::copy()
 /**
  * prints the content of the object
  */
-void
+std::string
 JsonObject::print(std::string *output,
                   const bool indent,
                   const uint32_t level)
 {
+    std::string out = "";
+    if(output == nullptr) {
+        output = &out;
+    }
+
     bool firstPring = false;
     output->append("{");
 
@@ -679,6 +717,8 @@ JsonObject::print(std::string *output,
 
     addIndent(output, indent, level);
     output->append("}");
+
+    return out;
 }
 
 /**
@@ -801,6 +841,16 @@ JsonArray::getSize() const
 }
 
 /**
+ * @brief JsonArray::getComplete
+ * @return
+ */
+std::vector<JsonItem *>
+JsonArray::getComplete()
+{
+    return m_array;
+}
+
+/**
  * remove an item from the array
  *
  * @return false if index in key is to high, else true
@@ -849,11 +899,16 @@ JsonArray::copy()
 /**
  * prints the content of the object
  */
-void
+std::string
 JsonArray::print(std::string *output,
                  const bool indent,
                  const uint32_t level)
 {
+    std::string out = "";
+    if(output == nullptr) {
+        output = &out;
+    }
+
     output->append("[");
     addIndent(output, indent, level+1);
 
@@ -875,6 +930,8 @@ JsonArray::print(std::string *output,
 
     addIndent(output, indent, level);
     output->append("]");
+
+    return out;
 }
 
 /**
