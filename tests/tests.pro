@@ -27,5 +27,5 @@ HEADERS += \
     libKitsuneJson/jsonItems_JsonArray_test.hpp \
     libKitsuneJson/jsonItems_JsonObject_test.hpp \
     libKitsuneJson/jsonItems_JsonValue_test.hpp \
-    libKitsuneJson/jsonItems_parseString_test.h
+    libKitsuneJson/jsonItems_parseString_test.hpp
 

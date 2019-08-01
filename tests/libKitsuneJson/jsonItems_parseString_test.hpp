@@ -22,8 +22,7 @@ public:
     JsonItems_ParseString_Test();
 
 private:
-    void parserPositiveTest();
-    void parserNegativeTest();
+    void parseString_test();
 };
 
 }  // namespace Json

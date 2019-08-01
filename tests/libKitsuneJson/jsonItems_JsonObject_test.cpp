@@ -18,7 +18,6 @@ namespace Json
 JsonItems_JsonObject_Test::JsonItems_JsonObject_Test()
     : Kitsune::CommonTest("JsonItems_JsonObject_Test")
 {
-    insert_test();
     operator_test();
     get_test();
     getSize_test();
@@ -30,28 +29,12 @@ JsonItems_JsonObject_Test::JsonItems_JsonObject_Test()
     toValue_toObject_toArray_test();
     toString_toInt_toFloat_test();
 
+    // object-exclusive
+    insert_test();
     getString_getInt_getFloat_test();
     getKeys_test();
     getValues_test();
     contains_test();
-}
-
-/**
- * insert_test
- */
-void
-JsonItems_JsonObject_Test::insert_test()
-{
-    JsonObject object;
-    JsonValue defaultValue;
-    JsonValue stringValue("test");
-    JsonValue intValue(42);
-    JsonValue floatValue(42.5f);
-
-    UNITTEST(object.insert("poi", defaultValue.copy()), true);
-    UNITTEST(object.insert("asdf", stringValue.copy()), true);
-    UNITTEST(object.insert("hmm", intValue.copy()), true);
-    UNITTEST(object.insert("xyz", floatValue.copy()), true);
 }
 
 /**
@@ -65,6 +48,7 @@ JsonItems_JsonObject_Test::operator_test()
     UNITTEST(object[0]->toString(), "test");
     UNITTEST(object["hmm"]->toInt(), 42);
 
+    // negative tests
     bool isNullptr = object[10] == nullptr;
     UNITTEST(isNullptr, true);
     isNullptr = object["k"] == nullptr;
@@ -82,6 +66,7 @@ JsonItems_JsonObject_Test::get_test()
     UNITTEST(object.get(0)->toString(), "test");
     UNITTEST(object.get("hmm")->toInt(), 42);
 
+    // negative tests
     bool isNullptr = object.get(10) == nullptr;
     UNITTEST(isNullptr, true);
     isNullptr = object.get("k") == nullptr;
@@ -111,6 +96,7 @@ JsonItems_JsonObject_Test::remove_test()
     UNITTEST(object.get(1)->toString(), "42.500000");
     UNITTEST(object.getSize(), 2);
 
+    // negative tests
     UNITTEST(object.remove(10), false);
 }
 
@@ -202,6 +188,24 @@ JsonItems_JsonObject_Test::toString_toInt_toFloat_test()
     UNITTEST(object.toString(), "");
     UNITTEST(object.toInt(), 0);
     UNITTEST(object.toFloat(), 0.0f);
+}
+
+/**
+ * insert_test
+ */
+void
+JsonItems_JsonObject_Test::insert_test()
+{
+    JsonObject object;
+    JsonValue defaultValue;
+    JsonValue stringValue("test");
+    JsonValue intValue(42);
+    JsonValue floatValue(42.5f);
+
+    UNITTEST(object.insert("poi", defaultValue.copy()), true);
+    UNITTEST(object.insert("asdf", stringValue.copy()), true);
+    UNITTEST(object.insert("hmm", intValue.copy()), true);
+    UNITTEST(object.insert("xyz", floatValue.copy()), true);
 }
 
 /**

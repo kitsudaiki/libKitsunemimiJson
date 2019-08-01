@@ -18,8 +18,6 @@ namespace Json
 JsonItems_JsonArray_Test::JsonItems_JsonArray_Test()
     : Kitsune::CommonTest("JsonItems_JsonArray_Test")
 {
-    append_test();
-
     operator_test();
     get_test();
     getSize_test();
@@ -30,6 +28,9 @@ JsonItems_JsonArray_Test::JsonItems_JsonArray_Test()
     isValue_isObject_isArray_test();
     toValue_toObject_toArray_test();
     toString_toInt_toFloat_test();
+
+    // array-exclusive
+    append_test();
 }
 
 /**
@@ -62,6 +63,7 @@ JsonItems_JsonArray_Test::operator_test()
 
     UNITTEST(array[1]->toString(), "test");
 
+    // negative tests
     bool isNullptr = array[10] == nullptr;
     UNITTEST(isNullptr, true);
     isNullptr = array["2"] == nullptr;
@@ -78,6 +80,7 @@ JsonItems_JsonArray_Test::get_test()
 
     UNITTEST(array.get(1)->toString(), "test");
 
+    // negative tests
     bool isNullptr = array.get(10) == nullptr;
     UNITTEST(isNullptr, true);
     isNullptr = array.get("2") == nullptr;
@@ -107,6 +110,7 @@ JsonItems_JsonArray_Test::remove_test()
     UNITTEST(array.get(1)->toInt(), 42);
     UNITTEST(array.getSize(), 2);
 
+    // negative tests
     UNITTEST(array.remove(10), false);
 }
 

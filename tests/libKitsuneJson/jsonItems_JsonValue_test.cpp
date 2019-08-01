@@ -29,6 +29,7 @@ JsonItems_JsonValue_Test::JsonItems_JsonValue_Test()
     toValue_toObject_toArray_test();
     toString_toInt_toFloat_test();
 
+    // value-exclusive
     getValueType_test();
     setValue_test();
 }
@@ -41,9 +42,11 @@ JsonItems_JsonValue_Test::operator_test()
 {
     JsonValue defaultValue;
 
+    // int-access
     bool isNullptr = defaultValue[1] == nullptr;
     UNITTEST(isNullptr, true);
 
+    // string-access
     isNullptr = defaultValue["1"] == nullptr;
     UNITTEST(isNullptr, true);
 }
@@ -56,9 +59,11 @@ JsonItems_JsonValue_Test::get_test()
 {
     JsonValue defaultValue;
 
+    // int-access
     bool isNullptr = defaultValue.get(1) == nullptr;
     UNITTEST(isNullptr, true);
 
+    // string-access
     isNullptr = defaultValue.get("1") == nullptr;
     UNITTEST(isNullptr, true);
 }
@@ -81,7 +86,6 @@ JsonItems_JsonValue_Test::remove_test()
 {
     JsonValue defaultValue;
     UNITTEST(defaultValue.remove(1), false);
-    UNITTEST(defaultValue.remove(1), false);
 }
 
 /**
@@ -90,23 +94,29 @@ JsonItems_JsonValue_Test::remove_test()
 void
 JsonItems_JsonValue_Test::copy_test()
 {
+    // init
     JsonValue defaultValue;
     JsonValue stringValue("test");
     JsonValue intValue(42);
     JsonValue floatValue(42.5f);
 
+    // default-value
     JsonValue* defaultValueCopy = dynamic_cast<JsonValue*>(defaultValue.copy());
     UNITTEST(defaultValue.m_stringValue, defaultValueCopy->m_stringValue);
 
+    // string-value
     JsonValue* stringValueCopy = dynamic_cast<JsonValue*>(stringValue.copy());
     UNITTEST(stringValue.m_stringValue, stringValueCopy->m_stringValue);
 
+    // int-value
     JsonValue* intValueCopy = dynamic_cast<JsonValue*>(intValue.copy());
     UNITTEST(intValue.m_intValue, intValueCopy->m_intValue);
 
+    // float-value
     JsonValue* floatValueCopy = dynamic_cast<JsonValue*>(floatValue.copy());
     UNITTEST(floatValue.m_floatValue, floatValueCopy->m_floatValue);
 
+    // cleanup
     delete defaultValueCopy;
     delete stringValueCopy;
     delete intValueCopy;
@@ -188,18 +198,22 @@ JsonItems_JsonValue_Test::toString_toInt_toFloat_test()
     JsonValue intValue(42);
     JsonValue floatValue(42.5f);
 
+    // default-value
     UNITTEST(defaultValue.toString(), "");
     UNITTEST(defaultValue.toInt(), 0);
     UNITTEST(defaultValue.toFloat(), 0.0f);
 
+    // string-value
     UNITTEST(stringValue.toString(), "test");
     UNITTEST(stringValue.toInt(), 0);
     UNITTEST(stringValue.toFloat(), 0.0f);
 
+    // int-value
     UNITTEST(intValue.toString(), "42");
     UNITTEST(intValue.toInt(), 42);
     UNITTEST(intValue.toFloat(), 0.0f);
 
+    // float-value
     UNITTEST(floatValue.toString(), "42.500000");
     UNITTEST(floatValue.toInt(), 0);
     UNITTEST(floatValue.toFloat(), 42.5f);
@@ -230,18 +244,21 @@ JsonItems_JsonValue_Test::setValue_test()
 {
     JsonValue defaultValue;
 
+    // string-value
     defaultValue.setValue("test");
     UNITTEST(defaultValue.getValueType(), JsonItem::STRING_TYPE);
     UNITTEST(defaultValue.m_stringValue, "test");
     UNITTEST(defaultValue.m_intValue, 0);
     UNITTEST(defaultValue.m_floatValue, 0.0f);
 
+    // int-value
     defaultValue.setValue(42);
     UNITTEST(defaultValue.getValueType(), JsonItem::INT_TYPE);
     UNITTEST(defaultValue.m_stringValue, "");
     UNITTEST(defaultValue.m_intValue, 42);
     UNITTEST(defaultValue.m_floatValue, 0.0f);
 
+    // float-value
     defaultValue.setValue(42.5f);
     UNITTEST(defaultValue.getValueType(), JsonItem::FLOAT_TYPE);
     UNITTEST(defaultValue.m_stringValue, "");

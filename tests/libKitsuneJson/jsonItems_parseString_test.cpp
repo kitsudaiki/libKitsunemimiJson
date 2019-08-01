@@ -7,7 +7,7 @@
  *  MIT License
  */
 
-#include "jsonItems_parseString_test.h"
+#include "jsonItems_parseString_test.hpp"
 #include <jsonItems.hpp>
 
 namespace Kitsune
@@ -18,12 +18,13 @@ namespace Json
 JsonItems_ParseString_Test::JsonItems_ParseString_Test()
     : Kitsune::CommonTest("JsonItems_ParseString_Test")
 {
-    parserPositiveTest();
-    parserNegativeTest();
+    parseString_test();
 }
 
-void JsonItems_ParseString_Test::parserPositiveTest()
+void
+JsonItems_ParseString_Test::parseString_test()
 {
+    // positive test
     std::string input("{\"item\": "
                       "{ \"sub_item\": \"test_value\"},"
                       "\"item2\": "
@@ -56,17 +57,15 @@ void JsonItems_ParseString_Test::parserPositiveTest()
                                 "    ]\n"
                                 "}");
     UNITTEST(outputStringObjects, compareObjects);
-}
 
-void JsonItems_ParseString_Test::parserNegativeTest()
-{
-    std::string input("{\"item\": "
-                      "{ \"sub_item\": \"test_value\"}, \n"
-                      "\"item2\": \n"
-                      "[ \"sub_item2\": \"something\"}, \n"  // error at the beginning of this line
-                      "\"loop\": \n"
-                      "[ {\"x\" :\"test1\" }, {\"x\" :\"test2\" }, {\"x\" :\"test3\" }]\n"
-                      "}");
+    // negative test
+    input = "{\"item\": "
+            "{ \"sub_item\": \"test_value\"}, \n"
+            "\"item2\": \n"
+            "[ \"sub_item2\": \"something\"}, \n"  // error at the beginning of this line
+            "\"loop\": \n"
+            "[ {\"x\" :\"test1\" }, {\"x\" :\"test2\" }, {\"x\" :\"test3\" }]\n"
+            "}";
 
     JsonItem* output = JsonItem::parseString(input);
     bool success = false;

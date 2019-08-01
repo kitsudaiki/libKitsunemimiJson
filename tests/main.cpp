@@ -11,7 +11,7 @@
 #include <libKitsuneJson/jsonItems_JsonArray_test.hpp>
 #include <libKitsuneJson/jsonItems_JsonValue_test.hpp>
 #include <libKitsuneJson/jsonItems_JsonObject_test.hpp>
-#include <libKitsuneJson/jsonItems_parseString_test.h>
+#include <libKitsuneJson/jsonItems_parseString_test.hpp>
 
 int main()
 {
