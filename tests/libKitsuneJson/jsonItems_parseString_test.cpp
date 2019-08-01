@@ -1,5 +1,5 @@
 /**
- *  @file    parsingTest.cpp
+ *  @file    jsonItems_parseString_test.cpp
  *
  *  @author  Tobias Anker
  *  Contact: tobias.anker@kitsunemimi.moe
@@ -7,28 +7,24 @@
  *  MIT License
  */
 
-#include "parsingTest.h"
-#include <jsonItems.h>
+#include "jsonItems_parseString_test.hpp"
+#include <jsonItems.hpp>
 
 namespace Kitsune
 {
 namespace Json
 {
 
-ParsingTest::ParsingTest() : Kitsune::CommonTest("ParsingTest")
+JsonItems_ParseString_Test::JsonItems_ParseString_Test()
+    : Kitsune::CommonTest("JsonItems_ParseString_Test")
 {
-    initTestCase();
-    parserPositiveTest();
-    parserNegativeTest();
-    cleanupTestCase();
+    parseString_test();
 }
 
-void ParsingTest::initTestCase()
+void
+JsonItems_ParseString_Test::parseString_test()
 {
-}
-
-void ParsingTest::parserPositiveTest()
-{
+    // positive test
     std::string input("{\"item\": "
                       "{ \"sub_item\": \"test_value\"},"
                       "\"item2\": "
@@ -61,17 +57,15 @@ void ParsingTest::parserPositiveTest()
                                 "    ]\n"
                                 "}");
     UNITTEST(outputStringObjects, compareObjects);
-}
 
-void ParsingTest::parserNegativeTest()
-{
-    std::string input("{\"item\": "
-                      "{ \"sub_item\": \"test_value\"}, \n"
-                      "\"item2\": \n"
-                      "[ \"sub_item2\": \"something\"}, \n"  // error at the beginning of this line
-                      "\"loop\": \n"
-                      "[ {\"x\" :\"test1\" }, {\"x\" :\"test2\" }, {\"x\" :\"test3\" }]\n"
-                      "}");
+    // negative test
+    input = "{\"item\": "
+            "{ \"sub_item\": \"test_value\"}, \n"
+            "\"item2\": \n"
+            "[ \"sub_item2\": \"something\"}, \n"  // error at the beginning of this line
+            "\"loop\": \n"
+            "[ {\"x\" :\"test1\" }, {\"x\" :\"test2\" }, {\"x\" :\"test3\" }]\n"
+            "}";
 
     JsonItem* output = JsonItem::parseString(input);
     bool success = false;
@@ -80,10 +74,6 @@ void ParsingTest::parserNegativeTest()
     }
 
     UNITTEST(success, false);
-}
-
-void ParsingTest::cleanupTestCase()
-{
 }
 
 }  // namespace Json

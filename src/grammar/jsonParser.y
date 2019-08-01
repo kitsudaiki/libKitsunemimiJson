@@ -15,7 +15,7 @@
 {
 #include <string>
 #include <iostream>
-#include <jsonItems.h>
+#include <jsonItems.hpp>
 
 namespace Kitsune
 {
@@ -35,7 +35,7 @@ class JsonParserInterface;
 
 %code
 {
-#include <json_parsing/jsonParserInterface.h>
+#include <json_parsing/jsonParserInterface.hpp>
 # undef YY_DECL
 # define YY_DECL \
     Kitsune::Json::JsonParser::symbol_type jsonlex (Kitsune::Json::JsonParserInterface& driver)
