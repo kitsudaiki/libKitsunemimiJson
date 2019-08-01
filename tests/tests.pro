@@ -17,15 +17,15 @@ INCLUDEPATH += $$PWD
 LIBS += -L../src -lKitsuneJson
 
 SOURCES += \
-        main.cpp \
-    jsonObjects/jsonItems_JsonArray_test.cpp \
-    jsonObjects/jsonItems_JsonObject_test.cpp \
-    jsonObjects/jsonItems_JsonValue_test.cpp \
-    static_parseString_test.cpp
+    main.cpp \
+    libKitsuneJson/jsonItems_JsonArray_test.cpp \
+    libKitsuneJson/jsonItems_JsonObject_test.cpp \
+    libKitsuneJson/jsonItems_JsonValue_test.cpp \
+    libKitsuneJson/jsonItems_parseString_test.cpp
 
 HEADERS += \
-    jsonObjects/jsonItems_JsonArray_test.hpp \
-    jsonObjects/jsonItems_JsonObject_test.hpp \
-    jsonObjects/jsonItems_JsonValue_test.hpp \
-    static_parseString_test.h
+    libKitsuneJson/jsonItems_JsonArray_test.hpp \
+    libKitsuneJson/jsonItems_JsonObject_test.hpp \
+    libKitsuneJson/jsonItems_JsonValue_test.hpp \
+    libKitsuneJson/jsonItems_parseString_test.h
 

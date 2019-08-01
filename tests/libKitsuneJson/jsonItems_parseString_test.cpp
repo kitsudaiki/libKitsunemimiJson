@@ -1,5 +1,5 @@
 /**
- *  @file    static_parseString_test.cpp
+ *  @file    jsonItems_parseString_test.cpp
  *
  *  @author  Tobias Anker
  *  Contact: tobias.anker@kitsunemimi.moe
@@ -7,7 +7,7 @@
  *  MIT License
  */
 
-#include "static_parseString_test.h"
+#include "jsonItems_parseString_test.h"
 #include <jsonItems.hpp>
 
 namespace Kitsune
@@ -15,14 +15,14 @@ namespace Kitsune
 namespace Json
 {
 
-Static_ParseString_Test::Static_ParseString_Test()
-    : Kitsune::CommonTest("Static_ParseString_Test")
+JsonItems_ParseString_Test::JsonItems_ParseString_Test()
+    : Kitsune::CommonTest("JsonItems_ParseString_Test")
 {
     parserPositiveTest();
     parserNegativeTest();
 }
 
-void Static_ParseString_Test::parserPositiveTest()
+void JsonItems_ParseString_Test::parserPositiveTest()
 {
     std::string input("{\"item\": "
                       "{ \"sub_item\": \"test_value\"},"
@@ -58,7 +58,7 @@ void Static_ParseString_Test::parserPositiveTest()
     UNITTEST(outputStringObjects, compareObjects);
 }
 
-void Static_ParseString_Test::parserNegativeTest()
+void JsonItems_ParseString_Test::parserNegativeTest()
 {
     std::string input("{\"item\": "
                       "{ \"sub_item\": \"test_value\"}, \n"

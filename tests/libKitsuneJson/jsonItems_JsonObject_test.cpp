@@ -67,6 +67,8 @@ JsonItems_JsonObject_Test::operator_test()
 
     bool isNullptr = object[10] == nullptr;
     UNITTEST(isNullptr, true);
+    isNullptr = object["k"] == nullptr;
+    UNITTEST(isNullptr, true);
 }
 
 /**
@@ -81,6 +83,8 @@ JsonItems_JsonObject_Test::get_test()
     UNITTEST(object.get("hmm")->toInt(), 42);
 
     bool isNullptr = object.get(10) == nullptr;
+    UNITTEST(isNullptr, true);
+    isNullptr = object.get("k") == nullptr;
     UNITTEST(isNullptr, true);
 }
 

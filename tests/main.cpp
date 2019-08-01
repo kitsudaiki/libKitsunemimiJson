@@ -8,14 +8,14 @@
  */
 
 #include <iostream>
-#include <jsonObjects/jsonItems_JsonArray_test.hpp>
-#include <jsonObjects/jsonItems_JsonValue_test.hpp>
-#include <jsonObjects/jsonItems_JsonObject_test.hpp>
-#include <static_parseString_test.h>
+#include <libKitsuneJson/jsonItems_JsonArray_test.hpp>
+#include <libKitsuneJson/jsonItems_JsonValue_test.hpp>
+#include <libKitsuneJson/jsonItems_JsonObject_test.hpp>
+#include <libKitsuneJson/jsonItems_parseString_test.h>
 
 int main()
 {
-    Kitsune::Json::Static_ParseString_Test();
+    Kitsune::Json::JsonItems_ParseString_Test();
 
     Kitsune::Json::JsonItems_JsonValue_Test();
     Kitsune::Json::JsonItems_JsonArray_Test();

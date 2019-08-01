@@ -61,9 +61,10 @@ JsonItems_JsonArray_Test::operator_test()
     JsonArray array = initTestArray();
 
     UNITTEST(array[1]->toString(), "test");
-    UNITTEST(array["2"]->toInt(), 42);
 
     bool isNullptr = array[10] == nullptr;
+    UNITTEST(isNullptr, true);
+    isNullptr = array["2"] == nullptr;
     UNITTEST(isNullptr, true);
 }
 
@@ -76,9 +77,10 @@ JsonItems_JsonArray_Test::get_test()
     JsonArray array = initTestArray();
 
     UNITTEST(array.get(1)->toString(), "test");
-    UNITTEST(array.get("2")->toInt(), 42);
 
     bool isNullptr = array.get(10) == nullptr;
+    UNITTEST(isNullptr, true);
+    isNullptr = array.get("2") == nullptr;
     UNITTEST(isNullptr, true);
 }
 

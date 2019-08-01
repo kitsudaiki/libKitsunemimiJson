@@ -805,12 +805,7 @@ JsonArray::operator[](const uint32_t index)
 JsonItem*
 JsonArray::get(const std::string key)
 {
-    const uint32_t index = static_cast<uint32_t>(std::stoi(key));
-    if(m_array.size() <= index) {
-        return nullptr;
-    }
-
-    return m_array[index];
+    return nullptr;
 }
 
 /**
