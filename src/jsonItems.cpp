@@ -7,9 +7,9 @@
  *  MIT License
  */
 
-#include "jsonItems.h"
+#include "jsonItems.hpp"
 #include <iostream>
-#include <json_parsing/jsonParserInterface.h>
+#include <json_parsing/jsonParserInterface.hpp>
 
 namespace Kitsune
 {
@@ -58,9 +58,7 @@ JsonItem::getType() const
 bool
 JsonItem::isValue() const
 {
-    if(m_type == INT_TYPE
-            || m_type == STRING_TYPE
-            || m_type == FLOAT_TYPE)
+    if(m_type == VALUE_TYPE)
     {
         return true;
     }
@@ -124,9 +122,7 @@ JsonItem::toObject()
 JsonValue*
 JsonItem::toValue()
 {
-    if(m_type == STRING_TYPE
-            || m_type == INT_TYPE
-            || m_type == FLOAT_TYPE)
+    if(m_type == VALUE_TYPE)
     {
         return static_cast<JsonValue*>(this);
     }
@@ -141,17 +137,17 @@ JsonItem::toValue()
 std::string
 JsonItem::toString()
 {
-    if(m_type == STRING_TYPE)
+    if(m_valueType == STRING_TYPE)
     {
         JsonValue* value = dynamic_cast<JsonValue*>(this);
         return value->m_stringValue;
     }
-    if(m_type == INT_TYPE)
+    if(m_valueType == INT_TYPE)
     {
         JsonValue* value = dynamic_cast<JsonValue*>(this);
         return std::to_string(value->m_intValue);;
     }
-    if(m_type == FLOAT_TYPE)
+    if(m_valueType == FLOAT_TYPE)
     {
         JsonValue* value = dynamic_cast<JsonValue*>(this);
         return std::to_string(value->m_floatValue);;
@@ -167,7 +163,7 @@ JsonItem::toString()
 int
 JsonItem::toInt()
 {
-    if(m_type == INT_TYPE)
+    if(m_valueType == INT_TYPE)
     {
         JsonValue* value = dynamic_cast<JsonValue*>(this);
         return value->m_intValue;
@@ -184,7 +180,7 @@ JsonItem::toInt()
 float
 JsonItem::toFloat()
 {
-    if(m_type == FLOAT_TYPE)
+    if(m_valueType == FLOAT_TYPE)
     {
         JsonValue* value = dynamic_cast<JsonValue*>(this);
         return value->m_floatValue;
@@ -219,7 +215,8 @@ JsonItem::addIndent(std::string *output,
  */
 JsonValue::JsonValue()
 {
-    m_type = STRING_TYPE;
+    m_type = VALUE_TYPE;
+    m_valueType = STRING_TYPE;
 }
 
 /**
@@ -227,7 +224,8 @@ JsonValue::JsonValue()
  */
 JsonValue::JsonValue(const std::string &text)
 {
-    m_type = STRING_TYPE;
+    m_type = VALUE_TYPE;
+    m_valueType = STRING_TYPE;
     m_stringValue = text;
 }
 
@@ -236,7 +234,8 @@ JsonValue::JsonValue(const std::string &text)
  */
 JsonValue::JsonValue(const int value)
 {
-    m_type = INT_TYPE;
+    m_type = VALUE_TYPE;
+    m_valueType = INT_TYPE;
     m_intValue = value;
 }
 
@@ -245,7 +244,8 @@ JsonValue::JsonValue(const int value)
  */
 JsonValue::JsonValue(const float value)
 {
-    m_type = FLOAT_TYPE;
+    m_type = VALUE_TYPE;
+    m_valueType = FLOAT_TYPE;
     m_floatValue = value;
 }
 
@@ -255,6 +255,12 @@ JsonValue::JsonValue(const float value)
 JsonValue::~JsonValue()
 {
     //std::cout<<"JsonValue: "<<this<<std::endl;
+}
+
+JsonValue::jsonValueTypes
+JsonValue::getValueType()
+{
+    return m_valueType;
 }
 
 /**
@@ -328,13 +334,13 @@ JsonItem*
 JsonValue::copy()
 {
     JsonValue *tempItem = nullptr;
-    if(m_type == STRING_TYPE) {
+    if(m_valueType == STRING_TYPE) {
         tempItem = new JsonValue(m_stringValue);
     }
-    if(m_type == INT_TYPE) {
+    if(m_valueType == INT_TYPE) {
         tempItem = new JsonValue(m_intValue);
     }
-    if(m_type == FLOAT_TYPE) {
+    if(m_valueType == FLOAT_TYPE) {
         tempItem = new JsonValue(m_floatValue);
     }
     return tempItem;
@@ -353,16 +359,16 @@ JsonValue::print(std::string *output,
         output = &out;
     }
 
-    if(m_type == STRING_TYPE)
+    if(m_valueType == STRING_TYPE)
     {
         output->append("\"");
         output->append(m_stringValue);
         output->append("\"");
     }
-    if(m_type == INT_TYPE) {
+    if(m_valueType == INT_TYPE) {
         output->append(std::to_string(m_intValue));
     }
-    if(m_type == FLOAT_TYPE) {
+    if(m_valueType == FLOAT_TYPE) {
         output->append(std::to_string(m_floatValue));
     }
 
@@ -375,7 +381,8 @@ JsonValue::print(std::string *output,
 void
 JsonValue::setValue(const std::string &item)
 {
-    m_type = STRING_TYPE;
+    m_type = VALUE_TYPE;
+    m_valueType = STRING_TYPE;
     m_intValue = 0;
     m_floatValue = 0.0f;
     m_stringValue = item;
@@ -387,7 +394,8 @@ JsonValue::setValue(const std::string &item)
 void
 JsonValue::setValue(const int &item)
 {
-    m_type = INT_TYPE;
+    m_type = VALUE_TYPE;
+    m_valueType = INT_TYPE;
     m_stringValue = "";
     m_floatValue = 0.0f;
     m_intValue = item;
@@ -399,7 +407,8 @@ JsonValue::setValue(const int &item)
 void
 JsonValue::setValue(const float &item)
 {
-    m_type = FLOAT_TYPE;
+    m_type = VALUE_TYPE;
+    m_valueType = FLOAT_TYPE;
     m_stringValue = "";
     m_intValue = 0;
     m_floatValue = item;
@@ -531,7 +540,7 @@ JsonObject::getKeys()
  * @brief JsonObject::getValues
  * @return
  */
-std::vector<JsonItem *>
+std::vector<JsonItem*>
 JsonObject::getValues()
 {
     std::vector<JsonItem*> result;
@@ -541,16 +550,6 @@ JsonObject::getValues()
         result.push_back(it->second);
     }
     return result;
-}
-
-/**
- * @brief JsonObject::getComplete
- * @return
- */
-std::map<std::string, JsonItem *>
-JsonObject::getComplete()
-{
-    return m_objects;
 }
 
 /**
@@ -806,12 +805,7 @@ JsonArray::operator[](const uint32_t index)
 JsonItem*
 JsonArray::get(const std::string key)
 {
-    const uint32_t index = static_cast<uint32_t>(std::stoi(key));
-    if(m_array.size() <= index) {
-        return nullptr;
-    }
-
-    return m_array[index];
+    return nullptr;
 }
 
 /**
@@ -838,16 +832,6 @@ uint32_t
 JsonArray::getSize() const
 {
     return static_cast<uint32_t>(m_array.size());
-}
-
-/**
- * @brief JsonArray::getComplete
- * @return
- */
-std::vector<JsonItem *>
-JsonArray::getComplete()
-{
-    return m_array;
 }
 
 /**
