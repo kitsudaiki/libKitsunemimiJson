@@ -1,5 +1,5 @@
 /**
- *  @file    jsonParserInterface.h
+ *  @file    jsonParserInterface.hpp
  *
  *  @author  Tobias Anker
  *  Contact: tobias.anker@kitsunemimi.moe
@@ -7,8 +7,8 @@
  *  MIT License
  */
 
-#ifndef JSONPARSERINTERFACE_HH
-#define JSONPARSERINTERFACE_HH
+#ifndef JSONPARSERINTERFACE_HPP
+#define JSONPARSERINTERFACE_HPP
 
 #include <iostream>
 
@@ -51,4 +51,4 @@ private:
 }  // namespace Json
 }  // namespace Kitsune
 
-#endif // JSONPARSERINTERFACE_HH
+#endif // JSONPARSERINTERFACE_HPP

@@ -3,39 +3,9 @@
 
 ## [Unreleased]
 
-### Removed
-- the old JsonItem was remove, because it had too much copy-calls was not used
-
-### Changed
-- AbstractJson was rename to JsonItem, because its a bit weird to have abstract stuff in the hole code
+## [0.1.0] - 2019-08-03
 
 ### Added
-- json-output can now be better printed with indents to be better readable
-
-### Fixed
-- fixed print-method for handling null-pointers in the json-tree
-
-
-
-## [0.1.2] - 2019-07-03
-
-### Added
-- optionally indent string-output of the print-method
-
-
-
-## [0.1.1] - 2019-06-30
-
-### Added
-- add support for floating-point-values
-
-### Fixed
-- number can now be negative
-
-
-
-## [0.1.0] - 2019-01-13
-
-### Added
-- fundamental functions for processing json
 - parser for json-formated strings
+- classes for json-object, json-array and json-value
+- print-method to export json-items as string

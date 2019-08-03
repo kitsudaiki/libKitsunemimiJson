@@ -3,7 +3,6 @@ QT -= qt core gui
 TARGET = KitsuneJson
 TEMPLATE = lib
 CONFIG += c++14
-CONFIG += staticlib
 
 INCLUDEPATH += $$PWD \
                $$PWD/../include/libKitsuneJson

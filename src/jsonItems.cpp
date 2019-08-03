@@ -20,10 +20,7 @@ namespace Json
 // AbstractJson
 //===================================================================
 
-JsonItem::~JsonItem()
-{
-    //std::cout<<"AbstractJson: "<<this<<std::endl;
-}
+JsonItem::~JsonItem() {}
 
 /**
  * static-method which calls the parser to convert a json-formated string into a json-object-tree
@@ -53,7 +50,7 @@ JsonItem::getType() const
 }
 
 /**
- * TODO
+ * check if JsonItem is a JsonValue
  */
 bool
 JsonItem::isValue() const
@@ -66,7 +63,7 @@ JsonItem::isValue() const
 }
 
 /**
- * TODO
+ * check if JsonItem is a JsonObject
  */
 bool
 JsonItem::isObject() const
@@ -78,7 +75,7 @@ JsonItem::isObject() const
 }
 
 /**
- * TODO
+ * check if JsonItem is a JsonArray
  */
 bool
 JsonItem::isArray() const
@@ -90,8 +87,7 @@ JsonItem::isArray() const
 }
 
 /**
- * @brief AbstractJson::toArray
- * @return
+ * convert to a JsonArray
  */
 JsonArray*
 JsonItem::toArray()
@@ -103,8 +99,7 @@ JsonItem::toArray()
 }
 
 /**
- * @brief AbstractJson::toObject
- * @return
+ * convert to a JsonObject
  */
 JsonObject*
 JsonItem::toObject()
@@ -116,8 +111,7 @@ JsonItem::toObject()
 }
 
 /**
- * @brief AbstractJson::toValue
- * @return
+ * convert to a JsonVolue
  */
 JsonValue*
 JsonItem::toValue()
@@ -189,12 +183,12 @@ JsonItem::toFloat()
 }
 
 /**
- * TODO
+ * add indent and linebreak to be better human-readable
  */
 void
 JsonItem::addIndent(std::string *output,
-                        const bool indent,
-                        const uint32_t level)
+                    const bool indent,
+                    const uint32_t level)
 {
     if(indent == true)
     {
@@ -327,8 +321,9 @@ JsonValue::remove(const uint32_t)
 }
 
 /**
- * @brief JsonValue::copy
- * @return
+ * copy the json-value
+ *
+ * @return pointer to a copy of the value
  */
 JsonItem*
 JsonValue::copy()
@@ -431,7 +426,6 @@ JsonObject::JsonObject()
  */
 JsonObject::~JsonObject()
 {
-    //std::cout<<"JsonObject: "<<this<<std::endl;
     std::map<std::string, JsonItem*>::iterator it;
     for(it = m_objects.begin(); it != m_objects.end(); it++)
     {
@@ -537,8 +531,9 @@ JsonObject::getKeys()
 }
 
 /**
- * @brief JsonObject::getValues
- * @return
+ * get list of values of the objects-map
+ *
+ * @return JsonItem-list with the keys of the map
  */
 std::vector<JsonItem*>
 JsonObject::getValues()
@@ -571,33 +566,33 @@ JsonObject::contains(const std::string &key)
 }
 
 /**
- * TODO
+ * get the string-value behind the key inside the json-object
  */
 std::string
 JsonObject::getString(const std::string &key)
 {
-    JsonItem* abstractValue = get(key);
-    return abstractValue->toString();
+    JsonItem* item = get(key);
+    return item->toString();
 }
 
 /**
- * TODO
+ * get the int-value behind the key inside the json-object
  */
 int
 JsonObject::getInt(const std::string &key)
 {
-    JsonItem* abstractValue = get(key);
-    return abstractValue->toInt();
+    JsonItem* item = get(key);
+    return item->toInt();
 }
 
 /**
- * TODO
+ * get the float-value behind the key inside the json-object
  */
 float
 JsonObject::getFloat(const std::string &key)
 {
-    JsonItem* abstractValue = get(key);
-    return abstractValue->toFloat();
+    JsonItem* item = get(key);
+    return item->toFloat();
 }
 
 /**
@@ -647,8 +642,9 @@ JsonObject::remove(const uint32_t index)
 }
 
 /**
- * @brief JsonObject::copy
- * @return
+ * copy the object with all elements
+ *
+ * @return pointer to a copy of the object
  */
 JsonItem*
 JsonObject::copy()
@@ -866,8 +862,9 @@ JsonArray::remove(const uint32_t index)
 }
 
 /**
- * @brief JsonArray::copy
- * @return
+ * copy the array with all elements
+ *
+ * @return pointer to a copy of the array
  */
 JsonItem*
 JsonArray::copy()
