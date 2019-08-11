@@ -27,7 +27,7 @@ namespace Json
  */
 JsonItem::JsonItem()
 {
-    m_item = nullptr;
+    m_content = nullptr;
 }
 
 /**
@@ -37,7 +37,7 @@ JsonItem::JsonItem()
  */
 JsonItem::JsonItem(const JsonItem &otherItem)
 {
-    m_item = otherItem.m_item->copy();
+    m_content = otherItem.m_content->copy();
 }
 
 /**
@@ -48,7 +48,7 @@ JsonItem::JsonItem(const JsonItem &otherItem)
 JsonItem::JsonItem(DataItem* dataItem)
 {
     if(dataItem != nullptr) {
-        m_item = dataItem->copy();
+        m_content = dataItem->copy();
     }
 }
 
@@ -60,7 +60,7 @@ JsonItem::JsonItem(DataItem* dataItem)
 JsonItem::JsonItem(std::map<std::string, JsonItem> &value)
 {
     DataObject* tempItem = new DataObject();
-    m_item = static_cast<DataItem*>(tempItem);
+    m_content = static_cast<DataItem*>(tempItem);
 
     std::map<std::string, JsonItem>::iterator it;
     for(it = value.begin(); it != value.end(); it++)
@@ -77,7 +77,7 @@ JsonItem::JsonItem(std::map<std::string, JsonItem> &value)
 JsonItem::JsonItem(std::vector<JsonItem> &value)
 {
     DataArray* tempItem = new DataArray();
-    m_item = static_cast<DataItem*>(tempItem);
+    m_content = static_cast<DataItem*>(tempItem);
 
     std::vector<JsonItem>::iterator it;
     for(it = value.begin(); it != value.end(); it++)
@@ -94,7 +94,7 @@ JsonItem::JsonItem(std::vector<JsonItem> &value)
 JsonItem::JsonItem(std::string value)
 {
     DataValue* tempItem = new DataValue(value);
-    m_item = static_cast<DataItem*>(tempItem);
+    m_content = static_cast<DataItem*>(tempItem);
 }
 
 /**
@@ -105,7 +105,7 @@ JsonItem::JsonItem(std::string value)
 JsonItem::JsonItem(int value)
 {
     DataValue* tempItem = new DataValue(value);
-    m_item = static_cast<DataItem*>(tempItem);
+    m_content = static_cast<DataItem*>(tempItem);
 }
 
 /**
@@ -116,7 +116,7 @@ JsonItem::JsonItem(int value)
 JsonItem::JsonItem(float value)
 {
     DataValue* tempItem = new DataValue(value);
-    m_item = static_cast<DataItem*>(tempItem);
+    m_content = static_cast<DataItem*>(tempItem);
 }
 
 /**
@@ -128,24 +128,36 @@ JsonItem::~JsonItem()
 }
 
 /**
- * @brief static-method which calls the parser to convert a json-formated string into a json-object-tree
+ * @brief convert a json-formated string into a json-object-tree
  *
  * @param input json-formated string, which should be parsed
+ * @param traceParsing bool-value tracing of parsing-process should be printed
  *
- * @return nullptr, if parsing was not successful, else the root-object of the new json-tree
+ * @return pair of bool and string
+ *         success: first is true, second is empty-string
+ *         fail: first is false, second is error-message
  */
-JsonItem
-JsonItem::parseString(const std::string &input)
+std::pair<bool, std::string>
+JsonItem::parse(const std::string &input,
+                const bool traceParsing)
 {
-    JsonParserInterface parser;
+    std::pair<bool, std::string> result;
+    JsonParserInterface parser(traceParsing);
 
-    bool ret = parser.parse(input);
-    if(ret == false) {
-        return nullptr;
+    // parse ini-template into a json-tree
+    result.first = parser.parse(input);
+
+    // process a failure
+    if(result.first == false)
+    {
+        result.second = parser.getErrorMessage();
+        return result;
     }
 
-    DataItem* output = parser.getOutput();
-    JsonItem result(output);
+    if(m_content != nullptr) {
+        delete m_content;
+    }
+    m_content = parser.getOutput();
 
     return result;
 }
@@ -163,7 +175,7 @@ JsonItem::operator=(const JsonItem &other)
     if(this != &other)
     {
         clear();
-        m_item = other.m_item->copy();
+        m_content = other.m_content->copy();
     }
 
     return *this;
@@ -177,13 +189,13 @@ JsonItem::operator=(const JsonItem &other)
 bool
 JsonItem::setValue(const std::string &value)
 {
-    if(m_item == nullptr) {
-        m_item = new DataValue();
+    if(m_content == nullptr) {
+        m_content = new DataValue();
     }
 
-    if(m_item->getType() == DataItem::VALUE_TYPE)
+    if(m_content->getType() == DataItem::VALUE_TYPE)
     {
-        m_item->toValue()->setValue(value);
+        m_content->toValue()->setValue(value);
         return true;
     }
 
@@ -198,13 +210,13 @@ JsonItem::setValue(const std::string &value)
 bool
 JsonItem::setValue(const int &value)
 {
-    if(m_item == nullptr) {
-        m_item = new DataValue();
+    if(m_content == nullptr) {
+        m_content = new DataValue();
     }
 
-    if(m_item->getType() == DataItem::VALUE_TYPE)
+    if(m_content->getType() == DataItem::VALUE_TYPE)
     {
-        m_item->toValue()->setValue(value);
+        m_content->toValue()->setValue(value);
         return true;
     }
 
@@ -219,13 +231,13 @@ JsonItem::setValue(const int &value)
 bool
 JsonItem::setValue(const float &value)
 {
-    if(m_item == nullptr) {
-        m_item = new DataValue();
+    if(m_content == nullptr) {
+        m_content = new DataValue();
     }
 
-    if(m_item->getType() == DataItem::VALUE_TYPE)
+    if(m_content->getType() == DataItem::VALUE_TYPE)
     {
-        m_item->toValue()->setValue(value);
+        m_content->toValue()->setValue(value);
         return true;
     }
 
@@ -252,14 +264,14 @@ JsonItem::insert(const std::string &key,
         return false;
     }
 
-    if(m_item == nullptr) {
-        m_item = new DataObject();
+    if(m_content == nullptr) {
+        m_content = new DataObject();
     }
 
-    if(m_item->getType() == DataItem::OBJECT_TYPE)
+    if(m_content->getType() == DataItem::OBJECT_TYPE)
     {
-        return m_item->toObject()->insert(key,
-                                          value.m_item->copy(),
+        return m_content->toObject()->insert(key,
+                                          value.m_content->copy(),
                                           force);
     }
 
@@ -280,12 +292,12 @@ JsonItem::append(const JsonItem &value)
         return false;
     }
 
-    if(m_item == nullptr) {
-        m_item = new DataArray();
+    if(m_content == nullptr) {
+        m_content = new DataArray();
     }
 
-    if(m_item->getType() == DataItem::ARRAY_TYPE) {
-        return m_item->toArray()->append(value.m_item->copy());
+    if(m_content->getType() == DataItem::ARRAY_TYPE) {
+        return m_content->toArray()->append(value.m_content->copy());
     }
 
     return false;
@@ -307,14 +319,14 @@ JsonItem::replaceItem(const uint32_t index,
         return false;
     }
 
-    if(m_item == nullptr) {
-        m_item = new DataArray();
+    if(m_content == nullptr) {
+        m_content = new DataArray();
     }
 
-    if(m_item->getType() == DataItem::ARRAY_TYPE
-            && m_item->toArray()->m_array.size() > index)
+    if(m_content->getType() == DataItem::ARRAY_TYPE
+            && m_content->toArray()->m_array.size() > index)
     {
-        return m_item->toArray()->m_array[index] = value.m_item->copy();
+        return m_content->toArray()->m_array[index] = value.m_content->copy();
     }
 
     return false;
@@ -327,7 +339,7 @@ JsonItem::replaceItem(const uint32_t index,
 DataItem*
 JsonItem::getItemContent() const
 {
-    return m_item;
+    return m_content;
 }
 
 /**
@@ -340,11 +352,11 @@ JsonItem::getItemContent() const
 JsonItem
 JsonItem::operator[](const std::string key)
 {
-    if(m_item == nullptr) {
+    if(m_content == nullptr) {
         return JsonItem();
     }
 
-    return JsonItem(m_item->get(key)->copy());
+    return JsonItem(m_content->get(key)->copy());
 }
 
 /**
@@ -357,11 +369,11 @@ JsonItem::operator[](const std::string key)
 JsonItem
 JsonItem::operator[](const uint32_t index)
 {
-    if(m_item == nullptr) {
+    if(m_content == nullptr) {
         return JsonItem();
     }
 
-    return JsonItem(m_item->get(index)->copy());
+    return JsonItem(m_content->get(index)->copy());
 }
 
 /**
@@ -374,11 +386,11 @@ JsonItem::operator[](const uint32_t index)
 JsonItem
 JsonItem::get(const std::string key) const
 {
-    if(m_item == nullptr) {
+    if(m_content == nullptr) {
         return JsonItem();
     }
 
-    return JsonItem(m_item->get(key));
+    return JsonItem(m_content->get(key));
 }
 
 /**
@@ -391,11 +403,11 @@ JsonItem::get(const std::string key) const
 JsonItem
 JsonItem::get(const uint32_t index) const
 {
-    if(m_item == nullptr) {
+    if(m_content == nullptr) {
         return JsonItem();
     }
 
-    return JsonItem(m_item->get(index));
+    return JsonItem(m_content->get(index));
 }
 
 /**
@@ -406,12 +418,12 @@ JsonItem::get(const uint32_t index) const
 std::string
 JsonItem::getString() const
 {
-    if(m_item == nullptr) {
+    if(m_content == nullptr) {
         return "";
     }
 
-    if(m_item->getType() == DataItem::VALUE_TYPE) {
-        return m_item->toValue()->toString();
+    if(m_content->getType() == DataItem::VALUE_TYPE) {
+        return m_content->toValue()->toString();
     }
 
     return "";
@@ -425,12 +437,12 @@ JsonItem::getString() const
 int
 JsonItem::getInt() const
 {
-    if(m_item == nullptr) {
+    if(m_content == nullptr) {
         return 0;
     }
 
-    if(m_item->toValue()->getValueType() == DataItem::INT_TYPE) {
-        return m_item->toValue()->toInt();
+    if(m_content->toValue()->getValueType() == DataItem::INT_TYPE) {
+        return m_content->toValue()->toInt();
     }
 
     return 0;
@@ -444,12 +456,12 @@ JsonItem::getInt() const
 float
 JsonItem::getFloat() const
 {
-    if(m_item == nullptr) {
+    if(m_content == nullptr) {
         return 0;
     }
 
-    if(m_item->toValue()->getValueType() == DataItem::FLOAT_TYPE) {
-        return m_item->toValue()->toFloat();
+    if(m_content->toValue()->getValueType() == DataItem::FLOAT_TYPE) {
+        return m_content->toValue()->toFloat();
     }
 
     return 0;
@@ -463,11 +475,11 @@ JsonItem::getFloat() const
 uint32_t
 JsonItem::getSize() const
 {
-    if(m_item == nullptr) {
+    if(m_content == nullptr) {
         return 0;
     }
 
-    return m_item->getSize();
+    return m_content->getSize();
 }
 
 /**
@@ -478,13 +490,13 @@ JsonItem::getSize() const
 std::vector<std::string>
 JsonItem::getKeys()
 {
-    if(m_item == nullptr) {
+    if(m_content == nullptr) {
         return std::vector<std::string>();
     }
 
-    if(m_item->getType() == DataItem::OBJECT_TYPE)
+    if(m_content->getType() == DataItem::OBJECT_TYPE)
     {
-        DataObject* obj = static_cast<DataObject*>(m_item);
+        DataObject* obj = static_cast<DataObject*>(m_content);
         return obj->getKeys();
     }
 
@@ -502,13 +514,13 @@ JsonItem::getKeys()
 bool
 JsonItem::contains(const std::string &key)
 {
-    if(m_item == nullptr) {
+    if(m_content == nullptr) {
         return false;
     }
 
-    if(m_item->getType() == DataItem::OBJECT_TYPE)
+    if(m_content->getType() == DataItem::OBJECT_TYPE)
     {
-        DataObject* obj = static_cast<DataObject*>(m_item);
+        DataObject* obj = static_cast<DataObject*>(m_content);
         return obj->contains(key);
     }
 
@@ -522,7 +534,7 @@ JsonItem::contains(const std::string &key)
  */
 bool JsonItem::isValid() const
 {
-    if(m_item != nullptr) {
+    if(m_content != nullptr) {
         return true;
     }
     return false;
@@ -535,11 +547,11 @@ bool JsonItem::isValid() const
  */
 bool JsonItem::isObject() const
 {
-    if(m_item == nullptr) {
+    if(m_content == nullptr) {
         return false;
     }
 
-    if(m_item->getType() == DataItem::OBJECT_TYPE) {
+    if(m_content->getType() == DataItem::OBJECT_TYPE) {
         return true;
     }
 
@@ -553,11 +565,11 @@ bool JsonItem::isObject() const
  */
 bool JsonItem::isArray() const
 {
-    if(m_item == nullptr) {
+    if(m_content == nullptr) {
         return false;
     }
 
-    if(m_item->getType() == DataItem::ARRAY_TYPE) {
+    if(m_content->getType() == DataItem::ARRAY_TYPE) {
         return true;
     }
 
@@ -571,11 +583,11 @@ bool JsonItem::isArray() const
  */
 bool JsonItem::isValue() const
 {
-    if(m_item == nullptr) {
+    if(m_content == nullptr) {
         return false;
     }
 
-    if(m_item->getType() == DataItem::VALUE_TYPE) {
+    if(m_content->getType() == DataItem::VALUE_TYPE) {
         return true;
     }
 
@@ -592,8 +604,8 @@ bool JsonItem::isValue() const
 bool
 JsonItem::remove(const std::string &key)
 {
-    if(m_item != nullptr) {
-        return m_item->remove(key);
+    if(m_content != nullptr) {
+        return m_content->remove(key);
     }
 
     return false;
@@ -609,8 +621,8 @@ JsonItem::remove(const std::string &key)
 bool
 JsonItem::remove(const uint32_t index)
 {
-    if(m_item != nullptr) {
-        return m_item->remove(index);
+    if(m_content != nullptr) {
+        return m_content->remove(index);
     }
     return false;
 }
@@ -622,7 +634,10 @@ JsonItem::remove(const uint32_t index)
  */
 std::string JsonItem::print(bool indent)
 {
-    return m_item->print(nullptr, indent);
+    if(m_content != nullptr) {
+        return m_content->print(nullptr, indent);
+    }
+    return "";
 }
 
 /**
@@ -630,10 +645,10 @@ std::string JsonItem::print(bool indent)
  */
 void JsonItem::clear()
 {
-    if(m_item != nullptr)
+    if(m_content != nullptr)
     {
-        delete m_item;
-        m_item = nullptr;
+        delete m_content;
+        m_content = nullptr;
     }
 }
 
