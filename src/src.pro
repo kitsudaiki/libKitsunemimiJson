@@ -3,18 +3,23 @@ QT -= qt core gui
 TARGET = KitsuneJson
 TEMPLATE = lib
 CONFIG += c++14
-VERSION = 0.1.0
+VERSION = 0.2.0
+
+LIBS += -L../../libKitsuneCommon/src -lKitsuneCommon
+LIBS += -L../../libKitsuneCommon/src/debug -lKitsuneCommon
+LIBS += -L../../libKitsuneCommon/src/release -lKitsuneCommon
+INCLUDEPATH += ../../libKitsuneCommon/include/libKitsuneCommon
 
 INCLUDEPATH += $$PWD \
                $$PWD/../include/libKitsuneJson
 
 SOURCES += \
         json_parsing/jsonParserInterface.cpp \
-    jsonItems.cpp
+        jsonItem.cpp
 
 HEADERS += \
-    ../include/libKitsuneJson/jsonItems.hpp \
-    json_parsing/jsonParserInterface.hpp
+    json_parsing/jsonParserInterface.hpp \
+    ../include/libKitsuneJson/jsonItem.hpp
 
 FLEXSOURCES = grammar/jsonLexer.l
 BISONSOURCES = grammar/jsonParser.y
@@ -25,7 +30,7 @@ OTHER_FILES +=  \
 
 # The following code calls the flex-lexer and bison-parser before compiling the
 # cpp-code for automatic generation of the parser-code in each build-step.
-# The resulting source-code-files are stored in the build-directory of the jinja2-converter.
+# The resulting source-code-files are stored in the build-directory of the json-converter.
 flexsource.input = FLEXSOURCES
 flexsource.output = ${QMAKE_FILE_BASE}.cpp
 flexsource.commands = flex --header-file=${QMAKE_FILE_BASE}.hpp -o ${QMAKE_FILE_BASE}.cpp ${QMAKE_FILE_IN}
