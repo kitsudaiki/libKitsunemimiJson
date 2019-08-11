@@ -1,5 +1,5 @@
 /**
- *  @file    jsonItems_parseString_test.h
+ *  @file    jsonItems_parseString_test.hpp
  *
  *  @author  Tobias Anker
  *  Contact: tobias.anker@kitsunemimi.moe
@@ -10,13 +10,14 @@
 #ifndef JSONITEMS_PARSESTRING_TEST_HPP
 #define JSONITEMS_PARSESTRING_TEST_HPP
 
-#include <testing/commonTest.hpp>
+#include <testing/test.hpp>
 
 namespace Kitsune
 {
 namespace Json
 {
-class JsonItems_ParseString_Test : public Kitsune::CommonTest
+class JsonItems_ParseString_Test
+        : public Kitsune::Common::Test
 {
 public:
     JsonItems_ParseString_Test();

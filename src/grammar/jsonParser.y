@@ -15,7 +15,13 @@
 {
 #include <string>
 #include <iostream>
-#include <jsonItems.hpp>
+#include <data_structure/dataItems.hpp>
+
+using Kitsune::Common::DataItem;
+using Kitsune::Common::DataArray;
+using Kitsune::Common::DataValue;
+using Kitsune::Common::DataObject;
+
 
 namespace Kitsune
 {
@@ -24,7 +30,7 @@ namespace Json
 
 class JsonParserInterface;
 
-}  // namespace Jinja2
+}  // namespace Json
 }  // namespace Kitsune
 }
 
@@ -60,12 +66,12 @@ YY_DECL;
 %token <int> NUMBER "number"
 %token <float> FLOAT "float"
 
-%type  <JsonItem*> json_abstract
-%type  <JsonValue*> json_value
-%type  <JsonArray*> json_array
-%type  <JsonArray*> json_array_content
-%type  <JsonObject*> json_object
-%type  <JsonObject*> json_object_content
+%type  <DataItem*> json_abstract
+%type  <DataValue*> json_value
+%type  <DataArray*> json_array
+%type  <DataArray*> json_array_content
+%type  <DataObject*> json_object
+%type  <DataObject*> json_object_content
 
 %%
 %start startpoint;
@@ -80,17 +86,17 @@ startpoint:
 json_abstract:
     json_object
     {
-        $$ = (JsonItem*)$1;
+        $$ = (DataItem*)$1;
     }
 |
     json_array
     {
-        $$ = (JsonItem*)$1;
+        $$ = (DataItem*)$1;
     }
 |
     json_value
     {
-        $$ = (JsonItem*)$1;
+        $$ = (DataItem*)$1;
     }
 
 json_object:
@@ -108,7 +114,7 @@ json_object_content:
 |
     "identifier" ":" json_abstract
     {
-        $$ = new JsonObject();
+        $$ = new DataObject();
         $$->insert($1, $3);
     }
 |
@@ -120,7 +126,7 @@ json_object_content:
 |
     "string" ":" json_abstract
     {
-        $$ = new JsonObject();
+        $$ = new DataObject();
         $$->insert(driver.removeQuotes($1), $3);
     }
 
@@ -139,29 +145,29 @@ json_array_content:
 |
     json_abstract
     {
-        $$ = new JsonArray();
+        $$ = new DataArray();
         $$->append($1);
     }
 
 json_value:
     "identifier"
     {
-        $$ = new JsonValue($1);
+        $$ = new DataValue($1);
     }
 |
     "number"
     {
-        $$ = new JsonValue($1);
+        $$ = new DataValue($1);
     }
 |
     "float"
     {
-        $$ = new JsonValue($1);
+        $$ = new DataValue($1);
     }
 |
     "string"
     {
-        $$ = new JsonValue(driver.removeQuotes($1));
+        $$ = new DataValue(driver.removeQuotes($1));
     }
 
 %%

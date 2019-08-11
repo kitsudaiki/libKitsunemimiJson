@@ -1,5 +1,5 @@
 /**
- *  @file    jinja2ParserInterface.cpp
+ *  @file    jsonParserInterface.cpp
  *
  *  @author  Tobias Anker
  *  Contact: tobias.anker@kitsunemimi.moe
@@ -8,9 +8,14 @@
  */
 
 #include <json_parsing/jsonParserInterface.hpp>
-#include <jsonItems.hpp>
 #include <jsonParser.hpp>
 
+#include <data_structure/dataItems.hpp>
+
+using Kitsune::Common::DataItem;
+using Kitsune::Common::DataArray;
+using Kitsune::Common::DataValue;
+using Kitsune::Common::DataObject;
 
 # define YY_DECL \
     Kitsune::Json::JsonParser::symbol_type jsonlex (Kitsune::Json::JsonParserInterface& driver)
@@ -22,8 +27,8 @@ namespace Json
 {
 
 /**
- * The class is the interface for the bison-generated parser.
- * It starts the parsing-process and store the returned values.
+ * @brief The class is the interface for the bison-generated parser.
+ *        It starts the parsing-process and store the returned values.
  *
  * @param traceParsing If set to true, the scanner prints all triggered rules.
  *                     It is only for better debugging.
@@ -34,9 +39,10 @@ JsonParserInterface::JsonParserInterface(const bool traceParsing)
 }
 
 /**
- * Start the scanner and parser
+ * @brief Start the scanner and parser
  *
  * @param inputFile string which should be parsed
+ *
  * @return true, if parsing was successful, else false
  */
 bool
@@ -60,9 +66,11 @@ JsonParserInterface::parse(const std::string &inputString)
 }
 
 /**
- * @brief JsonParserInterface::removeQuotes
- * @param input
- * @return
+ * @brief remove quotes at the beginning and end of a string
+ *
+ * @param input input-string
+ *
+ * @return cleared string
  */
 std::string
 JsonParserInterface::removeQuotes(std::string input)
@@ -84,12 +92,12 @@ JsonParserInterface::removeQuotes(std::string input)
 }
 
 /**
- * Is called for the parser after successfully parsing the input-string
+ * @brief Is called for the parser after successfully parsing the input-string
  *
- * @param output parser-output as QJsonArray
+ * @param output parser-output as QDataArray
  */
 void
-JsonParserInterface::setOutput(JsonObject* output)
+JsonParserInterface::setOutput(DataObject* output)
 {
      m_output = output;
 }
@@ -97,16 +105,16 @@ JsonParserInterface::setOutput(JsonObject* output)
 /**
  * getter for the json-output of the parser
  *
- * @return parser-output as QJsonArray
+ * @return parser-output as QDataArray
  */
-JsonObject*
+DataObject*
 JsonParserInterface::getOutput() const
 {
     return m_output;
 }
 
 /**
- * Is called from the parser in case of an error
+ * @brief Is called from the parser in case of an error
  *
  * @param location location-object of the bison-parser,
  *                 which contains the informations of the location
@@ -123,7 +131,7 @@ JsonParserInterface::error(const Kitsune::Json::location& location,
     const std::string errorStringPart = m_inputString.substr(errorStart, errorLength);
 
     // build error-message
-    m_errorMessage =  "error while parsing jinja2-template \n";
+    m_errorMessage =  "error while parsing json-template \n";
     m_errorMessage += "parser-message: " + message + " \n";
     m_errorMessage += "line-number: " + std::to_string(location.begin.line) + " \n";
     m_errorMessage += "position in line: " + std::to_string(location.begin.column) + " \n";
@@ -133,7 +141,7 @@ JsonParserInterface::error(const Kitsune::Json::location& location,
 }
 
 /**
- * getter fot the error-message in case of an error while parsing
+ * @brief getter fot the error-message in case of an error while parsing
  *
  * @return error-message
  */
