@@ -128,7 +128,7 @@ JsonParserInterface::error(const Kitsune::Json::location& location,
     const std::string errorStringPart = m_inputString.substr(errorStart, errorLength);
 
     // build error-message
-    m_errorMessage =  "error while parsing jinja2-template \n";
+    m_errorMessage =  "error while parsing json-template \n";
     m_errorMessage += "parser-message: " + message + " \n";
     m_errorMessage += "line-number: " + std::to_string(location.begin.line) + " \n";
     m_errorMessage += "position in line: " + std::to_string(location.begin.column) + " \n";

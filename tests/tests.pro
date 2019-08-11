@@ -18,8 +18,10 @@ LIBS += -L../src -lKitsuneJson
 
 SOURCES += \
     main.cpp \
-    libKitsuneJson/jsonItems_parseString_test.cpp
+    libKitsuneJson/jsonItem_parseString_test.cpp \
+    libKitsuneJson/jsonItem_test.cpp
 
 HEADERS += \
-    libKitsuneJson/jsonItems_parseString_test.hpp
+    libKitsuneJson/jsonItem_parseString_test.hpp \
+    libKitsuneJson/jsonItem_test.hpp
 

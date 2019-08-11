@@ -27,11 +27,12 @@ class JsonItem
 public:
     JsonItem();
     JsonItem(const JsonItem &otherItem);
-    JsonItem(Common::DataItem* abstract);
+    JsonItem(Common::DataItem* dataItem);
     JsonItem(std::map<std::string, JsonItem> &value);
     JsonItem(std::vector<JsonItem> &value);
     JsonItem(std::string value);
     JsonItem(int value);
+    JsonItem(float value);
 
     ~JsonItem();
 
@@ -41,10 +42,13 @@ public:
     JsonItem& operator=(const JsonItem& other);
     bool setValue(const std::string &value);
     bool setValue(const int &value);
+    bool setValue(const float &value);
     bool insert(const std::string &key,
                 const JsonItem &value,
                 bool force = false);
     bool append(const JsonItem &value);
+    bool replaceItem(const uint32_t index,
+                     const JsonItem &value);
 
     // getter
     Common::DataItem* getItemContent() const;

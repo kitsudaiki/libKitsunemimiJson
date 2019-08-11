@@ -43,7 +43,7 @@ public:
     std::string getErrorMessage() const;
 
 private:
-    Common::DataObject* m_output;
+    Common::DataObject* m_output = nullptr;
     std::string m_errorMessage = "";
     std::string m_inputString = "";
 

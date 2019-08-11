@@ -7,7 +7,7 @@
  *  MIT License
  */
 
-#include "jsonItems_parseString_test.hpp"
+#include "jsonItem_parseString_test.hpp"
 #include <jsonItem.hpp>
 #include <data_structure/dataItems.hpp>
 
@@ -22,6 +22,9 @@ JsonItems_ParseString_Test::JsonItems_ParseString_Test()
     parseString_test();
 }
 
+/**
+ * parseString_test
+ */
 void
 JsonItems_ParseString_Test::parseString_test()
 {

@@ -31,7 +31,7 @@ JsonItem::JsonItem()
 }
 
 /**
- *  creates a new item based on an already existring item
+ * @brief creates a new item based on an already existring item
  *
  * @param otherItem other item, which have to be copied
  */
@@ -41,17 +41,19 @@ JsonItem::JsonItem(const JsonItem &otherItem)
 }
 
 /**
- * creates a new item
+ * @brief creates a new item
  *
- * @param abstract pointer to an already existring abstract-json
+ * @param dataItem pointer to an already existring abstract-json
  */
-JsonItem::JsonItem(DataItem *abstract)
+JsonItem::JsonItem(DataItem* dataItem)
 {
-    m_item = abstract;
+    if(dataItem != nullptr) {
+        m_item = dataItem->copy();
+    }
 }
 
 /**
- * creates an object-item
+ * @brief creates an object-item
  *
  * @param value map for the new object, which can be empty
  */
@@ -68,7 +70,7 @@ JsonItem::JsonItem(std::map<std::string, JsonItem> &value)
 }
 
 /**
- * creates an array-item
+ * @brief creates an array-item
  *
  * @param value vector for the new object, which can be empty
  */
@@ -85,29 +87,36 @@ JsonItem::JsonItem(std::vector<JsonItem> &value)
 }
 
 /**
- * creates an value-item
+ * @brief creates an value-item
  *
  * @param value string of the new item
  */
 JsonItem::JsonItem(std::string value)
 {
-    DataValue* tempItem = new DataValue();
+    DataValue* tempItem = new DataValue(value);
     m_item = static_cast<DataItem*>(tempItem);
-
-    setValue(value);
 }
 
 /**
- * creates an value-item
+ * @brief creates an value-item
  *
  * @param value int-value of the new item
  */
 JsonItem::JsonItem(int value)
 {
-    DataValue* tempItem = new DataValue();
+    DataValue* tempItem = new DataValue(value);
     m_item = static_cast<DataItem*>(tempItem);
+}
 
-    setValue(value);
+/**
+ * @brief creates an value-item
+ *
+ * @param value float-value of the new item
+ */
+JsonItem::JsonItem(float value)
+{
+    DataValue* tempItem = new DataValue(value);
+    m_item = static_cast<DataItem*>(tempItem);
 }
 
 /**
@@ -119,9 +128,10 @@ JsonItem::~JsonItem()
 }
 
 /**
- * static-method which calls the parser to convert a json-formated string into a json-object-tree
+ * @brief static-method which calls the parser to convert a json-formated string into a json-object-tree
  *
  * @param input json-formated string, which should be parsed
+ *
  * @return nullptr, if parsing was not successful, else the root-object of the new json-tree
  */
 JsonItem
@@ -141,9 +151,10 @@ JsonItem::parseString(const std::string &input)
 }
 
 /**
- * replace the content of the item with the content of another item
+ * @brief replace the content of the item with the content of another item
  *
  * @param other other item, which have to be copied
+ *
  * @return pointer to this current item
  */
 JsonItem&
@@ -159,7 +170,7 @@ JsonItem::operator=(const JsonItem &other)
 }
 
 /**
- * writes a new string into the json-value
+ * @brief writes a new string into the json-value
  *
  * @param value new string to store
  */
@@ -167,7 +178,7 @@ bool
 JsonItem::setValue(const std::string &value)
 {
     if(m_item == nullptr) {
-        return false;
+        m_item = new DataValue();
     }
 
     if(m_item->getType() == DataItem::VALUE_TYPE)
@@ -180,7 +191,7 @@ JsonItem::setValue(const std::string &value)
 }
 
 /**
- * writes a new integer into the json-value
+ * @brief writes a new integer into the json-value
  *
  * @param value new number to store
  */
@@ -188,7 +199,7 @@ bool
 JsonItem::setValue(const int &value)
 {
     if(m_item == nullptr) {
-        return false;
+        m_item = new DataValue();
     }
 
     if(m_item->getType() == DataItem::VALUE_TYPE)
@@ -201,11 +212,33 @@ JsonItem::setValue(const int &value)
 }
 
 /**
- * insert a key-value-pair if the current item is a json-object
+ * @brief writes a new floaint-point into the json-value
+ *
+ * @param value new number to store
+ */
+bool
+JsonItem::setValue(const float &value)
+{
+    if(m_item == nullptr) {
+        m_item = new DataValue();
+    }
+
+    if(m_item->getType() == DataItem::VALUE_TYPE)
+    {
+        m_item->toValue()->setValue(value);
+        return true;
+    }
+
+    return false;
+}
+
+/**
+ * @brief insert a key-value-pair if the current item is a json-object
  *
  * @param key key of the new pair
- * @param value value of the new pair
+ * @param value new json-item-object
  * @param force true to overwrite an existing key (default: false)
+ *
  * @return false, if item is not a json-object, else true
  */
 bool
@@ -213,32 +246,75 @@ JsonItem::insert(const std::string &key,
                  const JsonItem &value,
                  bool force)
 {
-    if(m_item == nullptr) {
+    if(value.getItemContent() == nullptr
+            || key == "")
+    {
         return false;
     }
 
-    if(m_item->getType() == DataItem::OBJECT_TYPE) {
-        return m_item->toObject()->insert(key, value.m_item->copy(), force);
+    if(m_item == nullptr) {
+        m_item = new DataObject();
+    }
+
+    if(m_item->getType() == DataItem::OBJECT_TYPE)
+    {
+        return m_item->toObject()->insert(key,
+                                          value.m_item->copy(),
+                                          force);
     }
 
     return false;
 }
 
 /**
- * add a new item, if the current item is a json-array
+ * @brief add a new item, if the current item is a json-array
  *
- * @param item new item
+ * @param value new json-item-object
+ *
  * @return false, if item is not a json-array, else true
  */
 bool
 JsonItem::append(const JsonItem &value)
 {
-    if(m_item == nullptr) {
+    if(value.getItemContent() == nullptr) {
         return false;
+    }
+
+    if(m_item == nullptr) {
+        m_item = new DataArray();
     }
 
     if(m_item->getType() == DataItem::ARRAY_TYPE) {
         return m_item->toArray()->append(value.m_item->copy());
+    }
+
+    return false;
+}
+
+/**
+ * @brief replace an item within a array
+ *
+ * @param index position in the array
+ * @param value new json-item-object
+ *
+ * @return false, if items not valid of index too high, else true
+ */
+bool
+JsonItem::replaceItem(const uint32_t index,
+                      const JsonItem &value)
+{
+    if(value.getItemContent() == nullptr) {
+        return false;
+    }
+
+    if(m_item == nullptr) {
+        m_item = new DataArray();
+    }
+
+    if(m_item->getType() == DataItem::ARRAY_TYPE
+            && m_item->toArray()->m_array.size() > index)
+    {
+        return m_item->toArray()->m_array[index] = value.m_item->copy();
     }
 
     return false;
@@ -255,9 +331,10 @@ JsonItem::getItemContent() const
 }
 
 /**
- * get a specific entry of the item
+ * @brief get a specific entry of the item
  *
  * @param key key of the requested value
+ *
  * @return nullptr if index in key is to high, else object
  */
 JsonItem
@@ -271,9 +348,10 @@ JsonItem::operator[](const std::string key)
 }
 
 /**
- * get a specific item of the object
+ * @brief get a specific item of the object
  *
  * @param index index of the item
+ *
  * @return nullptr if index is to high, else object
  */
 JsonItem
@@ -287,9 +365,10 @@ JsonItem::operator[](const uint32_t index)
 }
 
 /**
- * get a specific entry of the item
+ * @brief get a specific entry of the item
  *
  * @param key key of the requested value
+ *
  * @return nullptr if index in key is to high, else object
  */
 JsonItem
@@ -303,9 +382,10 @@ JsonItem::get(const std::string key) const
 }
 
 /**
- * get a specific item of the object
+ * @brief get a specific item of the object
  *
  * @param index index of the item
+ *
  * @return nullptr if index is to high, else object
  */
 JsonItem
@@ -319,7 +399,7 @@ JsonItem::get(const uint32_t index) const
 }
 
 /**
- * get string of the item
+ * @brief get string of the item
  *
  * @return string, of the item if int-type, else empty string
  */
@@ -330,7 +410,7 @@ JsonItem::getString() const
         return "";
     }
 
-    if(m_item->toValue()->getValueType() == DataItem::STRING_TYPE) {
+    if(m_item->getType() == DataItem::VALUE_TYPE) {
         return m_item->toValue()->toString();
     }
 
@@ -338,7 +418,7 @@ JsonItem::getString() const
 }
 
 /**
- * get int-value of the item
+ * @brief get int-value of the item
  *
  * @return int-value, of the item if int-type, else 0
  */
@@ -357,7 +437,7 @@ JsonItem::getInt() const
 }
 
 /**
- * get float-value of the item
+ * @brief get float-value of the item
  *
  * @return float-value, of the item if float-type, else 0
  */
@@ -376,7 +456,7 @@ JsonItem::getFloat() const
 }
 
 /**
- * getter for the number of elements in the item
+ * @brief getter for the number of elements in the item
  *
  * @return number of elements in the item
  */
@@ -391,7 +471,7 @@ JsonItem::getSize() const
 }
 
 /**
- * get list of keys if the json-item is an json-object
+ * @brief get list of keys if the json-item is an json-object
  *
  * @return string-list with the keys of the map
  */
@@ -413,9 +493,10 @@ JsonItem::getKeys()
 }
 
 /**
- * check if a key is in the object-map
+ * @brief check if a key is in the object-map
  *
  * @param key key-string which should be searched in the map of the object-item
+ *
  * @return false if the key doesn't exist or the item is no json-object, else true
  */
 bool
@@ -435,7 +516,7 @@ JsonItem::contains(const std::string &key)
 }
 
 /**
- * check if the current item is valid
+ * @brief check if the current item is valid
  *
  * @return false, if the item is a null-pointer, else true
  */
@@ -448,7 +529,7 @@ bool JsonItem::isValid() const
 }
 
 /**
- * check if current item is a object
+ * @brief check if current item is a object
  *
  * @return true if current item is a json-object, else false
  */
@@ -466,7 +547,7 @@ bool JsonItem::isObject() const
 }
 
 /**
- * check if current item is a array
+ * @brief check if current item is a array
  *
  * @return true if current item is a json-array, else false
  */
@@ -484,7 +565,7 @@ bool JsonItem::isArray() const
 }
 
 /**
- * check if current item is a value
+ * @brief check if current item is a value
  *
  * @return true if current item is a json-value, else false
  */
@@ -502,9 +583,10 @@ bool JsonItem::isValue() const
 }
 
 /**
- * remove an item from the key-value-list
+ * @brief remove an item from the key-value-list
  *
  * @param key key of the pair, which should be deleted
+ *
  * @return false if the key doesn't exist, else true
  */
 bool
@@ -518,9 +600,10 @@ JsonItem::remove(const std::string &key)
 }
 
 /**
- * remove an item from the object
+ * @brief remove an item from the object
  *
  * @param index index of the item
+ *
  * @return false if index is to high, else true
  */
 bool
@@ -533,7 +616,7 @@ JsonItem::remove(const uint32_t index)
 }
 
 /**
- * prints the content of the object
+ * @brief prints the content of the object
  *
  * @param output pointer to the output-string on which the object-content as string will be appended
  */
@@ -543,7 +626,7 @@ std::string JsonItem::print(bool indent)
 }
 
 /**
- * delete the underlaying json-object
+ * @brief delete the underlaying json-object
  */
 void JsonItem::clear()
 {

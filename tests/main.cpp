@@ -8,9 +8,11 @@
  */
 
 #include <iostream>
-#include <libKitsuneJson/jsonItems_parseString_test.hpp>
+#include <libKitsuneJson/jsonItem_parseString_test.hpp>
+#include <libKitsuneJson/jsonItem_test.hpp>
 
 int main()
 {
     Kitsune::Json::JsonItems_ParseString_Test();
+    Kitsune::Json::JsonItem_Test();
 }

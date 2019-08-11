@@ -1,5 +1,5 @@
 /**
- *  @file    jsonItems_parseString_test.h
+ *  @file    jsonItems_parseString_test.hpp
  *
  *  @author  Tobias Anker
  *  Contact: tobias.anker@kitsunemimi.moe
