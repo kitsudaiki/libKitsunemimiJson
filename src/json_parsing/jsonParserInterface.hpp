@@ -14,10 +14,12 @@
 
 namespace Kitsune
 {
+namespace Common {
+class DataObject;
+}
 namespace Json
 {
 class location;
-class JsonObject;
 
 class JsonParserInterface
 {
@@ -32,8 +34,8 @@ public:
     std::string removeQuotes(std::string input);
 
     // output-handling
-    void setOutput(JsonObject* output);
-    JsonObject* getOutput() const;
+    void setOutput(Common::DataObject* output);
+    Common::DataObject* getOutput() const;
 
     // Error handling.
     void error(const Kitsune::Json::location &location,
@@ -41,7 +43,7 @@ public:
     std::string getErrorMessage() const;
 
 private:
-    JsonObject* m_output;
+    Common::DataObject* m_output;
     std::string m_errorMessage = "";
     std::string m_inputString = "";
 

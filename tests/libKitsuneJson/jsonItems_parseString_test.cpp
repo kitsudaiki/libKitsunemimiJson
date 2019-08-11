@@ -8,7 +8,8 @@
  */
 
 #include "jsonItems_parseString_test.hpp"
-#include <jsonItems.hpp>
+#include <jsonItem.hpp>
+#include <data_structure/dataItems.hpp>
 
 namespace Kitsune
 {
@@ -16,7 +17,7 @@ namespace Json
 {
 
 JsonItems_ParseString_Test::JsonItems_ParseString_Test()
-    : Kitsune::CommonTest("JsonItems_ParseString_Test")
+    : Kitsune::Common::Test("JsonItems_ParseString_Test")
 {
     parseString_test();
 }
@@ -33,7 +34,8 @@ JsonItems_ParseString_Test::parseString_test()
                       "[ {\"x\" :42 }, {\"x\" :42.0 }, 1234, {\"x\" :-42.0 }]"
                       "}");
 
-    JsonObject* outputObjects = static_cast<JsonObject*>(JsonItem::parseString(input));
+    JsonItem paredItem = JsonItem::parseString(input);
+    Common::DataItem* outputObjects = paredItem.getItemContent();
     std::string outputStringObjects = "";
     outputObjects->print(&outputStringObjects, true);
     std::string compareObjects( "{\n"
@@ -67,9 +69,9 @@ JsonItems_ParseString_Test::parseString_test()
             "[ {\"x\" :\"test1\" }, {\"x\" :\"test2\" }, {\"x\" :\"test3\" }]\n"
             "}";
 
-    JsonItem* output = JsonItem::parseString(input);
+    JsonItem output = JsonItem::parseString(input);
     bool success = false;
-    if(output != nullptr) {
+    if(output.getItemContent() != nullptr) {
         success = true;
     }
 

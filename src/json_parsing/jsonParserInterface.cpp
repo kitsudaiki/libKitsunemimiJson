@@ -1,5 +1,5 @@
 /**
- *  @file    jinja2ParserInterface.cpp
+ *  @file    jsonParserInterface.cpp
  *
  *  @author  Tobias Anker
  *  Contact: tobias.anker@kitsunemimi.moe
@@ -8,9 +8,14 @@
  */
 
 #include <json_parsing/jsonParserInterface.hpp>
-#include <jsonItems.hpp>
 #include <jsonParser.hpp>
 
+#include <data_structure/dataItems.hpp>
+
+using Kitsune::Common::DataItem;
+using Kitsune::Common::DataArray;
+using Kitsune::Common::DataValue;
+using Kitsune::Common::DataObject;
 
 # define YY_DECL \
     Kitsune::Json::JsonParser::symbol_type jsonlex (Kitsune::Json::JsonParserInterface& driver)
@@ -86,10 +91,10 @@ JsonParserInterface::removeQuotes(std::string input)
 /**
  * Is called for the parser after successfully parsing the input-string
  *
- * @param output parser-output as QJsonArray
+ * @param output parser-output as QDataArray
  */
 void
-JsonParserInterface::setOutput(JsonObject* output)
+JsonParserInterface::setOutput(DataObject* output)
 {
      m_output = output;
 }
@@ -97,9 +102,9 @@ JsonParserInterface::setOutput(JsonObject* output)
 /**
  * getter for the json-output of the parser
  *
- * @return parser-output as QJsonArray
+ * @return parser-output as QDataArray
  */
-JsonObject*
+DataObject*
 JsonParserInterface::getOutput() const
 {
     return m_output;

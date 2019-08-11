@@ -3,18 +3,23 @@ QT -= qt core gui
 TARGET = KitsuneJson
 TEMPLATE = lib
 CONFIG += c++14
-VERSION = 0.1.0
+VERSION = 0.2.0
+
+LIBS += -L../../libKitsuneCommon/src -lKitsuneCommon
+LIBS += -L../../libKitsuneCommon/src/debug -lKitsuneCommon
+LIBS += -L../../libKitsuneCommon/src/release -lKitsuneCommon
+INCLUDEPATH += ../../libKitsuneCommon/include/libKitsuneCommon
 
 INCLUDEPATH += $$PWD \
                $$PWD/../include/libKitsuneJson
 
 SOURCES += \
         json_parsing/jsonParserInterface.cpp \
-    jsonItems.cpp
+        jsonItem.cpp
 
 HEADERS += \
-    ../include/libKitsuneJson/jsonItems.hpp \
-    json_parsing/jsonParserInterface.hpp
+    json_parsing/jsonParserInterface.hpp \
+    ../include/libKitsuneJson/jsonItem.hpp
 
 FLEXSOURCES = grammar/jsonLexer.l
 BISONSOURCES = grammar/jsonParser.y
