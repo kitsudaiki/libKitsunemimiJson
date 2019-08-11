@@ -36,7 +36,8 @@ public:
 
     ~JsonItem();
 
-    static JsonItem parseString(const std::string &input);
+    std::pair<bool, std::string> parse(const std::string &input,
+                                       const bool traceParsing = false);
 
     // setter
     JsonItem& operator=(const JsonItem& other);
@@ -79,7 +80,7 @@ public:
 private:
     void clear();
 
-    Common::DataItem* m_item = nullptr;
+    Common::DataItem* m_content = nullptr;
 };
 
 }  // namespace Json

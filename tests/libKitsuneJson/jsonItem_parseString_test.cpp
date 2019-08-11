@@ -37,10 +37,10 @@ JsonItems_ParseString_Test::parseString_test()
                       "[ {\"x\" :42 }, {\"x\" :42.0 }, 1234, {\"x\" :-42.0 }]"
                       "}");
 
-    JsonItem paredItem = JsonItem::parseString(input);
-    Common::DataItem* outputObjects = paredItem.getItemContent();
-    std::string outputStringObjects = "";
-    outputObjects->print(&outputStringObjects, true);
+    JsonItem paredItem;
+    std::pair<bool, std::string> result = paredItem.parse(input);
+    UNITTEST(result.first, true);
+    std::string outputStringObjects = paredItem.print(true);
     std::string compareObjects( "{\n"
                                 "    \"item\": {\n"
                                 "        \"sub_item\": \"test_value\"\n"
@@ -72,13 +72,9 @@ JsonItems_ParseString_Test::parseString_test()
             "[ {\"x\" :\"test1\" }, {\"x\" :\"test2\" }, {\"x\" :\"test3\" }]\n"
             "}";
 
-    JsonItem output = JsonItem::parseString(input);
-    bool success = false;
-    if(output.getItemContent() != nullptr) {
-        success = true;
-    }
-
-    UNITTEST(success, false);
+    JsonItem output;
+    result = output.parse(input);
+    UNITTEST(result.first, false);
 }
 
 }  // namespace Json

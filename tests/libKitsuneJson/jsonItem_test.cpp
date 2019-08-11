@@ -308,7 +308,10 @@ JsonItem_Test::getTestItem()
                       "    ]\n"
                       "}");
 
-    return JsonItem::parseString(input);
+    JsonItem output;
+    output.parse(input);
+
+    return output;
 }
 
 }  // namespace Json
