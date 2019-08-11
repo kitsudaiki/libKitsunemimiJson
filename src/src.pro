@@ -30,7 +30,7 @@ OTHER_FILES +=  \
 
 # The following code calls the flex-lexer and bison-parser before compiling the
 # cpp-code for automatic generation of the parser-code in each build-step.
-# The resulting source-code-files are stored in the build-directory of the jinja2-converter.
+# The resulting source-code-files are stored in the build-directory of the json-converter.
 flexsource.input = FLEXSOURCES
 flexsource.output = ${QMAKE_FILE_BASE}.cpp
 flexsource.commands = flex --header-file=${QMAKE_FILE_BASE}.hpp -o ${QMAKE_FILE_BASE}.cpp ${QMAKE_FILE_IN}
