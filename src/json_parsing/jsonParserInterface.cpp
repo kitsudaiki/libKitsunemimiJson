@@ -27,8 +27,8 @@ namespace Json
 {
 
 /**
- * The class is the interface for the bison-generated parser.
- * It starts the parsing-process and store the returned values.
+ * @brief The class is the interface for the bison-generated parser.
+ *        It starts the parsing-process and store the returned values.
  *
  * @param traceParsing If set to true, the scanner prints all triggered rules.
  *                     It is only for better debugging.
@@ -39,9 +39,10 @@ JsonParserInterface::JsonParserInterface(const bool traceParsing)
 }
 
 /**
- * Start the scanner and parser
+ * @brief Start the scanner and parser
  *
  * @param inputFile string which should be parsed
+ *
  * @return true, if parsing was successful, else false
  */
 bool
@@ -65,9 +66,11 @@ JsonParserInterface::parse(const std::string &inputString)
 }
 
 /**
- * @brief JsonParserInterface::removeQuotes
- * @param input
- * @return
+ * @brief remove quotes at the beginning and end of a string
+ *
+ * @param input input-string
+ *
+ * @return cleared string
  */
 std::string
 JsonParserInterface::removeQuotes(std::string input)
@@ -89,7 +92,7 @@ JsonParserInterface::removeQuotes(std::string input)
 }
 
 /**
- * Is called for the parser after successfully parsing the input-string
+ * @brief Is called for the parser after successfully parsing the input-string
  *
  * @param output parser-output as QDataArray
  */
@@ -111,7 +114,7 @@ JsonParserInterface::getOutput() const
 }
 
 /**
- * Is called from the parser in case of an error
+ * @brief Is called from the parser in case of an error
  *
  * @param location location-object of the bison-parser,
  *                 which contains the informations of the location
@@ -138,7 +141,7 @@ JsonParserInterface::error(const Kitsune::Json::location& location,
 }
 
 /**
- * getter fot the error-message in case of an error while parsing
+ * @brief getter fot the error-message in case of an error while parsing
  *
  * @return error-message
  */
