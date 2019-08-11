@@ -1,5 +1,5 @@
 /**
- *  @file    jsonItem.h
+ *  @file    jsonItem.hpp
  *
  *  @author  Tobias Anker
  *  Contact: tobias.anker@kitsunemimi.moe
@@ -7,8 +7,8 @@
  *  MIT License
  */
 
-#ifndef JSONITEM_H
-#define JSONITEM_H
+#ifndef JSONITEM_HPP
+#define JSONITEM_HPP
 
 #include <string>
 #include <vector>
@@ -70,7 +70,7 @@ public:
     bool remove(const uint32_t index);
 
     // output
-    void print(std::string *output, bool indent=false);
+    std::string print(bool indent=false);
 
 private:
     void clear();
@@ -81,4 +81,4 @@ private:
 }  // namespace Json
 }  // namespace Kitsune
 
-#endif // JSONITEM_H
+#endif // JSONITEM_HPP

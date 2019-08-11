@@ -128,12 +128,15 @@ JsonItem
 JsonItem::parseString(const std::string &input)
 {
     JsonParserInterface parser;
+
     bool ret = parser.parse(input);
     if(ret == false) {
         return nullptr;
     }
+
     DataItem* output = parser.getOutput();
     JsonItem result(output);
+
     return result;
 }
 
@@ -151,6 +154,7 @@ JsonItem::operator=(const JsonItem &other)
         clear();
         m_item = other.m_item->copy();
     }
+
     return *this;
 }
 
@@ -165,13 +169,13 @@ JsonItem::setValue(const std::string &value)
     if(m_item == nullptr) {
         return false;
     }
-    if(m_item->getType() == DataItem::INT_TYPE
-            || m_item->getType() == DataItem::STRING_TYPE
-            || m_item->getType() == DataItem::FLOAT_TYPE)
+
+    if(m_item->getType() == DataItem::VALUE_TYPE)
     {
         m_item->toValue()->setValue(value);
         return true;
     }
+
     return false;
 }
 
@@ -186,13 +190,13 @@ JsonItem::setValue(const int &value)
     if(m_item == nullptr) {
         return false;
     }
-    if(m_item->getType() == DataItem::INT_TYPE
-            || m_item->getType() == DataItem::STRING_TYPE
-            || m_item->getType() == DataItem::FLOAT_TYPE)
+
+    if(m_item->getType() == DataItem::VALUE_TYPE)
     {
         m_item->toValue()->setValue(value);
         return true;
     }
+
     return false;
 }
 
@@ -212,9 +216,11 @@ JsonItem::insert(const std::string &key,
     if(m_item == nullptr) {
         return false;
     }
+
     if(m_item->getType() == DataItem::OBJECT_TYPE) {
         return m_item->toObject()->insert(key, value.m_item->copy(), force);
     }
+
     return false;
 }
 
@@ -230,9 +236,11 @@ JsonItem::append(const JsonItem &value)
     if(m_item == nullptr) {
         return false;
     }
+
     if(m_item->getType() == DataItem::ARRAY_TYPE) {
         return m_item->toArray()->append(value.m_item->copy());
     }
+
     return false;
 }
 
@@ -258,6 +266,7 @@ JsonItem::operator[](const std::string key)
     if(m_item == nullptr) {
         return JsonItem();
     }
+
     return JsonItem(m_item->get(key)->copy());
 }
 
@@ -273,6 +282,7 @@ JsonItem::operator[](const uint32_t index)
     if(m_item == nullptr) {
         return JsonItem();
     }
+
     return JsonItem(m_item->get(index)->copy());
 }
 
@@ -288,6 +298,7 @@ JsonItem::get(const std::string key) const
     if(m_item == nullptr) {
         return JsonItem();
     }
+
     return JsonItem(m_item->get(key));
 }
 
@@ -303,6 +314,7 @@ JsonItem::get(const uint32_t index) const
     if(m_item == nullptr) {
         return JsonItem();
     }
+
     return JsonItem(m_item->get(index));
 }
 
@@ -317,9 +329,11 @@ JsonItem::getString() const
     if(m_item == nullptr) {
         return "";
     }
+
     if(m_item->toValue()->getValueType() == DataItem::STRING_TYPE) {
         return m_item->toValue()->toString();
     }
+
     return "";
 }
 
@@ -334,9 +348,11 @@ JsonItem::getInt() const
     if(m_item == nullptr) {
         return 0;
     }
+
     if(m_item->toValue()->getValueType() == DataItem::INT_TYPE) {
         return m_item->toValue()->toInt();
     }
+
     return 0;
 }
 
@@ -351,9 +367,11 @@ JsonItem::getFloat() const
     if(m_item == nullptr) {
         return 0;
     }
+
     if(m_item->toValue()->getValueType() == DataItem::FLOAT_TYPE) {
         return m_item->toValue()->toFloat();
     }
+
     return 0;
 }
 
@@ -368,6 +386,7 @@ JsonItem::getSize() const
     if(m_item == nullptr) {
         return 0;
     }
+
     return m_item->getSize();
 }
 
@@ -382,6 +401,7 @@ JsonItem::getKeys()
     if(m_item == nullptr) {
         return std::vector<std::string>();
     }
+
     if(m_item->getType() == DataItem::OBJECT_TYPE)
     {
         DataObject* obj = static_cast<DataObject*>(m_item);
@@ -404,6 +424,7 @@ JsonItem::contains(const std::string &key)
     if(m_item == nullptr) {
         return false;
     }
+
     if(m_item->getType() == DataItem::OBJECT_TYPE)
     {
         DataObject* obj = static_cast<DataObject*>(m_item);
@@ -436,9 +457,11 @@ bool JsonItem::isObject() const
     if(m_item == nullptr) {
         return false;
     }
+
     if(m_item->getType() == DataItem::OBJECT_TYPE) {
         return true;
     }
+
     return false;
 }
 
@@ -452,9 +475,11 @@ bool JsonItem::isArray() const
     if(m_item == nullptr) {
         return false;
     }
+
     if(m_item->getType() == DataItem::ARRAY_TYPE) {
         return true;
     }
+
     return false;
 }
 
@@ -468,12 +493,11 @@ bool JsonItem::isValue() const
     if(m_item == nullptr) {
         return false;
     }
-    if(m_item->getType() == DataItem::STRING_TYPE
-            || m_item->getType() == DataItem::INT_TYPE
-            || m_item->getType() == DataItem::FLOAT_TYPE)
-    {
+
+    if(m_item->getType() == DataItem::VALUE_TYPE) {
         return true;
     }
+
     return false;
 }
 
@@ -489,6 +513,7 @@ JsonItem::remove(const std::string &key)
     if(m_item != nullptr) {
         return m_item->remove(key);
     }
+
     return false;
 }
 
@@ -512,12 +537,9 @@ JsonItem::remove(const uint32_t index)
  *
  * @param output pointer to the output-string on which the object-content as string will be appended
  */
-void
-JsonItem::print(std::string *output, bool indent)
+std::string JsonItem::print(bool indent)
 {
-    if(m_item != nullptr) {
-        m_item->print(output, indent, 0);
-    }
+    return m_item->print(nullptr, indent);
 }
 
 /**
