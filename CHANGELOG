@@ -4,7 +4,7 @@
 ## [0.2.1] - 2019-08-12
 
 ### Changed
-- update getter to return an optional linke item instead of a copy
+- update getter to return an optional linked item instead of a copy for easier content-updates
 
 
 ## [0.2.0] - 2019-08-11
