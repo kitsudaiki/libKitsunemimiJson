@@ -28,6 +28,7 @@ namespace Json
 JsonItem::JsonItem()
 {
     m_content = nullptr;
+    m_deletable = true;
 }
 
 /**
@@ -38,6 +39,7 @@ JsonItem::JsonItem()
 JsonItem::JsonItem(const JsonItem &otherItem)
 {
     m_content = otherItem.m_content->copy();
+    m_deletable = true;
 }
 
 /**
@@ -45,10 +47,20 @@ JsonItem::JsonItem(const JsonItem &otherItem)
  *
  * @param dataItem pointer to an already existring abstract-json
  */
-JsonItem::JsonItem(DataItem* dataItem)
+JsonItem::JsonItem(DataItem* dataItem,
+                   const bool copy)
 {
-    if(dataItem != nullptr) {
-        m_content = dataItem->copy();
+    if(copy)
+    {
+        if(dataItem != nullptr) {
+            m_content = dataItem->copy();
+            m_deletable = true;
+        }
+    }
+    else
+    {
+        m_content = dataItem;
+        m_deletable = false;
     }
 }
 
@@ -154,9 +166,8 @@ JsonItem::parse(const std::string &input,
         return result;
     }
 
-    if(m_content != nullptr) {
-        delete m_content;
-    }
+    clear();
+
     m_content = parser.getOutput();
 
     return result;
@@ -176,6 +187,7 @@ JsonItem::operator=(const JsonItem &other)
     {
         clear();
         m_content = other.m_content->copy();
+        m_deletable = true;
     }
 
     return *this;
@@ -271,8 +283,8 @@ JsonItem::insert(const std::string &key,
     if(m_content->getType() == DataItem::OBJECT_TYPE)
     {
         return m_content->toObject()->insert(key,
-                                          value.m_content->copy(),
-                                          force);
+                                             value.m_content->copy(),
+                                             force);
     }
 
     return false;
@@ -356,7 +368,7 @@ JsonItem::operator[](const std::string key)
         return JsonItem();
     }
 
-    return JsonItem(m_content->get(key)->copy());
+    return JsonItem(m_content->get(key), true);
 }
 
 /**
@@ -373,7 +385,7 @@ JsonItem::operator[](const uint32_t index)
         return JsonItem();
     }
 
-    return JsonItem(m_content->get(index)->copy());
+    return JsonItem(m_content->get(index), true);
 }
 
 /**
@@ -384,13 +396,14 @@ JsonItem::operator[](const uint32_t index)
  * @return nullptr if index in key is to high, else object
  */
 JsonItem
-JsonItem::get(const std::string key) const
+JsonItem::get(const std::string key,
+              const bool copy) const
 {
     if(m_content == nullptr) {
         return JsonItem();
     }
 
-    return JsonItem(m_content->get(key));
+    return JsonItem(m_content->get(key), copy);
 }
 
 /**
@@ -401,13 +414,14 @@ JsonItem::get(const std::string key) const
  * @return nullptr if index is to high, else object
  */
 JsonItem
-JsonItem::get(const uint32_t index) const
+JsonItem::get(const uint32_t index,
+              const bool copy) const
 {
     if(m_content == nullptr) {
         return JsonItem();
     }
 
-    return JsonItem(m_content->get(index));
+    return JsonItem(m_content->get(index), copy);
 }
 
 /**
@@ -645,7 +659,8 @@ std::string JsonItem::print(bool indent)
  */
 void JsonItem::clear()
 {
-    if(m_content != nullptr)
+    if(m_content != nullptr
+            && m_deletable)
     {
         delete m_content;
         m_content = nullptr;
