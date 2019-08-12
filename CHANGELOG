@@ -1,10 +1,18 @@
 # Changelog
 
+
+## [0.2.1] - 2019-08-12
+
+### Changed
+- update getter to return an optional linke item instead of a copy
+
+
 ## [0.2.0] - 2019-08-11
 
 ### Added
 - rework interface-class for a more consistent look compared to other kitsune-libraries
 - update for using libKitsuneCommon 0.2.0
+
 
 ## [0.1.0] - 2019-08-03
 
