@@ -174,6 +174,8 @@ JsonItem_Test::get_test()
     JsonItem testItem = getTestItem();
     UNITTEST(testItem["loop"][0]["x"].getString(), "42");
     UNITTEST(testItem.get("loop").get(0).get("x").getString(), "42");
+    UNITTEST(testItem.get("loop").get(0).get("x").setValue("43"), true);
+    UNITTEST(testItem.get("loop").get(0).get("x").getString(), "43");
 }
 
 /**

@@ -27,7 +27,7 @@ class JsonItem
 public:
     JsonItem();
     JsonItem(const JsonItem &otherItem);
-    JsonItem(Common::DataItem* dataItem);
+    JsonItem(Common::DataItem* dataItem, const bool copy=false);
     JsonItem(std::map<std::string, JsonItem> &value);
     JsonItem(std::vector<JsonItem> &value);
     JsonItem(std::string value);
@@ -55,8 +55,8 @@ public:
     Common::DataItem* getItemContent() const;
     JsonItem operator[](const std::string key);
     JsonItem operator[](const uint32_t index);
-    JsonItem get(const std::string key) const;
-    JsonItem get(const uint32_t index) const;
+    JsonItem get(const std::string key, const bool copy=false) const;
+    JsonItem get(const uint32_t index, const bool copy=false) const;
     std::string getString() const;
     int getInt() const;
     float getFloat() const;
@@ -80,6 +80,7 @@ public:
 private:
     void clear();
 
+    bool m_deletable = false;
     Common::DataItem* m_content = nullptr;
 };
 
