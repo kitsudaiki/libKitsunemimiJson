@@ -30,9 +30,9 @@ public:
     JsonItem(Common::DataItem* dataItem, const bool copy=false);
     JsonItem(std::map<std::string, JsonItem> &value);
     JsonItem(std::vector<JsonItem> &value);
-    JsonItem(std::string value);
-    JsonItem(int value);
-    JsonItem(float value);
+    JsonItem(const std::string &value);
+    JsonItem(const int value);
+    JsonItem(const float value);
 
     ~JsonItem();
 
@@ -80,7 +80,7 @@ public:
 private:
     void clear();
 
-    bool m_deletable = false;
+    bool m_deletable = true;
     Common::DataItem* m_content = nullptr;
 };
 
