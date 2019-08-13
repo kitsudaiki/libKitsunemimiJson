@@ -39,7 +39,6 @@ JsonItem::JsonItem()
 JsonItem::JsonItem(const JsonItem &otherItem)
 {
     m_content = otherItem.m_content->copy();
-    m_deletable = true;
 }
 
 /**
@@ -54,7 +53,6 @@ JsonItem::JsonItem(DataItem* dataItem,
     {
         if(dataItem != nullptr) {
             m_content = dataItem->copy();
-            m_deletable = true;
         }
     }
     else
@@ -103,7 +101,7 @@ JsonItem::JsonItem(std::vector<JsonItem> &value)
  *
  * @param value string of the new item
  */
-JsonItem::JsonItem(std::string value)
+JsonItem::JsonItem(const std::string &value)
 {
     DataValue* tempItem = new DataValue(value);
     m_content = static_cast<DataItem*>(tempItem);
@@ -114,7 +112,7 @@ JsonItem::JsonItem(std::string value)
  *
  * @param value int-value of the new item
  */
-JsonItem::JsonItem(int value)
+JsonItem::JsonItem(const int value)
 {
     DataValue* tempItem = new DataValue(value);
     m_content = static_cast<DataItem*>(tempItem);
@@ -125,7 +123,7 @@ JsonItem::JsonItem(int value)
  *
  * @param value float-value of the new item
  */
-JsonItem::JsonItem(float value)
+JsonItem::JsonItem(const float value)
 {
     DataValue* tempItem = new DataValue(value);
     m_content = static_cast<DataItem*>(tempItem);
@@ -187,7 +185,6 @@ JsonItem::operator=(const JsonItem &other)
     {
         clear();
         m_content = other.m_content->copy();
-        m_deletable = true;
     }
 
     return *this;
