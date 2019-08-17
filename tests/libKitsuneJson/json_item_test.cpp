@@ -7,8 +7,8 @@
  *  MIT License
  */
 
-#include "jsonItem_test.hpp"
-#include <data_structure/dataItems.hpp>
+#include "json_item_test.h"
+#include <data_structure/data_items.h>
 
 namespace Kitsune
 {
@@ -40,7 +40,7 @@ JsonItem_Test::JsonItem_Test()
 }
 
 /**
- * constructor_test
+ * @brief constructor_test
  */
 void
 JsonItem_Test::constructor_test()
@@ -70,7 +70,7 @@ JsonItem_Test::constructor_test()
 }
 
 /**
- * assigmentOperator_test
+ * @brief assigmentOperator_test
  */
 void
 JsonItem_Test::assigmentOperator_test()
@@ -84,7 +84,7 @@ JsonItem_Test::assigmentOperator_test()
 }
 
 /**
- * setValue_test
+ * @brief setValue_test
  */
 void
 JsonItem_Test::setValue_test()
@@ -104,7 +104,7 @@ JsonItem_Test::setValue_test()
 }
 
 /**
- * insert_test
+ * @brief insert_test
  */
 void
 JsonItem_Test::insert_test()
@@ -121,7 +121,7 @@ JsonItem_Test::insert_test()
 }
 
 /**
- * append_test
+ * @brief append_test
  */
 void
 JsonItem_Test::append_test()
@@ -136,7 +136,7 @@ JsonItem_Test::append_test()
 }
 
 /**
- * replaceItem_test
+ * @brief replaceItem_test
  */
 void
 JsonItem_Test::replaceItem_test()
@@ -154,7 +154,7 @@ JsonItem_Test::replaceItem_test()
 }
 
 /**
- * getItemContent_test
+ * @brief getItemContent_test
  */
 void
 JsonItem_Test::getItemContent_test()
@@ -166,7 +166,7 @@ JsonItem_Test::getItemContent_test()
 }
 
 /**
- * get_test
+ * @brief get_test
  */
 void
 JsonItem_Test::get_test()
@@ -179,7 +179,7 @@ JsonItem_Test::get_test()
 }
 
 /**
- * getString_getInt_getFloat_test
+ * @brief getString_getInt_getFloat_test
  */
 void
 JsonItem_Test::getString_getInt_getFloat_test()
@@ -205,7 +205,7 @@ JsonItem_Test::getString_getInt_getFloat_test()
 }
 
 /**
- * getSize_test
+ * @brief getSize_test
  */
 void
 JsonItem_Test::getSize_test()
@@ -215,7 +215,7 @@ JsonItem_Test::getSize_test()
 }
 
 /**
- * getKeys_test
+ * @brief getKeys_test
  */
 void
 JsonItem_Test::getKeys_test()
@@ -229,7 +229,7 @@ JsonItem_Test::getKeys_test()
 }
 
 /**
- * contains_test
+ * @brief contains_test
  */
 void
 JsonItem_Test::contains_test()
@@ -240,7 +240,7 @@ JsonItem_Test::contains_test()
 }
 
 /**
- * isValid_test
+ * @brief isValid_test
  */
 void
 JsonItem_Test::isValid_test()
@@ -252,7 +252,7 @@ JsonItem_Test::isValid_test()
 }
 
 /**
- * isObject_isArray_isValue_test
+ * @brief isObject_isArray_isValue_test
  */
 void
 JsonItem_Test::isObject_isArray_isValue_test()
@@ -270,7 +270,7 @@ JsonItem_Test::isObject_isArray_isValue_test()
 }
 
 /**
- * remove_test
+ * @brief remove_test
  */
 void
 JsonItem_Test::remove_test()
@@ -283,8 +283,9 @@ JsonItem_Test::remove_test()
 }
 
 /**
- * @brief JsonItem_Test::getTestItem
- * @return
+ * @brief get a item for tests
+ *
+ * @return json-item with test-content
  */
 JsonItem
 JsonItem_Test::getTestItem()
