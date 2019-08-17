@@ -1,5 +1,5 @@
 /**
- *  @file    jsonItem_test.hpp
+ *  @file    jsonItem_test.h
  *
  *  @author  Tobias Anker
  *  Contact: tobias.anker@kitsunemimi.moe
@@ -7,11 +7,11 @@
  *  MIT License
  */
 
-#ifndef JSONITEM_TEST_HPP
-#define JSONITEM_TEST_HPP
+#ifndef JSONITEM_TEST_H
+#define JSONITEM_TEST_H
 
-#include <testing/test.hpp>
-#include <jsonItem.hpp>
+#include <testing/test.h>
+#include <json_item.h>
 
 namespace Kitsune
 {
@@ -50,4 +50,4 @@ private:
 }  // namespace Json
 }  // namespace Kitsune
 
-#endif // JSONITEM_TEST_HPP
+#endif // JSONITEM_TEST_H

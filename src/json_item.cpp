@@ -1,5 +1,5 @@
 /**
- *  @file    jsonItem.cpp
+ *  @file    json_item.cpp
  *
  *  @author  Tobias Anker
  *  Contact: tobias.anker@kitsunemimi.moe
@@ -7,10 +7,10 @@
  *  MIT License
  */
 
-#include <jsonItem.hpp>
+#include <json_item.h>
 
-#include <data_structure/dataItems.hpp>
-#include <json_parsing/jsonParserInterface.hpp>
+#include <data_structure/data_items.h>
+#include <json_parsing/json_parser_interface.h>
 
 using Kitsune::Common::DataItem;
 using Kitsune::Common::DataArray;

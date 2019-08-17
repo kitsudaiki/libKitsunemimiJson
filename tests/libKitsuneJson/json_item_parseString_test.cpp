@@ -7,16 +7,16 @@
  *  MIT License
  */
 
-#include "jsonItem_parseString_test.hpp"
-#include <jsonItem.hpp>
-#include <data_structure/dataItems.hpp>
+#include "json_item_parseString_test.h"
+#include <json_item.h>
+#include <data_structure/data_items.h>
 
 namespace Kitsune
 {
 namespace Json
 {
 
-JsonItems_ParseString_Test::JsonItems_ParseString_Test()
+JsonItem_ParseString_Test::JsonItem_ParseString_Test()
     : Kitsune::Common::Test("JsonItems_ParseString_Test")
 {
     parseString_test();
@@ -26,7 +26,7 @@ JsonItems_ParseString_Test::JsonItems_ParseString_Test()
  * parseString_test
  */
 void
-JsonItems_ParseString_Test::parseString_test()
+JsonItem_ParseString_Test::parseString_test()
 {
     // positive test
     std::string input("{\"item\": "

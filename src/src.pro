@@ -14,15 +14,15 @@ INCLUDEPATH += $$PWD \
                $$PWD/../include/libKitsuneJson
 
 SOURCES += \
-        json_parsing/jsonParserInterface.cpp \
-        jsonItem.cpp
+    json_parsing/json_parser_interface.cpp \
+    json_item.cpp
 
 HEADERS += \
-    json_parsing/jsonParserInterface.hpp \
-    ../include/libKitsuneJson/jsonItem.hpp
+    ../include/libKitsuneJson/json_item.h \
+    json_parsing/json_parser_interface.h
 
-FLEXSOURCES = grammar/jsonLexer.l
-BISONSOURCES = grammar/jsonParser.y
+FLEXSOURCES = grammar/json_lexer.l
+BISONSOURCES = grammar/json_parser.y
 
 OTHER_FILES +=  \
     $$FLEXSOURCES \
@@ -33,7 +33,7 @@ OTHER_FILES +=  \
 # The resulting source-code-files are stored in the build-directory of the json-converter.
 flexsource.input = FLEXSOURCES
 flexsource.output = ${QMAKE_FILE_BASE}.cpp
-flexsource.commands = flex --header-file=${QMAKE_FILE_BASE}.hpp -o ${QMAKE_FILE_BASE}.cpp ${QMAKE_FILE_IN}
+flexsource.commands = flex --header-file=${QMAKE_FILE_BASE}.h -o ${QMAKE_FILE_BASE}.cpp ${QMAKE_FILE_IN}
 flexsource.variable_out = SOURCES
 flexsource.name = Flex Sources ${QMAKE_FILE_IN}
 flexsource.CONFIG += target_predeps
@@ -42,7 +42,7 @@ flexsource.CONFIG += target_predeps
 QMAKE_EXTRA_COMPILERS += flexsource
 
 flexheader.input = FLEXSOURCES
-flexheader.output = ${QMAKE_FILE_BASE}.hpp
+flexheader.output = ${QMAKE_FILE_BASE}.h
 flexheader.commands = @true
 flexheader.variable_out = HEADERS
 flexheader.name = Flex Headers ${QMAKE_FILE_IN}
@@ -53,7 +53,7 @@ QMAKE_EXTRA_COMPILERS += flexheader
 
 bisonsource.input = BISONSOURCES
 bisonsource.output = ${QMAKE_FILE_BASE}.cpp
-bisonsource.commands = bison -d --defines=${QMAKE_FILE_BASE}.hpp -o ${QMAKE_FILE_BASE}.cpp ${QMAKE_FILE_IN}
+bisonsource.commands = bison -d --defines=${QMAKE_FILE_BASE}.h -o ${QMAKE_FILE_BASE}.cpp ${QMAKE_FILE_IN}
 bisonsource.variable_out = SOURCES
 bisonsource.name = Bison Sources ${QMAKE_FILE_IN}
 bisonsource.CONFIG += target_predeps
@@ -62,7 +62,7 @@ bisonsource.CONFIG += target_predeps
 QMAKE_EXTRA_COMPILERS += bisonsource
 
 bisonheader.input = BISONSOURCES
-bisonheader.output = ${QMAKE_FILE_BASE}.hpp
+bisonheader.output = ${QMAKE_FILE_BASE}.h
 bisonheader.commands = @true
 bisonheader.variable_out = HEADERS
 bisonheader.name = Bison Headers ${QMAKE_FILE_IN}

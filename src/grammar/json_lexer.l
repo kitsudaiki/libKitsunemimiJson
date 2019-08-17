@@ -3,8 +3,8 @@
 # include <climits>
 # include <cstdlib>
 # include <string>
-# include <json_parsing/jsonParserInterface.hpp>
-# include <jsonParser.hpp>
+# include <json_parsing/json_parser_interface.h>
+# include <json_parser.h>
 
 # undef yywrap
 # define yywrap() 1
