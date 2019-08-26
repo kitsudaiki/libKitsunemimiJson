@@ -10,14 +10,14 @@
 #ifndef JSON_ITEM_PARSESTRING_TEST_H
 #define JSON_ITEM_PARSESTRING_TEST_H
 
-#include <testing/test.h>
+#include <testing/unit_test.h>
 
 namespace Kitsune
 {
 namespace Json
 {
 class JsonItem_ParseString_Test
-        : public Kitsune::Common::Test
+        : public Kitsune::Common::UnitTest
 {
 public:
     JsonItem_ParseString_Test();

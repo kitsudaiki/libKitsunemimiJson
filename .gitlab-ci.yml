@@ -5,18 +5,18 @@ build:
     - echo Working on branch $CI_COMMIT_REF_NAME
     - mkdir /builds/build
 
-    - git clone --branch 0.3.0 git@gitlab.com:kitsune_libs/LibKitsuneCommon.git /builds/kitsune_libs/libKitsuneCommon
+    - git clone --branch 0.4.1 git@gitlab.com:tobiasanker/LibKitsuneCommon.git /builds/tobiasanker/libKitsuneCommon
 
     - cd /builds/build
     - mkdir libKitsuneCommon
     - cd libKitsuneCommon
-    - /usr/lib/x86_64-linux-gnu/qt5/bin/qmake /builds/kitsune_libs/libKitsuneCommon/libKitsuneCommon.pro -spec linux-g++
+    - /usr/lib/x86_64-linux-gnu/qt5/bin/qmake /builds/tobiasanker/libKitsuneCommon/libKitsuneCommon.pro -spec linux-g++
     - /usr/bin/make
 
     - cd /builds/build
     - mkdir libKitsuneJson
     - cd libKitsuneJson
-    - /usr/lib/x86_64-linux-gnu/qt5/bin/qmake /builds/kitsune_libs/libKitsuneJson/libKitsuneJson.pro -spec linux-g++
+    - /usr/lib/x86_64-linux-gnu/qt5/bin/qmake /builds/tobiasanker/libKitsuneJson/libKitsuneJson.pro -spec linux-g++
     - /usr/bin/make
 
     - cd tests

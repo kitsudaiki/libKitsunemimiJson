@@ -10,7 +10,7 @@
 #include <json_parsing/json_parser_interface.h>
 #include <json_parser.h>
 
-#include <data_structure/data_items.h>
+#include <common_items/data_items.h>
 
 using Kitsune::Common::DataItem;
 using Kitsune::Common::DataArray;
