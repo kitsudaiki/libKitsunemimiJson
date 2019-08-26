@@ -9,7 +9,7 @@
 
 #include <json_item.h>
 
-#include <data_structure/data_items.h>
+#include <common_items/data_items.h>
 #include <json_parsing/json_parser_interface.h>
 
 using Kitsune::Common::DataItem;
@@ -483,14 +483,14 @@ JsonItem::getFloat() const
  *
  * @return number of elements in the item
  */
-uint32_t
+uint64_t
 JsonItem::getSize() const
 {
     if(m_content == nullptr) {
         return 0;
     }
 
-    return m_content->getSize();
+    return m_content->size();
 }
 
 /**
@@ -646,7 +646,7 @@ JsonItem::remove(const uint32_t index)
 std::string JsonItem::print(bool indent)
 {
     if(m_content != nullptr) {
-        return m_content->print(nullptr, indent);
+        return m_content->print(indent);
     }
     return "";
 }

@@ -60,7 +60,7 @@ public:
     std::string getString() const;
     int getInt() const;
     float getFloat() const;
-    uint32_t getSize() const;
+    uint64_t getSize() const;
     std::vector<std::string> getKeys();
 
     // checks

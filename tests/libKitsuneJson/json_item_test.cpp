@@ -8,7 +8,7 @@
  */
 
 #include "json_item_test.h"
-#include <data_structure/data_items.h>
+#include <common_items/data_items.h>
 
 namespace Kitsune
 {
@@ -16,7 +16,7 @@ namespace Json
 {
 
 JsonItem_Test::JsonItem_Test()
-    : Kitsune::Common::Test("JsonItem_Test")
+    : Kitsune::Common::UnitTest("JsonItem_Test")
 {
     constructor_test();
     assigmentOperator_test();
@@ -162,7 +162,7 @@ JsonItem_Test::getItemContent_test()
     JsonItem testItem = getTestItem();
     Common::DataItem* itemPtr = testItem.getItemContent();
 
-    UNITTEST(itemPtr->print(nullptr, true), testItem.print(true));
+    UNITTEST(itemPtr->print(true), testItem.print(true));
 }
 
 /**

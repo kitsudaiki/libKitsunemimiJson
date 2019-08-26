@@ -9,7 +9,7 @@
 
 #include "json_item_parseString_test.h"
 #include <json_item.h>
-#include <data_structure/data_items.h>
+#include <common_items/data_items.h>
 
 namespace Kitsune
 {
@@ -17,7 +17,7 @@ namespace Json
 {
 
 JsonItem_ParseString_Test::JsonItem_ParseString_Test()
-    : Kitsune::Common::Test("JsonItems_ParseString_Test")
+    : Kitsune::Common::UnitTest("JsonItems_ParseString_Test")
 {
     parseString_test();
 }

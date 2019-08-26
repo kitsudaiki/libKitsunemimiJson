@@ -10,7 +10,7 @@
 #ifndef JSONITEM_TEST_H
 #define JSONITEM_TEST_H
 
-#include <testing/test.h>
+#include <testing/unit_test.h>
 #include <json_item.h>
 
 namespace Kitsune
@@ -18,7 +18,7 @@ namespace Kitsune
 namespace Json
 {
 class JsonItem_Test
-        : public Kitsune::Common::Test
+        : public Kitsune::Common::UnitTest
 {
 public:
     JsonItem_Test();
