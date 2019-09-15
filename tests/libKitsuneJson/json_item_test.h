@@ -10,6 +10,8 @@
 #ifndef JSONITEM_TEST_H
 #define JSONITEM_TEST_H
 
+#include <assert.h>
+
 #include <testing/unit_test.h>
 #include <json_item.h>
 

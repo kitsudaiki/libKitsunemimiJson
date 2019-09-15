@@ -75,6 +75,11 @@ blank [ \t]
 }
 
 {id}       return Kitsune::Json::JsonParser::make_IDENTIFIER(yytext, jsonloc);
+
+[a-zA-Z_0-9|\-|.]* {
+    return Kitsune::Json::JsonParser::make_STRING_PLN(yytext, jsonloc);
+}
+
 .          driver.error(jsonloc, "invalid character");
 <<EOF>>    return Kitsune::Json::JsonParser::make_END(jsonloc);
 
