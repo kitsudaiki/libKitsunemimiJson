@@ -80,7 +80,7 @@ JsonItem_Test::assigmentOperator_test()
     JsonItem copy;
     copy = testItem;
 
-    UNITTEST(copy.print(), testItem.print());
+    UNITTEST(copy.toString(), testItem.toString());
 }
 
 /**
@@ -144,9 +144,9 @@ JsonItem_Test::replaceItem_test()
     JsonItem testItem;
     testItem.append(JsonItem(42));
     testItem.append(JsonItem("42"));
-    UNITTEST(testItem[0].getString(), "42");
+    UNITTEST(testItem[0].toString(), "42");
     UNITTEST(testItem.replaceItem(0, JsonItem("ok")), true);
-    UNITTEST(testItem[0].getString(), "ok");
+    UNITTEST(testItem[0].toString(), "ok");
 
     // negative test
     UNITTEST(testItem.replaceItem(10, JsonItem("fail")), false);
@@ -162,7 +162,7 @@ JsonItem_Test::getItemContent_test()
     JsonItem testItem = getTestItem();
     Common::DataItem* itemPtr = testItem.getItemContent();
 
-    UNITTEST(itemPtr->print(true), testItem.print(true));
+    UNITTEST(itemPtr->toString(true), testItem.toString(true));
 }
 
 /**
@@ -172,10 +172,10 @@ void
 JsonItem_Test::get_test()
 {
     JsonItem testItem = getTestItem();
-    UNITTEST(testItem["loop"][0]["x"].getString(), "42");
-    UNITTEST(testItem.get("loop").get(0).get("x").getString(), "42");
+    UNITTEST(testItem["loop"][0]["x"].toString(), "42");
+    UNITTEST(testItem.get("loop").get(0).get("x").toString(), "42");
     UNITTEST(testItem.get("loop").get(0).get("x").setValue("43"), true);
-    UNITTEST(testItem.get("loop").get(0).get("x").getString(), "43");
+    UNITTEST(testItem.get("loop").get(0).get("x").toString(), "43");
 }
 
 /**
@@ -194,12 +194,12 @@ JsonItem_Test::getString_getInt_getFloat_test()
     UNITTEST(stringValue.getFloat(), 0.0f);
 
     // int-value
-    UNITTEST(intValue.getString(), "42");
+    UNITTEST(intValue.getString(), "");
     UNITTEST(intValue.getInt(), 42);
     UNITTEST(intValue.getFloat(), 0.0f);
 
     // float-value
-    UNITTEST(floatValue.getString(), "42.500000");
+    UNITTEST(floatValue.getString(), "");
     UNITTEST(floatValue.getInt(), 0);
     UNITTEST(floatValue.getFloat(), 42.5f);
 }

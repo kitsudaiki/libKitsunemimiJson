@@ -1,4 +1,4 @@
-# LibKitsuneJson
+# libKitsuneJson
 
 ## License 
 
@@ -17,4 +17,4 @@ flex | 2.6.1 | lexer for the the bison-parser-generator
 
 Repository-Name | Version-Tag | Download-Path
 --- | --- | ---
-LibKitsuneCommon | 0.4.x | https://github.com/tobiasanker/libKitsuneCommon.git
+LibKitsuneCommon | 0.5.2 | https://github.com/tobiasanker/libKitsuneCommon.git

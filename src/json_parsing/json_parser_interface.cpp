@@ -15,7 +15,7 @@
 using Kitsune::Common::DataItem;
 using Kitsune::Common::DataArray;
 using Kitsune::Common::DataValue;
-using Kitsune::Common::DataObject;
+using Kitsune::Common::DataMap;
 
 # define YY_DECL \
     Kitsune::Json::JsonParser::symbol_type jsonlex (Kitsune::Json::JsonParserInterface& driver)
@@ -97,7 +97,7 @@ JsonParserInterface::removeQuotes(std::string input)
  * @param output parser-output as QDataArray
  */
 void
-JsonParserInterface::setOutput(DataObject* output)
+JsonParserInterface::setOutput(DataMap* output)
 {
      m_output = output;
 }
@@ -107,7 +107,7 @@ JsonParserInterface::setOutput(DataObject* output)
  *
  * @return parser-output as QDataArray
  */
-DataObject*
+DataMap*
 JsonParserInterface::getOutput() const
 {
     return m_output;
