@@ -88,10 +88,10 @@ After running the build-script:
     ├── libKitsuneCommon.so.0.5 -> libKitsuneCommon.so.0.5.2
     ├── libKitsuneCommon.so.0.5.2
     │
-    ├── libKitsuneJson.so -> libKitsuneJson.so.0.3.1
-    ├── libKitsuneJson.so.0 -> libKitsuneJson.so.0.3.1
-    ├── libKitsuneJson.so.0.3 -> libKitsuneJson.so.0.3.1
-    └── libKitsuneJson.so.0.3.1
+    ├── libKitsuneJson.so -> libKitsuneJson.so.0.4.0
+    ├── libKitsuneJson.so.0 -> libKitsuneJson.so.0.4.0
+    ├── libKitsuneJson.so.0.4 -> libKitsuneJson.so.0.4.0
+    └── libKitsuneJson.so.0.4.0
 ```
 
 
