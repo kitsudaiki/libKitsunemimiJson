@@ -32,7 +32,7 @@ Kitsune::Json::location jsonloc;
 
 %option noyywrap nounput batch debug yylineno prefix="json"
 
-id    [a-zA-Z][a-zA-Z_0-9]*
+id    [a-zA-Z_0-9]*
 int   -?([0-9]+)
 blank [ \t]
 
@@ -47,7 +47,7 @@ blank [ \t]
 %}
 
 {blank}+  jsonloc.step();
-[\n]      jsonloc.step();
+[\n]      {jsonloc.lines(1); jsonloc.step(); }
 "{"       return Kitsune::Json::JsonParser::make_EXPRESTART (jsonloc);
 "}"       return Kitsune::Json::JsonParser::make_EXPREEND (jsonloc);
 "["       return Kitsune::Json::JsonParser::make_BRACKOPEN (jsonloc);

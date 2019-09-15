@@ -10,6 +10,7 @@
 #include <json_parsing/json_parser_interface.h>
 #include <json_parser.h>
 
+#include <common_methods/string_methods.h>
 #include <common_items/data_items.h>
 
 using Kitsune::Common::DataItem;
@@ -25,6 +26,7 @@ namespace Kitsune
 {
 namespace Json
 {
+using Common::splitStringByDelimiter;
 
 /**
  * @brief The class is the interface for the bison-generated parser.
@@ -128,16 +130,20 @@ JsonParserInterface::error(const Kitsune::Json::location& location,
     // get the broken part of the parsed string
     const uint32_t errorStart = location.begin.column;
     const uint32_t errorLength = location.end.column - location.begin.column;
-    const std::string errorStringPart = m_inputString.substr(errorStart, errorLength);
+    const uint32_t linenumber = location.begin.line;
+
+    const std::vector<std::string> splittedContent = splitStringByDelimiter(m_inputString, '\n');
+
+    // -1 because the number starts for user-readability at 1 instead of 0
+    const std::string errorStringPart = splittedContent[linenumber - 1].substr(errorStart - 1,
+                                                                               errorLength);
 
     // build error-message
-    m_errorMessage =  "error while parsing json-template \n";
+    m_errorMessage =  "ERROR while parsing json-formated string \n";
     m_errorMessage += "parser-message: " + message + " \n";
-    m_errorMessage += "line-number: " + std::to_string(location.begin.line) + " \n";
+    m_errorMessage += "line-number: " + std::to_string(linenumber) + " \n";
     m_errorMessage += "position in line: " + std::to_string(location.begin.column) + " \n";
-    m_errorMessage += "broken part in template: \"" + errorStringPart + "\" \n";
-
-    //std::cout<<"m_errorMessage: "<<m_errorMessage<<std::endl;
+    m_errorMessage += "broken part in string: \"" + errorStringPart + "\" \n";
 }
 
 /**

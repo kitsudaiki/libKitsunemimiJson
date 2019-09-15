@@ -64,7 +64,7 @@ JsonItem_ParseString_Test::parseString_test()
     UNITTEST(outputStringObjects, compareObjects);
 
     // negative test
-    input = "{item: "
+    input = "{item: \n"
             "{ sub_item: \"test_value\"}, \n"
             "item2: \n"
             "[ sub_item2: \"something\"}, \n"  // error at the beginning of this line
@@ -75,6 +75,13 @@ JsonItem_ParseString_Test::parseString_test()
     JsonItem output;
     result = output.parse(input);
     UNITTEST(result.first, false);
+
+    std::string expectedError = "ERROR while parsing json-formated string \n"
+            "parser-message: syntax error \n"
+            "line-number: 4 \n"
+            "position in line: 12 \n"
+            "broken part in string: \":\" \n";
+    UNITTEST(result.second, expectedError);
 }
 
 }  // namespace Json
