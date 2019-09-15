@@ -71,6 +71,7 @@ YY_DECL;
 
 %token <std::string> IDENTIFIER "identifier"
 %token <std::string> STRING "string"
+%token <std::string> STRING_PLN "string_pln"
 %token <int> NUMBER "number"
 %token <float> FLOAT "float"
 
@@ -126,13 +127,13 @@ json_object_content:
         $$->insert($1, $3);
     }
 |
-    json_object_content "," "string" ":" json_abstract
+    json_object_content "," "string_pln" ":" json_abstract
     {
         $1->insert(driver.removeQuotes($3), $5);
         $$ = $1;
     }
 |
-    "string" ":" json_abstract
+    "string_pln" ":" json_abstract
     {
         $$ = new DataMap();
         $$->insert(driver.removeQuotes($1), $3);
@@ -158,6 +159,11 @@ json_array_content:
     }
 
 json_value:
+    "string_pln"
+    {
+        $$ = new DataValue($1);
+    }
+|
     "identifier"
     {
         $$ = new DataValue($1);

@@ -291,28 +291,30 @@ JsonItem
 JsonItem_Test::getTestItem()
 {
     std::string input("{\n"
-                      "    \"item\": {\n"
-                      "        \"sub_item\": \"test_value\"\n"
+                      "    item: {\n"
+                      "        sub_item: \"test_value\"\n"
                       "    },\n"
-                      "    \"item2\": {\n"
-                      "        \"sub_item2\": \"something\"\n"
+                      "    item2: {\n"
+                      "        sub_item2: \"something\"\n"
                       "    },\n"
-                      "    \"loop\": [\n"
+                      "    loop: [\n"
                       "        {\n"
-                      "            \"x\": 42\n"
+                      "            x: 42\n"
                       "        },\n"
                       "        {\n"
-                      "            \"x\": 42.000000\n"
+                      "            x: 42.000000\n"
                       "        },\n"
                       "        1234,\n"
                       "        {\n"
-                      "            \"x\": -42.000000\n"
+                      "            x: -42.000000\n"
                       "        }\n"
                       "    ]\n"
                       "}");
 
     JsonItem output;
     output.parse(input);
+
+    assert(output.isValid());
 
     return output;
 }
