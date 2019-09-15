@@ -15,7 +15,7 @@
 namespace Kitsune
 {
 namespace Common {
-class DataObject;
+class DataMap;
 }
 namespace Json
 {
@@ -34,8 +34,8 @@ public:
     std::string removeQuotes(std::string input);
 
     // output-handling
-    void setOutput(Common::DataObject* output);
-    Common::DataObject* getOutput() const;
+    void setOutput(Common::DataMap* output);
+    Common::DataMap* getOutput() const;
 
     // Error handling.
     void error(const Kitsune::Json::location &location,
@@ -43,7 +43,7 @@ public:
     std::string getErrorMessage() const;
 
 private:
-    Common::DataObject* m_output = nullptr;
+    Common::DataMap* m_output = nullptr;
     std::string m_errorMessage = "";
     std::string m_inputString = "";
 

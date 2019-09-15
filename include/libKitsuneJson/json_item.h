@@ -75,7 +75,7 @@ public:
     bool remove(const uint32_t index);
 
     // output
-    std::string print(bool indent=false);
+    std::string toString(bool indent=false);
 
 private:
     void clear();

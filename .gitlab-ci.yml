@@ -5,7 +5,7 @@ build:
     - echo Working on branch $CI_COMMIT_REF_NAME
     - mkdir /builds/build
 
-    - git clone --branch 0.4.1 git@gitlab.com:tobiasanker/LibKitsuneCommon.git /builds/tobiasanker/libKitsuneCommon
+    - git clone --branch 0.5.2 git@gitlab.com:tobiasanker/LibKitsuneCommon.git /builds/tobiasanker/libKitsuneCommon
 
     - cd /builds/build
     - mkdir libKitsuneCommon

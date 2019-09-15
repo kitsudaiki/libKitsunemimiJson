@@ -1,3 +1,11 @@
+/**
+ *  @file    json_parser.y
+ *
+ *  @author  Tobias Anker <tobias.anker@kitsunemimi.moe>
+ *
+ *  @copyright MIT License
+ */
+
 %skeleton "lalr1.cc"
 
 %defines
@@ -20,7 +28,7 @@
 using Kitsune::Common::DataItem;
 using Kitsune::Common::DataArray;
 using Kitsune::Common::DataValue;
-using Kitsune::Common::DataObject;
+using Kitsune::Common::DataMap;
 
 
 namespace Kitsune
@@ -70,8 +78,8 @@ YY_DECL;
 %type  <DataValue*> json_value
 %type  <DataArray*> json_array
 %type  <DataArray*> json_array_content
-%type  <DataObject*> json_object
-%type  <DataObject*> json_object_content
+%type  <DataMap*> json_object
+%type  <DataMap*> json_object_content
 
 %%
 %start startpoint;
@@ -114,7 +122,7 @@ json_object_content:
 |
     "identifier" ":" json_abstract
     {
-        $$ = new DataObject();
+        $$ = new DataMap();
         $$->insert($1, $3);
     }
 |
@@ -126,7 +134,7 @@ json_object_content:
 |
     "string" ":" json_abstract
     {
-        $$ = new DataObject();
+        $$ = new DataMap();
         $$->insert(driver.removeQuotes($1), $3);
     }
 

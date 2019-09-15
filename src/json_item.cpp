@@ -15,7 +15,7 @@
 using Kitsune::Common::DataItem;
 using Kitsune::Common::DataArray;
 using Kitsune::Common::DataValue;
-using Kitsune::Common::DataObject;
+using Kitsune::Common::DataMap;
 
 namespace Kitsune
 {
@@ -69,7 +69,7 @@ JsonItem::JsonItem(DataItem* dataItem,
  */
 JsonItem::JsonItem(std::map<std::string, JsonItem> &value)
 {
-    DataObject* tempItem = new DataObject();
+    DataMap* tempItem = new DataMap();
     m_content = static_cast<DataItem*>(tempItem);
 
     std::map<std::string, JsonItem>::iterator it;
@@ -274,12 +274,12 @@ JsonItem::insert(const std::string &key,
     }
 
     if(m_content == nullptr) {
-        m_content = new DataObject();
+        m_content = new DataMap();
     }
 
-    if(m_content->getType() == DataItem::OBJECT_TYPE)
+    if(m_content->getType() == DataItem::MAP_TYPE)
     {
-        return m_content->toObject()->insert(key,
+        return m_content->toMap()->insert(key,
                                              value.m_content->copy(),
                                              force);
     }
@@ -434,7 +434,7 @@ JsonItem::getString() const
     }
 
     if(m_content->getType() == DataItem::VALUE_TYPE) {
-        return m_content->toValue()->toString();
+        return m_content->toValue()->getString();
     }
 
     return "";
@@ -453,7 +453,7 @@ JsonItem::getInt() const
     }
 
     if(m_content->toValue()->getValueType() == DataItem::INT_TYPE) {
-        return m_content->toValue()->toInt();
+        return m_content->toValue()->getInt();
     }
 
     return 0;
@@ -472,7 +472,7 @@ JsonItem::getFloat() const
     }
 
     if(m_content->toValue()->getValueType() == DataItem::FLOAT_TYPE) {
-        return m_content->toValue()->toFloat();
+        return m_content->toValue()->getFloat();
     }
 
     return 0;
@@ -505,9 +505,9 @@ JsonItem::getKeys()
         return std::vector<std::string>();
     }
 
-    if(m_content->getType() == DataItem::OBJECT_TYPE)
+    if(m_content->getType() == DataItem::MAP_TYPE)
     {
-        DataObject* obj = static_cast<DataObject*>(m_content);
+        DataMap* obj = static_cast<DataMap*>(m_content);
         return obj->getKeys();
     }
 
@@ -529,9 +529,9 @@ JsonItem::contains(const std::string &key)
         return false;
     }
 
-    if(m_content->getType() == DataItem::OBJECT_TYPE)
+    if(m_content->getType() == DataItem::MAP_TYPE)
     {
-        DataObject* obj = static_cast<DataObject*>(m_content);
+        DataMap* obj = static_cast<DataMap*>(m_content);
         return obj->contains(key);
     }
 
@@ -562,7 +562,7 @@ bool JsonItem::isObject() const
         return false;
     }
 
-    if(m_content->getType() == DataItem::OBJECT_TYPE) {
+    if(m_content->getType() == DataItem::MAP_TYPE) {
         return true;
     }
 
@@ -643,10 +643,10 @@ JsonItem::remove(const uint32_t index)
  *
  * @param output pointer to the output-string on which the object-content as string will be appended
  */
-std::string JsonItem::print(bool indent)
+std::string JsonItem::toString(bool indent)
 {
     if(m_content != nullptr) {
-        return m_content->print(indent);
+        return m_content->toString(indent);
     }
     return "";
 }
