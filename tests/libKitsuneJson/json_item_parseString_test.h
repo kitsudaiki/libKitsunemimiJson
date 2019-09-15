@@ -1,10 +1,9 @@
 /**
  *  @file    jsonItems_parseString_test.h
  *
- *  @author  Tobias Anker
- *  Contact: tobias.anker@kitsunemimi.moe
+ *  @author  Tobias Anker <tobias.anker@kitsunemimi.moe>
  *
- *  MIT License
+ *  @copyright MIT License
  */
 
 #ifndef JSON_ITEM_PARSESTRING_TEST_H

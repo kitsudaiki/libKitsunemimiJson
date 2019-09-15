@@ -1,10 +1,9 @@
 /**
  *  @file    json_parser_interface.cpp
  *
- *  @author  Tobias Anker
- *  Contact: tobias.anker@kitsunemimi.moe
+ *  @author  Tobias Anker <tobias.anker@kitsunemimi.moe>
  *
- *  MIT License
+ *  @copyright MIT License
  */
 
 #include <json_parsing/json_parser_interface.h>
