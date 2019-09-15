@@ -17,7 +17,7 @@ mkdir -p $RESULT_DIR
 # clone libKitsuneCommon
 git clone  git@gitlab.com:tobiasanker/libKitsuneCommon.git "$PARENT_DIR/libKitsuneCommon"
 cd "$PARENT_DIR/libKitsuneCommon"
-git chekcout 0.5.2
+git checkout 0.5.2
 
 # create build directory for libKitsuneCommon and go into this directory
 LIB_KITSUNE_COMMON_DIR="$BUILD_DIR/libKitsuneCommon"
