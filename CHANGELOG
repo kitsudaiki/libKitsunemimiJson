@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.4.0] - 2019-08-15
+
+### Added
+- content for readme-file
+- build-script
+
+### Fixed
+- error-messages of the parser
+- strings in parser
+
+### Changed
+- updated for libKitsuneCommon 0.5.2
+
 
 ## [0.3.0] - 2019-08-17
 

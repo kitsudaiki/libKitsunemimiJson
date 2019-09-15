@@ -44,7 +44,7 @@ cd $LIB_KITSUNE_JSON_DIR
 /usr/bin/make -j4
 
 # copy build-result and include-files into the result-directory
-cp "$LIB_KITSUNE_JSON_DIR/src/libKitsuneJson.so.0.3.1" "$RESULT_DIR/"
+cp "$LIB_KITSUNE_JSON_DIR/src/libKitsuneJson.so.0.4.0" "$RESULT_DIR/"
 cp -r "$PARENT_DIR/libKitsuneJson/include" "$RESULT_DIR/"
 
 #-----------------------------------------------------------------------------------------------------------------
@@ -55,6 +55,6 @@ ln -s libKitsuneCommon.so.0.5.2 libKitsuneCommon.so.0.5
 ln -s libKitsuneCommon.so.0.5.2 libKitsuneCommon.so.0
 ln -s libKitsuneCommon.so.0.5.2 libKitsuneCommon.so
 
-ln -s libKitsuneJson.so.0.3.1 libKitsuneJson.so.0.3
-ln -s libKitsuneJson.so.0.3.1 libKitsuneJson.so.0
-ln -s libKitsuneJson.so.0.3.1 libKitsuneJson.so
+ln -s libKitsuneJson.so.0.4.0 libKitsuneJson.so.0.4
+ln -s libKitsuneJson.so.0.4.0 libKitsuneJson.so.0
+ln -s libKitsuneJson.so.0.4.0 libKitsuneJson.so
