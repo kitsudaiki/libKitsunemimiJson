@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.4.1] - 2019-09-15
+
+### Fixed
+- build-script had always used the newest, but not the correct version of libKitsuneCommon
+
+
 ## [0.4.0] - 2019-09-15
 
 ### Added
