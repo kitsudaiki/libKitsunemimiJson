@@ -1,5 +1,10 @@
 # libKitsuneJson
 
+![Gitlab pipeline status](https://img.shields.io/gitlab/pipeline/tobiasanker/libKitsuneJson?label=build%20and%20test&style=flat-square)
+![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/tobiasanker/libKitsuneJson?label=version&style=flat-square)
+![GitHub](https://img.shields.io/github/license/tobiasanker/libKitsuneJson?style=flat-square)
+![Platform](https://img.shields.io/badge/platform-Linux--x64-lightgrey?style=flat-square)
+
 ## Description
 
 This library provides the functionality to parse and handle the content of json-files. 
@@ -18,15 +23,17 @@ Here some common information about my projects and my code-styling. It's not com
 
 ### About my repositories in general
 
-1. All my projects are mirrored to gitlab, where I have still my gitlab-ci runner.
+1. I programming only on Linux. Sorry, but I have no time for supporting Windows and Mac.
 
-2. In each project-repository is an `build.sh`-script to make it easier for you to build the project by yourself. It download and link all required git-repositories in the correct version and link it all. This script is also used by the gitlab-ci-runner and so it is everytime up-to-date.
+2. All my projects are mirrored to gitlab, where I have still my gitlab-ci runner.
 
-3. All my projects have unit-tests, which are executed by the ci-runner in each commit. Most of the functions are tested. Primary some negative-tests are missing. I try to avoid mocks in the tests as much as possible. Even tcp-socket-tests using the localhost for real data-transfer-tests.
+3. In each project-repository is an `build.sh`-script to make it easier for you to build the project by yourself. It download and link all required git-repositories in the correct version and link it all. This script is also used by the gitlab-ci-runner and so it is everytime up-to-date.
 
-4. For the naming of variables, methods and classes, I use camel case and for the names of files and directories, I use snake case.
+4. All my projects have unit-tests, which are executed by the ci-runner in each commit. Most of the functions are tested. Primary some negative-tests are missing. I try to avoid mocks in the tests as much as possible. Even tcp-socket-tests using the localhost for real data-transfer-tests.
 
-5. About my comments:
+5. For the naming of variables, methods and classes, I use camel case and for the names of files and directories, I use snake case.
+
+6. About my comments:
 
 	- Many comments in my code seems to be a bit useless, but I like to use them for optical separation. I also write them, when I think I finished the programming task and while writing the comments I recheck the code under the comment again and often I find improvements or bugs while this.
 
@@ -34,7 +41,7 @@ Here some common information about my projects and my code-styling. It's not com
 
 	- I don't like it to write much comments into header-files. More exactly I absolutly hate it, when I have to search the provided functions of a header between a massive amount of comments. Header-files are for me primary to have an overview of all provided functions, which I want to see as fast as possible. Comments of functions, parameters and return-values in my code are only written into the source-files. So when something is unclear for a specific method, then look into the source-file. If the comment there are not helpful for you, then please write me a mail or an issue to fix this. 
 
-6. I try to avoid templates and macros as much as possible. I don't dislike them, but I only use them, when I don't have another solution. 
+7. I try to avoid templates and macros as much as possible. I don't dislike them, but I only use them, when I don't have another solution. 
 
 
 ## Build
