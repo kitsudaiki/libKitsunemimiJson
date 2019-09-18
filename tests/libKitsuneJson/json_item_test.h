@@ -31,6 +31,7 @@ private:
     void insert_test();
     void append_test();
     void replaceItem_test();
+    void deleteContent_test();
 
     void getItemContent_test();
     void get_test();
@@ -41,6 +42,7 @@ private:
     void contains_test();
 
     void isValid_test();
+    void isNull_test();
     void isObject_isArray_isValue_test();
 
     void remove_test();

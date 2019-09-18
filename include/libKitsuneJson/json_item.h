@@ -53,6 +53,7 @@ public:
     bool append(const JsonItem &value);
     bool replaceItem(const uint32_t index,
                      const JsonItem &value);
+    bool deleteContent();
 
     // getter
     Common::DataItem* getItemContent() const;
@@ -70,6 +71,7 @@ public:
     // checks
     bool contains(const std::string &key);
     bool isValid() const;
+    bool isNull() const;
     bool isObject() const;
     bool isArray() const;
     bool isValue() const;

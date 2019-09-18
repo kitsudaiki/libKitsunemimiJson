@@ -54,11 +54,12 @@ blank [ \t]
 "]"       return Kitsune::Json::JsonParser::make_BRACKCLOSE (jsonloc);
 ","       return Kitsune::Json::JsonParser::make_COMMA (jsonloc);
 ":"       return Kitsune::Json::JsonParser::make_ASSIGN (jsonloc);
-\"(\\.|[^"\\])*\" { return Kitsune::Json::JsonParser::make_STRING(yytext, jsonloc); }
 
 "true" return Kitsune::Json::JsonParser::make_BOOL_TRUE (jsonloc);
 "false" return Kitsune::Json::JsonParser::make_BOOL_FALSE (jsonloc);
+"null" return Kitsune::Json::JsonParser::make_NULLVAL (jsonloc);
 
+\"(\\.|[^"\\])*\" { return Kitsune::Json::JsonParser::make_STRING(yytext, jsonloc); }
 
 {int}      {
     errno = 0;

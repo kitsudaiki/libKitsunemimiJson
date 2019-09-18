@@ -33,7 +33,7 @@ JsonItem_ParseString_Test::parseString_test()
                       "item2: "
                       "{ sub_item2: \"something\"},"
                       "loop: "
-                      "[ {x :42 }, {x :42.0 }, 1234, {x :-42.0, y: true, z: false}]"
+                      "[ {x :42 }, {x :42.0 }, 1234, {x :-42.0, y: true, z: false, w: null}]"
                       "}");
 
     JsonItem paredItem;
@@ -56,6 +56,7 @@ JsonItem_ParseString_Test::parseString_test()
                                 "        },\n"
                                 "        1234,\n"
                                 "        {\n"
+                                "            w: \"\",\n"
                                 "            x: -42.000000,\n"
                                 "            y: true,\n"
                                 "            z: false\n"
