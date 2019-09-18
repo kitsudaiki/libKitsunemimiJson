@@ -63,7 +63,7 @@ IMPORTANT: All my projects are only tested on Linux.
 
 Repository-Name | Version-Tag | Download-Path
 --- | --- | ---
-libKitsuneCommon | 0.5.2 |  https://github.com/tobiasanker/libKitsuneCommon.git
+libKitsuneCommon | 0.5.3 |  https://github.com/tobiasanker/libKitsuneCommon.git
 
 
 ### build library
@@ -111,10 +111,10 @@ After running the build-script:
     │   └── libKitsuneJson
     │       └── ...
     │
-    ├── libKitsuneCommon.so -> libKitsuneCommon.so.0.5.2
-    ├── libKitsuneCommon.so.0 -> libKitsuneCommon.so.0.5.2
-    ├── libKitsuneCommon.so.0.5 -> libKitsuneCommon.so.0.5.2
-    ├── libKitsuneCommon.so.0.5.2
+    ├── libKitsuneCommon.so -> libKitsuneCommon.so.0.5.3
+    ├── libKitsuneCommon.so.0 -> libKitsuneCommon.so.0.5.3
+    ├── libKitsuneCommon.so.0.5 -> libKitsuneCommon.so.0.5.3
+    ├── libKitsuneCommon.so.0.5.3
     │
     ├── libKitsuneJson.so -> libKitsuneJson.so.0.4.0
     ├── libKitsuneJson.so.0 -> libKitsuneJson.so.0.4.0
@@ -140,22 +140,24 @@ The `JsonItem`-class is the handler for the json-file-content. The functions in 
 // short test-string for demonstration. 
 const std::string testString(
                 "{\n"
-                "    item: {\n"
-                "        sub_item: \"test_value\"\n"
+                "    \"item\": {\n"
+                "        \"sub_item\": \"test_value\"\n"
                 "    },\n"
-                "    item2: {\n"
-                "        sub_item2: \"something\"\n"
+                "    \"item2\": {\n"
+                "        \"sub_item2\": \"something\"\n"
                 "    },\n"
-                "    loop: [\n"
+                "    \"loop\": [\n"
                 "        {\n"
-                "            x: 42\n"
+                "            \"x\": 42\n"
                 "        },\n"
                 "        {\n"
-                "            x: 42.000000\n"
+                "            \"x\": 42.000000\n"
                 "        },\n"
                 "        1234,\n"
                 "        {\n"
-                "            x: -42.000000\n"
+                "            \"x\": -42.000000,\n"
+                "            \"y\": true,\n"
+                "            \"z\": null\n"
                 "        }\n"
                 "    ]\n"
                 "}");
