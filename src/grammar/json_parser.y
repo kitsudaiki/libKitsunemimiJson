@@ -66,6 +66,8 @@ YY_DECL;
     BRACKCLOSE  "]"
     COMMA  ","
     ASSIGN  ":"
+    BOOL_TRUE  "true"
+    BOOL_FALSE "false"
 ;
 
 
@@ -182,6 +184,16 @@ json_value:
     "string"
     {
         $$ = new DataValue(driver.removeQuotes($1));
+    }
+|
+    "true"
+    {
+        $$ = new DataValue(true);
+    }
+|
+    "false"
+    {
+        $$ = new DataValue(false);
     }
 
 %%
