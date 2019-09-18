@@ -83,15 +83,6 @@ After running the build-script:
 
 ```bash
 .
-└── libKitsuneJson
-    ├── build.sh
-    └── ...
-```
-
-After running the build-script:
-
-```bash
-.
 ├── build
 │   ├── libKitsuneCommon
 │   │   └── ...
