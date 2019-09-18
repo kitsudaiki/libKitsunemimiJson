@@ -23,6 +23,7 @@ JsonItem_Test::JsonItem_Test()
     insert_test();
     append_test();
     replaceItem_test();
+    replaceItem_test();
 
     getItemContent_test();
     get_test();
@@ -33,6 +34,7 @@ JsonItem_Test::JsonItem_Test()
     contains_test();
 
     isValid_test();
+    isNull_test();
     isObject_isArray_isValue_test();
 
     remove_test();
@@ -157,6 +159,21 @@ JsonItem_Test::replaceItem_test()
 }
 
 /**
+ * @brief deleteContent_test
+ */
+void
+JsonItem_Test::deleteContent_test()
+{
+    JsonItem testItem;
+    testItem.append(JsonItem(42));
+    testItem.append(JsonItem("42"));
+    UNITTEST(testItem.isNull(), false);
+    UNITTEST(testItem.deleteContent(), true);
+    UNITTEST(testItem.deleteContent(), false);
+    UNITTEST(testItem.isNull(), true);
+}
+
+/**
  * @brief getItemContent_test
  */
 void
@@ -262,6 +279,18 @@ JsonItem_Test::isValid_test()
     UNITTEST(emptyItem.isValid(), false);
     JsonItem testItem = getTestItem();
     UNITTEST(testItem.isValid(), true);
+}
+
+/**
+ * @brief isNull_test
+ */
+void
+JsonItem_Test::isNull_test()
+{
+    JsonItem emptyItem;
+    UNITTEST(emptyItem.isNull(), true);
+    JsonItem testItem = getTestItem();
+    UNITTEST(testItem.isNull(), false);
 }
 
 /**

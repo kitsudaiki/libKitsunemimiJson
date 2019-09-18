@@ -68,6 +68,7 @@ YY_DECL;
     ASSIGN  ":"
     BOOL_TRUE  "true"
     BOOL_FALSE "false"
+    NULLVAL "null"
 ;
 
 
@@ -194,6 +195,11 @@ json_value:
     "false"
     {
         $$ = new DataValue(false);
+    }
+|
+    "null"
+    {
+        $$ = new DataValue();
     }
 
 %%

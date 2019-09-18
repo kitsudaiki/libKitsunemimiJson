@@ -370,6 +370,24 @@ JsonItem::replaceItem(const uint32_t index,
 }
 
 /**
+ * @brief JsonItem::deleteContent
+ *
+ * @return
+ */
+bool
+JsonItem::deleteContent()
+{
+    if(m_content == nullptr) {
+        return false;
+    }
+
+    delete m_content;
+    m_content = nullptr;
+
+    return true;
+}
+
+/**
  * @brief JsonItem::getItemContent
  * @return
  */
@@ -593,6 +611,20 @@ JsonItem::contains(const std::string &key)
 bool JsonItem::isValid() const
 {
     if(m_content != nullptr) {
+        return true;
+    }
+    return false;
+}
+
+/**
+ * @brief check if the current item is null
+ *
+ * @return true, if the item is a null-value, else false
+ */
+bool
+JsonItem::isNull() const
+{
+    if(m_content == nullptr) {
         return true;
     }
     return false;
