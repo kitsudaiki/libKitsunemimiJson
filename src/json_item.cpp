@@ -95,34 +95,31 @@ JsonItem::JsonItem(std::vector<JsonItem> &value)
     }
 }
 
-/**
- * @brief creates an value-item
- *
- * @param value string of the new item
- */
+JsonItem::JsonItem(const char* value)
+{
+    DataValue* tempItem = new DataValue(value);
+    m_content = static_cast<DataItem*>(tempItem);
+}
+
 JsonItem::JsonItem(const std::string &value)
 {
     DataValue* tempItem = new DataValue(value);
     m_content = static_cast<DataItem*>(tempItem);
 }
 
-/**
- * @brief creates an value-item
- *
- * @param value int-value of the new item
- */
 JsonItem::JsonItem(const int value)
 {
     DataValue* tempItem = new DataValue(value);
     m_content = static_cast<DataItem*>(tempItem);
 }
 
-/**
- * @brief creates an value-item
- *
- * @param value float-value of the new item
- */
 JsonItem::JsonItem(const float value)
+{
+    DataValue* tempItem = new DataValue(value);
+    m_content = static_cast<DataItem*>(tempItem);
+}
+
+JsonItem::JsonItem(const bool value)
 {
     DataValue* tempItem = new DataValue(value);
     m_content = static_cast<DataItem*>(tempItem);
@@ -190,9 +187,26 @@ JsonItem::operator=(const JsonItem &other)
 }
 
 /**
- * @brief writes a new string into the json-value
- *
- * @param value new string to store
+ * @brief writes a new string-value into the json-value
+ */
+bool
+JsonItem::setValue(const char *value)
+{
+    if(m_content == nullptr) {
+        m_content = new DataValue();
+    }
+
+    if(m_content->getType() == DataItem::VALUE_TYPE)
+    {
+        m_content->toValue()->setValue(value);
+        return true;
+    }
+
+    return false;
+}
+
+/**
+ * @brief writes a new string-value into the json-value
  */
 bool
 JsonItem::setValue(const std::string &value)
@@ -211,9 +225,7 @@ JsonItem::setValue(const std::string &value)
 }
 
 /**
- * @brief writes a new integer into the json-value
- *
- * @param value new number to store
+ * @brief writes a new integer-value into the json-value
  */
 bool
 JsonItem::setValue(const int &value)
@@ -232,12 +244,29 @@ JsonItem::setValue(const int &value)
 }
 
 /**
- * @brief writes a new floaint-point into the json-value
- *
- * @param value new number to store
+ * @brief writes a new float-value into the json-value
  */
 bool
 JsonItem::setValue(const float &value)
+{
+    if(m_content == nullptr) {
+        m_content = new DataValue();
+    }
+
+    if(m_content->getType() == DataItem::VALUE_TYPE)
+    {
+        m_content->toValue()->setValue(value);
+        return true;
+    }
+
+    return false;
+}
+
+/**
+ * @brief writes a new bool-value into the json-value
+ */
+bool
+JsonItem::setValue(const bool &value)
 {
     if(m_content == nullptr) {
         m_content = new DataValue();
@@ -475,6 +504,25 @@ JsonItem::getFloat() const
     }
 
     return 0;
+}
+
+/**
+ * @brief get bool-value of the item
+ *
+ * @return bool-value, of the item if bool-type, else false
+ */
+bool
+JsonItem::getBool() const
+{
+    if(m_content == nullptr) {
+        return false;
+    }
+
+    if(m_content->toValue()->getValueType() == DataItem::BOOL_TYPE) {
+        return m_content->toValue()->getBool();
+    }
+
+    return false;
 }
 
 /**

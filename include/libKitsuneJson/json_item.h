@@ -29,9 +29,11 @@ public:
     JsonItem(Common::DataItem* dataItem, const bool copy=false);
     JsonItem(std::map<std::string, JsonItem> &value);
     JsonItem(std::vector<JsonItem> &value);
+    JsonItem(const char* value);
     JsonItem(const std::string &value);
     JsonItem(const int value);
     JsonItem(const float value);
+    JsonItem(const bool value);
 
     ~JsonItem();
 
@@ -40,9 +42,11 @@ public:
 
     // setter
     JsonItem& operator=(const JsonItem& other);
+    bool setValue(const char* value);
     bool setValue(const std::string &value);
     bool setValue(const int &value);
     bool setValue(const float &value);
+    bool setValue(const bool &value);
     bool insert(const std::string &key,
                 const JsonItem &value,
                 bool force = false);
@@ -59,6 +63,7 @@ public:
     std::string getString() const;
     int getInt() const;
     float getFloat() const;
+    bool getBool() const;
     uint64_t getSize() const;
     std::vector<std::string> getKeys();
 

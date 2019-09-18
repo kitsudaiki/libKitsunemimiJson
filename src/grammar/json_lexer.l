@@ -56,6 +56,9 @@ blank [ \t]
 ":"       return Kitsune::Json::JsonParser::make_ASSIGN (jsonloc);
 \"(\\.|[^"\\])*\" { return Kitsune::Json::JsonParser::make_STRING(yytext, jsonloc); }
 
+"true" return Kitsune::Json::JsonParser::make_BOOL_TRUE (jsonloc);
+"false" return Kitsune::Json::JsonParser::make_BOOL_FALSE (jsonloc);
+
 
 {int}      {
     errno = 0;

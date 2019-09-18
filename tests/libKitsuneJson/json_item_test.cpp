@@ -66,6 +66,9 @@ JsonItem_Test::constructor_test()
 
     JsonItem floatItem(42.0f);
     UNITTEST(floatItem.isValue(), true);
+
+    JsonItem boolItem(true);
+    UNITTEST(boolItem.isValue(), true);
 }
 
 /**
@@ -92,6 +95,7 @@ JsonItem_Test::setValue_test()
     UNITTEST(testItem.setValue("test"), true);
     UNITTEST(testItem.setValue(42), true);
     UNITTEST(testItem.setValue(42.0f), true);
+    UNITTEST(testItem.setValue(true), true);
 
     UNITTEST(testItem.isValid(), true);
 
@@ -186,21 +190,31 @@ JsonItem_Test::getString_getInt_getFloat_test()
     JsonItem stringValue("test");
     JsonItem intValue(42);
     JsonItem floatValue(42.5f);
+    JsonItem boolValue(true);
 
     // string-value
     UNITTEST(stringValue.getString(), "test");
     UNITTEST(stringValue.getInt(), 0);
     UNITTEST(stringValue.getFloat(), 0.0f);
+    UNITTEST(stringValue.getBool(), false);
 
     // int-value
     UNITTEST(intValue.getString(), "");
     UNITTEST(intValue.getInt(), 42);
     UNITTEST(intValue.getFloat(), 0.0f);
+    UNITTEST(intValue.getBool(), false);
 
     // float-value
     UNITTEST(floatValue.getString(), "");
     UNITTEST(floatValue.getInt(), 0);
     UNITTEST(floatValue.getFloat(), 42.5f);
+    UNITTEST(floatValue.getBool(), false);
+
+    // bool-value
+    UNITTEST(boolValue.getString(), "");
+    UNITTEST(boolValue.getInt(), 0);
+    UNITTEST(boolValue.getFloat(), 0.0f);
+    UNITTEST(boolValue.getBool(), true);
 }
 
 /**
