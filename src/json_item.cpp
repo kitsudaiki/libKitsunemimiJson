@@ -333,8 +333,10 @@ JsonItem::append(const JsonItem &value)
         m_content = new DataArray();
     }
 
-    if(m_content->getType() == DataItem::ARRAY_TYPE) {
-        return m_content->toArray()->append(value.m_content->copy());
+    if(m_content->getType() == DataItem::ARRAY_TYPE)
+    {
+        m_content->toArray()->append(value.m_content->copy());
+        return true;
     }
 
     return false;
