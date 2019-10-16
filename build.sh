@@ -14,47 +14,42 @@ mkdir -p $RESULT_DIR
 
 #-----------------------------------------------------------------------------------------------------------------
 
-# clone libKitsuneCommon
-git clone  git@gitlab.com:tobiasanker/libKitsuneCommon.git "$PARENT_DIR/libKitsuneCommon"
-cd "$PARENT_DIR/libKitsuneCommon"
-git checkout 0.5.3
+function build_kitsune_lib_repo () {
+    REPO_NAME=$1
 
-# create build directory for libKitsuneCommon and go into this directory
-LIB_KITSUNE_COMMON_DIR="$BUILD_DIR/libKitsuneCommon"
-mkdir -p $LIB_KITSUNE_COMMON_DIR
-cd $LIB_KITSUNE_COMMON_DIR
+    # create build directory for repo and go into this directory
+    REPO_DIR="$BUILD_DIR/$REPO_NAME"
+    mkdir -p $REPO_DIR
+    cd $REPO_DIR
 
-# build libKitsuneCommon library with qmake
-/usr/lib/x86_64-linux-gnu/qt5/bin/qmake "$PARENT_DIR/libKitsuneCommon/libKitsuneCommon.pro" -spec linux-g++ "CONFIG += optimize_full"
-/usr/bin/make -j4
+    # build repo library with qmake
+    /usr/lib/x86_64-linux-gnu/qt5/bin/qmake "$PARENT_DIR/$REPO_NAME/$REPO_NAME.pro" -spec linux-g++ "CONFIG += optimize_full"
+    /usr/bin/make -j4
 
-# copy build-result and include-files into the result-directory
-cp "$LIB_KITSUNE_COMMON_DIR/src/libKitsuneCommon.so.0.5.3" "$RESULT_DIR/"
-cp -r "$PARENT_DIR/libKitsuneCommon/include" "$RESULT_DIR/"
+    # copy build-result and include-files into the result-directory
+    cp -d $REPO_DIR/src/$REPO_NAME.so.* $RESULT_DIR/
+    cp -r $PARENT_DIR/$REPO_NAME/include $RESULT_DIR/
+}
 
-#-----------------------------------------------------------------------------------------------------------------
+function get_required_kitsune_lib_repo () {
+    REPO_NAME=$1
+    TAG_OR_BRANCH=$2
 
-# create build directory for libKitsuneJson and go into this directory
-LIB_KITSUNE_JSON_DIR="$BUILD_DIR/libKitsuneJson"
-mkdir -p $LIB_KITSUNE_JSON_DIR
-cd $LIB_KITSUNE_JSON_DIR
+    # clone repo
+    git clone  git@gitlab.com:tobiasanker/$REPO_NAME.git "$PARENT_DIR/$REPO_NAME"
+    cd "$PARENT_DIR/$REPO_NAME"
+    git checkout $TAG_OR_BRANCH
 
-# build libKitsuneJson library with qmake
-/usr/lib/x86_64-linux-gnu/qt5/bin/qmake "$PARENT_DIR/libKitsuneJson/libKitsuneJson.pro" -spec linux-g++ "CONFIG += optimize_full"
-/usr/bin/make -j4
-
-# copy build-result and include-files into the result-directory
-cp "$LIB_KITSUNE_JSON_DIR/src/libKitsuneJson.so.0.5.0" "$RESULT_DIR/"
-cp -r "$PARENT_DIR/libKitsuneJson/include" "$RESULT_DIR/"
+    build_kitsune_lib_repo $REPO_NAME
+}
 
 #-----------------------------------------------------------------------------------------------------------------
 
-# recreate symlinks
-cd "$RESULT_DIR/"
-ln -s libKitsuneCommon.so.0.5.3 libKitsuneCommon.so.0.5
-ln -s libKitsuneCommon.so.0.5.3 libKitsuneCommon.so.0
-ln -s libKitsuneCommon.so.0.5.3 libKitsuneCommon.so
+get_required_kitsune_lib_repo "libKitsuneCommon" "0.5.3"
 
-ln -s libKitsuneJson.so.0.5.0 libKitsuneJson.so.0.5
-ln -s libKitsuneJson.so.0.5.0 libKitsuneJson.so.0
-ln -s libKitsuneJson.so.0.5.0 libKitsuneJson.so
+#-----------------------------------------------------------------------------------------------------------------
+
+build_kitsune_lib_repo "libKitsuneJson"
+
+#-----------------------------------------------------------------------------------------------------------------
+
