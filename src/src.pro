@@ -3,7 +3,7 @@ QT -= qt core gui
 TARGET = KitsuneJson
 TEMPLATE = lib
 CONFIG += c++14
-VERSION = 0.5.0
+VERSION = 0.6.0
 
 LIBS += -L../../libKitsuneCommon/src -lKitsuneCommon
 LIBS += -L../../libKitsuneCommon/src/debug -lKitsuneCommon

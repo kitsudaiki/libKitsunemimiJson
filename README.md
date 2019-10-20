@@ -107,9 +107,9 @@ After running the build-script:
     ├── libKitsuneCommon.so.0.6 -> libKitsuneCommon.so.0.6.0
     ├── libKitsuneCommon.so.0.6.0
     │
-    ├── libKitsuneJson.so.0 -> libKitsuneJson.so.0.5.0
-    ├── libKitsuneJson.so.0.5 -> libKitsuneJson.so.0.5.0
-    └── libKitsuneJson.so.0.5.0
+    ├── libKitsuneJson.so.0 -> libKitsuneJson.so.0.6.0
+    ├── libKitsuneJson.so.0.6 -> libKitsuneJson.so.0.6.0
+    └── libKitsuneJson.so.0.6.0
 ```
 
 
