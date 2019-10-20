@@ -6,9 +6,9 @@
  *  @copyright MIT License
  */
 
-#include <json_item.h>
+#include <libKitsuneJson/json_item.h>
 
-#include <common_items/data_items.h>
+#include <libKitsuneCommon/common_items/data_items.h>
 #include <json_parsing/json_parser_interface.h>
 
 using Kitsune::Common::DataItem;
