@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.6.0] - 2019-10-20
+
+### Changed
+- updated for libKitsuneCommon 0.6.0
+- update include-style
+
 
 ## [0.5.0] - 2019-09-18
 
