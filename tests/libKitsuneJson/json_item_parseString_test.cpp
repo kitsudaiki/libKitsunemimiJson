@@ -7,8 +7,8 @@
  */
 
 #include "json_item_parseString_test.h"
-#include <json_item.h>
-#include <common_items/data_items.h>
+#include <libKitsuneJson/json_item.h>
+#include <libKitsuneCommon/common_items/data_items.h>
 
 namespace Kitsune
 {

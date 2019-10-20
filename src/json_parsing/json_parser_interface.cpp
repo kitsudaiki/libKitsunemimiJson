@@ -9,8 +9,8 @@
 #include <json_parsing/json_parser_interface.h>
 #include <json_parser.h>
 
-#include <common_methods/string_methods.h>
-#include <common_items/data_items.h>
+#include <libKitsuneCommon/common_methods/string_methods.h>
+#include <libKitsuneCommon/common_items/data_items.h>
 
 using Kitsune::Common::DataItem;
 using Kitsune::Common::DataArray;

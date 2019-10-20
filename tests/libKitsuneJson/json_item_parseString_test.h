@@ -9,7 +9,7 @@
 #ifndef JSON_ITEM_PARSESTRING_TEST_H
 #define JSON_ITEM_PARSESTRING_TEST_H
 
-#include <testing/unit_test.h>
+#include <libKitsuneCommon/unit_test.h>
 
 namespace Kitsune
 {

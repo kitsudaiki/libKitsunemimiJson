@@ -11,8 +11,8 @@
 
 #include <assert.h>
 
-#include <testing/unit_test.h>
-#include <json_item.h>
+#include <libKitsuneCommon/unit_test.h>
+#include <libKitsuneJson/json_item.h>
 
 namespace Kitsune
 {
