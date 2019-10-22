@@ -120,12 +120,12 @@ Tested on Debian and Ubuntu. If you use Centos, Arch, etc and the build-script f
 
 ## Usage
 
-**Header-file:** `json_item.h`
+**Header-file:** `libKitsuneJson/json_item.h`
 
 The `JsonItem`-class is the handler for the json-file-content. The functions in the header should be really self-explaned, if something is unclear, see the following basic-example or the comments in the cpp-file.
 
 ```cpp
-#include <json_item.h>
+#include <libKitsuneJson/json_item.h>
 
 // short test-string for demonstration. 
 const std::string testString(
