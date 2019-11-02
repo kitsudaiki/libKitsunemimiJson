@@ -1,8 +1,8 @@
-# libKitsuneJson
+# libKitsunemimiJson
 
-![Gitlab pipeline status](https://img.shields.io/gitlab/pipeline/tobiasanker/libKitsuneJson?label=build%20and%20test&style=flat-square)
-![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/tobiasanker/libKitsuneJson?label=version&style=flat-square)
-![GitHub](https://img.shields.io/github/license/tobiasanker/libKitsuneJson?style=flat-square)
+![Gitlab pipeline status](https://img.shields.io/gitlab/pipeline/tobiasanker/libKitsunemimiJson?label=build%20and%20test&style=flat-square)
+![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/tobiasanker/libKitsunemimiJson?label=version&style=flat-square)
+![GitHub](https://img.shields.io/github/license/tobiasanker/libKitsunemimiJson?style=flat-square)
 ![C++Version](https://img.shields.io/badge/c%2B%2B-14-blue?style=flat-square)
 ![Platform](https://img.shields.io/badge/platform-Linux--x64-lightgrey?style=flat-square)
 
@@ -14,13 +14,13 @@ This library provides the functionality to parse and handle the content of json-
 
 Here some common information about my projects and my code-styling. It's not complete and a bit short. I will write a styling-guide for my projects, where I will write this a bit longer with more explanation, why I make it like this.
 
-### About my kitsune libraries
+### About my kitsunemimi libraries
 
-1. All my libraries beginning with `libKitsune`, because I needed a naming to identify my own libraries and I decided to use `Kitsune` as name, because Kitsunemimi are moe. ;)
+1. All my libraries beginning with `libKitsunemimimimi`, because I needed a naming to identify my own libraries and I decided to use `Kitsunemimi` as name, because Kitsunemimi are moe. ;)
 
-2. The namespace of the code within the libraries is identically to the name of the library. So for example all content of `libKitsuneCommon` has the namespace `Kitsune::Common`.
+2. The namespace of the code within the libraries is identically to the name of the library. So for example all content of `libKitsunemimiCommon` has the namespace `Kitsunemimi::Common`.
 
-3. If you only want to use the library, beside the binary you only ne the public methods and variables in the header-files, which are located in the `include`-directory of each `libKitsune`-repo. I try my best to make these as small and self-explaining, as possible. 
+3. If you only want to use the library, beside the binary you only ne the public methods and variables in the header-files, which are located in the `include`-directory of each `libKitsunemimi`-repo. I try my best to make these as small and self-explaining, as possible. 
 
 ### About my repositories in general
 
@@ -60,11 +60,11 @@ This are the version I have installed under Debian Stable via apt. Some older or
 
 IMPORTANT: All my projects are only tested on Linux. 
 
-#### Kitsune-repositories
+#### Kitsunemimi-repositories
 
 Repository-Name | Version-Tag | Download-Path
 --- | --- | ---
-libKitsuneCommon | v0.6.0 |  https://github.com/tobiasanker/libKitsuneCommon.git
+libKitsunemimiCommon | v0.7.0 |  https://github.com/tobiasanker/libKitsunemimiCommon.git
 
 
 ### build library
@@ -75,7 +75,7 @@ Before running the build-script:
 
 ```bash
 .
-└── libKitsuneJson
+└── libKitsunemimiJson
     ├── build.sh
     └── ...
 ```
@@ -85,31 +85,31 @@ After running the build-script:
 ```bash
 .
 ├── build
-│   ├── libKitsuneCommon
+│   ├── libKitsunemimiCommon
 │   │   └── ...
-│   └── libKitsuneJson
+│   └── libKitsunemimiJson
 │       └── ...
 │
-├── libKitsuneCommon
+├── libKitsunemimiCommon
 │   └── ...
-├── libKitsuneJson
+├── libKitsunemimiJson
 │   ├── build.sh
 │   └── ...
 │
 └── result
     ├── include
-    │   ├── libKitsuneCommon
+    │   ├── libKitsunemimiCommon
     │   │   └── ...
-    │   └── libKitsuneJson
+    │   └── libKitsunemimiJson
     │       └── ...
     │
-    ├── libKitsuneCommon.so.0 -> libKitsuneCommon.so.0.6.0
-    ├── libKitsuneCommon.so.0.6 -> libKitsuneCommon.so.0.6.0
-    ├── libKitsuneCommon.so.0.6.0
+    ├── libKitsunemimiCommon.so.0 -> libKitsunemimiCommon.so.0.7.0
+    ├── libKitsunemimiCommon.so.0.7 -> libKitsunemimiCommon.so.0.7.0
+    ├── libKitsunemimiCommon.so.0.7.0
     │
-    ├── libKitsuneJson.so.0 -> libKitsuneJson.so.0.6.0
-    ├── libKitsuneJson.so.0.6 -> libKitsuneJson.so.0.6.0
-    └── libKitsuneJson.so.0.6.0
+    ├── libKitsunemimiJson.so.0 -> libKitsunemimiJson.so.0.7.0
+    ├── libKitsunemimiJson.so.0.7 -> libKitsunemimiJson.so.0.7.0
+    └── libKitsunemimiJson.so.0.7.0
 ```
 
 
@@ -120,12 +120,12 @@ Tested on Debian and Ubuntu. If you use Centos, Arch, etc and the build-script f
 
 ## Usage
 
-**Header-file:** `libKitsuneJson/json_item.h`
+**Header-file:** `libKitsunemimiJson/json_item.h`
 
 The `JsonItem`-class is the handler for the json-file-content. The functions in the header should be really self-explaned, if something is unclear, see the following basic-example or the comments in the cpp-file.
 
 ```cpp
-#include <libKitsuneJson/json_item.h>
+#include <libKitsunemimiJson/json_item.h>
 
 // short test-string for demonstration. 
 const std::string testString(
