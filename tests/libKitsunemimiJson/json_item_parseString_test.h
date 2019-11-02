@@ -9,14 +9,14 @@
 #ifndef JSON_ITEM_PARSESTRING_TEST_H
 #define JSON_ITEM_PARSESTRING_TEST_H
 
-#include <libKitsuneCommon/unit_test.h>
+#include <libKitsunemimiCommon/test.h>
 
-namespace Kitsune
+namespace Kitsunemimi
 {
 namespace Json
 {
 class JsonItem_ParseString_Test
-        : public Kitsune::Common::UnitTest
+        : public Kitsunemimi::Common::Test
 {
 public:
     JsonItem_ParseString_Test();
@@ -26,6 +26,6 @@ private:
 };
 
 }  // namespace Json
-}  // namespace Kitsune
+}  // namespace Kitsunemimi
 
 #endif // JSON_ITEM_PARSESTRING_TEST_H

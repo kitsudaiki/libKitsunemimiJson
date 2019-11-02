@@ -23,9 +23,9 @@
 # undef YY_DECL
 # endif
 # define YY_DECL \
-    Kitsune::Json::JsonParser::symbol_type jsonlex (Kitsune::Json::JsonParserInterface& driver)
+    Kitsunemimi::Json::JsonParser::symbol_type jsonlex (Kitsunemimi::Json::JsonParserInterface& driver)
 YY_DECL;
-Kitsune::Json::location jsonloc;
+Kitsunemimi::Json::location jsonloc;
 
 %}
 
@@ -48,18 +48,18 @@ blank [ \t]
 
 {blank}+  jsonloc.step();
 [\n]      {jsonloc.lines(1); jsonloc.step(); }
-"{"       return Kitsune::Json::JsonParser::make_EXPRESTART (jsonloc);
-"}"       return Kitsune::Json::JsonParser::make_EXPREEND (jsonloc);
-"["       return Kitsune::Json::JsonParser::make_BRACKOPEN (jsonloc);
-"]"       return Kitsune::Json::JsonParser::make_BRACKCLOSE (jsonloc);
-","       return Kitsune::Json::JsonParser::make_COMMA (jsonloc);
-":"       return Kitsune::Json::JsonParser::make_ASSIGN (jsonloc);
+"{"       return Kitsunemimi::Json::JsonParser::make_EXPRESTART (jsonloc);
+"}"       return Kitsunemimi::Json::JsonParser::make_EXPREEND (jsonloc);
+"["       return Kitsunemimi::Json::JsonParser::make_BRACKOPEN (jsonloc);
+"]"       return Kitsunemimi::Json::JsonParser::make_BRACKCLOSE (jsonloc);
+","       return Kitsunemimi::Json::JsonParser::make_COMMA (jsonloc);
+":"       return Kitsunemimi::Json::JsonParser::make_ASSIGN (jsonloc);
 
-"true" return Kitsune::Json::JsonParser::make_BOOL_TRUE (jsonloc);
-"false" return Kitsune::Json::JsonParser::make_BOOL_FALSE (jsonloc);
-"null" return Kitsune::Json::JsonParser::make_NULLVAL (jsonloc);
+"true" return Kitsunemimi::Json::JsonParser::make_BOOL_TRUE (jsonloc);
+"false" return Kitsunemimi::Json::JsonParser::make_BOOL_FALSE (jsonloc);
+"null" return Kitsunemimi::Json::JsonParser::make_NULLVAL (jsonloc);
 
-\"(\\.|[^"\\])*\" { return Kitsune::Json::JsonParser::make_STRING(yytext, jsonloc); }
+\"(\\.|[^"\\])*\" { return Kitsunemimi::Json::JsonParser::make_STRING(yytext, jsonloc); }
 
 {int}      {
     errno = 0;
@@ -70,35 +70,35 @@ blank [ \t]
     {
         driver.error(jsonloc, "integer is out of range");
     }
-    return Kitsune::Json::JsonParser::make_NUMBER (length, jsonloc);
+    return Kitsunemimi::Json::JsonParser::make_NUMBER (length, jsonloc);
 }
 
 {int}+"."{int}*	{
     float value = atof( yytext );
-    return Kitsune::Json::JsonParser::make_FLOAT(value, jsonloc);
+    return Kitsunemimi::Json::JsonParser::make_FLOAT(value, jsonloc);
 }
 
-{id}       return Kitsune::Json::JsonParser::make_IDENTIFIER(yytext, jsonloc);
+{id}       return Kitsunemimi::Json::JsonParser::make_IDENTIFIER(yytext, jsonloc);
 
 [a-zA-Z_0-9|\-|.]* {
-    return Kitsune::Json::JsonParser::make_STRING_PLN(yytext, jsonloc);
+    return Kitsunemimi::Json::JsonParser::make_STRING_PLN(yytext, jsonloc);
 }
 
 .          driver.error(jsonloc, "invalid character");
-<<EOF>>    return Kitsune::Json::JsonParser::make_END(jsonloc);
+<<EOF>>    return Kitsunemimi::Json::JsonParser::make_END(jsonloc);
 
 %%
 
 
-void Kitsune::Json::JsonParserInterface::scan_begin(const std::string &inputString)
+void Kitsunemimi::Json::JsonParserInterface::scan_begin(const std::string &inputString)
 {
-    Kitsune::Json::location newJsonloc;
+    Kitsunemimi::Json::location newJsonloc;
     jsonloc = newJsonloc;
     yy_flex_debug = m_traceParsing;
     yy_scan_string(inputString.c_str());
 }
 
-void Kitsune::Json::JsonParserInterface::scan_end()
+void Kitsunemimi::Json::JsonParserInterface::scan_end()
 {
     yy_delete_buffer(YY_CURRENT_BUFFER);
 }

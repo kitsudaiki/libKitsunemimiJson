@@ -7,15 +7,15 @@
  */
 
 #include "json_item_test.h"
-#include <libKitsuneCommon/common_items/data_items.h>
+#include <libKitsunemimiCommon/common_items/data_items.h>
 
-namespace Kitsune
+namespace Kitsunemimi
 {
 namespace Json
 {
 
 JsonItem_Test::JsonItem_Test()
-    : Kitsune::Common::UnitTest("JsonItem_Test")
+    : Kitsunemimi::Common::Test("JsonItem_Test")
 {
     constructor_test();
     assigmentOperator_test();
@@ -47,30 +47,30 @@ void
 JsonItem_Test::constructor_test()
 {
     JsonItem emptyItem;
-    UNITTEST(emptyItem.isValid(), false);
+    TEST_EQUAL(emptyItem.isValid(), false);
 
     std::map<std::string, JsonItem> emptyMap;
     JsonItem objectItem(emptyMap);
-    UNITTEST(objectItem.isObject(), true);
+    TEST_EQUAL(objectItem.isObject(), true);
 
     JsonItem objectCopyItem(objectItem);
-    UNITTEST(objectCopyItem.isObject(), true);
+    TEST_EQUAL(objectCopyItem.isObject(), true);
 
     std::vector<JsonItem> emptyArray;
     JsonItem arrayItem(emptyArray);
-    UNITTEST(arrayItem.isArray(), true);
+    TEST_EQUAL(arrayItem.isArray(), true);
 
     JsonItem stringItem("test");
-    UNITTEST(stringItem.isValue(), true);
+    TEST_EQUAL(stringItem.isValue(), true);
 
     JsonItem intItem(42);
-    UNITTEST(intItem.isValue(), true);
+    TEST_EQUAL(intItem.isValue(), true);
 
     JsonItem floatItem(42.0f);
-    UNITTEST(floatItem.isValue(), true);
+    TEST_EQUAL(floatItem.isValue(), true);
 
     JsonItem boolItem(true);
-    UNITTEST(boolItem.isValue(), true);
+    TEST_EQUAL(boolItem.isValue(), true);
 }
 
 /**
@@ -84,7 +84,7 @@ JsonItem_Test::assigmentOperator_test()
     JsonItem copy;
     copy = testItem;
 
-    UNITTEST(copy.toString(), testItem.toString());
+    TEST_EQUAL(copy.toString(), testItem.toString());
 }
 
 /**
@@ -94,18 +94,18 @@ void
 JsonItem_Test::setValue_test()
 {
     JsonItem testItem;
-    UNITTEST(testItem.setValue("test"), true);
-    UNITTEST(testItem.setValue(42), true);
-    UNITTEST(testItem.setValue(42.0f), true);
-    UNITTEST(testItem.setValue(true), true);
+    TEST_EQUAL(testItem.setValue("test"), true);
+    TEST_EQUAL(testItem.setValue(42), true);
+    TEST_EQUAL(testItem.setValue(42.0f), true);
+    TEST_EQUAL(testItem.setValue(true), true);
 
-    UNITTEST(testItem.isValid(), true);
+    TEST_EQUAL(testItem.isValid(), true);
 
 
     // negative test
     std::map<std::string, JsonItem> emptyMap;
     JsonItem objectItem(emptyMap);
-    UNITTEST(objectItem.setValue("test"), false);
+    TEST_EQUAL(objectItem.setValue("test"), false);
 }
 
 /**
@@ -115,14 +115,14 @@ void
 JsonItem_Test::insert_test()
 {
     JsonItem testItem;
-    UNITTEST(testItem.insert("key", JsonItem(42)), true);
-    UNITTEST(testItem.insert("key", JsonItem("24"), true), true);
-    UNITTEST(testItem["key"].getString(), "24");
-    UNITTEST(testItem.isObject(), true);
+    TEST_EQUAL(testItem.insert("key", JsonItem(42)), true);
+    TEST_EQUAL(testItem.insert("key", JsonItem("24"), true), true);
+    TEST_EQUAL(testItem["key"].getString(), "24");
+    TEST_EQUAL(testItem.isObject(), true);
 
     // negative test
-    UNITTEST(testItem.insert("key", JsonItem(43)), false);
-    UNITTEST(testItem.insert("fail", JsonItem()), false);
+    TEST_EQUAL(testItem.insert("key", JsonItem(43)), false);
+    TEST_EQUAL(testItem.insert("fail", JsonItem()), false);
 }
 
 /**
@@ -132,12 +132,12 @@ void
 JsonItem_Test::append_test()
 {
     JsonItem testItem;
-    UNITTEST(testItem.append(JsonItem(42)), true);
-    UNITTEST(testItem.isArray(), true);
-    UNITTEST(testItem[0].getInt(), 42);
+    TEST_EQUAL(testItem.append(JsonItem(42)), true);
+    TEST_EQUAL(testItem.isArray(), true);
+    TEST_EQUAL(testItem[0].getInt(), 42);
 
     // negative test
-    UNITTEST(testItem.append(JsonItem()), false);
+    TEST_EQUAL(testItem.append(JsonItem()), false);
 }
 
 /**
@@ -149,13 +149,13 @@ JsonItem_Test::replaceItem_test()
     JsonItem testItem;
     testItem.append(JsonItem(42));
     testItem.append(JsonItem("42"));
-    UNITTEST(testItem[0].toString(), "42");
-    UNITTEST(testItem.replaceItem(0, JsonItem("ok")), true);
-    UNITTEST(testItem[0].toString(), "ok");
+    TEST_EQUAL(testItem[0].toString(), "42");
+    TEST_EQUAL(testItem.replaceItem(0, JsonItem("ok")), true);
+    TEST_EQUAL(testItem[0].toString(), "ok");
 
     // negative test
-    UNITTEST(testItem.replaceItem(10, JsonItem("fail")), false);
-    UNITTEST(testItem.replaceItem(0, JsonItem()), false);
+    TEST_EQUAL(testItem.replaceItem(10, JsonItem("fail")), false);
+    TEST_EQUAL(testItem.replaceItem(0, JsonItem()), false);
 }
 
 /**
@@ -167,10 +167,10 @@ JsonItem_Test::deleteContent_test()
     JsonItem testItem;
     testItem.append(JsonItem(42));
     testItem.append(JsonItem("42"));
-    UNITTEST(testItem.isNull(), false);
-    UNITTEST(testItem.deleteContent(), true);
-    UNITTEST(testItem.deleteContent(), false);
-    UNITTEST(testItem.isNull(), true);
+    TEST_EQUAL(testItem.isNull(), false);
+    TEST_EQUAL(testItem.deleteContent(), true);
+    TEST_EQUAL(testItem.deleteContent(), false);
+    TEST_EQUAL(testItem.isNull(), true);
 }
 
 /**
@@ -182,7 +182,7 @@ JsonItem_Test::getItemContent_test()
     JsonItem testItem = getTestItem();
     Common::DataItem* itemPtr = testItem.getItemContent();
 
-    UNITTEST(itemPtr->toString(true), testItem.toString(true));
+    TEST_EQUAL(itemPtr->toString(true), testItem.toString(true));
 }
 
 /**
@@ -192,10 +192,10 @@ void
 JsonItem_Test::get_test()
 {
     JsonItem testItem = getTestItem();
-    UNITTEST(testItem["loop"][0]["x"].toString(), "42");
-    UNITTEST(testItem.get("loop").get(0).get("x").toString(), "42");
-    UNITTEST(testItem.get("loop").get(0).get("x").setValue("43"), true);
-    UNITTEST(testItem.get("loop").get(0).get("x").toString(), "43");
+    TEST_EQUAL(testItem["loop"][0]["x"].toString(), "42");
+    TEST_EQUAL(testItem.get("loop").get(0).get("x").toString(), "42");
+    TEST_EQUAL(testItem.get("loop").get(0).get("x").setValue("43"), true);
+    TEST_EQUAL(testItem.get("loop").get(0).get("x").toString(), "43");
 }
 
 /**
@@ -210,28 +210,28 @@ JsonItem_Test::getString_getInt_getFloat_test()
     JsonItem boolValue(true);
 
     // string-value
-    UNITTEST(stringValue.getString(), "test");
-    UNITTEST(stringValue.getInt(), 0);
-    UNITTEST(stringValue.getFloat(), 0.0f);
-    UNITTEST(stringValue.getBool(), false);
+    TEST_EQUAL(stringValue.getString(), "test");
+    TEST_EQUAL(stringValue.getInt(), 0);
+    TEST_EQUAL(stringValue.getFloat(), 0.0f);
+    TEST_EQUAL(stringValue.getBool(), false);
 
     // int-value
-    UNITTEST(intValue.getString(), "");
-    UNITTEST(intValue.getInt(), 42);
-    UNITTEST(intValue.getFloat(), 0.0f);
-    UNITTEST(intValue.getBool(), false);
+    TEST_EQUAL(intValue.getString(), "");
+    TEST_EQUAL(intValue.getInt(), 42);
+    TEST_EQUAL(intValue.getFloat(), 0.0f);
+    TEST_EQUAL(intValue.getBool(), false);
 
     // float-value
-    UNITTEST(floatValue.getString(), "");
-    UNITTEST(floatValue.getInt(), 0);
-    UNITTEST(floatValue.getFloat(), 42.5f);
-    UNITTEST(floatValue.getBool(), false);
+    TEST_EQUAL(floatValue.getString(), "");
+    TEST_EQUAL(floatValue.getInt(), 0);
+    TEST_EQUAL(floatValue.getFloat(), 42.5f);
+    TEST_EQUAL(floatValue.getBool(), false);
 
     // bool-value
-    UNITTEST(boolValue.getString(), "");
-    UNITTEST(boolValue.getInt(), 0);
-    UNITTEST(boolValue.getFloat(), 0.0f);
-    UNITTEST(boolValue.getBool(), true);
+    TEST_EQUAL(boolValue.getString(), "");
+    TEST_EQUAL(boolValue.getInt(), 0);
+    TEST_EQUAL(boolValue.getFloat(), 0.0f);
+    TEST_EQUAL(boolValue.getBool(), true);
 }
 
 /**
@@ -241,7 +241,7 @@ void
 JsonItem_Test::getSize_test()
 {
     JsonItem testItem = getTestItem();
-    UNITTEST(testItem.getSize(), 3);
+    TEST_EQUAL(testItem.getSize(), 3);
 }
 
 /**
@@ -252,10 +252,10 @@ JsonItem_Test::getKeys_test()
 {
     JsonItem testItem = getTestItem();
     std::vector<std::string> keys = testItem.getKeys();
-    UNITTEST(keys.size(), 3);
-    UNITTEST(keys.at(0), "item");
-    UNITTEST(keys.at(1), "item2");
-    UNITTEST(keys.at(2), "loop");
+    TEST_EQUAL(keys.size(), 3);
+    TEST_EQUAL(keys.at(0), "item");
+    TEST_EQUAL(keys.at(1), "item2");
+    TEST_EQUAL(keys.at(2), "loop");
 }
 
 /**
@@ -265,8 +265,8 @@ void
 JsonItem_Test::contains_test()
 {
     JsonItem testItem = getTestItem();
-    UNITTEST(testItem.contains("item"), true);
-    UNITTEST(testItem.contains("fail"), false);
+    TEST_EQUAL(testItem.contains("item"), true);
+    TEST_EQUAL(testItem.contains("fail"), false);
 }
 
 /**
@@ -276,9 +276,9 @@ void
 JsonItem_Test::isValid_test()
 {
     JsonItem emptyItem;
-    UNITTEST(emptyItem.isValid(), false);
+    TEST_EQUAL(emptyItem.isValid(), false);
     JsonItem testItem = getTestItem();
-    UNITTEST(testItem.isValid(), true);
+    TEST_EQUAL(testItem.isValid(), true);
 }
 
 /**
@@ -288,9 +288,9 @@ void
 JsonItem_Test::isNull_test()
 {
     JsonItem emptyItem;
-    UNITTEST(emptyItem.isNull(), true);
+    TEST_EQUAL(emptyItem.isNull(), true);
     JsonItem testItem = getTestItem();
-    UNITTEST(testItem.isNull(), false);
+    TEST_EQUAL(testItem.isNull(), false);
 }
 
 /**
@@ -301,14 +301,14 @@ JsonItem_Test::isObject_isArray_isValue_test()
 {
     std::map<std::string, JsonItem> emptyMap;
     JsonItem objectItem(emptyMap);
-    UNITTEST(objectItem.isObject(), true);
+    TEST_EQUAL(objectItem.isObject(), true);
 
     std::vector<JsonItem> emptyArray;
     JsonItem arrayItem(emptyArray);
-    UNITTEST(arrayItem.isArray(), true);
+    TEST_EQUAL(arrayItem.isArray(), true);
 
     JsonItem stringItem("test");
-    UNITTEST(stringItem.isValue(), true);
+    TEST_EQUAL(stringItem.isValue(), true);
 }
 
 /**
@@ -319,9 +319,9 @@ JsonItem_Test::remove_test()
 {
     JsonItem testItem = getTestItem();
 
-    UNITTEST(testItem.remove("item"), true);
-    UNITTEST(testItem.remove("item"), false);
-    UNITTEST(testItem.getSize(), 2);
+    TEST_EQUAL(testItem.remove("item"), true);
+    TEST_EQUAL(testItem.remove("item"), false);
+    TEST_EQUAL(testItem.getSize(), 2);
 }
 
 /**
@@ -362,4 +362,4 @@ JsonItem_Test::getTestItem()
 }
 
 }  // namespace Json
-}  // namespace Kitsune
+}  // namespace Kitsunemimi

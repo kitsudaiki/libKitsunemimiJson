@@ -6,22 +6,22 @@ CONFIG -= app_bundle
 CONFIG += c++14 console
 
 
-LIBS += -L../../libKitsuneCommon/src -lKitsuneCommon
-LIBS += -L../../libKitsuneCommon/src/debug -lKitsuneCommon
-LIBS += -L../../libKitsuneCommon/src/release -lKitsuneCommon
-INCLUDEPATH += ../../libKitsuneCommon/include
+LIBS += -L../../libKitsunemimiCommon/src -lKitsunemimiCommon
+LIBS += -L../../libKitsunemimiCommon/src/debug -lKitsunemimiCommon
+LIBS += -L../../libKitsunemimiCommon/src/release -lKitsunemimiCommon
+INCLUDEPATH += ../../libKitsunemimiCommon/include
 
 
 INCLUDEPATH += $$PWD
 
-LIBS += -L../src -lKitsuneJson
+LIBS += -L../src -lKitsunemimiJson
 
 SOURCES += \
     main.cpp \
-    libKitsuneJson/json_item_parseString_test.cpp \
-    libKitsuneJson/json_item_test.cpp
+    libKitsunemimiJson/json_item_parseString_test.cpp \
+    libKitsunemimiJson/json_item_test.cpp
 
 HEADERS += \
-    libKitsuneJson/json_item_parseString_test.h \
-    libKitsuneJson/json_item_test.h
+    libKitsunemimiJson/json_item_parseString_test.h \
+    libKitsunemimiJson/json_item_test.h
 

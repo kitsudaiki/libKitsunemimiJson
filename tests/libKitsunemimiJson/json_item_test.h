@@ -11,15 +11,15 @@
 
 #include <assert.h>
 
-#include <libKitsuneCommon/unit_test.h>
-#include <libKitsuneJson/json_item.h>
+#include <libKitsunemimiCommon/test.h>
+#include <libKitsunemimiJson/json_item.h>
 
-namespace Kitsune
+namespace Kitsunemimi
 {
 namespace Json
 {
 class JsonItem_Test
-        : public Kitsune::Common::UnitTest
+        : public Kitsunemimi::Common::Test
 {
 public:
     JsonItem_Test();
@@ -51,6 +51,6 @@ private:
 };
 
 }  // namespace Json
-}  // namespace Kitsune
+}  // namespace Kitsunemimi
 
 #endif // JSONITEM_TEST_H

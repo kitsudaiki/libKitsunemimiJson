@@ -6,17 +6,17 @@
  *  @copyright MIT License
  */
 
-#include <libKitsuneJson/json_item.h>
+#include <libKitsunemimiJson/json_item.h>
 
-#include <libKitsuneCommon/common_items/data_items.h>
+#include <libKitsunemimiCommon/common_items/data_items.h>
 #include <json_parsing/json_parser_interface.h>
 
-using Kitsune::Common::DataItem;
-using Kitsune::Common::DataArray;
-using Kitsune::Common::DataValue;
-using Kitsune::Common::DataMap;
+using Kitsunemimi::Common::DataItem;
+using Kitsunemimi::Common::DataArray;
+using Kitsunemimi::Common::DataValue;
+using Kitsunemimi::Common::DataMap;
 
-namespace Kitsune
+namespace Kitsunemimi
 {
 namespace Json
 {
@@ -746,4 +746,4 @@ void JsonItem::clear()
 }
 
 }  // namespace Json
-}  // namespace Kitsune
+}  // namespace Kitsunemimi
