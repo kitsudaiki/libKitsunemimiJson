@@ -13,7 +13,7 @@
 #include <vector>
 #include <map>
 
-namespace Kitsune
+namespace Kitsunemimi
 {
 namespace Common {
 class DataItem;
@@ -91,6 +91,6 @@ private:
 };
 
 }  // namespace Json
-}  // namespace Kitsune
+}  // namespace Kitsunemimi
 
 #endif // JSON_ITEM_H

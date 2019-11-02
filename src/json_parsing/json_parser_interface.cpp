@@ -9,19 +9,19 @@
 #include <json_parsing/json_parser_interface.h>
 #include <json_parser.h>
 
-#include <libKitsuneCommon/common_methods/string_methods.h>
-#include <libKitsuneCommon/common_items/data_items.h>
+#include <libKitsunemimiCommon/common_methods/string_methods.h>
+#include <libKitsunemimiCommon/common_items/data_items.h>
 
-using Kitsune::Common::DataItem;
-using Kitsune::Common::DataArray;
-using Kitsune::Common::DataValue;
-using Kitsune::Common::DataMap;
+using Kitsunemimi::Common::DataItem;
+using Kitsunemimi::Common::DataArray;
+using Kitsunemimi::Common::DataValue;
+using Kitsunemimi::Common::DataMap;
 
 # define YY_DECL \
-    Kitsune::Json::JsonParser::symbol_type jsonlex (Kitsune::Json::JsonParserInterface& driver)
+    Kitsunemimi::Json::JsonParser::symbol_type jsonlex (Kitsunemimi::Json::JsonParserInterface& driver)
 YY_DECL;
 
-namespace Kitsune
+namespace Kitsunemimi
 {
 namespace Json
 {
@@ -56,7 +56,7 @@ JsonParserInterface::parse(const std::string &inputString)
 
     // run parser-code
     this->scan_begin(inputString);
-    Kitsune::Json::JsonParser parser(*this);
+    Kitsunemimi::Json::JsonParser parser(*this);
     int res = parser.parse();
     this->scan_end();
 
@@ -123,7 +123,7 @@ JsonParserInterface::getOutput() const
  * @param message error-specific message from the parser
  */
 void
-JsonParserInterface::error(const Kitsune::Json::location& location,
+JsonParserInterface::error(const Kitsunemimi::Json::location& location,
                            const std::string& message)
 {
     // get the broken part of the parsed string
@@ -157,4 +157,4 @@ JsonParserInterface::getErrorMessage() const
 }
 
 }  // namespace Json
-}  // namespace Kitsune
+}  // namespace Kitsunemimi

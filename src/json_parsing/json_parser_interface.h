@@ -11,7 +11,7 @@
 
 #include <iostream>
 
-namespace Kitsune
+namespace Kitsunemimi
 {
 namespace Common {
 class DataMap;
@@ -37,7 +37,7 @@ public:
     Common::DataMap* getOutput() const;
 
     // Error handling.
-    void error(const Kitsune::Json::location &location,
+    void error(const Kitsunemimi::Json::location &location,
                const std::string& message);
     std::string getErrorMessage() const;
 
@@ -50,6 +50,6 @@ private:
 };
 
 }  // namespace Json
-}  // namespace Kitsune
+}  // namespace Kitsunemimi
 
 #endif // JSON_PARSER_INTERFACE_H

@@ -45,11 +45,11 @@ function get_required_kitsune_lib_repo () {
 
 #-----------------------------------------------------------------------------------------------------------------
 
-get_required_kitsune_lib_repo "libKitsuneCommon" "v0.6.0"
+get_required_kitsune_lib_repo "libKitsunemimiCommon" "v0.7.0"
 
 #-----------------------------------------------------------------------------------------------------------------
 
-build_kitsune_lib_repo "libKitsuneJson"
+build_kitsune_lib_repo "libKitsunemimiJson"
 
 #-----------------------------------------------------------------------------------------------------------------
 

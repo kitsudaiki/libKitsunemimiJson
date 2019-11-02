@@ -7,16 +7,16 @@
  */
 
 #include "json_item_parseString_test.h"
-#include <libKitsuneJson/json_item.h>
-#include <libKitsuneCommon/common_items/data_items.h>
+#include <libKitsunemimiJson/json_item.h>
+#include <libKitsunemimiCommon/common_items/data_items.h>
 
-namespace Kitsune
+namespace Kitsunemimi
 {
 namespace Json
 {
 
 JsonItem_ParseString_Test::JsonItem_ParseString_Test()
-    : Kitsune::Common::UnitTest("JsonItems_ParseString_Test")
+    : Kitsunemimi::Common::Test("JsonItems_ParseString_Test")
 {
     parseString_test();
 }
@@ -38,7 +38,7 @@ JsonItem_ParseString_Test::parseString_test()
 
     JsonItem paredItem;
     std::pair<bool, std::string> result = paredItem.parse(input);
-    UNITTEST(result.first, true);
+    TEST_EQUAL(result.first, true);
     std::cout<<result.second<<std::endl;
     std::string outputStringObjects = paredItem.toString(true);
     std::string compareObjects( "{\n"
@@ -64,7 +64,7 @@ JsonItem_ParseString_Test::parseString_test()
                                 "        }\n"
                                 "    ]\n"
                                 "}");
-    UNITTEST(outputStringObjects, compareObjects);
+    TEST_EQUAL(outputStringObjects, compareObjects);
 
     // negative test
     input = "{item: \n"
@@ -77,16 +77,16 @@ JsonItem_ParseString_Test::parseString_test()
 
     JsonItem output;
     result = output.parse(input);
-    UNITTEST(result.first, false);
+    TEST_EQUAL(result.first, false);
 
     std::string expectedError = "ERROR while parsing json-formated string \n"
             "parser-message: syntax error \n"
             "line-number: 4 \n"
             "position in line: 12 \n"
             "broken part in string: \":\" \n";
-    UNITTEST(result.second, expectedError);
+    TEST_EQUAL(result.second, expectedError);
 }
 
 }  // namespace Json
-}  // namespace Kitsune
+}  // namespace Kitsunemimi
 

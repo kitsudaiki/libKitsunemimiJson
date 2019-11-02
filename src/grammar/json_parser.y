@@ -14,7 +14,7 @@
 %define parser_class_name {JsonParser}
 
 %define api.prefix {json}
-%define api.namespace {Kitsune::Json}
+%define api.namespace {Kitsunemimi::Json}
 %define api.token.constructor
 %define api.value.type variant
 %define parse.assert
@@ -23,15 +23,15 @@
 {
 #include <string>
 #include <iostream>
-#include <libKitsuneCommon/common_items/data_items.h>
+#include <libKitsunemimiCommon/common_items/data_items.h>
 
-using Kitsune::Common::DataItem;
-using Kitsune::Common::DataArray;
-using Kitsune::Common::DataValue;
-using Kitsune::Common::DataMap;
+using Kitsunemimi::Common::DataItem;
+using Kitsunemimi::Common::DataArray;
+using Kitsunemimi::Common::DataValue;
+using Kitsunemimi::Common::DataMap;
 
 
-namespace Kitsune
+namespace Kitsunemimi
 {
 namespace Json
 {
@@ -39,11 +39,11 @@ namespace Json
 class JsonParserInterface;
 
 }  // namespace Json
-}  // namespace Kitsune
+}  // namespace Kitsunemimi
 }
 
 // The parsing context.
-%param { Kitsune::Json::JsonParserInterface& driver }
+%param { Kitsunemimi::Json::JsonParserInterface& driver }
 
 %locations
 
@@ -52,7 +52,7 @@ class JsonParserInterface;
 #include <json_parsing/json_parser_interface.h>
 # undef YY_DECL
 # define YY_DECL \
-    Kitsune::Json::JsonParser::symbol_type jsonlex (Kitsune::Json::JsonParserInterface& driver)
+    Kitsunemimi::Json::JsonParser::symbol_type jsonlex (Kitsunemimi::Json::JsonParserInterface& driver)
 YY_DECL;
 }
 
@@ -216,7 +216,7 @@ json_value:
 
 %%
 
-void Kitsune::Json::JsonParser::error(const Kitsune::Json::location& location,
+void Kitsunemimi::Json::JsonParser::error(const Kitsunemimi::Json::location& location,
                                       const std::string& message)
 {
     driver.error(location, message);

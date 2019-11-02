@@ -7,11 +7,11 @@
  */
 
 #include <iostream>
-#include <libKitsuneJson/json_item_parseString_test.h>
-#include <libKitsuneJson/json_item_test.h>
+#include <libKitsunemimiJson/json_item_parseString_test.h>
+#include <libKitsunemimiJson/json_item_test.h>
 
 int main()
 {
-    Kitsune::Json::JsonItem_ParseString_Test();
-    Kitsune::Json::JsonItem_Test();
+    Kitsunemimi::Json::JsonItem_ParseString_Test();
+    Kitsunemimi::Json::JsonItem_Test();
 }
