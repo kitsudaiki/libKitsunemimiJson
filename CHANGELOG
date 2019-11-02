@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.7.0] - 2019-11-02
+
+### Changed
+- renamed repo from `libKitsuneJson` to `libKitsunemimiJson``
+
+
 ## [0.6.0] - 2019-10-20
 
 ### Changed
