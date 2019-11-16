@@ -555,7 +555,7 @@ JsonItem::getBool() const
  * @return number of elements in the item
  */
 uint64_t
-JsonItem::getSize() const
+JsonItem::size() const
 {
     if(m_content == nullptr) {
         return 0;

@@ -65,7 +65,7 @@ public:
     int getInt() const;
     float getFloat() const;
     bool getBool() const;
-    uint64_t getSize() const;
+    uint64_t size() const;
     std::vector<std::string> getKeys();
 
     // checks

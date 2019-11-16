@@ -37,7 +37,7 @@ private:
     void get_test();
     void getString_getInt_getFloat_test();
 
-    void getSize_test();
+    void size_test();
     void getKeys_test();
     void contains_test();
 

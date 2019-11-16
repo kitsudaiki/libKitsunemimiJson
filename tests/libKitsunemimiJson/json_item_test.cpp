@@ -29,7 +29,7 @@ JsonItem_Test::JsonItem_Test()
     get_test();
     getString_getInt_getFloat_test();
 
-    getSize_test();
+    size_test();
     getKeys_test();
     contains_test();
 
@@ -235,13 +235,13 @@ JsonItem_Test::getString_getInt_getFloat_test()
 }
 
 /**
- * @brief getSize_test
+ * @brief size_test
  */
 void
-JsonItem_Test::getSize_test()
+JsonItem_Test::size_test()
 {
     JsonItem testItem = getTestItem();
-    TEST_EQUAL(testItem.getSize(), 3);
+    TEST_EQUAL(testItem.size(), 3);
 }
 
 /**
@@ -321,7 +321,7 @@ JsonItem_Test::remove_test()
 
     TEST_EQUAL(testItem.remove("item"), true);
     TEST_EQUAL(testItem.remove("item"), false);
-    TEST_EQUAL(testItem.getSize(), 2);
+    TEST_EQUAL(testItem.size(), 2);
 }
 
 /**
