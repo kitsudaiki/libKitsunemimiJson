@@ -37,7 +37,11 @@ JsonItem::JsonItem()
  */
 JsonItem::JsonItem(const JsonItem &otherItem)
 {
-    m_content = otherItem.m_content->copy();
+    if(otherItem.m_content != nullptr) {
+        m_content = otherItem.m_content->copy();
+    } else {
+        m_content = nullptr;
+    }
 }
 
 /**
