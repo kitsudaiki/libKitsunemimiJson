@@ -72,7 +72,7 @@ public:
     bool contains(const std::string &key);
     bool isValid() const;
     bool isNull() const;
-    bool isObject() const;
+    bool isMap() const;
     bool isArray() const;
     bool isValue() const;
 

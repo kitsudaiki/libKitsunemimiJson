@@ -35,7 +35,7 @@ JsonItem_Test::JsonItem_Test()
 
     isValid_test();
     isNull_test();
-    isObject_isArray_isValue_test();
+    isMap_isArray_isValue_test();
 
     remove_test();
 }
@@ -51,10 +51,10 @@ JsonItem_Test::constructor_test()
 
     std::map<std::string, JsonItem> emptyMap;
     JsonItem objectItem(emptyMap);
-    TEST_EQUAL(objectItem.isObject(), true);
+    TEST_EQUAL(objectItem.isMap(), true);
 
     JsonItem objectCopyItem(objectItem);
-    TEST_EQUAL(objectCopyItem.isObject(), true);
+    TEST_EQUAL(objectCopyItem.isMap(), true);
 
     std::vector<JsonItem> emptyArray;
     JsonItem arrayItem(emptyArray);
@@ -118,7 +118,7 @@ JsonItem_Test::insert_test()
     TEST_EQUAL(testItem.insert("key", JsonItem(42)), true);
     TEST_EQUAL(testItem.insert("key", JsonItem("24"), true), true);
     TEST_EQUAL(testItem["key"].getString(), "24");
-    TEST_EQUAL(testItem.isObject(), true);
+    TEST_EQUAL(testItem.isMap(), true);
 
     // negative test
     TEST_EQUAL(testItem.insert("key", JsonItem(43)), false);
@@ -294,14 +294,14 @@ JsonItem_Test::isNull_test()
 }
 
 /**
- * @brief isObject_isArray_isValue_test
+ * @brief isMap_isArray_isValue_test
  */
 void
-JsonItem_Test::isObject_isArray_isValue_test()
+JsonItem_Test::isMap_isArray_isValue_test()
 {
     std::map<std::string, JsonItem> emptyMap;
     JsonItem objectItem(emptyMap);
-    TEST_EQUAL(objectItem.isObject(), true);
+    TEST_EQUAL(objectItem.isMap(), true);
 
     std::vector<JsonItem> emptyArray;
     JsonItem arrayItem(emptyArray);

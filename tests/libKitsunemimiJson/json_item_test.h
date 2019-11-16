@@ -43,7 +43,7 @@ private:
 
     void isValid_test();
     void isNull_test();
-    void isObject_isArray_isValue_test();
+    void isMap_isArray_isValue_test();
 
     void remove_test();
 

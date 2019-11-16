@@ -641,7 +641,7 @@ JsonItem::isNull() const
  *
  * @return true if current item is a json-object, else false
  */
-bool JsonItem::isObject() const
+bool JsonItem::isMap() const
 {
     if(m_content == nullptr) {
         return false;
