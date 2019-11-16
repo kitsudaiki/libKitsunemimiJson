@@ -40,31 +40,31 @@ JsonItem_ParseString_Test::parseString_test()
     std::pair<bool, std::string> result = paredItem.parse(input);
     TEST_EQUAL(result.first, true);
     std::cout<<result.second<<std::endl;
-    std::string outputStringObjects = paredItem.toString(true);
-    std::string compareObjects( "{\n"
-                                "    \"item\": {\n"
-                                "        \"sub_item\": \"test_value\"\n"
-                                "    },\n"
-                                "    \"item2\": {\n"
-                                "        \"sub_item2\": \"something\"\n"
-                                "    },\n"
-                                "    \"loop\": [\n"
-                                "        {\n"
-                                "            \"x\": 42\n"
-                                "        },\n"
-                                "        {\n"
-                                "            \"x\": 42.000000\n"
-                                "        },\n"
-                                "        1234,\n"
-                                "        {\n"
-                                "            \"w\": null,\n"
-                                "            \"x\": -42.000000,\n"
-                                "            \"y\": true,\n"
-                                "            \"z\": false\n"
-                                "        }\n"
-                                "    ]\n"
-                                "}");
-    TEST_EQUAL(outputStringObjects, compareObjects);
+    std::string outputStringMaps = paredItem.toString(true);
+    std::string compareMaps("{\n"
+                            "    \"item\": {\n"
+                            "        \"sub_item\": \"test_value\"\n"
+                            "    },\n"
+                            "    \"item2\": {\n"
+                            "        \"sub_item2\": \"something\"\n"
+                            "    },\n"
+                            "    \"loop\": [\n"
+                            "        {\n"
+                            "            \"x\": 42\n"
+                            "        },\n"
+                            "        {\n"
+                            "            \"x\": 42.000000\n"
+                            "        },\n"
+                            "        1234,\n"
+                            "        {\n"
+                            "            \"w\": null,\n"
+                            "            \"x\": -42.000000,\n"
+                            "            \"y\": true,\n"
+                            "            \"z\": false\n"
+                            "        }\n"
+                            "    ]\n"
+                            "}");
+    TEST_EQUAL(outputStringMaps, compareMaps);
 
     // negative test
     input = "{item: \n"
@@ -79,7 +79,8 @@ JsonItem_ParseString_Test::parseString_test()
     result = output.parse(input);
     TEST_EQUAL(result.first, false);
 
-    std::string expectedError = "ERROR while parsing json-formated string \n"
+    std::string expectedError =
+            "ERROR while parsing json-formated string \n"
             "parser-message: syntax error \n"
             "line-number: 4 \n"
             "position in line: 12 \n"

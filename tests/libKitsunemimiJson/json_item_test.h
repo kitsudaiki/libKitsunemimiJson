@@ -37,13 +37,13 @@ private:
     void get_test();
     void getString_getInt_getFloat_test();
 
-    void getSize_test();
+    void size_test();
     void getKeys_test();
     void contains_test();
 
     void isValid_test();
     void isNull_test();
-    void isObject_isArray_isValue_test();
+    void isMap_isArray_isValue_test();
 
     void remove_test();
 
