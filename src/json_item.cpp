@@ -478,7 +478,7 @@ JsonItem::get(const uint32_t index,
  *
  * @return string, of the item if int-type, else empty string
  */
-std::string
+const std::string
 JsonItem::getString() const
 {
     if(m_content == nullptr) {
@@ -569,7 +569,7 @@ JsonItem::size() const
  *
  * @return string-list with the keys of the map
  */
-std::vector<std::string>
+const std::vector<std::string>
 JsonItem::getKeys()
 {
     if(m_content == nullptr) {

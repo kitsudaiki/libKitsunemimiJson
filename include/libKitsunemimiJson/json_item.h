@@ -61,12 +61,12 @@ public:
     JsonItem operator[](const uint32_t index);
     JsonItem get(const std::string key, const bool copy=false) const;
     JsonItem get(const uint32_t index, const bool copy=false) const;
-    std::string getString() const;
+    const std::string getString() const;
     int getInt() const;
     float getFloat() const;
     bool getBool() const;
     uint64_t size() const;
-    std::vector<std::string> getKeys();
+    const std::vector<std::string> getKeys();
 
     // checks
     bool contains(const std::string &key);
