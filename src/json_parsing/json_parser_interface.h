@@ -14,7 +14,7 @@
 namespace Kitsunemimi
 {
 namespace Common {
-class DataMap;
+class DataItem;
 }
 namespace Json
 {
@@ -33,8 +33,8 @@ public:
     std::string removeQuotes(std::string input);
 
     // output-handling
-    void setOutput(Common::DataMap* output);
-    Common::DataMap* getOutput() const;
+    void setOutput(Common::DataItem* output);
+    Common::DataItem* getOutput() const;
 
     // Error handling.
     void error(const Kitsunemimi::Json::location &location,
@@ -42,7 +42,7 @@ public:
     std::string getErrorMessage() const;
 
 private:
-    Common::DataMap* m_output = nullptr;
+    Common::DataItem* m_output = nullptr;
     std::string m_errorMessage = "";
     std::string m_inputString = "";
 

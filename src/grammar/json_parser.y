@@ -90,7 +90,7 @@ YY_DECL;
 
 
 startpoint:
-    json_object
+    json_abstract
     {
         driver.setOutput($1);
     }
