@@ -50,6 +50,10 @@ bool
 JsonParserInterface::parse(const std::string &inputString)
 {
     // init global values
+    if(m_output != nullptr) {
+        delete m_output;
+    }
+
     m_inputString = inputString;
     m_errorMessage = "";
     m_output = nullptr;
@@ -111,7 +115,7 @@ JsonParserInterface::setOutput(DataMap* output)
 DataMap*
 JsonParserInterface::getOutput() const
 {
-    return m_output;
+    return m_output->copy()->toMap();
 }
 
 /**
