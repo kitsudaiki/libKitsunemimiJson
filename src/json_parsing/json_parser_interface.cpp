@@ -40,6 +40,16 @@ JsonParserInterface::JsonParserInterface(const bool traceParsing)
 }
 
 /**
+ * @brief destructor
+ */
+JsonParserInterface::~JsonParserInterface()
+{
+    if(m_output != nullptr) {
+        delete m_output;
+    }
+}
+
+/**
  * @brief Start the scanner and parser
  *
  * @param inputFile string which should be parsed

@@ -25,6 +25,7 @@ class JsonParserInterface
 
 public:
     JsonParserInterface(const bool traceParsing = false);
+    ~JsonParserInterface();
 
     // connection the the scanner and parser
     void scan_begin(const std::string &inputString);
