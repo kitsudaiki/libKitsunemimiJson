@@ -66,6 +66,10 @@ JsonItem_ParseString_Test::parseString_test()
                             "}");
     TEST_EQUAL(outputStringMaps, compareMaps);
 
+    input = "[ {x :\"test1\" }, {x :\"test2\" }, {x :\"test3\" }]";
+    result = paredItem.parse(input);
+    TEST_EQUAL(result.first, true);
+
     // negative test
     input = "{item: \n"
             "{ sub_item: \"test_value\"}, \n"

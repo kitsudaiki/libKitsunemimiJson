@@ -50,6 +50,10 @@ bool
 JsonParserInterface::parse(const std::string &inputString)
 {
     // init global values
+    if(m_output != nullptr) {
+        delete m_output;
+    }
+
     m_inputString = inputString;
     m_errorMessage = "";
     m_output = nullptr;
@@ -95,10 +99,10 @@ JsonParserInterface::removeQuotes(std::string input)
 /**
  * @brief Is called for the parser after successfully parsing the input-string
  *
- * @param output parser-output as QDataArray
+ * @param output parser-output as data-item
  */
 void
-JsonParserInterface::setOutput(DataMap* output)
+JsonParserInterface::setOutput(DataItem* output)
 {
      m_output = output;
 }
@@ -106,12 +110,12 @@ JsonParserInterface::setOutput(DataMap* output)
 /**
  * getter for the json-output of the parser
  *
- * @return parser-output as QDataArray
+ * @return parser-output as data-item
  */
-DataMap*
+DataItem*
 JsonParserInterface::getOutput() const
 {
-    return m_output;
+    return m_output->copy();
 }
 
 /**
