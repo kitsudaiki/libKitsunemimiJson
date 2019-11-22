@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.8.0] - 2019-11-22
+
+### Changed
+- value-ranges updated to long and double
+- renamed getSize() to size()
+- renamed object to map
+
+### Fixed
+- segmentation-fauld in copy-constructor of json-item
+- memory-leak in parser-interface
+
+
 ## [0.7.0] - 2019-11-02
 
 ### Changed
