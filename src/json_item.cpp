@@ -123,6 +123,18 @@ JsonItem::JsonItem(const float value)
     m_content = static_cast<DataItem*>(tempItem);
 }
 
+JsonItem::JsonItem(const long value)
+{
+    DataValue* tempItem = new DataValue(value);
+    m_content = static_cast<DataItem*>(tempItem);
+}
+
+JsonItem::JsonItem(const double value)
+{
+    DataValue* tempItem = new DataValue(value);
+    m_content = static_cast<DataItem*>(tempItem);
+}
+
 JsonItem::JsonItem(const bool value)
 {
     DataValue* tempItem = new DataValue(value);
@@ -252,6 +264,44 @@ JsonItem::setValue(const int &value)
  */
 bool
 JsonItem::setValue(const float &value)
+{
+    if(m_content == nullptr) {
+        m_content = new DataValue();
+    }
+
+    if(m_content->getType() == DataItem::VALUE_TYPE)
+    {
+        m_content->toValue()->setValue(value);
+        return true;
+    }
+
+    return false;
+}
+
+/**
+ * @brief writes a new long-value into the json-value
+ */
+bool
+JsonItem::setValue(const long &value)
+{
+    if(m_content == nullptr) {
+        m_content = new DataValue();
+    }
+
+    if(m_content->getType() == DataItem::VALUE_TYPE)
+    {
+        m_content->toValue()->setValue(value);
+        return true;
+    }
+
+    return false;
+}
+
+/**
+ * @brief writes a new double-value into the json-value
+ */
+bool
+JsonItem::setValue(const double &value)
 {
     if(m_content == nullptr) {
         m_content = new DataValue();
@@ -520,14 +570,52 @@ float
 JsonItem::getFloat() const
 {
     if(m_content == nullptr) {
-        return 0;
+        return 0.0f;
     }
 
     if(m_content->toValue()->getValueType() == DataItem::FLOAT_TYPE) {
         return m_content->toValue()->getFloat();
     }
 
+    return 0.0f;
+}
+
+/**
+ * @brief get long-value of the item
+ *
+ * @return long-value, of the item if int-type, else 0
+ */
+long
+JsonItem::getLong() const
+{
+    if(m_content == nullptr) {
+        return 0;
+    }
+
+    if(m_content->toValue()->getValueType() == DataItem::INT_TYPE) {
+        return m_content->toValue()->getLong();
+    }
+
     return 0;
+}
+
+/**
+ * @brief get double-value of the item
+ *
+ * @return double-value, of the item if float-type, else 0
+ */
+double
+JsonItem::getDouble() const
+{
+    if(m_content == nullptr) {
+        return 0.0;
+    }
+
+    if(m_content->toValue()->getValueType() == DataItem::FLOAT_TYPE) {
+        return m_content->toValue()->getDouble();
+    }
+
+    return 0.0;
 }
 
 /**
