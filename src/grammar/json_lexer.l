@@ -33,7 +33,7 @@ Kitsunemimi::Json::location jsonloc;
 %option noyywrap nounput batch debug yylineno prefix="json"
 
 id    [a-zA-Z_0-9]*
-int   -?([0-9]+)
+long  -?([0-9]+)
 blank [ \t]
 
 %{
@@ -61,11 +61,11 @@ blank [ \t]
 
 \"(\\.|[^"\\])*\" { return Kitsunemimi::Json::JsonParser::make_STRING(yytext, jsonloc); }
 
-{int}      {
+{long}      {
     errno = 0;
     long length = strtol(yytext, NULL, 10);
-    if (!(INT_MIN <= length
-        && length <= INT_MAX
+    if (!(LONG_MIN <= length
+        && length <= LONG_MAX
         && errno != ERANGE))
     {
         driver.error(jsonloc, "integer is out of range");
@@ -73,8 +73,8 @@ blank [ \t]
     return Kitsunemimi::Json::JsonParser::make_NUMBER (length, jsonloc);
 }
 
-{int}+"."{int}*	{
-    float value = atof( yytext );
+{long}+"."{long}*	{
+    double value = atof( yytext );
     return Kitsunemimi::Json::JsonParser::make_FLOAT(value, jsonloc);
 }
 

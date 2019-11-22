@@ -69,6 +69,12 @@ JsonItem_Test::constructor_test()
     JsonItem floatItem(42.0f);
     TEST_EQUAL(floatItem.isValue(), true);
 
+    JsonItem longItem(42l);
+    TEST_EQUAL(longItem.isValue(), true);
+
+    JsonItem doubleItem(42.0);
+    TEST_EQUAL(doubleItem.isValue(), true);
+
     JsonItem boolItem(true);
     TEST_EQUAL(boolItem.isValue(), true);
 }
@@ -97,6 +103,8 @@ JsonItem_Test::setValue_test()
     TEST_EQUAL(testItem.setValue("test"), true);
     TEST_EQUAL(testItem.setValue(42), true);
     TEST_EQUAL(testItem.setValue(42.0f), true);
+    TEST_EQUAL(testItem.setValue(42l), true);
+    TEST_EQUAL(testItem.setValue(42.0), true);
     TEST_EQUAL(testItem.setValue(true), true);
 
     TEST_EQUAL(testItem.isValid(), true);
@@ -207,30 +215,56 @@ JsonItem_Test::getString_getInt_getFloat_test()
     JsonItem stringValue("test");
     JsonItem intValue(42);
     JsonItem floatValue(42.5f);
+    JsonItem longValue(42l);
+    JsonItem doubleValue(42.5);
     JsonItem boolValue(true);
 
     // string-value
     TEST_EQUAL(stringValue.getString(), "test");
     TEST_EQUAL(stringValue.getInt(), 0);
     TEST_EQUAL(stringValue.getFloat(), 0.0f);
+    TEST_EQUAL(stringValue.getLong(), 0l);
+    TEST_EQUAL(stringValue.getDouble(), 0.0);
     TEST_EQUAL(stringValue.getBool(), false);
 
     // int-value
     TEST_EQUAL(intValue.getString(), "");
     TEST_EQUAL(intValue.getInt(), 42);
     TEST_EQUAL(intValue.getFloat(), 0.0f);
+    TEST_EQUAL(intValue.getLong(), 42l);
+    TEST_EQUAL(intValue.getDouble(), 0.0);
     TEST_EQUAL(intValue.getBool(), false);
 
     // float-value
     TEST_EQUAL(floatValue.getString(), "");
     TEST_EQUAL(floatValue.getInt(), 0);
     TEST_EQUAL(floatValue.getFloat(), 42.5f);
+    TEST_EQUAL(floatValue.getLong(), 0l);
+    TEST_EQUAL(floatValue.getDouble(), 42.5);
     TEST_EQUAL(floatValue.getBool(), false);
+
+    // long-value
+    TEST_EQUAL(longValue.getString(), "");
+    TEST_EQUAL(longValue.getInt(), 42);
+    TEST_EQUAL(longValue.getFloat(), 0.0f);
+    TEST_EQUAL(longValue.getLong(), 42l);
+    TEST_EQUAL(longValue.getDouble(), 0.0);
+    TEST_EQUAL(longValue.getBool(), false);
+
+    // double-value
+    TEST_EQUAL(doubleValue.getString(), "");
+    TEST_EQUAL(doubleValue.getInt(), 0);
+    TEST_EQUAL(doubleValue.getFloat(), 42.5f);
+    TEST_EQUAL(doubleValue.getLong(), 0l);
+    TEST_EQUAL(doubleValue.getDouble(), 42.5);
+    TEST_EQUAL(doubleValue.getBool(), false);
 
     // bool-value
     TEST_EQUAL(boolValue.getString(), "");
     TEST_EQUAL(boolValue.getInt(), 0);
     TEST_EQUAL(boolValue.getFloat(), 0.0f);
+    TEST_EQUAL(boolValue.getLong(), 0l);
+    TEST_EQUAL(boolValue.getDouble(), 0.0);
     TEST_EQUAL(boolValue.getBool(), true);
 }
 

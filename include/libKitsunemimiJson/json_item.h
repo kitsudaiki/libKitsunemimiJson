@@ -33,6 +33,8 @@ public:
     JsonItem(const std::string &value);
     JsonItem(const int value);
     JsonItem(const float value);
+    JsonItem(const long value);
+    JsonItem(const double value);
     JsonItem(const bool value);
 
     ~JsonItem();
@@ -46,6 +48,8 @@ public:
     bool setValue(const std::string &value);
     bool setValue(const int &value);
     bool setValue(const float &value);
+    bool setValue(const long &value);
+    bool setValue(const double &value);
     bool setValue(const bool &value);
     bool insert(const std::string &key,
                 const JsonItem &value,
@@ -64,6 +68,8 @@ public:
     const std::string getString() const;
     int getInt() const;
     float getFloat() const;
+    long getLong() const;
+    double getDouble() const;
     bool getBool() const;
     uint64_t size() const;
     const std::vector<std::string> getKeys();
