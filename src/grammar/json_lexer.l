@@ -74,7 +74,7 @@ blank [ \t]
 }
 
 {long}+"."{long}*	{
-    double value = atof( yytext );
+    double value = strtod( yytext , NULL );
     return Kitsunemimi::Json::JsonParser::make_FLOAT(value, jsonloc);
 }
 
