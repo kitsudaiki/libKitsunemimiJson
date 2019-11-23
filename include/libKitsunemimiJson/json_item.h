@@ -81,6 +81,10 @@ public:
     bool isMap() const;
     bool isArray() const;
     bool isValue() const;
+    bool isString() const;
+    bool isFloat() const;
+    bool isInteger() const;
+    bool isBool() const;
 
     // delete
     bool remove(const std::string& key);

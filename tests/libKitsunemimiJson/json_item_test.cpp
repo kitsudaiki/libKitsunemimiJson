@@ -36,6 +36,7 @@ JsonItem_Test::JsonItem_Test()
     isValid_test();
     isNull_test();
     isMap_isArray_isValue_test();
+    isString_isInteger_isFloat_isBool_test();
 
     remove_test();
 }
@@ -343,6 +344,49 @@ JsonItem_Test::isMap_isArray_isValue_test()
 
     JsonItem stringItem("test");
     TEST_EQUAL(stringItem.isValue(), true);
+}
+
+/**
+ * @brief isString_isInteger_isFloat_isBool_test
+ */
+void
+JsonItem_Test::isString_isInteger_isFloat_isBool_test()
+{
+    JsonItem stringItem("test");
+    TEST_EQUAL(stringItem.isString(), true);
+    TEST_EQUAL(stringItem.isInteger(), false);
+    TEST_EQUAL(stringItem.isFloat(), false);
+    TEST_EQUAL(stringItem.isBool(), false);
+
+    JsonItem intItem(42);
+    TEST_EQUAL(intItem.isString(), false);
+    TEST_EQUAL(intItem.isInteger(), true);
+    TEST_EQUAL(intItem.isFloat(), false);
+    TEST_EQUAL(intItem.isBool(), false);
+
+    JsonItem floatItem(42.0f);
+    TEST_EQUAL(floatItem.isString(), false);
+    TEST_EQUAL(floatItem.isInteger(), false);
+    TEST_EQUAL(floatItem.isFloat(), true);
+    TEST_EQUAL(floatItem.isBool(), false);
+
+    JsonItem longItem(42l);
+    TEST_EQUAL(longItem.isString(), false);
+    TEST_EQUAL(longItem.isInteger(), true);
+    TEST_EQUAL(longItem.isFloat(), false);
+    TEST_EQUAL(longItem.isBool(), false);
+
+    JsonItem doubleItem(42.0);
+    TEST_EQUAL(doubleItem.isString(), false);
+    TEST_EQUAL(doubleItem.isInteger(), false);
+    TEST_EQUAL(doubleItem.isFloat(), true);
+    TEST_EQUAL(doubleItem.isBool(), false);
+
+    JsonItem boolItem(true);
+    TEST_EQUAL(boolItem.isString(), false);
+    TEST_EQUAL(boolItem.isInteger(), false);
+    TEST_EQUAL(boolItem.isFloat(), false);
+    TEST_EQUAL(boolItem.isBool(), true);
 }
 
 /**

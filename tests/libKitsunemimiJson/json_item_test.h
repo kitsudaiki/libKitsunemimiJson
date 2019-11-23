@@ -44,6 +44,7 @@ private:
     void isValid_test();
     void isNull_test();
     void isMap_isArray_isValue_test();
+    void isString_isInteger_isFloat_isBool_test();
 
     void remove_test();
 

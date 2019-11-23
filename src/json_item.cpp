@@ -735,11 +735,7 @@ bool JsonItem::isMap() const
         return false;
     }
 
-    if(m_content->getType() == DataItem::MAP_TYPE) {
-        return true;
-    }
-
-    return false;
+    return m_content->isMap();
 }
 
 /**
@@ -753,11 +749,7 @@ bool JsonItem::isArray() const
         return false;
     }
 
-    if(m_content->getType() == DataItem::ARRAY_TYPE) {
-        return true;
-    }
-
-    return false;
+    return m_content->isArray();
 }
 
 /**
@@ -771,8 +763,80 @@ bool JsonItem::isValue() const
         return false;
     }
 
-    if(m_content->getType() == DataItem::VALUE_TYPE) {
-        return true;
+    return m_content->isValue();
+}
+
+/**
+ * @brief check if current item is a string-value
+ *
+ * @return true if current item is a string-value, else false
+ */
+bool
+JsonItem::isString() const
+{
+    if(m_content == nullptr) {
+        return false;
+    }
+
+    if(m_content->getType() == DataItem::VALUE_TYPE)  {
+        return m_content->toValue()->isStringValue();
+    }
+
+    return false;
+}
+
+/**
+ * @brief check if current item is a float-value
+ *
+ * @return true if current item is a float-value, else false
+ */
+bool
+JsonItem::isFloat() const
+{
+    if(m_content == nullptr) {
+        return false;
+    }
+
+    if(m_content->getType() == DataItem::VALUE_TYPE)  {
+        return m_content->toValue()->isFloatValue();
+    }
+
+    return false;
+}
+
+/**
+ * @brief check if current item is a int-value
+ *
+ * @return true if current item is a int-value, else false
+ */
+bool
+JsonItem::isInteger() const
+{
+    if(m_content == nullptr) {
+        return false;
+    }
+
+    if(m_content->getType() == DataItem::VALUE_TYPE)  {
+        return m_content->toValue()->isIntValue();
+    }
+
+    return false;
+}
+
+/**
+ * @brief check if current item is a bool-value
+ *
+ * @return true if current item is a bool-value, else false
+ */
+bool
+JsonItem::isBool() const
+{
+    if(m_content == nullptr) {
+        return false;
+    }
+
+    if(m_content->getType() == DataItem::VALUE_TYPE)  {
+        return m_content->toValue()->isBoolValue();
     }
 
     return false;
