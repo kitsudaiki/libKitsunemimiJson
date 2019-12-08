@@ -72,10 +72,10 @@ public:
     double getDouble() const;
     bool getBool() const;
     uint64_t size() const;
-    const std::vector<std::string> getKeys();
+    const std::vector<std::string> getKeys() const;
 
     // checks
-    bool contains(const std::string &key);
+    bool contains(const std::string &key) const;
     bool isValid() const;
     bool isNull() const;
     bool isMap() const;

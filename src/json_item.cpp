@@ -658,20 +658,17 @@ JsonItem::size() const
  * @return string-list with the keys of the map
  */
 const std::vector<std::string>
-JsonItem::getKeys()
+JsonItem::getKeys() const
 {
     if(m_content == nullptr) {
         return std::vector<std::string>();
     }
 
-    if(m_content->getType() == DataItem::MAP_TYPE)
-    {
-        DataMap* obj = static_cast<DataMap*>(m_content);
-        return obj->getKeys();
+    if(m_content->getType() == DataItem::MAP_TYPE) {
+        return m_content->toMap()->getKeys();
     }
 
-    std::vector<std::string> emptyResult;
-    return emptyResult;
+    return std::vector<std::string>();
 }
 
 /**
@@ -682,16 +679,14 @@ JsonItem::getKeys()
  * @return false if the key doesn't exist or the item is no json-object, else true
  */
 bool
-JsonItem::contains(const std::string &key)
+JsonItem::contains(const std::string &key) const
 {
     if(m_content == nullptr) {
         return false;
     }
 
-    if(m_content->getType() == DataItem::MAP_TYPE)
-    {
-        DataMap* obj = static_cast<DataMap*>(m_content);
-        return obj->contains(key);
+    if(m_content->getType() == DataItem::MAP_TYPE) {
+        return m_content->toMap()->contains(key);
     }
 
     return false;
