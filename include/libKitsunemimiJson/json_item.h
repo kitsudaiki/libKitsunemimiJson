@@ -91,7 +91,7 @@ public:
     bool remove(const uint32_t index);
 
     // output
-    std::string toString(bool indent=false);
+    std::string toString(bool indent=false) const;
 
 private:
     void clear();

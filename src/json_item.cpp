@@ -875,7 +875,8 @@ JsonItem::remove(const uint32_t index)
  *
  * @param output pointer to the output-string on which the object-content as string will be appended
  */
-std::string JsonItem::toString(bool indent)
+std::string
+JsonItem::toString(bool indent) const
 {
     if(m_content != nullptr) {
         return m_content->toString(indent);
