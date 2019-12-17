@@ -196,7 +196,11 @@ JsonItem::operator=(const JsonItem &other)
     if(this != &other)
     {
         clear();
-        m_content = other.m_content->copy();
+        if(other.isValid()) {
+            m_content = other.m_content->copy();
+        } else {
+            m_content = other.m_content;
+        }
     }
 
     return *this;
