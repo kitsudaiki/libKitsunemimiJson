@@ -64,7 +64,7 @@ IMPORTANT: All my projects are only tested on Linux.
 
 Repository-Name | Version-Tag | Download-Path
 --- | --- | ---
-libKitsunemimiCommon | v0.8.0 |  https://github.com/tobiasanker/libKitsunemimiCommon.git
+libKitsunemimiCommon | v0.9.0 |  https://github.com/tobiasanker/libKitsunemimiCommon.git
 
 
 ### build library
@@ -103,13 +103,13 @@ After running the build-script:
     │   └── libKitsunemimiJson
     │       └── ...
     │
-    ├── libKitsunemimiCommon.so.0 -> libKitsunemimiCommon.so.0.8.0
-    ├── libKitsunemimiCommon.so.0.8 -> libKitsunemimiCommon.so.0.8.0
-    ├── libKitsunemimiCommon.so.0.8.0
+    ├── libKitsunemimiCommon.so.0 -> libKitsunemimiCommon.so.0.9.0
+    ├── libKitsunemimiCommon.so.0.9 -> libKitsunemimiCommon.so.0.9.0
+    ├── libKitsunemimiCommon.so.0.9.0
     │
-    ├── libKitsunemimiJson.so.0 -> libKitsunemimiJson.so.0.8.0
-    ├── libKitsunemimiJson.so.0.8 -> libKitsunemimiJson.so.0.8.0
-    └── libKitsunemimiJson.so.0.8.0
+    ├── libKitsunemimiJson.so.0 -> libKitsunemimiJson.so.0.9.0
+    ├── libKitsunemimiJson.so.0.9 -> libKitsunemimiJson.so.0.9.0
+    └── libKitsunemimiJson.so.0.9.0
 ```
 
 
