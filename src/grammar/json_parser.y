@@ -116,6 +116,11 @@ json_object:
     {
         $$ = $2;
     }
+|
+   "{" "}"
+   {
+       $$ = new DataMap();
+   }
 
 json_object_content:
     json_object_content "," "identifier" ":" json_abstract
@@ -159,6 +164,11 @@ json_array:
     {
         $$ = $2;
     }
+|
+   "[" "]"
+   {
+       $$ = new DataArray();
+   }
 
 json_array_content:
     json_array_content "," json_abstract
