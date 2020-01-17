@@ -18,7 +18,7 @@ Here some common information about my projects and my code-styling. It's not com
 
 1. All my libraries beginning with `libKitsunemimimimi`, because I needed a naming to identify my own libraries and I decided to use `Kitsunemimi` as name, because Kitsunemimi are moe. ;)
 
-2. The namespace of the code within the libraries is identically to the name of the library. So for example all content of `libKitsunemimiCommon` has the namespace `Kitsunemimi::Common`.
+2. The namespace of the code within the libraries is identically to the name of the library. So for example all content of `libKitsunemimiJson` has the namespace `Kitsunemimi::Json`.
 
 3. If you only want to use the library, beside the binary you only ne the public methods and variables in the header-files, which are located in the `include`-directory of each `libKitsunemimi`-repo. I try my best to make these as small and self-explaining, as possible. 
 
@@ -64,7 +64,7 @@ IMPORTANT: All my projects are only tested on Linux.
 
 Repository-Name | Version-Tag | Download-Path
 --- | --- | ---
-libKitsunemimiCommon | v0.9.0 |  https://github.com/tobiasanker/libKitsunemimiCommon.git
+libKitsunemimiCommon | v0.10.0 |  https://github.com/tobiasanker/libKitsunemimiCommon.git
 
 
 ### build library
@@ -103,13 +103,13 @@ After running the build-script:
     │   └── libKitsunemimiJson
     │       └── ...
     │
-    ├── libKitsunemimiCommon.so.0 -> libKitsunemimiCommon.so.0.9.0
-    ├── libKitsunemimiCommon.so.0.9 -> libKitsunemimiCommon.so.0.9.0
-    ├── libKitsunemimiCommon.so.0.9.0
+    ├── libKitsunemimiCommon.so.0 -> libKitsunemimiCommon.so.0.10.0
+    ├── libKitsunemimiCommon.so.0.10 -> libKitsunemimiCommon.so.0.10.0
+    ├── libKitsunemimiCommon.so.0.10.0
     │
-    ├── libKitsunemimiJson.so.0 -> libKitsunemimiJson.so.0.9.0
-    ├── libKitsunemimiJson.so.0.9 -> libKitsunemimiJson.so.0.9.0
-    └── libKitsunemimiJson.so.0.9.0
+    ├── libKitsunemimiJson.so.0 -> libKitsunemimiJson.so.0.10.0
+    ├── libKitsunemimiJson.so.0.10 -> libKitsunemimiJson.so.0.10.0
+    └── libKitsunemimiJson.so.0.10.0
 ```
 
 
@@ -157,9 +157,10 @@ const std::string testString(
 JsonItem object;
 
 // parse the test-string
-std::pair<bool, std::string> result = object.parse(testString);
-// if result.first is true, then paring was successful
-// else, result.second contains the error-message of the parser
+std::string errorMessage = "";
+bool result = object.parse(testString, errorMessage);
+// if result is true, then paring was successful
+// else, errorMessage contains the error-message of the parser
 
 
 // get value
