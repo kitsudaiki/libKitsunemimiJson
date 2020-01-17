@@ -72,11 +72,12 @@ JsonItem::JsonItem(DataItem* dataItem,
  */
 JsonItem::JsonItem(std::map<std::string, JsonItem> &value)
 {
-    DataMap* tempItem = new DataMap();
-    m_content = static_cast<DataItem*>(tempItem);
+    m_content = new DataMap();
 
-    std::map<std::string, JsonItem>::iterator it;
-    for(it = value.begin(); it != value.end(); it++)
+    std::map<std::string, JsonItem>::const_iterator it;
+    for(it = value.begin();
+        it != value.end();
+        it++)
     {
         insert(it->first, it->second);
     }
@@ -89,11 +90,12 @@ JsonItem::JsonItem(std::map<std::string, JsonItem> &value)
  */
 JsonItem::JsonItem(std::vector<JsonItem> &value)
 {
-    DataArray* tempItem = new DataArray();
-    m_content = static_cast<DataItem*>(tempItem);
+    m_content = new DataArray();
 
-    std::vector<JsonItem>::iterator it;
-    for(it = value.begin(); it != value.end(); it++)
+    std::vector<JsonItem>::const_iterator it;
+    for(it = value.begin();
+        it != value.end();
+        it++)
     {
         append(*it);
     }
@@ -101,44 +103,37 @@ JsonItem::JsonItem(std::vector<JsonItem> &value)
 
 JsonItem::JsonItem(const char* value)
 {
-    DataValue* tempItem = new DataValue(value);
-    m_content = static_cast<DataItem*>(tempItem);
+    m_content = new DataValue(value);
 }
 
 JsonItem::JsonItem(const std::string &value)
 {
-    DataValue* tempItem = new DataValue(value);
-    m_content = static_cast<DataItem*>(tempItem);
+    m_content = new DataValue(value);
 }
 
 JsonItem::JsonItem(const int value)
 {
-    DataValue* tempItem = new DataValue(value);
-    m_content = static_cast<DataItem*>(tempItem);
+    m_content = new DataValue(value);
 }
 
 JsonItem::JsonItem(const float value)
 {
-    DataValue* tempItem = new DataValue(value);
-    m_content = static_cast<DataItem*>(tempItem);
+    m_content = new DataValue(value);
 }
 
 JsonItem::JsonItem(const long value)
 {
-    DataValue* tempItem = new DataValue(value);
-    m_content = static_cast<DataItem*>(tempItem);
+    m_content = new DataValue(value);
 }
 
 JsonItem::JsonItem(const double value)
 {
-    DataValue* tempItem = new DataValue(value);
-    m_content = static_cast<DataItem*>(tempItem);
+    m_content = new DataValue(value);
 }
 
 JsonItem::JsonItem(const bool value)
 {
-    DataValue* tempItem = new DataValue(value);
-    m_content = static_cast<DataItem*>(tempItem);
+    m_content = new DataValue(value);
 }
 
 /**
@@ -195,7 +190,7 @@ JsonItem::operator=(const JsonItem &other)
     if(this != &other)
     {
         clear();
-        if(other.isValid()) {
+        if(other.m_content != nullptr) {
             m_content = other.m_content->copy();
         } else {
             m_content = other.m_content;
@@ -352,7 +347,7 @@ JsonItem::insert(const std::string &key,
                  const JsonItem &value,
                  bool force)
 {
-    if(value.getItemContent() == nullptr
+    if(value.m_content == nullptr
             || key == "")
     {
         return false;
@@ -365,8 +360,8 @@ JsonItem::insert(const std::string &key,
     if(m_content->getType() == DataItem::MAP_TYPE)
     {
         return m_content->toMap()->insert(key,
-                                             value.m_content->copy(),
-                                             force);
+                                          value.m_content->copy(),
+                                          force);
     }
 
     return false;
@@ -382,7 +377,7 @@ JsonItem::insert(const std::string &key,
 bool
 JsonItem::append(const JsonItem &value)
 {
-    if(value.getItemContent() == nullptr) {
+    if(value.m_content == nullptr) {
         return false;
     }
 
@@ -411,7 +406,7 @@ bool
 JsonItem::replaceItem(const uint32_t index,
                       const JsonItem &value)
 {
-    if(value.getItemContent() == nullptr) {
+    if(value.m_content == nullptr) {
         return false;
     }
 
