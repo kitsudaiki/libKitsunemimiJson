@@ -11,10 +11,10 @@
 #include <libKitsunemimiCommon/common_items/data_items.h>
 #include <json_parsing/json_parser_interface.h>
 
-using Kitsunemimi::Common::DataItem;
-using Kitsunemimi::Common::DataArray;
-using Kitsunemimi::Common::DataValue;
-using Kitsunemimi::Common::DataMap;
+using Kitsunemimi::DataItem;
+using Kitsunemimi::DataArray;
+using Kitsunemimi::DataValue;
+using Kitsunemimi::DataMap;
 
 namespace Kitsunemimi
 {
@@ -153,26 +153,25 @@ JsonItem::~JsonItem()
  * @brief convert a json-formated string into a json-object-tree
  *
  * @param input json-formated string, which should be parsed
- * @param traceParsing bool-value tracing of parsing-process should be printed
+ * @param errorMessage reference for error-message output
+ * @param traceParsing trace parser-actions for debugging only (Default: false)
  *
- * @return pair of bool and string
- *         success: first is true, second is empty-string
- *         fail: first is false, second is error-message
+ * @return true, if successful, else false
  */
-std::pair<bool, std::string>
+bool
 JsonItem::parse(const std::string &input,
+                std::string &errorMessage,
                 const bool traceParsing)
 {
-    std::pair<bool, std::string> result;
     JsonParserInterface parser(traceParsing);
 
     // parse ini-template into a json-tree
-    result.first = parser.parse(input);
+    bool result = parser.parse(input);
 
     // process a failure
-    if(result.first == false)
+    if(result == false)
     {
-        result.second = parser.getErrorMessage();
+        errorMessage = parser.getErrorMessage();
         return result;
     }
 
@@ -701,7 +700,8 @@ JsonItem::contains(const std::string &key) const
  *
  * @return false, if the item is a null-pointer, else true
  */
-bool JsonItem::isValid() const
+bool
+JsonItem::isValid() const
 {
     if(m_content != nullptr) {
         return true;
@@ -728,7 +728,8 @@ JsonItem::isNull() const
  *
  * @return true if current item is a json-object, else false
  */
-bool JsonItem::isMap() const
+bool
+JsonItem::isMap() const
 {
     if(m_content == nullptr) {
         return false;
@@ -879,7 +880,7 @@ JsonItem::remove(const uint32_t index)
  *
  * @param output pointer to the output-string on which the object-content as string will be appended
  */
-std::string
+const std::string
 JsonItem::toString(bool indent) const
 {
     if(m_content != nullptr) {
@@ -891,7 +892,8 @@ JsonItem::toString(bool indent) const
 /**
  * @brief delete the underlaying json-object
  */
-void JsonItem::clear()
+void
+JsonItem::clear()
 {
     if(m_content != nullptr
             && m_deletable)

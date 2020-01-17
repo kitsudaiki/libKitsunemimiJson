@@ -15,9 +15,7 @@
 
 namespace Kitsunemimi
 {
-namespace Common {
 class DataItem;
-}
 namespace Json
 {
 
@@ -26,7 +24,7 @@ class JsonItem
 public:
     JsonItem();
     JsonItem(const JsonItem &otherItem);
-    JsonItem(Common::DataItem* dataItem, const bool copy=false);
+    JsonItem(DataItem* dataItem, const bool copy=false);
     JsonItem(std::map<std::string, JsonItem> &value);
     JsonItem(std::vector<JsonItem> &value);
     JsonItem(const char* value);
@@ -39,8 +37,9 @@ public:
 
     ~JsonItem();
 
-    std::pair<bool, std::string> parse(const std::string &input,
-                                       const bool traceParsing = false);
+    bool parse(const std::string &input,
+               std::string &errorMessage,
+               const bool traceParsing = false);
 
     // setter
     JsonItem& operator=(const JsonItem& other);
@@ -60,7 +59,7 @@ public:
     bool deleteContent();
 
     // getter
-    Common::DataItem* getItemContent() const;
+    DataItem* getItemContent() const;
     JsonItem operator[](const std::string key);
     JsonItem operator[](const uint32_t index);
     JsonItem get(const std::string key, const bool copy=false) const;
@@ -91,13 +90,13 @@ public:
     bool remove(const uint32_t index);
 
     // output
-    std::string toString(bool indent=false) const;
+    const std::string toString(bool indent=false) const;
 
 private:
     void clear();
 
     bool m_deletable = true;
-    Common::DataItem* m_content = nullptr;
+    DataItem* m_content = nullptr;
 };
 
 }  // namespace Json

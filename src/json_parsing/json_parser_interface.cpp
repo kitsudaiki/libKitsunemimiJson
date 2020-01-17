@@ -12,10 +12,10 @@
 #include <libKitsunemimiCommon/common_methods/string_methods.h>
 #include <libKitsunemimiCommon/common_items/data_items.h>
 
-using Kitsunemimi::Common::DataItem;
-using Kitsunemimi::Common::DataArray;
-using Kitsunemimi::Common::DataValue;
-using Kitsunemimi::Common::DataMap;
+using Kitsunemimi::DataItem;
+using Kitsunemimi::DataArray;
+using Kitsunemimi::DataValue;
+using Kitsunemimi::DataMap;
 
 # define YY_DECL \
     Kitsunemimi::Json::JsonParser::symbol_type jsonlex (Kitsunemimi::Json::JsonParserInterface& driver)
@@ -25,7 +25,7 @@ namespace Kitsunemimi
 {
 namespace Json
 {
-using Common::splitStringByDelimiter;
+using Kitsunemimi::splitStringByDelimiter;
 
 /**
  * @brief The class is the interface for the bison-generated parser.

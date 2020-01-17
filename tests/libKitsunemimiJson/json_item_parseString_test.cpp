@@ -16,7 +16,7 @@ namespace Json
 {
 
 JsonItem_ParseString_Test::JsonItem_ParseString_Test()
-    : Kitsunemimi::Common::Test("JsonItems_ParseString_Test")
+    : Kitsunemimi::Test("JsonItems_ParseString_Test")
 {
     parseString_test();
 }
@@ -37,9 +37,10 @@ JsonItem_ParseString_Test::parseString_test()
                       "}");
 
     JsonItem paredItem;
-    std::pair<bool, std::string> result = paredItem.parse(input);
-    TEST_EQUAL(result.first, true);
-    std::cout<<result.second<<std::endl;
+    std::string errorMessage = "";
+    bool result = paredItem.parse(input, errorMessage);
+    TEST_EQUAL(result, true);
+    std::cout<<errorMessage<<std::endl;
     std::string outputStringMaps = paredItem.toString(true);
     std::string compareMaps("{\n"
                             "    \"item\": {\n"
@@ -67,8 +68,8 @@ JsonItem_ParseString_Test::parseString_test()
     TEST_EQUAL(outputStringMaps, compareMaps);
 
     input = "[ {x :\"test1\" }, {x :\"test2\" }, {x :\"test3\" }]";
-    result = paredItem.parse(input);
-    TEST_EQUAL(result.first, true);
+    result = paredItem.parse(input, errorMessage);
+    TEST_EQUAL(result, true);
 
     // negative test
     input = "{item: \n"
@@ -80,8 +81,8 @@ JsonItem_ParseString_Test::parseString_test()
             "}";
 
     JsonItem output;
-    result = output.parse(input);
-    TEST_EQUAL(result.first, false);
+    result = output.parse(input, errorMessage);
+    TEST_EQUAL(result, false);
 
     std::string expectedError =
             "ERROR while parsing json-formated string \n"
@@ -89,7 +90,7 @@ JsonItem_ParseString_Test::parseString_test()
             "line-number: 4 \n"
             "position in line: 12 \n"
             "broken part in string: \":\" \n";
-    TEST_EQUAL(result.second, expectedError);
+    TEST_EQUAL(errorMessage, expectedError);
 }
 
 }  // namespace Json
