@@ -11,10 +11,10 @@
 #include <libKitsunemimiCommon/common_items/data_items.h>
 #include <json_parsing/json_parser_interface.h>
 
-using Kitsunemimi::Common::DataItem;
-using Kitsunemimi::Common::DataArray;
-using Kitsunemimi::Common::DataValue;
-using Kitsunemimi::Common::DataMap;
+using Kitsunemimi::DataItem;
+using Kitsunemimi::DataArray;
+using Kitsunemimi::DataValue;
+using Kitsunemimi::DataMap;
 
 namespace Kitsunemimi
 {
@@ -72,11 +72,12 @@ JsonItem::JsonItem(DataItem* dataItem,
  */
 JsonItem::JsonItem(std::map<std::string, JsonItem> &value)
 {
-    DataMap* tempItem = new DataMap();
-    m_content = static_cast<DataItem*>(tempItem);
+    m_content = new DataMap();
 
-    std::map<std::string, JsonItem>::iterator it;
-    for(it = value.begin(); it != value.end(); it++)
+    std::map<std::string, JsonItem>::const_iterator it;
+    for(it = value.begin();
+        it != value.end();
+        it++)
     {
         insert(it->first, it->second);
     }
@@ -89,11 +90,12 @@ JsonItem::JsonItem(std::map<std::string, JsonItem> &value)
  */
 JsonItem::JsonItem(std::vector<JsonItem> &value)
 {
-    DataArray* tempItem = new DataArray();
-    m_content = static_cast<DataItem*>(tempItem);
+    m_content = new DataArray();
 
-    std::vector<JsonItem>::iterator it;
-    for(it = value.begin(); it != value.end(); it++)
+    std::vector<JsonItem>::const_iterator it;
+    for(it = value.begin();
+        it != value.end();
+        it++)
     {
         append(*it);
     }
@@ -101,44 +103,37 @@ JsonItem::JsonItem(std::vector<JsonItem> &value)
 
 JsonItem::JsonItem(const char* value)
 {
-    DataValue* tempItem = new DataValue(value);
-    m_content = static_cast<DataItem*>(tempItem);
+    m_content = new DataValue(value);
 }
 
 JsonItem::JsonItem(const std::string &value)
 {
-    DataValue* tempItem = new DataValue(value);
-    m_content = static_cast<DataItem*>(tempItem);
+    m_content = new DataValue(value);
 }
 
 JsonItem::JsonItem(const int value)
 {
-    DataValue* tempItem = new DataValue(value);
-    m_content = static_cast<DataItem*>(tempItem);
+    m_content = new DataValue(value);
 }
 
 JsonItem::JsonItem(const float value)
 {
-    DataValue* tempItem = new DataValue(value);
-    m_content = static_cast<DataItem*>(tempItem);
+    m_content = new DataValue(value);
 }
 
 JsonItem::JsonItem(const long value)
 {
-    DataValue* tempItem = new DataValue(value);
-    m_content = static_cast<DataItem*>(tempItem);
+    m_content = new DataValue(value);
 }
 
 JsonItem::JsonItem(const double value)
 {
-    DataValue* tempItem = new DataValue(value);
-    m_content = static_cast<DataItem*>(tempItem);
+    m_content = new DataValue(value);
 }
 
 JsonItem::JsonItem(const bool value)
 {
-    DataValue* tempItem = new DataValue(value);
-    m_content = static_cast<DataItem*>(tempItem);
+    m_content = new DataValue(value);
 }
 
 /**
@@ -153,26 +148,25 @@ JsonItem::~JsonItem()
  * @brief convert a json-formated string into a json-object-tree
  *
  * @param input json-formated string, which should be parsed
- * @param traceParsing bool-value tracing of parsing-process should be printed
+ * @param errorMessage reference for error-message output
+ * @param traceParsing trace parser-actions for debugging only (Default: false)
  *
- * @return pair of bool and string
- *         success: first is true, second is empty-string
- *         fail: first is false, second is error-message
+ * @return true, if successful, else false
  */
-std::pair<bool, std::string>
+bool
 JsonItem::parse(const std::string &input,
+                std::string &errorMessage,
                 const bool traceParsing)
 {
-    std::pair<bool, std::string> result;
     JsonParserInterface parser(traceParsing);
 
     // parse ini-template into a json-tree
-    result.first = parser.parse(input);
+    bool result = parser.parse(input);
 
     // process a failure
-    if(result.first == false)
+    if(result == false)
     {
-        result.second = parser.getErrorMessage();
+        errorMessage = parser.getErrorMessage();
         return result;
     }
 
@@ -196,7 +190,7 @@ JsonItem::operator=(const JsonItem &other)
     if(this != &other)
     {
         clear();
-        if(other.isValid()) {
+        if(other.m_content != nullptr) {
             m_content = other.m_content->copy();
         } else {
             m_content = other.m_content;
@@ -353,7 +347,7 @@ JsonItem::insert(const std::string &key,
                  const JsonItem &value,
                  bool force)
 {
-    if(value.getItemContent() == nullptr
+    if(value.m_content == nullptr
             || key == "")
     {
         return false;
@@ -366,8 +360,8 @@ JsonItem::insert(const std::string &key,
     if(m_content->getType() == DataItem::MAP_TYPE)
     {
         return m_content->toMap()->insert(key,
-                                             value.m_content->copy(),
-                                             force);
+                                          value.m_content->copy(),
+                                          force);
     }
 
     return false;
@@ -383,7 +377,7 @@ JsonItem::insert(const std::string &key,
 bool
 JsonItem::append(const JsonItem &value)
 {
-    if(value.getItemContent() == nullptr) {
+    if(value.m_content == nullptr) {
         return false;
     }
 
@@ -412,7 +406,7 @@ bool
 JsonItem::replaceItem(const uint32_t index,
                       const JsonItem &value)
 {
-    if(value.getItemContent() == nullptr) {
+    if(value.m_content == nullptr) {
         return false;
     }
 
@@ -701,7 +695,8 @@ JsonItem::contains(const std::string &key) const
  *
  * @return false, if the item is a null-pointer, else true
  */
-bool JsonItem::isValid() const
+bool
+JsonItem::isValid() const
 {
     if(m_content != nullptr) {
         return true;
@@ -728,7 +723,8 @@ JsonItem::isNull() const
  *
  * @return true if current item is a json-object, else false
  */
-bool JsonItem::isMap() const
+bool
+JsonItem::isMap() const
 {
     if(m_content == nullptr) {
         return false;
@@ -879,7 +875,7 @@ JsonItem::remove(const uint32_t index)
  *
  * @param output pointer to the output-string on which the object-content as string will be appended
  */
-std::string
+const std::string
 JsonItem::toString(bool indent) const
 {
     if(m_content != nullptr) {
@@ -891,7 +887,8 @@ JsonItem::toString(bool indent) const
 /**
  * @brief delete the underlaying json-object
  */
-void JsonItem::clear()
+void
+JsonItem::clear()
 {
     if(m_content != nullptr
             && m_deletable)

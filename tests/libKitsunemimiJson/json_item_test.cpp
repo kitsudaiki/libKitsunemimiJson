@@ -15,7 +15,7 @@ namespace Json
 {
 
 JsonItem_Test::JsonItem_Test()
-    : Kitsunemimi::Common::Test("JsonItem_Test")
+    : Kitsunemimi::Test("JsonItem_Test")
 {
     constructor_test();
     assigmentOperator_test();
@@ -189,7 +189,7 @@ void
 JsonItem_Test::getItemContent_test()
 {
     JsonItem testItem = getTestItem();
-    Common::DataItem* itemPtr = testItem.getItemContent();
+    DataItem* itemPtr = testItem.getItemContent();
 
     TEST_EQUAL(itemPtr->toString(true), testItem.toString(true));
 }
@@ -432,7 +432,8 @@ JsonItem_Test::getTestItem()
                       "}");
 
     JsonItem output;
-    output.parse(input);
+    std::string errorMessage = "";
+    output.parse(input, errorMessage);
 
     assert(output.isValid());
 

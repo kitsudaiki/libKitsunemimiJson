@@ -19,7 +19,7 @@ namespace Kitsunemimi
 namespace Json
 {
 class JsonItem_Test
-        : public Kitsunemimi::Common::Test
+        : public Kitsunemimi::Test
 {
 public:
     JsonItem_Test();
