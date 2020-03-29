@@ -11,7 +11,7 @@
 
 #include <assert.h>
 
-#include <libKitsunemimiCommon/test.h>
+#include <libKitsunemimiCommon/test_helper/compare_test_helper.h>
 #include <libKitsunemimiJson/json_item.h>
 
 namespace Kitsunemimi
@@ -19,7 +19,7 @@ namespace Kitsunemimi
 namespace Json
 {
 class JsonItem_Test
-        : public Kitsunemimi::Test
+        : public Kitsunemimi::CompareTestHelper
 {
 public:
     JsonItem_Test();
