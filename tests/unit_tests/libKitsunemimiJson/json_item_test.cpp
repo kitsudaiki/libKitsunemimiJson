@@ -15,7 +15,7 @@ namespace Json
 {
 
 JsonItem_Test::JsonItem_Test()
-    : Kitsunemimi::Test("JsonItem_Test")
+    : Kitsunemimi::CompareTestHelper("JsonItem_Test")
 {
     constructor_test();
     assigmentOperator_test();
