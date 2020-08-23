@@ -56,9 +56,9 @@ get_required_kitsune_lib_repo "libKitsunemimiCommon" "v0.15.1" 4 "staticlib"
 #-----------------------------------------------------------------------------------------------------------------
 
 if [ $1 = "test" ]; then
-    build_kitsune_lib_repo "libKitsunemimiJson" 4 "staticlib run_tests"
+    build_kitsune_lib_repo "libKitsunemimiJson" 1 "staticlib run_tests"
 else
-    build_kitsune_lib_repo "libKitsunemimiJson" 4 "staticlib"
+    build_kitsune_lib_repo "libKitsunemimiJson" 1 "staticlib"
 fi
 
 #-----------------------------------------------------------------------------------------------------------------
