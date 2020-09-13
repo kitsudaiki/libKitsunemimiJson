@@ -38,8 +38,7 @@ public:
     ~JsonItem();
 
     bool parse(const std::string &input,
-               std::string &errorMessage,
-               const bool traceParsing = false);
+               std::string &errorMessage);
 
     // setter
     JsonItem& operator=(const JsonItem& other);
