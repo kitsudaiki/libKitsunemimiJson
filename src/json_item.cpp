@@ -149,32 +149,28 @@ JsonItem::~JsonItem()
  *
  * @param input json-formated string, which should be parsed
  * @param errorMessage reference for error-message output
- * @param traceParsing trace parser-actions for debugging only (Default: false)
  *
  * @return true, if successful, else false
  */
 bool
 JsonItem::parse(const std::string &input,
-                std::string &errorMessage,
-                const bool traceParsing)
+                std::string &errorMessage)
 {
-    JsonParserInterface parser(traceParsing);
+    JsonParserInterface* parser = JsonParserInterface::getInstance();
 
     // parse ini-template into a json-tree
-    bool result = parser.parse(input);
+    DataItem* result = parser->parse(input, errorMessage);
 
     // process a failure
-    if(result == false)
-    {
-        errorMessage = parser.getErrorMessage();
-        return result;
+    if(result == nullptr) {
+        return false;
     }
 
     clear();
 
-    m_content = parser.getOutput();
+    m_content = result;
 
-    return result;
+    return true;
 }
 
 /**

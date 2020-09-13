@@ -25,6 +25,9 @@ namespace Kitsunemimi
 {
 namespace Json
 {
+
+Kitsunemimi::Json::JsonParserInterface* JsonParserInterface::m_instance = nullptr;
+
 using Kitsunemimi::splitStringByDelimiter;
 
 /**
@@ -40,6 +43,21 @@ JsonParserInterface::JsonParserInterface(const bool traceParsing)
 }
 
 /**
+ * @brief static methode to get instance of the interface
+ *
+ * @return pointer to the static instance
+ */
+JsonParserInterface*
+JsonParserInterface::getInstance()
+{
+    if(m_instance == nullptr) {
+        m_instance = new JsonParserInterface();
+    }
+
+    return m_instance;
+}
+
+/**
  * @brief destructor
  */
 JsonParserInterface::~JsonParserInterface()
@@ -50,20 +68,25 @@ JsonParserInterface::~JsonParserInterface()
 }
 
 /**
- * @brief Start the scanner and parser
+ * @brief parse string
  *
- * @param inputFile string which should be parsed
+ * @param inputString string which should be parsed
+ * @param reference for error-message
  *
- * @return true, if parsing was successful, else false
+ * @return resulting object
  */
-bool
-JsonParserInterface::parse(const std::string &inputString)
+DataItem*
+JsonParserInterface::parse(const std::string &inputString,
+                           std::string &errorMessage)
 {
+    DataItem* result = nullptr;
+
+    m_lock.lock();
+
     // init global values
     if(m_output != nullptr) {
         delete m_output;
     }
-
     m_inputString = inputString;
     m_errorMessage = "";
     m_output = nullptr;
@@ -74,10 +97,19 @@ JsonParserInterface::parse(const std::string &inputString)
     int res = parser.parse();
     this->scan_end();
 
-    if(res != 0) {
-        return false;
+    // handle negative result
+    if(res != 0)
+    {
+        errorMessage = m_errorMessage;
+        m_lock.unlock();
+        return nullptr;
     }
-    return true;
+
+    result = m_output->copy();
+
+    m_lock.unlock();
+
+    return result;
 }
 
 /**
@@ -87,22 +119,26 @@ JsonParserInterface::parse(const std::string &inputString)
  *
  * @return cleared string
  */
-std::string
-JsonParserInterface::removeQuotes(std::string input)
+const std::string
+JsonParserInterface::removeQuotes(const std::string &input)
 {
+    // precheck
     if(input.length() == 0) {
         return input;
     }
 
-    if(input[0] == '\"' && input[input.length()-1] == '\"')
+    // clear
+    if(input[0] == '\"'
+            && input[input.length()-1] == '\"')
     {
         std::string result = "";
-        for(uint32_t i = 1; i < input.length()-1; i++)
-        {
+        for(uint32_t i = 1; i < input.length()-1; i++) {
             result += input[i];
         }
+
         return result;
     }
+
     return input;
 }
 
@@ -115,17 +151,6 @@ void
 JsonParserInterface::setOutput(DataItem* output)
 {
      m_output = output;
-}
-
-/**
- * getter for the json-output of the parser
- *
- * @return parser-output as data-item
- */
-DataItem*
-JsonParserInterface::getOutput() const
-{
-    return m_output->copy();
 }
 
 /**
@@ -158,17 +183,6 @@ JsonParserInterface::error(const Kitsunemimi::Json::location& location,
     m_errorMessage += "line-number: " + std::to_string(linenumber) + " \n";
     m_errorMessage += "position in line: " + std::to_string(location.begin.column) + " \n";
     m_errorMessage += "broken part in string: \"" + errorStringPart + "\" \n";
-}
-
-/**
- * @brief getter fot the error-message in case of an error while parsing
- *
- * @return error-message
- */
-std::string
-JsonParserInterface::getErrorMessage() const
-{
-    return m_errorMessage;
 }
 
 }  // namespace Json

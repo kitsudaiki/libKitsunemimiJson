@@ -10,6 +10,7 @@
 #define JSON_PARSER_INTERFACE_H
 
 #include <iostream>
+#include <mutex>
 
 namespace Kitsunemimi
 {
@@ -22,28 +23,31 @@ class JsonParserInterface
 {
 
 public:
-    JsonParserInterface(const bool traceParsing = false);
+    static JsonParserInterface* getInstance();
     ~JsonParserInterface();
 
     // connection the the scanner and parser
     void scan_begin(const std::string &inputString);
     void scan_end();
-    bool parse(const std::string &inputString);
-    std::string removeQuotes(std::string input);
+    DataItem* parse(const std::string &inputString, std::string &errorMessage);
+    const std::string removeQuotes(const std::string &input);
 
     // output-handling
     void setOutput(DataItem* output);
-    DataItem* getOutput() const;
 
     // Error handling.
     void error(const Kitsunemimi::Json::location &location,
                const std::string& message);
-    std::string getErrorMessage() const;
 
 private:
+    JsonParserInterface(const bool traceParsing = false);
+
+    static JsonParserInterface* m_instance;
+
     DataItem* m_output = nullptr;
     std::string m_errorMessage = "";
     std::string m_inputString = "";
+    std::mutex m_lock;
 
     bool m_traceParsing = false;
 };
