@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.10.4] - 2020-09-18
+
+### Changed
+- made parser static and thread-save to avoid conflicts
+
 
 ## [0.10.3] - 2020-08-23
 
