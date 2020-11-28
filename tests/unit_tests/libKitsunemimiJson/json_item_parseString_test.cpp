@@ -71,6 +71,15 @@ JsonItem_ParseString_Test::parseString_test()
     result = paredItem.parse(input, errorMessage);
     TEST_EQUAL(result, true);
 
+
+    // empty test
+    input = "";
+    JsonItem emptyItem;
+    result = emptyItem.parse(input, errorMessage);
+    TEST_EQUAL(result, true);
+    TEST_EQUAL(emptyItem.getItemContent()->getType(), Kitsunemimi::DataItem::MAP_TYPE);
+    TEST_EQUAL(emptyItem.getItemContent()->toMap()->size(), 0);
+
     // negative test
     input = "{item: \n"
             "{ sub_item: \"test_value\"}, \n"
