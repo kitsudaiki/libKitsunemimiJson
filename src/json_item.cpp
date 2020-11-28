@@ -159,7 +159,12 @@ JsonItem::parse(const std::string &input,
     JsonParserInterface* parser = JsonParserInterface::getInstance();
 
     // parse ini-template into a json-tree
-    DataItem* result = parser->parse(input, errorMessage);
+    DataItem* result = nullptr;
+    if(input.size() > 0) {
+        result = parser->parse(input, errorMessage);
+    } else {
+        result = new DataMap();
+    }
 
     // process a failure
     if(result == nullptr) {
