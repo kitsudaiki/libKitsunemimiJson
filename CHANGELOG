@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.10.5] - 2020-11-29
+
+### Fixed
+- parser can now handle empty input string for parsing
+
+
 ## [0.10.4] - 2020-09-18
 
 ### Changed
