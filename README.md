@@ -16,7 +16,7 @@ This library provides the functionality to parse and handle the content of json-
 
 name | repository | version | task
 --- | --- | --- | ---
-g++ | g++ | >= 6.0 | Compiler for the C++ code.
+g++ | g++ | >= 8.0 | Compiler for the C++ code.
 make | make | >= 4.0 | process the make-file, which is created by qmake to build the programm with g++
 qmake | qt5-qmake | >= 5.0 | This package provides the tool qmake, which is similar to cmake and create the make-file for compilation.
 FLEX | flex | >= 2.6 | Build the lexer-code for all used parser.
@@ -34,7 +34,7 @@ IMPORTANT: All my projects are only tested on Linux.
 
 Repository-Name | Version-Tag | Download-Path
 --- | --- | ---
-libKitsunemimiCommon | v0.18.0 |  https://github.com/kitsudaiki/libKitsunemimiCommon.git
+libKitsunemimiCommon | v0.20.0 |  https://github.com/kitsudaiki/libKitsunemimiCommon.git
 
 HINT: These Kitsunemimi-Libraries will be downloaded and build automatically with the build-script below.
 
