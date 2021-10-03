@@ -84,12 +84,8 @@ JsonParserInterface::parse(const std::string &inputString,
     m_lock.lock();
 
     // init global values
-    if(m_output != nullptr) {
-        delete m_output;
-    }
     m_inputString = inputString;
     m_errorMessage = "";
-    m_output = nullptr;
 
     // run parser-code
     this->scan_begin(inputString);
@@ -105,7 +101,8 @@ JsonParserInterface::parse(const std::string &inputString,
         return nullptr;
     }
 
-    result = m_output->copy();
+    result = m_output;
+    m_output = nullptr;
 
     m_lock.unlock();
 
