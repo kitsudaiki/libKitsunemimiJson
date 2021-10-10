@@ -416,9 +416,9 @@ JsonItem::replaceItem(const uint32_t index,
     }
 
     if(m_content->getType() == DataItem::ARRAY_TYPE
-            && m_content->toArray()->m_array.size() > index)
+            && m_content->toArray()->array.size() > index)
     {
-        return m_content->toArray()->m_array[index] = value.m_content->copy();
+        return m_content->toArray()->array[index] = value.m_content->copy();
     }
 
     return false;
