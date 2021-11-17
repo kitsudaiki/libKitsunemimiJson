@@ -81,7 +81,7 @@ JsonParserInterface::parse(const std::string &inputString,
 {
     DataItem* result = nullptr;
 
-    m_lock.lock();
+    std::lock_guard<std::mutex> guard(m_lock);
 
     // init global values
     m_inputString = inputString;
@@ -97,14 +97,12 @@ JsonParserInterface::parse(const std::string &inputString,
     if(res != 0)
     {
         error.addMeesage(m_errorMessage);
-        m_lock.unlock();
+        LOG_ERROR(error);
         return nullptr;
     }
 
     result = m_output;
     m_output = nullptr;
-
-    m_lock.unlock();
 
     return result;
 }
