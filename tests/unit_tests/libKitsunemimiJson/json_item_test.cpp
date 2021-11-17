@@ -23,7 +23,7 @@ JsonItem_Test::JsonItem_Test()
     insert_test();
     append_test();
     replaceItem_test();
-    replaceItem_test();
+    deleteContent_test();
 
     getItemContent_test();
     get_test();
