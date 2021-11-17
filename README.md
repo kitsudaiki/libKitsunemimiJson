@@ -65,6 +65,7 @@ The `JsonItem`-class is the handler for the json-file-content. The functions in 
 
 ```cpp
 #include <libKitsunemimiJson/json_item.h>
+#include <libKitsunemimiCommon/logger.h>
 
 // short test-string for demonstration. 
 const std::string testString(
@@ -96,10 +97,10 @@ const std::string testString(
 JsonItem object;
 
 // parse the test-string
-std::string errorMessage = "";
-bool result = object.parse(testString, errorMessage);
+ErrorContainer error;
+bool result = object.parse(testString, error);
 // if result is true, then paring was successful
-// else, errorMessage contains the error-message of the parser
+// else, error contains the error-message of the parser and can be printed with LOG_ERROR(error);
 
 
 // get value
