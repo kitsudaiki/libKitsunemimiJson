@@ -12,6 +12,8 @@
 #include <iostream>
 #include <mutex>
 
+#include <libKitsunemimiCommon/logger.h>
+
 namespace Kitsunemimi
 {
 class DataItem;
@@ -29,7 +31,7 @@ public:
     // connection the the scanner and parser
     void scan_begin(const std::string &inputString);
     void scan_end();
-    DataItem* parse(const std::string &inputString, std::string &errorMessage);
+    DataItem* parse(const std::string &inputString, ErrorContainer &error);
     const std::string removeQuotes(const std::string &input);
 
     // output-handling

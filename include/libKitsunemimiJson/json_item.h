@@ -13,6 +13,8 @@
 #include <vector>
 #include <map>
 
+#include <libKitsunemimiCommon/logger.h>
+
 namespace Kitsunemimi
 {
 class DataItem;
@@ -38,7 +40,7 @@ public:
     ~JsonItem();
 
     bool parse(const std::string &input,
-               std::string &errorMessage);
+               ErrorContainer &error);
 
     // setter
     JsonItem& operator=(const JsonItem& other);

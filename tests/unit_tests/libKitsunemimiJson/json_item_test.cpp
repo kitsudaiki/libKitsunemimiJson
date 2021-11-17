@@ -432,8 +432,8 @@ JsonItem_Test::getTestItem()
                       "}");
 
     JsonItem output;
-    std::string errorMessage = "";
-    output.parse(input, errorMessage);
+    ErrorContainer error;
+    output.parse(input, error);
 
     assert(output.isValid());
 

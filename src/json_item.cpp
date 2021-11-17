@@ -148,20 +148,20 @@ JsonItem::~JsonItem()
  * @brief convert a json-formated string into a json-object-tree
  *
  * @param input json-formated string, which should be parsed
- * @param errorMessage reference for error-message output
+ * @param error reference for error-message output
  *
  * @return true, if successful, else false
  */
 bool
 JsonItem::parse(const std::string &input,
-                std::string &errorMessage)
+                ErrorContainer &error)
 {
     JsonParserInterface* parser = JsonParserInterface::getInstance();
 
     // parse ini-template into a json-tree
     DataItem* result = nullptr;
     if(input.size() > 0) {
-        result = parser->parse(input, errorMessage);
+        result = parser->parse(input, error);
     } else {
         result = new DataMap();
     }

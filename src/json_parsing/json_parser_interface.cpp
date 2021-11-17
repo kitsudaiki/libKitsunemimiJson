@@ -77,7 +77,7 @@ JsonParserInterface::~JsonParserInterface()
  */
 DataItem*
 JsonParserInterface::parse(const std::string &inputString,
-                           std::string &errorMessage)
+                           ErrorContainer &error)
 {
     DataItem* result = nullptr;
 
@@ -90,13 +90,13 @@ JsonParserInterface::parse(const std::string &inputString,
     // run parser-code
     this->scan_begin(inputString);
     Kitsunemimi::Json::JsonParser parser(*this);
-    int res = parser.parse();
+    const int res = parser.parse();
     this->scan_end();
 
     // handle negative result
     if(res != 0)
     {
-        errorMessage = m_errorMessage;
+        error.addMeesage(m_errorMessage);
         m_lock.unlock();
         return nullptr;
     }

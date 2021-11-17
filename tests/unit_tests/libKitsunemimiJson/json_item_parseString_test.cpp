@@ -37,10 +37,13 @@ JsonItem_ParseString_Test::parseString_test()
                       "}");
 
     JsonItem paredItem;
-    std::string errorMessage = "";
-    bool result = paredItem.parse(input, errorMessage);
+    ErrorContainer error;
+    bool result = paredItem.parse(input, error);
     TEST_EQUAL(result, true);
-    std::cout<<errorMessage<<std::endl;
+    if(result == false) {
+        LOG_ERROR(error);
+    }
+
     std::string outputStringMaps = paredItem.toString(true);
     std::string compareMaps("{\n"
                             "    \"item\": {\n"
@@ -68,14 +71,14 @@ JsonItem_ParseString_Test::parseString_test()
     TEST_EQUAL(outputStringMaps, compareMaps);
 
     input = "[ {x :\"test1\" }, {x :\"test2\" }, {x :\"test3\" }]";
-    result = paredItem.parse(input, errorMessage);
+    result = paredItem.parse(input, error);
     TEST_EQUAL(result, true);
 
 
     // empty test
     input = "";
     JsonItem emptyItem;
-    result = emptyItem.parse(input, errorMessage);
+    result = emptyItem.parse(input, error);
     TEST_EQUAL(result, true);
     TEST_EQUAL(emptyItem.getItemContent()->getType(), Kitsunemimi::DataItem::MAP_TYPE);
     TEST_EQUAL(emptyItem.getItemContent()->toMap()->size(), 0);
@@ -90,16 +93,18 @@ JsonItem_ParseString_Test::parseString_test()
             "}";
 
     JsonItem output;
-    result = output.parse(input, errorMessage);
+    result = output.parse(input, error);
     TEST_EQUAL(result, false);
 
-    std::string expectedError =
-            "ERROR while parsing json-formated string \n"
-            "parser-message: syntax error \n"
-            "line-number: 4 \n"
-            "position in line: 12 \n"
-            "broken part in string: \":\" \n";
-    TEST_EQUAL(errorMessage, expectedError);
+    const std::string expectedError =
+            "+---------------------+-------------------------------------------+\n"
+            "| Error-Message Nr. 0 | ERROR while parsing json-formated string  |\n"
+            "|                     | parser-message: syntax error              |\n"
+            "|                     | line-number: 4                            |\n"
+            "|                     | position in line: 12                      |\n"
+            "|                     | broken part in string: \":\"                |\n"
+            "+---------------------+-------------------------------------------+\n";
+    TEST_EQUAL(error.toString(), expectedError);
 }
 
 }  // namespace Json
