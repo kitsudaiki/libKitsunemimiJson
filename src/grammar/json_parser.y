@@ -92,23 +92,37 @@ YY_DECL;
 startpoint:
     json_abstract
     {
-        driver.setOutput($1);
+        if(driver.dryRun == false) {
+            driver.setOutput($1);
+        }
     }
 
 json_abstract:
     json_object
     {
-        $$ = (DataItem*)$1;
+        if(driver.dryRun == false) {
+            $$ = (DataItem*)$1;
+        } else {
+            $$ = nullptr;
+        }
     }
 |
     json_array
     {
-        $$ = (DataItem*)$1;
+        if(driver.dryRun == false) {
+            $$ = (DataItem*)$1;
+        } else {
+            $$ = nullptr;
+        }
     }
 |
     json_value
     {
-        $$ = (DataItem*)$1;
+        if(driver.dryRun == false) {
+            $$ = (DataItem*)$1;
+        } else {
+            $$ = nullptr;
+        }
     }
 
 json_object:
@@ -118,45 +132,67 @@ json_object:
     }
 |
    "{" "}"
-   {
-       $$ = new DataMap();
-   }
+    {
+        if(driver.dryRun == false) {
+            $$ = new DataMap();
+        } else {
+            $$ = nullptr;
+        }
+    }
 
 json_object_content:
     json_object_content "," "identifier" ":" json_abstract
     {
-        $1->insert($3, $5);
+        if(driver.dryRun == false) {
+            $1->insert($3, $5);
+        }
         $$ = $1;
     }
 |
     "identifier" ":" json_abstract
     {
-        $$ = new DataMap();
-        $$->insert($1, $3);
+        if(driver.dryRun == false) {
+            $$ = new DataMap();
+            $$->insert($1, $3);
+        } else {
+            $$ = nullptr;
+        }
     }
 |
     json_object_content "," "string_pln" ":" json_abstract
     {
-        $1->insert(driver.removeQuotes($3), $5);
+        if(driver.dryRun == false) {
+            $1->insert(driver.removeQuotes($3), $5);
+        }
         $$ = $1;
     }
 |
     "string_pln" ":" json_abstract
     {
-        $$ = new DataMap();
-        $$->insert(driver.removeQuotes($1), $3);
+        if(driver.dryRun == false) {
+            $$ = new DataMap();
+            $$->insert(driver.removeQuotes($1), $3);
+        } else {
+            $$ = nullptr;
+        }
     }
 |
     json_object_content "," "string" ":" json_abstract
     {
-        $1->insert(driver.removeQuotes($3), $5);
+        if(driver.dryRun == false) {
+            $1->insert(driver.removeQuotes($3), $5);
+        }
         $$ = $1;
     }
 |
     "string" ":" json_abstract
     {
-        $$ = new DataMap();
-        $$->insert(driver.removeQuotes($1), $3);
+        if(driver.dryRun == false) {
+            $$ = new DataMap();
+            $$->insert(driver.removeQuotes($1), $3);
+        } else {
+            $$ = nullptr;
+        }
     }
 
 json_array:
@@ -165,58 +201,94 @@ json_array:
         $$ = $2;
     }
 |
-   "[" "]"
-   {
-       $$ = new DataArray();
-   }
+    "[" "]"
+    {
+        if(driver.dryRun == false) {
+            $$ = new DataArray();
+        } else {
+            $$ = nullptr;
+        }
+    }
 
 json_array_content:
     json_array_content "," json_abstract
     {
-        $1->append($3);
+        if(driver.dryRun == false) {
+            $1->append($3);
+        }
         $$ = $1;
     }
 |
     json_abstract
     {
-        $$ = new DataArray();
-        $$->append($1);
+        if(driver.dryRun == false) {
+            $$ = new DataArray();
+            $$->append($1);
+        } else {
+            $$ = nullptr;
+        }
     }
 
 json_value:
     "string_pln"
     {
-        $$ = new DataValue($1);
+        if(driver.dryRun == false) {
+            $$ = new DataValue($1);
+        }
     }
 |
     "identifier"
     {
-        $$ = new DataValue($1);
+        if(driver.dryRun == false) {
+            $$ = new DataValue($1);
+        } else {
+            $$ = nullptr;
+        }
     }
 |
     "number"
     {
-        $$ = new DataValue($1);
+        if(driver.dryRun == false) {
+            $$ = new DataValue($1);
+        } else {
+            $$ = nullptr;
+        }
     }
 |
     "float"
     {
-        $$ = new DataValue($1);
+        if(driver.dryRun == false) {
+            $$ = new DataValue($1);
+        } else {
+            $$ = nullptr;
+        }
     }
 |
     "string"
     {
-        $$ = new DataValue(driver.removeQuotes($1));
+        if(driver.dryRun == false) {
+            $$ = new DataValue(driver.removeQuotes($1));
+        } else {
+            $$ = nullptr;
+        }
     }
 |
     "true"
     {
-        $$ = new DataValue(true);
+        if(driver.dryRun == false) {
+            $$ = new DataValue(true);
+        } else {
+            $$ = nullptr;
+        }
     }
 |
     "false"
     {
-        $$ = new DataValue(false);
+        if(driver.dryRun == false) {
+            $$ = new DataValue(false);
+        } else {
+            $$ = nullptr;
+        }
     }
 |
     "null"
@@ -227,7 +299,7 @@ json_value:
 %%
 
 void Kitsunemimi::Json::JsonParser::error(const Kitsunemimi::Json::location& location,
-                                      const std::string& message)
+                                          const std::string& message)
 {
     driver.error(location, message);
 }

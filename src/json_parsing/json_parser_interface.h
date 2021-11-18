@@ -41,6 +41,8 @@ public:
     void error(const Kitsunemimi::Json::location &location,
                const std::string& message);
 
+    bool dryRun = false;
+
 private:
     JsonParserInterface(const bool traceParsing = false);
 
