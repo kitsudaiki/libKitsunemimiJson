@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.11.1] - 2021-11-18
+
+### Added
+- memory-leak-tests
+
+### Changed
+- the []-operator only returns a linked json-item and not a copy
+
+### Fixed
+- memory-leak in replace function
+- memory-leak in case of pasrsing an invalid string
+
+
 ## [0.11.0] - 2021-11-17
 
 ### Changed
