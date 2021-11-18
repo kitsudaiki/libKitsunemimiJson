@@ -86,20 +86,28 @@ JsonParserInterface::parse(const std::string &inputString,
     // init global values
     m_inputString = inputString;
     m_errorMessage = "";
-
-    // run parser-code
-    this->scan_begin(inputString);
+    int parserResult = 0;
     Kitsunemimi::Json::JsonParser parser(*this);
-    const int res = parser.parse();
+
+    // 1. dry-run to check syntax
+    dryRun = true;
+    this->scan_begin(inputString);
+    parserResult = parser.parse();
     this->scan_end();
 
     // handle negative result
-    if(res != 0)
+    if(parserResult != 0)
     {
         error.addMeesage(m_errorMessage);
         LOG_ERROR(error);
         return nullptr;
     }
+
+    // 2. real run on the valid string
+    dryRun = false;
+    this->scan_begin(inputString);
+    parser.parse();
+    this->scan_end();
 
     result = m_output;
     m_output = nullptr;

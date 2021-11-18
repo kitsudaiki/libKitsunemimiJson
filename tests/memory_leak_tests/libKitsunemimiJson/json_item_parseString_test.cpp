@@ -28,51 +28,53 @@ void
 JsonItem_ParseString_Test::parseString_test()
 {
 
-    std::string input1("{\"item\": "
-                      "{ \"sub_item\": \"test_value\"},"
-                      "\"item2\": "
-                      "{ \"sub_item2\": \"something\"},"
-                      "\"loop\": "
-                      "[ {\"x\" :42 }, {\"x\" :42.0 }, 1234, {\"x\" :-42.0, \"y\": true, \"z\": false, \"w\": null}]"
-                      "}");
-    std::string input2 = "[ {x :\"test1\" }, {x :\"test2\" }, {x :\"test3\" }]";
+    const std::string validInput1 =
+            "{\"item\": "
+            "{ \"sub_item\": \"test_value\"},"
+            "\"item2\": "
+            "{ \"sub_item2\": \"something\"},"
+            "\"loop\": "
+            "[ {\"x\" :42 }, {\"x\" :42.0 }, 1234, {\"x\" :-42.0, \"y\": true, \"z\": false, \"w\": null}]"
+            "}";
+    const std::string validInput2 =
+            "[ {x :\"test1\" }, {x :\"test2\" }, {x :\"test3\" }]";
+    const std::string invalidInput =
+            "{item: \n"
+            "{ sub_item: \"test_value\"}, \n"
+            "item2: \n"
+            "[ sub_item2: \"something\"}, \n"  // error at the beginning of this line
+            "loop: \n"
+            "[ {x :\"test1\" }, {x :\"test2\" }, {x :\"test3\" }]\n"
+            "}";
+
     ErrorContainer error;
 
     // make one untested run to allow parser to allocate one-time global stuff
     JsonItem* paredItem = new JsonItem();
-    paredItem->parse(input1, error);
+    paredItem->parse(validInput1, error);
+    paredItem->parse(invalidInput, error);
+    error._errorMessages.clear();
+    error._possibleSolution.clear();
     delete paredItem;
 
     // parse valid string
     REINIT_TEST();
     paredItem = new JsonItem();
-    paredItem->parse(input1, error);
-    paredItem->parse(input1, error);
-    paredItem->parse(input2, error);
+    paredItem->parse(validInput1, error);
+    paredItem->parse(validInput1, error);
+    paredItem->parse(validInput2, error);
     delete paredItem;
     CHECK_MEMORY();
 
 
-    /*
-    PARSING INVALID STRING HAS MEMORY-LEAK. See issue:
-    https://github.com/kitsudaiki/libKitsunemimiJson/issues/49
-
-    input1 = "{item: \n"
-             "{ sub_item: \"test_value\"}, \n"
-             "item2: \n"
-             "[ sub_item2: \"something\"}, \n"  // error at the beginning of this line
-             "loop: \n"
-             "[ {x :\"test1\" }, {x :\"test2\" }, {x :\"test3\" }]\n"
-             "}";
-
     // parse invalid string
     REINIT_TEST();
-    JsonItem* output = new JsonItem();
-    output->parse(input1, error);
+    paredItem = new JsonItem();
+    paredItem->parse(invalidInput, error);
     error._errorMessages.clear();
     error._possibleSolution.clear();
-    delete output;
-    CHECK_MEMORY();*/
+    delete paredItem;
+    CHECK_MEMORY();
 }
 
 }  // namespace Json
