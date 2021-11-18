@@ -94,10 +94,10 @@ const std::string testString(
 
 
 
-JsonItem object;
+Kitsunemimi::Json::JsonItem object;
 
 // parse the test-string
-ErrorContainer error;
+Kitsunemimi::ErrorContainer error;
 bool result = object.parse(testString, error);
 // if result is true, then paring was successful
 // else, error contains the error-message of the parser and can be printed with LOG_ERROR(error);
