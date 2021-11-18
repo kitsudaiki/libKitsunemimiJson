@@ -26,7 +26,7 @@ class JsonItem
 public:
     JsonItem();
     JsonItem(const JsonItem &otherItem);
-    JsonItem(DataItem* dataItem, const bool copy=false);
+    JsonItem(DataItem* dataItem, const bool copy = false);
     JsonItem(std::map<std::string, JsonItem> &value);
     JsonItem(std::vector<JsonItem> &value);
     JsonItem(const char* value);

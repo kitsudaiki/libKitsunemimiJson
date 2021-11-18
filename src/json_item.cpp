@@ -468,7 +468,7 @@ JsonItem::operator[](const std::string key)
         return JsonItem();
     }
 
-    return JsonItem(m_content->get(key), true);
+    return JsonItem(m_content->get(key));
 }
 
 /**
@@ -485,7 +485,7 @@ JsonItem::operator[](const uint32_t index)
         return JsonItem();
     }
 
-    return JsonItem(m_content->get(index), true);
+    return JsonItem(m_content->get(index));
 }
 
 /**
