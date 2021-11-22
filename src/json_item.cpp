@@ -455,6 +455,20 @@ JsonItem::getItemContent() const
 }
 
 /**
+ * @brief steal the content of the item to avoid copy the content, when the json-item is not longer
+ *        necessary
+ *
+ * @return content of the json-item
+ */
+DataItem*
+JsonItem::stealItemContent()
+{
+    DataItem* tempVar = m_content;
+    m_content = nullptr;
+    return tempVar;
+}
+
+/**
  * @brief get a specific entry of the item
  *
  * @param key key of the requested value

@@ -61,6 +61,7 @@ public:
 
     // getter
     DataItem* getItemContent() const;
+    DataItem* stealItemContent();
     JsonItem operator[](const std::string key);
     JsonItem operator[](const uint32_t index);
     JsonItem get(const std::string key, const bool copy=false) const;
