@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.11.2] - 2021-11-26
+
+### Added
+- function to steal item-content to avoid copy
+
+### Fixed
+- solved crashes in some cases of parsing-errors
+
+
 ## [0.11.1] - 2021-11-18
 
 ### Added
