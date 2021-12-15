@@ -44,6 +44,7 @@ public:
 
     // setter
     JsonItem& operator=(const JsonItem& other);
+    JsonItem& operator=(const DataItem* other);
     bool setValue(const char* value);
     bool setValue(const std::string &value);
     bool setValue(const int &value);

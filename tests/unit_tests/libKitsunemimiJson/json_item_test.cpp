@@ -61,6 +61,10 @@ JsonItem_Test::constructor_test()
     JsonItem arrayItem(emptyArray);
     TEST_EQUAL(arrayItem.isArray(), true);
 
+    DataMap testMap;
+    JsonItem mapItem(&testMap, true);
+    TEST_EQUAL(mapItem.isMap(), true);
+
     JsonItem stringItem("test");
     TEST_EQUAL(stringItem.isValue(), true);
 

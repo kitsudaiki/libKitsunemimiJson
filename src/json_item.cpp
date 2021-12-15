@@ -201,6 +201,27 @@ JsonItem::operator=(const JsonItem &other)
     return *this;
 }
 
+
+/**
+ * @brief replace the content of the item with the content of another item
+ *
+ * @param other other item, which have to be copied
+ *
+ * @return pointer to this current item
+ */
+JsonItem&
+JsonItem::operator=(const DataItem* other)
+{
+    clear();
+    if(other != nullptr) {
+        m_content = other->copy();
+    } else {
+        m_content = nullptr;
+    }
+
+    return *this;
+}
+
 /**
  * @brief writes a new string-value into the json-value
  */

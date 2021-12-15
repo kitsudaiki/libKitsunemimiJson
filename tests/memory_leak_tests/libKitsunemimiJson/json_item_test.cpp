@@ -56,6 +56,14 @@ JsonItem_Test::constructor_test()
     CHECK_MEMORY();
 
     REINIT_TEST();
+    DataMap* input = new DataMap();
+    input->insert("test", new DataValue("test"));
+    objectItem = new JsonItem(input);
+    delete objectItem;
+    delete input;
+    CHECK_MEMORY();
+
+    REINIT_TEST();
     std::vector<JsonItem>* emptyArray = new std::vector<JsonItem>();
     JsonItem* arrayItem = new JsonItem(*emptyArray);
     delete emptyArray;
