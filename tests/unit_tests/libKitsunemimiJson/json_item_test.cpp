@@ -96,6 +96,11 @@ JsonItem_Test::assigmentOperator_test()
     copy = testItem;
 
     TEST_EQUAL(copy.toString(), testItem.toString());
+
+    DataMap testMap;
+    testMap.insert("test", new DataValue("test"));
+    testItem = &testMap;
+    TEST_EQUAL(testItem.toString(), testMap.toString());
 }
 
 /**

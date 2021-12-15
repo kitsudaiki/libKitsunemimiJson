@@ -114,6 +114,16 @@ JsonItem_Test::assigmentOperator_test()
     *copy = testItem;
     delete copy;
     CHECK_MEMORY();
+
+
+    REINIT_TEST();
+    JsonItem* testItem2 = new JsonItem();
+    DataMap* testMap = new DataMap();
+    testMap->insert("test", new DataValue("test"));
+    *testItem2 = testMap;
+    delete testMap;
+    delete testItem2;
+    CHECK_MEMORY();
 }
 
 /**

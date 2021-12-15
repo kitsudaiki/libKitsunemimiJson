@@ -226,7 +226,7 @@ JsonItem::operator=(const DataItem* other)
  * @brief writes a new string-value into the json-value
  */
 bool
-JsonItem::setValue(const char *value)
+JsonItem::setValue(const char* value)
 {
     if(m_content == nullptr) {
         m_content = new DataValue();
