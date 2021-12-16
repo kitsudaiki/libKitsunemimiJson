@@ -34,6 +34,7 @@ Kitsunemimi::Json::location jsonloc;
 
 id    [a-zA-Z_0-9]*
 long  -?([0-9]+)
+double -?([0-9]+)\.([0-9]+)
 blank [ \t]
 
 %{
@@ -73,7 +74,7 @@ blank [ \t]
     return Kitsunemimi::Json::JsonParser::make_NUMBER (length, jsonloc);
 }
 
-{long}+"."{long}*	{
+{double}	{
     double value = strtod( yytext , NULL );
     return Kitsunemimi::Json::JsonParser::make_FLOAT(value, jsonloc);
 }
