@@ -1,5 +1,15 @@
 # Changelog
 
+
+## [0.11.3] - 2021-12-30
+
+### Added
+- new assignment-operator to assign data-items
+
+### Changed
+- changed regex for float-values while parsing
+
+
 ## [0.11.2] - 2021-11-26
 
 ### Added
