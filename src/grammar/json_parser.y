@@ -23,7 +23,7 @@
 {
 #include <string>
 #include <iostream>
-#include <libKitsunemimiCommon/common_items/data_items.h>
+#include <libKitsunemimiCommon/items/data_items.h>
 
 using Kitsunemimi::DataItem;
 using Kitsunemimi::DataArray;

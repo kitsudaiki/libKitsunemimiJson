@@ -8,7 +8,7 @@
 
 #include <libKitsunemimiJson/json_item.h>
 
-#include <libKitsunemimiCommon/common_items/data_items.h>
+#include <libKitsunemimiCommon/items/data_items.h>
 #include <json_parsing/json_parser_interface.h>
 
 using Kitsunemimi::DataItem;

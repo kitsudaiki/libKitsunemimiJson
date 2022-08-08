@@ -8,7 +8,7 @@
 
 #include "json_item_parseString_test.h"
 #include <libKitsunemimiJson/json_item.h>
-#include <libKitsunemimiCommon/common_items/data_items.h>
+#include <libKitsunemimiCommon/items/data_items.h>
 
 namespace Kitsunemimi
 {

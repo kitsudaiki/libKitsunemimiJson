@@ -9,8 +9,8 @@
 #include <json_parsing/json_parser_interface.h>
 #include <json_parser.h>
 
-#include <libKitsunemimiCommon/common_methods/string_methods.h>
-#include <libKitsunemimiCommon/common_items/data_items.h>
+#include <libKitsunemimiCommon/methods/string_methods.h>
+#include <libKitsunemimiCommon/items/data_items.h>
 
 using Kitsunemimi::DataItem;
 using Kitsunemimi::DataArray;
