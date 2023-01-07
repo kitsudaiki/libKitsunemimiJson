@@ -94,7 +94,7 @@ const std::string testString(
 
 
 
-Kitsunemimi::Json::JsonItem object;
+Kitsunemimi::JsonItem object;
 
 // parse the test-string
 Kitsunemimi::ErrorContainer error;
