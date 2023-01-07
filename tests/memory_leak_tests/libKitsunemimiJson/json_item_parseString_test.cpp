@@ -12,8 +12,6 @@
 
 namespace Kitsunemimi
 {
-namespace Json
-{
 
 JsonItem_ParseString_Test::JsonItem_ParseString_Test()
     : Kitsunemimi::MemoryLeakTestHelpter("JsonItems_ParseString_Test")
@@ -77,6 +75,5 @@ JsonItem_ParseString_Test::parseString_test()
     CHECK_MEMORY();
 }
 
-}  // namespace Json
 }  // namespace Kitsunemimi
 

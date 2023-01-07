@@ -13,8 +13,6 @@
 
 namespace Kitsunemimi
 {
-namespace Json
-{
 class JsonItem_ParseString_Test
         : public Kitsunemimi::CompareTestHelper
 {
@@ -25,7 +23,6 @@ private:
     void parseString_test();
 };
 
-}  // namespace Json
 }  // namespace Kitsunemimi
 
 #endif // JSON_ITEM_PARSESTRING_TEST_H

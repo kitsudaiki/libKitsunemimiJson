@@ -18,8 +18,6 @@
 namespace Kitsunemimi
 {
 class DataItem;
-namespace Json
-{
 
 class JsonItem
 {
@@ -102,7 +100,6 @@ private:
     DataItem* m_content = nullptr;
 };
 
-}  // namespace Json
 }  // namespace Kitsunemimi
 
 #endif // JSON_ITEM_H
