@@ -12,8 +12,6 @@
 
 namespace Kitsunemimi
 {
-namespace Json
-{
 
 JsonItem_ParseString_Test::JsonItem_ParseString_Test()
     : Kitsunemimi::CompareTestHelper("JsonItems_ParseString_Test")
@@ -107,6 +105,5 @@ JsonItem_ParseString_Test::parseString_test()
     TEST_EQUAL(error.toString(), expectedError);
 }
 
-}  // namespace Json
 }  // namespace Kitsunemimi
 

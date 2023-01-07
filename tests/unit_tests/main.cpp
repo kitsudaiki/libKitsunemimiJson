@@ -12,6 +12,6 @@
 
 int main()
 {
-    Kitsunemimi::Json::JsonItem_ParseString_Test();
-    Kitsunemimi::Json::JsonItem_Test();
+    Kitsunemimi::JsonItem_ParseString_Test();
+    Kitsunemimi::JsonItem_Test();
 }

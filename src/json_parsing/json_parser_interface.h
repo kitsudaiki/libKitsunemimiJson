@@ -17,8 +17,6 @@
 namespace Kitsunemimi
 {
 class DataItem;
-namespace Json
-{
 class location;
 
 class JsonParserInterface
@@ -38,7 +36,7 @@ public:
     void setOutput(DataItem* output);
 
     // Error handling.
-    void error(const Kitsunemimi::Json::location &location,
+    void error(const Kitsunemimi::location &location,
                const std::string& message);
 
     bool dryRun = false;
@@ -56,7 +54,6 @@ private:
     bool m_traceParsing = false;
 };
 
-}  // namespace Json
 }  // namespace Kitsunemimi
 
 #endif // JSON_PARSER_INTERFACE_H

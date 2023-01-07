@@ -16,8 +16,6 @@
 
 namespace Kitsunemimi
 {
-namespace Json
-{
 class JsonItem_Test
         : public Kitsunemimi::CompareTestHelper
 {
@@ -51,7 +49,6 @@ private:
     JsonItem getTestItem();
 };
 
-}  // namespace Json
 }  // namespace Kitsunemimi
 
 #endif // JSONITEM_TEST_H

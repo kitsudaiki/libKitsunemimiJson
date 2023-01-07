@@ -14,7 +14,7 @@
 %define parser_class_name {JsonParser}
 
 %define api.prefix {json}
-%define api.namespace {Kitsunemimi::Json}
+%define api.namespace {Kitsunemimi}
 %define api.token.constructor
 %define api.value.type variant
 %define parse.assert
@@ -33,17 +33,14 @@ using Kitsunemimi::DataMap;
 
 namespace Kitsunemimi
 {
-namespace Json
-{
 
 class JsonParserInterface;
 
-}  // namespace Json
 }  // namespace Kitsunemimi
 }
 
 // The parsing context.
-%param { Kitsunemimi::Json::JsonParserInterface& driver }
+%param { Kitsunemimi::JsonParserInterface& driver }
 
 %locations
 
@@ -52,7 +49,7 @@ class JsonParserInterface;
 #include <json_parsing/json_parser_interface.h>
 # undef YY_DECL
 # define YY_DECL \
-    Kitsunemimi::Json::JsonParser::symbol_type jsonlex (Kitsunemimi::Json::JsonParserInterface& driver)
+    Kitsunemimi::JsonParser::symbol_type jsonlex (Kitsunemimi::JsonParserInterface& driver)
 YY_DECL;
 }
 
@@ -298,7 +295,7 @@ json_value:
 
 %%
 
-void Kitsunemimi::Json::JsonParser::error(const Kitsunemimi::Json::location& location,
+void Kitsunemimi::JsonParser::error(const Kitsunemimi::location& location,
                                           const std::string& message)
 {
     driver.error(location, message);

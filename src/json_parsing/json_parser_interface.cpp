@@ -18,15 +18,13 @@ using Kitsunemimi::DataValue;
 using Kitsunemimi::DataMap;
 
 # define YY_DECL \
-    Kitsunemimi::Json::JsonParser::symbol_type jsonlex (Kitsunemimi::Json::JsonParserInterface& driver)
+    Kitsunemimi::JsonParser::symbol_type jsonlex (Kitsunemimi::JsonParserInterface& driver)
 YY_DECL;
 
 namespace Kitsunemimi
 {
-namespace Json
-{
 
-Kitsunemimi::Json::JsonParserInterface* JsonParserInterface::m_instance = nullptr;
+Kitsunemimi::JsonParserInterface* JsonParserInterface::m_instance = nullptr;
 
 using Kitsunemimi::splitStringByDelimiter;
 
@@ -87,7 +85,7 @@ JsonParserInterface::parse(const std::string &inputString,
     m_inputString = inputString;
     m_errorMessage = "";
     int parserResult = 0;
-    Kitsunemimi::Json::JsonParser parser(*this);
+    Kitsunemimi::JsonParser parser(*this);
 
     // 1. dry-run to check syntax
     dryRun = true;
@@ -166,7 +164,7 @@ JsonParserInterface::setOutput(DataItem* output)
  * @param message error-specific message from the parser
  */
 void
-JsonParserInterface::error(const Kitsunemimi::Json::location& location,
+JsonParserInterface::error(const Kitsunemimi::location& location,
                            const std::string& message)
 {
     if(m_errorMessage.size() > 0) {
@@ -199,5 +197,4 @@ JsonParserInterface::error(const Kitsunemimi::Json::location& location,
     }
 }
 
-}  // namespace Json
 }  // namespace Kitsunemimi

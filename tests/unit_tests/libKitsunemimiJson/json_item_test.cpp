@@ -11,8 +11,6 @@
 
 namespace Kitsunemimi
 {
-namespace Json
-{
 
 JsonItem_Test::JsonItem_Test()
     : Kitsunemimi::CompareTestHelper("JsonItem_Test")
@@ -449,5 +447,4 @@ JsonItem_Test::getTestItem()
     return output;
 }
 
-}  // namespace Json
 }  // namespace Kitsunemimi

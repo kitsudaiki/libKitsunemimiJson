@@ -18,8 +18,6 @@ using Kitsunemimi::DataMap;
 
 namespace Kitsunemimi
 {
-namespace Json
-{
 
 /**
  * @brief JsonItem::JsonItem
@@ -936,5 +934,4 @@ JsonItem::clear()
     }
 }
 
-}  // namespace Json
 }  // namespace Kitsunemimi

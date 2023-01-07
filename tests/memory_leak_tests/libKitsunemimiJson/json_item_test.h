@@ -16,8 +16,6 @@
 
 namespace Kitsunemimi
 {
-namespace Json
-{
 class JsonItem_Test
         : public Kitsunemimi::MemoryLeakTestHelpter
 {
@@ -39,7 +37,6 @@ private:
 
 };
 
-}  // namespace Json
 }  // namespace Kitsunemimi
 
 #endif // JSONITEM_TEST_H
